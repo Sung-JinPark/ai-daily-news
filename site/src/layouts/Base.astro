@@ -1,9 +1,11 @@
 ---
+import { CATEGORIES } from "~/lib/loadData";
 interface Props {
   title?: string;
   updatedAt?: string;
 }
 const { title = "AI Daily News", updatedAt } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <!doctype html>
 <html lang="ko" class="dark">
@@ -14,18 +16,29 @@ const { title = "AI Daily News", updatedAt } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
-    <header class="border-b border-slate-800">
-      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a href={import.meta.env.BASE_URL} class="flex items-center gap-2">
+    <header class="border-b border-slate-800 sticky top-0 bg-slate-950/90 backdrop-blur z-10">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3 flex-wrap">
+        <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 shrink-0">
           <span class="text-xl font-bold tracking-tight">AI Daily News</span>
-          <span class="text-xs text-slate-400">한국어 인사이트</span>
+          <span class="text-xs text-slate-400 hidden sm:inline">한국어 인사이트</span>
         </a>
         {updatedAt && (
-          <span class="text-xs text-slate-400">
+          <span class="text-xs text-slate-400 shrink-0">
             업데이트: {new Date(updatedAt).toLocaleString("ko-KR")}
           </span>
         )}
       </div>
+      <nav class="max-w-6xl mx-auto px-4 pb-3 flex gap-1 flex-wrap text-sm overflow-x-auto">
+        <a href={base + "/"} class="px-3 py-1 rounded hover:bg-slate-800 text-slate-300">전체</a>
+        {Object.entries(CATEGORIES).map(([slug, label]) => (
+          <a
+            href={`${base}/category/${slug}`}
+            class="px-3 py-1 rounded hover:bg-slate-800 text-slate-300 whitespace-nowrap"
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
     </header>
     <main class="max-w-6xl mx-auto px-4 py-8">
       <slot />
