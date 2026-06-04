@@ -56,8 +56,11 @@ def call_haiku(client: anthropic.Anthropic, title: str, source_name: str, body: 
         messages=[{"role": "user", "content": user}],
     )
     text = "".join(block.text for block in msg.content if getattr(block, "type", "") == "text").strip()
-    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
-    parsed = json.loads(text)
+    # Robust JSON extraction: grab outermost {...} block to tolerate fences / preambles.
+    match = re.search(r"\{.*\}", text, re.S)
+    if not match:
+        raise ValueError(f"no JSON object found in response: {text[:200]!r}")
+    parsed = json.loads(match.group(0))
     usage = {
         "input_tokens": msg.usage.input_tokens,
         "output_tokens": msg.usage.output_tokens,
@@ -89,9 +92,21 @@ def validate(parsed: dict) -> dict | None:
     }
 
 
+MIN_BODY_CHARS = 300
+
+
 def process_cluster(client: anthropic.Anthropic, cluster: dict) -> tuple[dict | None, dict]:
     rep = cluster["representative"]
     body = extract_body(rep["url"])
+    if len(body) < MIN_BODY_CHARS:
+        # Fall back to RSS summary when paywalled / SPA / extractor blank.
+        rss_summary = (rep.get("summary") or "").strip()
+        if rss_summary:
+            body = f"(본문 추출 실패. RSS 요약만 사용)\n\n{rss_summary}"
+        elif not body:
+            log.info("skip cluster %s: no body and no RSS summary", cluster["cluster_id"])
+            return None, {"input_tokens": 0, "output_tokens": 0,
+                          "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}
     rsp = call_haiku(client, rep["title"], rep["source_name"], body)
     parsed = validate(rsp["parsed"])
     if parsed is None:
