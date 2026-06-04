@@ -6,6 +6,7 @@ interface Props {
 }
 const { title = "AI Daily News", updatedAt } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 ---
 <!doctype html>
 <html lang="ko" class="dark">
@@ -18,6 +19,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E🤖%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="AI Daily News RSS" href={`${base}/rss.xml`} />
+    {googleVerification && (
+      <meta name="google-site-verification" content={googleVerification} />
+    )}
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
@@ -44,6 +49,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </a>
         ))}
         <a href={`${base}/archive`} class="px-3 py-1 rounded hover:bg-slate-800 text-slate-300 ml-auto">아카이브</a>
+        <a href={`${base}/rss.xml`} class="px-3 py-1 rounded hover:bg-slate-800 text-orange-400" title="RSS 구독">RSS</a>
       </nav>
     </header>
     <main class="max-w-6xl mx-auto px-4 py-8">

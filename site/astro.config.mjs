@@ -3,9 +3,10 @@ import tailwind from "@astrojs/tailwind";
 
 const repo = process.env.GITHUB_REPOSITORY ?? "";
 const repoName = repo.split("/")[1] ?? "";
-const userSite = process.env.GITHUB_REPOSITORY_OWNER
-  ? `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io`
-  : undefined;
+// GitHub Pages serves at lowercased username, so lowercase here for correct
+// absolute URLs in RSS / sitemap.
+const owner = (process.env.GITHUB_REPOSITORY_OWNER ?? "").toLowerCase();
+const userSite = owner ? `https://${owner}.github.io` : "https://localhost";
 
 export default defineConfig({
   site: userSite,
