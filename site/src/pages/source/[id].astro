@@ -27,7 +27,7 @@ for (const day of allDays()) {
   }
 }
 articlesAcrossDays.sort((a, b) => (b.published ?? "").localeCompare(a.published ?? ""));
-const recent = articlesAcrossDays.slice(0, 60);
+const recent = articlesAcrossDays.slice(0, 20);
 ---
 <Base title={`${sourceName} — AI Daily News`} updatedAt={latest?.updated_at}>
   <h1 class="text-3xl font-bold mb-1 text-slate-900">{sourceName}</h1>

@@ -11,7 +11,12 @@ const { slug } = Astro.params;
 const latest = loadLatest();
 const day = latest?.latest_day ?? "";
 const { articles } = day ? loadDay(day) : { articles: [] };
-const filtered = articles.filter((a) => a.category === slug);
+const filtered = articles
+  .filter((a) => a.category === slug)
+  .sort((a, b) => {
+    if (b.importance_score !== a.importance_score) return b.importance_score - a.importance_score;
+    return (b.published ?? "").localeCompare(a.published ?? "");
+  });
 const label = CATEGORIES[slug!] ?? slug;
 ---
 <Base title={`${label} — AI Daily News`} updatedAt={latest?.updated_at}>

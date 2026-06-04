@@ -21,9 +21,9 @@ for (const a of ranked) {
 }
 
 const feature = unique[0];
-const sideTop = unique.slice(1, 4);   // 우측 컬럼 3건
-const grid = unique.slice(4, 10);     // 6건 그리드
-const list = unique.slice(10, 25);    // 나머지 리스트
+const sideTop = unique.slice(1, 4);   // 우측 3건
+const grid = unique.slice(4, 9);      // 5건 그리드
+const list = unique.slice(9, 14);     // 5건 리스트
 ---
 <Base title="HOT — AI Daily News" updatedAt={latest?.updated_at}>
   <h1 class="text-3xl font-bold text-slate-900 mb-1 flex items-center gap-2">
@@ -65,7 +65,7 @@ const list = unique.slice(10, 25);    // 나머지 리스트
         {list.map((a, i) => (
           <li class="flex gap-4 items-start" data-article-id={a.id}>
             <span class="shrink-0 w-9 h-9 rounded-full bg-slate-100 text-slate-700 font-semibold text-sm flex items-center justify-center mt-2">
-              {i + 11}
+              {i + 10}
             </span>
             <div class="flex-1 min-w-0">
               <ArticleCard article={a} />
