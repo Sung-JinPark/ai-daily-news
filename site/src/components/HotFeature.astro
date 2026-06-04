@@ -1,0 +1,74 @@
+---
+import { CATEGORIES, type Article } from "~/lib/loadData";
+interface Props {
+  article: Article;
+  rank?: number;
+}
+const { article, rank = 1 } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const publishedLabel = article.published
+  ? new Date(article.published).toLocaleString("ko-KR")
+  : "";
+---
+<article
+  class="rounded-xl overflow-hidden border border-slate-200 bg-white hover:shadow-md transition-shadow grid grid-cols-1 lg:grid-cols-5"
+  data-category={article.category}
+  data-source={article.source_id}
+>
+  <a
+    href={article.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="block lg:col-span-3 aspect-[16/9] bg-slate-100 overflow-hidden relative group"
+  >
+    {article.image_url ? (
+      <img
+        src={article.image_url}
+        alt=""
+        referrerpolicy="no-referrer"
+        loading="eager"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      />
+    ) : (
+      <div class="w-full h-full flex items-center justify-center text-slate-300 text-6xl">📰</div>
+    )}
+    <span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-rose-600 text-white text-xs font-bold">
+      #{rank}
+    </span>
+  </a>
+
+  <div class="lg:col-span-2 p-5 sm:p-6 flex flex-col gap-3">
+    <div class="flex items-center gap-2 text-xs text-slate-500 flex-wrap">
+      <a href={`${base}/category/${article.category}`} class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700">
+        {CATEGORIES[article.category] ?? article.category}
+      </a>
+      <a href={`${base}/source/${article.source_id}`} class="hover:text-slate-700 truncate">{article.source_name}</a>
+      <span class="text-amber-500 ml-auto" title={`중요도 ${article.importance_score}`}>
+        {"★".repeat(article.importance_score)}
+      </span>
+    </div>
+
+    <h2 class="text-xl sm:text-2xl font-bold leading-snug text-slate-900">
+      <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:underline">
+        {article.title_original}
+      </a>
+    </h2>
+
+    <p class="text-sm text-slate-700 leading-relaxed line-clamp-4">{article.summary_ko}</p>
+
+    <div class="flex items-center justify-between text-xs text-slate-500 mt-auto pt-2">
+      <span>
+        {publishedLabel}
+        {article.cluster_size > 1 && ` · ${article.cluster_size}개 매체`}
+      </span>
+      <a
+        href={article.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-blue-600 hover:text-blue-800 font-medium"
+      >
+        원문 →
+      </a>
+    </div>
+  </div>
+</article>

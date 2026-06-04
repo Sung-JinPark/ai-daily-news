@@ -1,6 +1,7 @@
 ---
 import Base from "~/layouts/Base.astro";
-import HeroCard from "~/components/HeroCard.astro";
+import HotFeature from "~/components/HotFeature.astro";
+import HotSide from "~/components/HotSide.astro";
 import NewsTile from "~/components/NewsTile.astro";
 import ArticleCard from "~/components/ArticleCard.astro";
 import { hotnessScore, loadLatest, loadRecentDays, type Article } from "~/lib/loadData";
@@ -19,10 +20,10 @@ for (const a of ranked) {
   unique.push(a);
 }
 
-const hero = unique[0];
-const secondary = unique.slice(1, 3);
-const tertiary = unique.slice(3, 9);
-const list = unique.slice(9, 25);
+const feature = unique[0];
+const sideTop = unique.slice(1, 4);   // 우측 컬럼 3건
+const grid = unique.slice(4, 10);     // 6건 그리드
+const list = unique.slice(10, 25);    // 나머지 리스트
 ---
 <Base title="HOT — AI Daily News" updatedAt={latest?.updated_at}>
   <h1 class="text-3xl font-bold text-slate-900 mb-1 flex items-center gap-2">
@@ -33,26 +34,26 @@ const list = unique.slice(9, 25);
     중요도, 다중 매체 보도, 신선도를 종합한 랭킹. 같은 사건은 한 번만 표시됩니다.
   </p>
 
-  {!hero && (
+  {!feature && (
     <p class="text-slate-500">아직 충분한 데이터가 없습니다.</p>
   )}
 
-  {hero && <HeroCard article={hero} />}
-
-  {secondary.length > 0 && (
-    <section class="mb-10">
-      <h2 class="text-xs uppercase tracking-wider text-slate-500 mb-4 border-b border-slate-200 pb-2">상위 라인업</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {secondary.map((a, i) => <NewsTile article={a} rank={i + 2} size="lg" />)}
+  {feature && (
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
+      <div class="lg:col-span-2">
+        <HotFeature article={feature} rank={1} />
+      </div>
+      <div class="space-y-3">
+        {sideTop.map((a, i) => <HotSide article={a} rank={i + 2} />)}
       </div>
     </section>
   )}
 
-  {tertiary.length > 0 && (
+  {grid.length > 0 && (
     <section class="mb-10">
       <h2 class="text-xs uppercase tracking-wider text-slate-500 mb-4 border-b border-slate-200 pb-2">더 보기</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {tertiary.map((a, i) => <NewsTile article={a} rank={i + 4} size="md" />)}
+        {grid.map((a, i) => <NewsTile article={a} rank={i + 5} size="md" />)}
       </div>
     </section>
   )}
@@ -64,7 +65,7 @@ const list = unique.slice(9, 25);
         {list.map((a, i) => (
           <li class="flex gap-4 items-start" data-article-id={a.id}>
             <span class="shrink-0 w-9 h-9 rounded-full bg-slate-100 text-slate-700 font-semibold text-sm flex items-center justify-center mt-2">
-              {i + 10}
+              {i + 11}
             </span>
             <div class="flex-1 min-w-0">
               <ArticleCard article={a} />
