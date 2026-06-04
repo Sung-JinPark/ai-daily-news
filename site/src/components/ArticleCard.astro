@@ -8,6 +8,7 @@ const { article, highlight = false } = Astro.props;
 const publishedLabel = article.published
   ? new Date(article.published).toLocaleString("ko-KR")
   : "발행시각 미상";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <article
   class:list={[
@@ -21,10 +22,10 @@ const publishedLabel = article.published
 >
   <div class="flex items-center justify-between text-xs text-slate-400">
     <span class="inline-flex items-center gap-2">
-      <span class="px-2 py-0.5 rounded bg-slate-800">
+      <a href={`${base}/category/${article.category}`} class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700">
         {CATEGORIES[article.category] ?? article.category}
-      </span>
-      <span>{article.source_name}</span>
+      </a>
+      <a href={`${base}/source/${article.source_id}`} class="hover:text-slate-200">{article.source_name}</a>
       <span>·</span>
       <span>{publishedLabel}</span>
     </span>

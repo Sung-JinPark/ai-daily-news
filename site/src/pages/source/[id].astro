@@ -1,0 +1,43 @@
+---
+import Base from "~/layouts/Base.astro";
+import ArticleCard from "~/components/ArticleCard.astro";
+import { allDays, loadDay, loadLatest, type Article } from "~/lib/loadData";
+
+export function getStaticPaths() {
+  const sources = new Map<string, { id: string; name: string }>();
+  for (const day of allDays()) {
+    for (const a of loadDay(day).articles) {
+      if (!sources.has(a.source_id)) {
+        sources.set(a.source_id, { id: a.source_id, name: a.source_name });
+      }
+    }
+  }
+  return [...sources.values()].map((s) => ({ params: { id: s.id }, props: { sourceName: s.name } }));
+}
+
+interface Props { sourceName: string }
+const { id } = Astro.params;
+const { sourceName } = Astro.props;
+const latest = loadLatest();
+
+const articlesAcrossDays: Article[] = [];
+for (const day of allDays()) {
+  for (const a of loadDay(day).articles) {
+    if (a.source_id === id) articlesAcrossDays.push(a);
+  }
+}
+articlesAcrossDays.sort((a, b) => (b.published ?? "").localeCompare(a.published ?? ""));
+const recent = articlesAcrossDays.slice(0, 60);
+---
+<Base title={`${sourceName} — AI Daily News`} updatedAt={latest?.updated_at}>
+  <h1 class="text-2xl font-bold mb-1">{sourceName}</h1>
+  <p class="text-sm text-slate-400 mb-6">전체 {articlesAcrossDays.length}건 (최신 {recent.length}건 표시)</p>
+
+  {recent.length === 0 && (
+    <p class="text-slate-400">아직 이 매체의 기사가 없습니다.</p>
+  )}
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    {recent.map((a) => <ArticleCard article={a} />)}
+  </div>
+</Base>
