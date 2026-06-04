@@ -1,7 +1,8 @@
 ---
 import Base from "~/layouts/Base.astro";
-import ArticleCard from "~/components/ArticleCard.astro";
 import HeroCard from "~/components/HeroCard.astro";
+import NewsTile from "~/components/NewsTile.astro";
+import ArticleCard from "~/components/ArticleCard.astro";
 import { hotnessScore, loadLatest, loadRecentDays, type Article } from "~/lib/loadData";
 
 const latest = loadLatest();
@@ -9,7 +10,6 @@ const pool: Article[] = loadRecentDays(7);
 const now = new Date();
 const ranked = [...pool].sort((a, b) => hotnessScore(b, now) - hotnessScore(a, now));
 
-// Dedupe by cluster_id (avoid same story appearing twice across days).
 const seen = new Set<string>();
 const unique: Article[] = [];
 for (const a of ranked) {
@@ -20,11 +20,16 @@ for (const a of ranked) {
 }
 
 const hero = unique[0];
-const rest = unique.slice(1, 15);
+const secondary = unique.slice(1, 3);
+const tertiary = unique.slice(3, 9);
+const list = unique.slice(9, 25);
 ---
 <Base title="HOT — AI Daily News" updatedAt={latest?.updated_at}>
-  <h1 class="text-3xl font-bold mb-1 text-slate-900">HOT — 지난 7일 핵심</h1>
-  <p class="text-sm text-slate-600 mb-6">
+  <h1 class="text-3xl font-bold text-slate-900 mb-1 flex items-center gap-2">
+    <span class="text-rose-600">🔥</span> HOT
+    <span class="text-base font-normal text-slate-500">— 지난 7일 핵심</span>
+  </h1>
+  <p class="text-sm text-slate-600 mb-8">
     중요도, 다중 매체 보도, 신선도를 종합한 랭킹. 같은 사건은 한 번만 표시됩니다.
   </p>
 
@@ -34,14 +39,32 @@ const rest = unique.slice(1, 15);
 
   {hero && <HeroCard article={hero} />}
 
-  {rest.length > 0 && (
+  {secondary.length > 0 && (
+    <section class="mb-10">
+      <h2 class="text-xs uppercase tracking-wider text-slate-500 mb-4 border-b border-slate-200 pb-2">상위 라인업</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {secondary.map((a, i) => <NewsTile article={a} rank={i + 2} size="lg" />)}
+      </div>
+    </section>
+  )}
+
+  {tertiary.length > 0 && (
+    <section class="mb-10">
+      <h2 class="text-xs uppercase tracking-wider text-slate-500 mb-4 border-b border-slate-200 pb-2">더 보기</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {tertiary.map((a, i) => <NewsTile article={a} rank={i + 4} size="md" />)}
+      </div>
+    </section>
+  )}
+
+  {list.length > 0 && (
     <section>
-      <h2 class="text-xl font-semibold mb-4 text-slate-900">{`다음 ${rest.length}건`}</h2>
+      <h2 class="text-xs uppercase tracking-wider text-slate-500 mb-4 border-b border-slate-200 pb-2">전체 랭킹</h2>
       <ol class="space-y-4">
-        {rest.map((a, i) => (
+        {list.map((a, i) => (
           <li class="flex gap-4 items-start" data-article-id={a.id}>
-            <span class="shrink-0 w-8 h-8 rounded-full bg-slate-100 text-slate-700 font-semibold text-sm flex items-center justify-center mt-2">
-              {i + 2}
+            <span class="shrink-0 w-9 h-9 rounded-full bg-slate-100 text-slate-700 font-semibold text-sm flex items-center justify-center mt-2">
+              {i + 10}
             </span>
             <div class="flex-1 min-w-0">
               <ArticleCard article={a} />

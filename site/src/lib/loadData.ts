@@ -8,6 +8,7 @@ export type Article = {
   cluster_id: string;
   title_original: string;
   url: string;
+  image_url?: string | null;
   source_id: string;
   source_name: string;
   published: string | null;

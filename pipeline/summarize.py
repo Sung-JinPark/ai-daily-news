@@ -24,7 +24,7 @@ load_dotenv()
 RETRYABLE = (anthropic.APIConnectionError, anthropic.RateLimitError, anthropic.InternalServerError)
 
 from pipeline.collect import RAW_DIR, today
-from pipeline.extract import extract_body
+from pipeline.extract import extract_article
 from pipeline.state import load_seen, save_seen, url_hash
 from pipeline.utils.prompts import SYSTEM_PROMPT, USER_TEMPLATE
 
@@ -97,7 +97,9 @@ MIN_BODY_CHARS = 300
 
 def process_cluster(client: anthropic.Anthropic, cluster: dict) -> tuple[dict | None, dict]:
     rep = cluster["representative"]
-    body = extract_body(rep["url"])
+    fetched = extract_article(rep["url"])
+    body = fetched["body"]
+    image_url = fetched["image_url"]
     if len(body) < MIN_BODY_CHARS:
         # Fall back to RSS summary when paywalled / SPA / extractor blank.
         rss_summary = (rep.get("summary") or "").strip()
@@ -117,6 +119,7 @@ def process_cluster(client: anthropic.Anthropic, cluster: dict) -> tuple[dict | 
         "cluster_id": cluster["cluster_id"],
         "title_original": rep["title"],
         "url": rep["url"],
+        "image_url": image_url or None,
         "source_id": rep["source_id"],
         "source_name": rep["source_name"],
         "published": rep.get("published"),
