@@ -23,10 +23,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         <li>
           <a
             href={`${base}/archive/${day}`}
-            class="flex items-center justify-between border border-slate-800 hover:border-slate-600 rounded p-4"
+            class="flex items-center justify-between border border-slate-200 hover:border-slate-400 hover:bg-slate-50 rounded-md p-4 transition"
           >
-            <span class="font-medium">{day}</span>
-            <span class="text-xs text-slate-400">{count}건</span>
+            <span class="font-medium text-slate-900">{day}</span>
+            <span class="text-xs text-slate-500">{count}건</span>
           </a>
         </li>
       ))}

@@ -12,37 +12,46 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <article
   class:list={[
-    "rounded-lg border p-5 flex flex-col gap-3",
+    "rounded-lg border p-5 flex flex-col gap-3 transition-shadow hover:shadow-sm",
     highlight
-      ? "border-amber-500/40 bg-amber-500/5"
-      : "border-slate-800 bg-slate-900/40",
+      ? "border-amber-300 bg-amber-50/60"
+      : "border-slate-200 bg-white",
   ]}
   data-category={article.category}
   data-source={article.source_id}
 >
-  <div class="flex items-center justify-between text-xs text-slate-400">
-    <span class="inline-flex items-center gap-2">
-      <a href={`${base}/category/${article.category}`} class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700">
+  <div class="flex items-center justify-between text-xs text-slate-500 flex-wrap gap-2">
+    <span class="inline-flex items-center gap-2 flex-wrap">
+      <a
+        href={`${base}/category/${article.category}`}
+        class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 hover:bg-slate-200"
+      >
         {CATEGORIES[article.category] ?? article.category}
       </a>
-      <a href={`${base}/source/${article.source_id}`} class="hover:text-slate-200">{article.source_name}</a>
-      <span>·</span>
+      <a href={`${base}/source/${article.source_id}`} class="hover:text-slate-700">
+        {article.source_name}
+      </a>
+      <span class="text-slate-300">·</span>
       <span>{publishedLabel}</span>
     </span>
-    <span class="text-amber-300/70" title="중요도">{"★".repeat(article.importance_score)}</span>
+    <span class="text-amber-500" title={`중요도 ${article.importance_score}`}>
+      {"★".repeat(article.importance_score)}
+    </span>
   </div>
 
-  <h3 class="text-lg font-semibold leading-snug">{article.title_original}</h3>
+  <h3 class="text-lg font-semibold leading-snug text-slate-900">
+    {article.title_original}
+  </h3>
 
-  <p class="text-sm text-slate-300 leading-relaxed">{article.summary_ko}</p>
+  <p class="text-sm text-slate-700 leading-relaxed">{article.summary_ko}</p>
 
   {article.insights_ko?.length > 0 && (
-    <ul class="text-sm text-slate-200 list-disc list-inside space-y-1">
+    <ul class="text-sm text-slate-800 list-disc list-outside ml-5 space-y-1.5">
       {article.insights_ko.map((i) => <li>{i}</li>)}
     </ul>
   )}
 
-  <div class="flex items-center justify-between pt-2">
+  <div class="flex items-center justify-between pt-2 border-t border-slate-100">
     {article.also_covered_by?.length > 0 ? (
       <span class="text-xs text-slate-500">
         다른 매체 보도: {article.also_covered_by.slice(0, 3).join(", ")}
@@ -55,7 +64,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       href={article.url}
       target="_blank"
       rel="noopener noreferrer"
-      class="text-sm font-medium text-sky-400 hover:text-sky-300"
+      class="text-sm font-medium text-blue-600 hover:text-blue-800"
     >
       원문 보기 →
     </a>

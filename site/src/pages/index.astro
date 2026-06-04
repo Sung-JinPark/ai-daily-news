@@ -24,7 +24,7 @@ const days = allDays();
 ---
 <Base title="AI Daily News — 오늘의 글로벌 AI" updatedAt={latest?.updated_at}>
   {!day && (
-    <div class="rounded border border-slate-800 p-6 text-slate-300">
+    <div class="rounded-md border border-slate-200 bg-slate-50 p-6 text-slate-600">
       아직 수집된 데이터가 없습니다. GitHub Actions가 처음 실행되면 이곳에 결과가 표시됩니다.
     </div>
   )}
@@ -32,8 +32,8 @@ const days = allDays();
   {day && (
     <>
       <section class="mb-10">
-        <h1 class="text-2xl font-bold mb-1">오늘의 핵심 ({day})</h1>
-        <p class="text-sm text-slate-400 mb-5">전 세계 AI 소식을 한국어 인사이트로 정리했습니다.</p>
+        <h1 class="text-3xl font-bold mb-1 text-slate-900">오늘의 핵심 <span class="text-slate-500 text-2xl font-medium">{day}</span></h1>
+        <p class="text-sm text-slate-600 mb-6">전 세계 AI 소식을 한국어 인사이트로 정리했습니다.</p>
         <TrendingChips items={trending} />
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {top.map((a) => <ArticleCard article={a} highlight={true} />)}
@@ -41,7 +41,7 @@ const days = allDays();
       </section>
 
       <section>
-        <h2 class="text-xl font-semibold mb-4">전체 기사</h2>
+        <h2 class="text-xl font-semibold mb-4 text-slate-900">전체 기사</h2>
         <SearchBox articles={articles} />
         <FilterBar sources={sources} days={days} currentDay={day} />
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">

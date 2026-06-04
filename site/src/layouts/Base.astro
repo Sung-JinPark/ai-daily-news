@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 ---
 <!doctype html>
-<html lang="ko" class="dark">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,6 +18,7 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
     <meta property="og:description" content="매일 자동 업데이트되는 글로벌 AI 뉴스 한국어 인사이트 대시보드" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E🤖%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="AI Daily News RSS" href={`${base}/rss.xml`} />
     {googleVerification && (
@@ -25,40 +26,40 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
     )}
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
-    <header class="border-b border-slate-800 sticky top-0 bg-slate-950/90 backdrop-blur z-10">
+  <body class="min-h-screen bg-white text-slate-900 antialiased selection:bg-amber-100">
+    <header class="border-b border-slate-200 sticky top-0 bg-white/85 backdrop-blur z-10">
       <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3 flex-wrap">
         <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 shrink-0">
-          <span class="text-xl font-bold tracking-tight">AI Daily News</span>
-          <span class="text-xs text-slate-400 hidden sm:inline">한국어 인사이트</span>
+          <span class="text-xl font-bold tracking-tight text-slate-900">AI Daily News</span>
+          <span class="text-xs text-slate-500 hidden sm:inline">한국어 인사이트</span>
         </a>
         {updatedAt && (
-          <span class="text-xs text-slate-400 shrink-0">
-            업데이트: {new Date(updatedAt).toLocaleString("ko-KR")}
+          <span class="text-xs text-slate-500 shrink-0">
+            업데이트 {new Date(updatedAt).toLocaleString("ko-KR")}
           </span>
         )}
       </div>
       <nav class="max-w-6xl mx-auto px-4 pb-3 flex gap-1 flex-wrap text-sm overflow-x-auto">
-        <a href={base + "/"} class="px-3 py-1 rounded hover:bg-slate-800 text-slate-300">전체</a>
+        <a href={base + "/"} class="px-3 py-1 rounded-md text-slate-700 hover:bg-slate-100">전체</a>
         {Object.entries(CATEGORIES).map(([slug, label]) => (
           <a
             href={`${base}/category/${slug}`}
-            class="px-3 py-1 rounded hover:bg-slate-800 text-slate-300 whitespace-nowrap"
+            class="px-3 py-1 rounded-md text-slate-700 hover:bg-slate-100 whitespace-nowrap"
           >
             {label}
           </a>
         ))}
-        <a href={`${base}/archive`} class="px-3 py-1 rounded hover:bg-slate-800 text-slate-300 ml-auto">아카이브</a>
-        <a href={`${base}/rss.xml`} class="px-3 py-1 rounded hover:bg-slate-800 text-orange-400" title="RSS 구독">RSS</a>
+        <a href={`${base}/archive`} class="px-3 py-1 rounded-md text-slate-700 hover:bg-slate-100 ml-auto">아카이브</a>
+        <a href={`${base}/rss.xml`} class="px-3 py-1 rounded-md text-orange-600 hover:bg-orange-50" title="RSS 구독">RSS</a>
       </nav>
     </header>
     <main class="max-w-6xl mx-auto px-4 py-8">
       <slot />
     </main>
-    <footer class="border-t border-slate-800 mt-12">
+    <footer class="border-t border-slate-200 mt-16">
       <div class="max-w-6xl mx-auto px-4 py-6 text-xs text-slate-500 flex flex-col sm:flex-row gap-2 justify-between">
         <span>요약·인사이트 by Claude Haiku 4.5. 원문 저작권은 각 매체에 있습니다.</span>
-        <span>본문 미저장 · 원문 링크로 이동하세요 · <a href="https://github.com/Sung-JinPark/ai-daily-news" target="_blank" rel="noopener" class="hover:text-slate-300 font-mono">JP/AI-DAILY-NEWS</a></span>
+        <span>본문 미저장 · 원문 링크로 이동하세요 · <a href="https://github.com/Sung-JinPark/ai-daily-news" target="_blank" rel="noopener" class="hover:text-slate-700 font-mono">JP/AI-DAILY-NEWS</a></span>
       </div>
     </footer>
   </body>
