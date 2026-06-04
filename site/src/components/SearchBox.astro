@@ -1,10 +1,22 @@
 ---
 interface Props {
-  articles: { id: string; title_original: string; summary_ko: string }[];
+  articles: {
+    id: string;
+    title_original: string;
+    summary_ko: string;
+    insights_ko?: string[];
+    source_name: string;
+  }[];
 }
 const { articles } = Astro.props;
 const index = JSON.stringify(
-  articles.map((a) => ({ id: a.id, title: a.title_original, summary: a.summary_ko })),
+  articles.map((a) => ({
+    id: a.id,
+    title: a.title_original,
+    summary: a.summary_ko,
+    insights: (a.insights_ko ?? []).join(" "),
+    source: a.source_name,
+  })),
 );
 ---
 <div class="mb-6">
@@ -23,7 +35,12 @@ const index = JSON.stringify(
   const raw = document.getElementById("search-index")?.textContent || "[]";
   const data = JSON.parse(raw);
   const fuse = new Fuse(data, {
-    keys: ["title", "summary"],
+    keys: [
+      { name: "title", weight: 0.4 },
+      { name: "summary", weight: 0.3 },
+      { name: "insights", weight: 0.2 },
+      { name: "source", weight: 0.1 },
+    ],
     threshold: 0.35,
     ignoreLocation: true,
   });
