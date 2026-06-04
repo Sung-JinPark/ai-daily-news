@@ -76,10 +76,19 @@ jobs:
           git add data/
           if git diff --cached --quiet; then
             echo "no data changes"
-          else
-            git commit -m "data: $(date -u +%Y-%m-%dT%H:%MZ) pipeline run [skip ci]"
-            git push
+            exit 0
           fi
+          git commit -m "data: $(date -u +%Y-%m-%dT%H:%MZ) pipeline run [skip ci]"
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "push ok on attempt $attempt"
+              exit 0
+            fi
+            echo "push rejected, rebasing onto remote (attempt $attempt)"
+            git pull --rebase origin main || true
+          done
+          echo "push failed after 3 attempts" >&2
+          exit 1
 
       - name: Setup Node
         uses: actions/setup-node@v4
