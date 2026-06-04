@@ -18,6 +18,7 @@ export async function GET(context: APIContext) {
 
   const urls: { loc: string; lastmod?: string }[] = [];
   urls.push({ loc: url(site, base, "/"), lastmod: new Date().toISOString() });
+  urls.push({ loc: url(site, base, "/hot") });
   urls.push({ loc: url(site, base, "/archive") });
   for (const day of days) {
     urls.push({ loc: url(site, base, `/archive/${day}`), lastmod: `${day}T00:00:00Z` });

@@ -1,0 +1,54 @@
+---
+import Base from "~/layouts/Base.astro";
+import ArticleCard from "~/components/ArticleCard.astro";
+import HeroCard from "~/components/HeroCard.astro";
+import { hotnessScore, loadLatest, loadRecentDays, type Article } from "~/lib/loadData";
+
+const latest = loadLatest();
+const pool: Article[] = loadRecentDays(7);
+const now = new Date();
+const ranked = [...pool].sort((a, b) => hotnessScore(b, now) - hotnessScore(a, now));
+
+// Dedupe by cluster_id (avoid same story appearing twice across days).
+const seen = new Set<string>();
+const unique: Article[] = [];
+for (const a of ranked) {
+  const key = a.cluster_id || a.id;
+  if (seen.has(key)) continue;
+  seen.add(key);
+  unique.push(a);
+}
+
+const hero = unique[0];
+const rest = unique.slice(1, 15);
+---
+<Base title="HOT — AI Daily News" updatedAt={latest?.updated_at}>
+  <h1 class="text-3xl font-bold mb-1 text-slate-900">HOT — 지난 7일 핵심</h1>
+  <p class="text-sm text-slate-600 mb-6">
+    중요도, 다중 매체 보도, 신선도를 종합한 랭킹. 같은 사건은 한 번만 표시됩니다.
+  </p>
+
+  {!hero && (
+    <p class="text-slate-500">아직 충분한 데이터가 없습니다.</p>
+  )}
+
+  {hero && <HeroCard article={hero} />}
+
+  {rest.length > 0 && (
+    <section>
+      <h2 class="text-xl font-semibold mb-4 text-slate-900">{`다음 ${rest.length}건`}</h2>
+      <ol class="space-y-4">
+        {rest.map((a, i) => (
+          <li class="flex gap-4 items-start" data-article-id={a.id}>
+            <span class="shrink-0 w-8 h-8 rounded-full bg-slate-100 text-slate-700 font-semibold text-sm flex items-center justify-center mt-2">
+              {i + 2}
+            </span>
+            <div class="flex-1 min-w-0">
+              <ArticleCard article={a} />
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+</Base>

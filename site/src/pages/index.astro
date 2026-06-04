@@ -1,6 +1,7 @@
 ---
 import Base from "~/layouts/Base.astro";
 import ArticleCard from "~/components/ArticleCard.astro";
+import HeroCard from "~/components/HeroCard.astro";
 import FilterBar from "~/components/FilterBar.astro";
 import SearchBox from "~/components/SearchBox.astro";
 import TrendingChips from "~/components/TrendingChips.astro";
@@ -12,8 +13,10 @@ const { articles, highlights, trending } = day
   ? loadDay(day)
   : { articles: [], highlights: [], trending: [] };
 
+const highlightIds = highlights; // already ordered by rank
+const hero = articles.find((a) => a.id === highlightIds[0]);
+const topRest = highlightIds.slice(1).map((id) => articles.find((a) => a.id === id)).filter(Boolean) as typeof articles;
 const highlightSet = new Set(highlights);
-const top = articles.filter((a) => highlightSet.has(a.id));
 const rest = articles.filter((a) => !highlightSet.has(a.id));
 
 const sources = Array.from(
@@ -32,12 +35,18 @@ const days = allDays();
   {day && (
     <>
       <section class="mb-10">
-        <h1 class="text-3xl font-bold mb-1 text-slate-900">오늘의 핵심 <span class="text-slate-500 text-2xl font-medium">{day}</span></h1>
+        <div class="flex items-baseline justify-between mb-1 flex-wrap gap-2">
+          <h1 class="text-3xl font-bold text-slate-900">오늘의 핵심 <span class="text-slate-500 text-2xl font-medium">{day}</span></h1>
+          <a href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/hot`} class="text-sm text-blue-600 hover:text-blue-800">7일간 HOT 보기 →</a>
+        </div>
         <p class="text-sm text-slate-600 mb-6">전 세계 AI 소식을 한국어 인사이트로 정리했습니다.</p>
         <TrendingChips items={trending} />
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {top.map((a) => <ArticleCard article={a} highlight={true} />)}
-        </div>
+        {hero && <HeroCard article={hero} />}
+        {topRest.length > 0 && (
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {topRest.map((a) => <ArticleCard article={a} highlight={true} />)}
+          </div>
+        )}
       </section>
 
       <section>

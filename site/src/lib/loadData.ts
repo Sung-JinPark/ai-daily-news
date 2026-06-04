@@ -73,3 +73,27 @@ export const CATEGORIES: Record<string, string> = {
   hardware: "하드웨어/인프라",
   community: "커뮤니티",
 };
+
+/**
+ * Combined "hotness" score across multiple days.
+ * importance (1-5) is the strongest signal; cluster_size (number of sources
+ * covering the story) is a proxy for how widely it's being talked about;
+ * recency gives a gentle decay so 5-day-old items don't hold #1 forever.
+ */
+export function hotnessScore(a: Article, now: Date = new Date()): number {
+  const importance = a.importance_score / 5; // 0.2 - 1
+  const cluster = Math.log2(Math.max(a.cluster_size, 1) + 1) / 4; // 0 - ~1
+  const refDate = a.published ? new Date(a.published) : new Date(a.fetched_at);
+  const daysOld = Math.max((now.getTime() - refDate.getTime()) / 86400000, 0);
+  const recency = Math.max(1 - daysOld / 7, 0);
+  return importance * 0.6 + cluster * 0.15 + recency * 0.25;
+}
+
+export function loadRecentDays(maxDays: number = 7): Article[] {
+  const days = allDays().slice(0, maxDays);
+  const out: Article[] = [];
+  for (const day of days) {
+    out.push(...loadDay(day).articles);
+  }
+  return out;
+}
