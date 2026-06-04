@@ -1,0 +1,61 @@
+[
+  {
+    "id": "be3ad97197e440f0",
+    "cluster_id": "c0000-a8f410cf",
+    "title_original": "Direct Preference Optimization Beyond Chatbots",
+    "url": "https://huggingface.co/blog/Dharma-AI/direct-preference-optimization-beyond-chatbots",
+    "source_id": "huggingface_blog",
+    "source_name": "Hugging Face",
+    "published": "2026-06-03T12:55:11+00:00",
+    "fetched_at": "2026-06-04T04:17:56.172288+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "DharmaOCR는 구조화된 OCR 작업에서 Direct Preference Optimization(DPO)를 활용하여 텍스트 반복 오류를 획기적으로 감소시켰습니다. 감독 학습(SFT)만으로는 토큰 단위 최적화의 한계로 인해 반복 루프 문제를 제대로 해결하지 못했지만, DPO 단계를 추가하면 평균 59.4%, 최대 87.6%의 오류 감소를 달성했습니다. 핵심은 모델의 오류 출력을 제거하지 않고 명시적인 부정 신호로 활용하는 설계 결정에 있습니다.",
+    "insights_ko": [
+      "DPO의 활용이 채팅 정렬 작업을 넘어 객관적 구조화 생성 작업으로 확장될 수 있음을 보여줍니다. 주관적 인간 선호도 대신 작업 내재적 실패 신호를 활용하면 DPO가 특정 실패 모드를 직접 타겟할 수 있다는 점이 혁신적입니다.",
+      "SFT와 DPO는 동일한 작업의 다른 강도가 아니라 근본적으로 다른 최적화 차원을 다룹니다. SFT는 작업 도메인으로의 접근성을 높이지만 반복 오류의 분포 기하학을 변경하지 않으므로, DPO의 완성도 수준 최적화가 필수적입니다.",
+      "이 방법론이 일반화되려면 실패 모드의 명확한 분류 가능성, 자동 채점 메커니즘의 신뢰성, 충분한 데이터 볼륨이라는 세 가지 구조적 조건이 필요합니다. 이러한 조건이 충족되면 OCR 이외의 구조화된 생성 작업에도 적용 가능할 것으로 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4
+  },
+  {
+    "id": "c38c4611746a155d",
+    "cluster_id": "c0001-d8c08d82",
+    "title_original": "Adding MCP Tools to Reachy Mini",
+    "url": "https://huggingface.co/blog/adding-mcp-tools-to-reachy-mini",
+    "source_id": "huggingface_blog",
+    "source_name": "Hugging Face",
+    "published": "2026-06-03T00:00:00+00:00",
+    "fetched_at": "2026-06-04T04:18:02.338434+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Reachy Mini 로봇에 원격 MCP(Model Context Protocol) 도구를 추가할 수 있는 기능이 출시되었습니다. 기존의 로컬 도구(머리 움직임, 감정 표현 등)에 더해 웹 검색, 날씨 조회 등 상태 비저장 기능을 원격으로 통합할 수 있으며, 사용자가 작성한 도구를 Hugging Face Spaces에 공개하여 공유할 수 있습니다. 프로필 기반 권한 관리로 각 어시스턴트가 접근 가능한 도구를 세밀하게 제어합니다.",
+    "insights_ko": [
+      "원격 도구 아키텍처는 신뢰할 수 있는 로컬 코어(하드웨어 제어)와 확장 가능한 외부 기능을 분리함으로써 보안과 유연성의 균형을 맞춥니다. 프롬프트 설계를 통해 모델이 여러 도구를 병렬로 호출하도록 유도할 수 있어 응답 지연을 최소화할 수 있습니다.",
+      "커뮤니티 기여 모델의 활성화로 MCP 표준을 따르는 누구나 호환 도구를 작성·배포할 수 있게 되었으며, 태그 기반 디스커버리 체계가 생태계 성장을 지원합니다. 이는 폐쇄형 앱 개발에서 개방형 플랫폼으로의 전환을 의미합니다."
+    ],
+    "category": "product",
+    "importance_score": 3
+  },
+  {
+    "id": "42b1adc7739ed11a",
+    "cluster_id": "c0002-6965f8d8",
+    "title_original": "Holo3.1: Fast & Local Computer Use Agents",
+    "url": "https://huggingface.co/blog/Hcompany/holo31",
+    "source_id": "huggingface_blog",
+    "source_name": "Hugging Face",
+    "published": "2026-06-02T14:13:23+00:00",
+    "fetched_at": "2026-06-04T04:18:08.368450+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Holo3.1은 컴퓨터 사용 에이전트를 데스크톱, 모바일, 웹 환경에서 모두 실행할 수 있도록 개선한 모델 제품군입니다. 다양한 에이전트 프레임워크와의 통합성을 높였으며, 클라우드 배포부터 로컬 기기 실행까지 유연한 배포 옵션을 지원합니다. 특히 처음으로 양자화된 체크포인트(FP8, Q4 GGUF, NVFP4)를 공개하여 프라이빗하고 빠른 로컬 추론을 가능하게 했습니다.",
+    "insights_ko": [
+      "모바일 환경에서의 성능 대폭 개선(안드로이드월드 기준 67%→79.3%)은 컴퓨터 사용 에이전트가 실제 프로덕션 배포에서 직면하는 환경별 편차 문제를 직접 해결했다는 점에서 의미가 있습니다.",
+      "양자화 기술(특히 NVFP4)을 통해 원본 성능 손실을 최소화하면서도 2배 이상의 속도 향상을 달성했으며, 이는 소비자 하드웨어에서의 프라이빗 로컬 실행을 현실화시킵니다.",
+      "함수 호출 프로토콜 네이티브 지원과 다양한 모델 크기(0.8B~35B)의 출시로 개발자가 비용과 성능 사이의 트레이드오프를 자유롭게 선택할 수 있는 생태계를 조성했습니다."
+    ],
+    "category": "product",
+    "importance_score": 4
+  }
+]

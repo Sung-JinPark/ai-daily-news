@@ -1,0 +1,64 @@
+---
+import { CATEGORIES } from "~/lib/loadData";
+interface Props {
+  sources: { id: string; name: string }[];
+  days: string[];
+  currentDay: string;
+}
+const { sources, days, currentDay } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+  <select
+    id="filter-category"
+    class="bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm"
+  >
+    <option value="">모든 카테고리</option>
+    {Object.entries(CATEGORIES).map(([k, label]) => (
+      <option value={k}>{label}</option>
+    ))}
+  </select>
+
+  <select
+    id="filter-source"
+    class="bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm"
+  >
+    <option value="">모든 매체</option>
+    {sources.map((s) => <option value={s.id}>{s.name}</option>)}
+  </select>
+
+  <select
+    id="filter-day"
+    class="bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm"
+    data-base={base}
+  >
+    {days.map((d) => (
+      <option value={d} selected={d === currentDay}>{d}</option>
+    ))}
+  </select>
+</div>
+
+<script is:inline>
+  (function () {
+    const cat = document.getElementById("filter-category");
+    const src = document.getElementById("filter-source");
+    const day = document.getElementById("filter-day");
+
+    function apply() {
+      const c = cat?.value || "";
+      const s = src?.value || "";
+      document.querySelectorAll("[data-category]").forEach((el) => {
+        const matchC = !c || el.getAttribute("data-category") === c;
+        const matchS = !s || el.getAttribute("data-source") === s;
+        el.style.display = matchC && matchS ? "" : "none";
+      });
+    }
+    cat?.addEventListener("change", apply);
+    src?.addEventListener("change", apply);
+    day?.addEventListener("change", () => {
+      const base = day.dataset.base || "";
+      const v = day.value;
+      window.location.href = `${base}/archive/${v}`;
+    });
+  })();
+</script>

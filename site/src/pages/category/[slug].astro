@@ -1,0 +1,28 @@
+---
+import Base from "~/layouts/Base.astro";
+import ArticleCard from "~/components/ArticleCard.astro";
+import { CATEGORIES, loadDay, loadLatest } from "~/lib/loadData";
+
+export function getStaticPaths() {
+  return Object.keys(CATEGORIES).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const latest = loadLatest();
+const day = latest?.latest_day ?? "";
+const { articles } = day ? loadDay(day) : { articles: [] };
+const filtered = articles.filter((a) => a.category === slug);
+const label = CATEGORIES[slug!] ?? slug;
+---
+<Base title={`${label} — AI Daily News`} updatedAt={latest?.updated_at}>
+  <h1 class="text-2xl font-bold mb-1">{label}</h1>
+  <p class="text-sm text-slate-400 mb-6">{day} · {filtered.length}건</p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    {filtered.map((a) => <ArticleCard article={a} />)}
+  </div>
+
+  {filtered.length === 0 && (
+    <p class="text-slate-400">이 카테고리에 해당하는 오늘 기사가 없습니다.</p>
+  )}
+</Base>

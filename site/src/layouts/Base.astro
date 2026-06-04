@@ -1,0 +1,40 @@
+---
+interface Props {
+  title?: string;
+  updatedAt?: string;
+}
+const { title = "AI Daily News", updatedAt } = Astro.props;
+---
+<!doctype html>
+<html lang="ko" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="매일 자동 업데이트되는 글로벌 AI 뉴스 한국어 인사이트 대시보드" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <header class="border-b border-slate-800">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href={import.meta.env.BASE_URL} class="flex items-center gap-2">
+          <span class="text-xl font-bold tracking-tight">AI Daily News</span>
+          <span class="text-xs text-slate-400">한국어 인사이트</span>
+        </a>
+        {updatedAt && (
+          <span class="text-xs text-slate-400">
+            업데이트: {new Date(updatedAt).toLocaleString("ko-KR")}
+          </span>
+        )}
+      </div>
+    </header>
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+    <footer class="border-t border-slate-800 mt-12">
+      <div class="max-w-6xl mx-auto px-4 py-6 text-xs text-slate-500 flex flex-col sm:flex-row gap-2 justify-between">
+        <span>요약·인사이트 by Claude Haiku 4.5. 원문 저작권은 각 매체에 있습니다.</span>
+        <span>본문 미저장 · 원문 링크로 이동하세요.</span>
+      </div>
+    </footer>
+  </body>
+</html>

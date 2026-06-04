@@ -1,0 +1,34 @@
+[project]
+name = "ai-daily-news"
+version = "0.1.0"
+description = "Automated global AI news Korean dashboard"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",
+    "feedparser>=6.0.11",
+    "httpx>=0.27.0",
+    "trafilatura>=1.12.0",
+    "simhash>=2.1.2",
+    "tiktoken>=0.8.0",
+    "pyyaml>=6.0.2",
+    "python-dateutil>=2.9.0",
+    "tenacity>=9.0.0",
+    "python-dotenv>=1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-mock>=3.14.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pipeline"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

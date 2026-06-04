@@ -1,0 +1,57 @@
+---
+import Base from "~/layouts/Base.astro";
+import ArticleCard from "~/components/ArticleCard.astro";
+import FilterBar from "~/components/FilterBar.astro";
+import SearchBox from "~/components/SearchBox.astro";
+import TrendingChips from "~/components/TrendingChips.astro";
+import { allDays, loadDay, loadLatest } from "~/lib/loadData";
+
+const latest = loadLatest();
+const day = latest?.latest_day ?? "";
+const { articles, highlights, trending } = day
+  ? loadDay(day)
+  : { articles: [], highlights: [], trending: [] };
+
+const highlightSet = new Set(highlights);
+const top = articles.filter((a) => highlightSet.has(a.id));
+const rest = articles.filter((a) => !highlightSet.has(a.id));
+
+const sources = Array.from(
+  new Map(articles.map((a) => [a.source_id, { id: a.source_id, name: a.source_name }])).values(),
+).sort((a, b) => a.name.localeCompare(b.name));
+
+const days = allDays();
+---
+<Base title="AI Daily News — 오늘의 글로벌 AI" updatedAt={latest?.updated_at}>
+  {!day && (
+    <div class="rounded border border-slate-800 p-6 text-slate-300">
+      아직 수집된 데이터가 없습니다. GitHub Actions가 처음 실행되면 이곳에 결과가 표시됩니다.
+    </div>
+  )}
+
+  {day && (
+    <>
+      <section class="mb-10">
+        <h1 class="text-2xl font-bold mb-1">오늘의 핵심 ({day})</h1>
+        <p class="text-sm text-slate-400 mb-5">전 세계 AI 소식을 한국어 인사이트로 정리했습니다.</p>
+        <TrendingChips items={trending} />
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {top.map((a) => <ArticleCard article={a} highlight={true} />)}
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-4">전체 기사</h2>
+        <SearchBox articles={articles} />
+        <FilterBar sources={sources} days={days} currentDay={day} />
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {rest.map((a) => (
+            <div data-article-id={a.id}>
+              <ArticleCard article={a} />
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  )}
+</Base>

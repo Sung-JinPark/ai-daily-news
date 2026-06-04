@@ -1,0 +1,128 @@
+# Source registry. Set `enabled: false` to skip without removing.
+# category options: model_research | business | policy | product | hardware | community
+# trust: 1-5 (used by ranking + dedupe representative selection)
+
+sources:
+  - id: techcrunch_ai
+    name: TechCrunch AI
+    type: rss
+    url: https://techcrunch.com/category/artificial-intelligence/feed/
+    category: business
+    trust: 4
+    enabled: true
+
+  - id: theverge_ai
+    name: The Verge AI
+    type: rss
+    url: https://www.theverge.com/rss/ai-artificial-intelligence/index.xml
+    category: product
+    trust: 4
+    enabled: true
+
+  - id: venturebeat
+    name: VentureBeat
+    type: rss
+    url: https://feeds.feedburner.com/venturebeat/SZYF
+    category: business
+    trust: 3
+    enabled: true
+
+  - id: arstechnica
+    name: Ars Technica
+    type: rss
+    url: https://feeds.arstechnica.com/arstechnica/index
+    category: product
+    trust: 4
+    enabled: true
+
+  - id: mit_tr
+    name: MIT Technology Review
+    type: rss
+    url: https://www.technologyreview.com/feed/
+    category: model_research
+    trust: 5
+    enabled: true
+
+  - id: wired_ai
+    name: Wired AI
+    type: rss
+    url: https://www.wired.com/feed/tag/ai/latest/rss
+    category: business
+    trust: 4
+    enabled: true
+
+  - id: openai_news
+    name: OpenAI
+    type: rss
+    url: https://openai.com/news/rss.xml
+    category: model_research
+    trust: 5
+    enabled: true
+
+  # Anthropic does not expose a stable public RSS; fall back to scraping /news in collect.py.
+  - id: anthropic_news
+    name: Anthropic
+    type: scrape_news
+    url: https://www.anthropic.com/news
+    category: model_research
+    trust: 5
+    enabled: true
+
+  - id: deepmind_blog
+    name: Google DeepMind
+    type: rss
+    url: https://deepmind.google/blog/rss.xml
+    category: model_research
+    trust: 5
+    enabled: true
+
+  - id: meta_ai
+    name: Meta AI
+    type: rss
+    url: https://ai.meta.com/blog/rss/
+    category: model_research
+    trust: 4
+    enabled: true
+
+  - id: huggingface_blog
+    name: Hugging Face
+    type: rss
+    url: https://huggingface.co/blog/feed.xml
+    category: model_research
+    trust: 4
+    enabled: true
+
+  - id: arxiv_cs_ai
+    name: arXiv cs.AI
+    type: arxiv
+    query: cat:cs.AI
+    category: model_research
+    trust: 5
+    enabled: true
+    max_results: 10
+
+  - id: arxiv_cs_lg
+    name: arXiv cs.LG
+    type: arxiv
+    query: cat:cs.LG
+    category: model_research
+    trust: 5
+    enabled: true
+    max_results: 10
+
+  - id: arxiv_cs_cl
+    name: arXiv cs.CL
+    type: arxiv
+    query: cat:cs.CL
+    category: model_research
+    trust: 5
+    enabled: true
+    max_results: 10
+
+  - id: hn_ai
+    name: Hacker News (AI filter)
+    type: rss
+    url: https://hnrss.org/newest?q=AI+OR+LLM+OR+%22machine+learning%22&points=50
+    category: community
+    trust: 2
+    enabled: true

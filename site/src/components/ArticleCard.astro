@@ -1,0 +1,62 @@
+---
+import { CATEGORIES, type Article } from "~/lib/loadData";
+interface Props {
+  article: Article;
+  highlight?: boolean;
+}
+const { article, highlight = false } = Astro.props;
+const publishedLabel = article.published
+  ? new Date(article.published).toLocaleString("ko-KR")
+  : "발행시각 미상";
+---
+<article
+  class:list={[
+    "rounded-lg border p-5 flex flex-col gap-3",
+    highlight
+      ? "border-amber-500/40 bg-amber-500/5"
+      : "border-slate-800 bg-slate-900/40",
+  ]}
+  data-category={article.category}
+  data-source={article.source_id}
+>
+  <div class="flex items-center justify-between text-xs text-slate-400">
+    <span class="inline-flex items-center gap-2">
+      <span class="px-2 py-0.5 rounded bg-slate-800">
+        {CATEGORIES[article.category] ?? article.category}
+      </span>
+      <span>{article.source_name}</span>
+      <span>·</span>
+      <span>{publishedLabel}</span>
+    </span>
+    <span class="text-amber-300/70" title="중요도">{"★".repeat(article.importance_score)}</span>
+  </div>
+
+  <h3 class="text-lg font-semibold leading-snug">{article.title_original}</h3>
+
+  <p class="text-sm text-slate-300 leading-relaxed">{article.summary_ko}</p>
+
+  {article.insights_ko?.length > 0 && (
+    <ul class="text-sm text-slate-200 list-disc list-inside space-y-1">
+      {article.insights_ko.map((i) => <li>{i}</li>)}
+    </ul>
+  )}
+
+  <div class="flex items-center justify-between pt-2">
+    {article.also_covered_by?.length > 0 ? (
+      <span class="text-xs text-slate-500">
+        다른 매체 보도: {article.also_covered_by.slice(0, 3).join(", ")}
+        {article.also_covered_by.length > 3 && ` 외 ${article.also_covered_by.length - 3}곳`}
+      </span>
+    ) : (
+      <span></span>
+    )}
+    <a
+      href={article.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-sm font-medium text-sky-400 hover:text-sky-300"
+    >
+      원문 보기 →
+    </a>
+  </div>
+</article>

@@ -1,0 +1,43 @@
+---
+interface Props {
+  articles: { id: string; title_original: string; summary_ko: string }[];
+}
+const { articles } = Astro.props;
+const index = JSON.stringify(
+  articles.map((a) => ({ id: a.id, title: a.title_original, summary: a.summary_ko })),
+);
+---
+<div class="mb-6">
+  <input
+    id="search-input"
+    type="search"
+    placeholder="제목·요약에서 검색…"
+    class="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm"
+  />
+</div>
+
+<script type="application/json" id="search-index" set:html={index}></script>
+
+<script>
+  import Fuse from "fuse.js";
+  const raw = document.getElementById("search-index")?.textContent || "[]";
+  const data = JSON.parse(raw);
+  const fuse = new Fuse(data, {
+    keys: ["title", "summary"],
+    threshold: 0.35,
+    ignoreLocation: true,
+  });
+  const input = document.getElementById("search-input") as HTMLInputElement | null;
+  input?.addEventListener("input", () => {
+    const q = input.value.trim();
+    const cards = document.querySelectorAll<HTMLElement>("[data-article-id]");
+    if (!q) {
+      cards.forEach((c) => (c.style.display = ""));
+      return;
+    }
+    const hits = new Set(fuse.search(q).map((r: any) => r.item.id));
+    cards.forEach((c) => {
+      c.style.display = hits.has(c.dataset.articleId || "") ? "" : "none";
+    });
+  });
+</script>

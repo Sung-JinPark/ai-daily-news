@@ -1,0 +1,19 @@
+---
+import type { TrendingItem } from "~/lib/loadData";
+interface Props {
+  items: TrendingItem[];
+}
+const { items } = Astro.props;
+---
+{items.length > 0 && (
+  <div class="mb-6">
+    <h2 class="text-xs uppercase tracking-wider text-slate-400 mb-2">트렌딩 키워드</h2>
+    <div class="flex flex-wrap gap-2">
+      {items.slice(0, 12).map((t) => (
+        <span class="text-xs px-2 py-1 rounded bg-slate-800/80 text-slate-200">
+          {t.keyword} <span class="text-slate-500">·{t.count}</span>
+        </span>
+      ))}
+    </div>
+  </div>
+)}
