@@ -59,11 +59,14 @@ sources:
     trust: 5
     enabled: true
 
-  # Anthropic does not expose a stable public RSS; fall back to scraping /news in collect.py.
+  # Anthropic does not expose a public RSS; scrape /news listing.
   - id: anthropic_news
     name: Anthropic
-    type: scrape_news
+    type: scrape_links
     url: https://www.anthropic.com/news
+    base: https://www.anthropic.com
+    href_prefix: /news/
+    max_items: 20
     category: model_research
     trust: 5
     enabled: true
@@ -76,10 +79,14 @@ sources:
     trust: 5
     enabled: true
 
+  # Meta AI also lacks RSS; scrape /blog listing.
   - id: meta_ai
     name: Meta AI
-    type: rss
-    url: https://ai.meta.com/blog/rss/
+    type: scrape_links
+    url: https://ai.meta.com/blog/
+    base: https://ai.meta.com
+    href_prefix: /blog/
+    max_items: 20
     category: model_research
     trust: 4
     enabled: true

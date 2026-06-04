@@ -91,35 +91,63 @@ def from_arxiv(source: dict) -> list[dict]:
     return items
 
 
-def from_scrape_news(source: dict) -> list[dict]:
-    """Anthropic /news lacks RSS. Light scrape that respects robots and extracts
-    `<a href="/news/...">` title links from the listing page only."""
+def _slug_to_title(slug: str) -> str:
+    parts = slug.rstrip("/").split("/")[-1].split("-")
+    return " ".join(p.capitalize() for p in parts if p)
+
+
+def from_scrape_links(source: dict) -> list[dict]:
+    """Generic listing-page scraper for sites without RSS (Anthropic, Meta AI, etc.).
+
+    Config keys:
+      url:           listing page
+      base:          host (e.g. https://www.anthropic.com)
+      href_prefix:   only collect anchors whose href starts with this (e.g. /news/, /blog/)
+      max_items:     cap (default 20)
+    """
+    from bs4 import BeautifulSoup
+
     with get_client() as client:
         resp = fetch(source["url"], client=client)
         resp.raise_for_status()
         html = resp.text
-    pattern = re.compile(r'<a[^>]+href="(/news/[^"#?]+)"[^>]*>([^<]{8,200})</a>', re.I)
+
+    base = source["base"].rstrip("/")
+    href_prefix = source["href_prefix"]
+    max_items = source.get("max_items", 20)
+
+    soup = BeautifulSoup(html, "html.parser")
     items: list[dict] = []
     seen_paths: set[str] = set()
-    base = "https://www.anthropic.com"
-    for path, raw_title in pattern.findall(html):
-        if path in seen_paths or path.rstrip("/") == "/news":
+
+    abs_prefix = base + href_prefix
+    for anchor in soup.find_all("a", href=True):
+        raw = anchor["href"].split("?")[0].split("#")[0]
+        if raw.startswith(href_prefix):
+            path = raw
+        elif raw.startswith(abs_prefix):
+            path = raw[len(base):]
+        else:
+            continue
+        if path.rstrip("/") == href_prefix.rstrip("/"):
+            continue  # the listing root itself
+        if path in seen_paths:
             continue
         seen_paths.add(path)
-        title = re.sub(r"\s+", " ", raw_title).strip()
+        title = re.sub(r"\s+", " ", anchor.get_text(strip=True))
         if len(title) < 8:
-            continue
+            title = _slug_to_title(path)
         items.append(
             {
                 "source_id": source["id"],
                 "source_name": source["name"],
-                "title": title,
+                "title": title[:300],
                 "url": base + path,
                 "published": None,
                 "summary": "",
             }
         )
-        if len(items) >= 20:
+        if len(items) >= max_items:
             break
     return items
 
@@ -133,8 +161,8 @@ def fetch_source(source: dict) -> list[dict]:
             return from_rss(source, resp.content)
     if stype == "arxiv":
         return from_arxiv(source)
-    if stype == "scrape_news":
-        return from_scrape_news(source)
+    if stype == "scrape_links":
+        return from_scrape_links(source)
     raise ValueError(f"unknown source type: {stype}")
 
 
