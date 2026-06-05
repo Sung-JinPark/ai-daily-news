@@ -558,5 +558,316 @@
     ],
     "category": "model_research",
     "importance_score": 4
+  },
+  {
+    "id": "8d885b2ad7c1ecfc",
+    "cluster_id": "c0042-65ca246c",
+    "title_original": "A New Framework for Evaluating Voice Agents (EVA)",
+    "url": "https://huggingface.co/blog/ServiceNow-AI/eva",
+    "image_url": "https://cdn-thumbnails.huggingface.co/social-thumbnails/blog/ServiceNow-AI/eva.png",
+    "source_id": "huggingface_blog",
+    "source_name": "Hugging Face",
+    "published": "2026-03-24T02:01:52+00:00",
+    "fetched_at": "2026-06-05T16:30:59.947421+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Hugging Face와 ServiceNow가 음성 에이전트 평가를 위한 통합 프레임워크 EVA를 공개했습니다. EVA는 작업 완성도(EVA-A)와 대화 경험(EVA-X)을 동시에 측정하는 최초의 end-to-end 평가 체계이며, 50개 항공사 시나리오로 구성된 벤치마크 데이터셋과 20개 시스템에 대한 평가 결과를 함께 제시합니다. 주요 발견은 작업 정확성이 높은 에이전트일수록 사용자 경험이 낮은 trade-off가 일관되게 나타난다는 점입니다.",
+    "insights_ko": [
+      "기존 음성 에이전트 벤치마크는 STT, LLM 추론, TTS 등 개별 컴포넌트를 분리 평가했으나, EVA는 실제 통화 시나리오에서 두 목표의 상충을 처음 정량화했습니다. 이는 프로덕션 배포 시 설계 trade-off 의사결정에 직접 적용 가능한 실질적 인사이트를 제공합니다.",
+      "명명된 엔티티 인식 오류(예: 확인 코드 한 글자 오독)가 전체 대화 붕괴로 이어지는 cascading failure 패턴을 드러냈으며, pass@3과 pass^3의 큰 격차는 일관성 문제가 실제 배포의 핵심 장애임을 시사합니다. 이는 음성 에이전트의 로버스트니스 연구 및 평가 기준 정립에 새로운 방향을 제시합니다.",
+      "항공사 도메인 한정, 영어 전용, 시뮬레이션 기반 평가 등의 한계가 명시되었으나, 로드맵에 다중 도메인·다국어·노이즈 환경 확장이 계획 중입니다. 이는 음성 에이전트 평가 표준화의 초기 단계로서 향후 산업 표준으로 수렴할 가능성이 높습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4
+  },
+  {
+    "id": "12eae56e6697eaf6",
+    "cluster_id": "c0049-ee380d08",
+    "title_original": "New York lawmakers pass one-year ban on new data centers",
+    "url": "https://www.theverge.com/policy/944041/new-york-data-center-moratorium",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/04/STKS528_DATA_CENTERS_C.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-06-05T15:25:10+00:00",
+    "fetched_at": "2026-06-05T16:31:15.517598+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "뉴욕 주 의회가 대규모 데이터센터 신규 건설을 1년간 금지하는 법안을 통과시켰으며, 민주당 주지사 Kathy Hochul의 서명만 남겨두고 있습니다. 이는 미국 주 단위에서는 처음 시도되는 데이터센터 모라토리움으로, 환경·에너지 영향 평가를 위한 정책 수립 시간을 벌기 위한 것입니다. 20MW 이상 정점 수요를 가진 데이터센터는 배포 전 공개 청문회를 의무적으로 개최해야 하며, 12월 내 주지사 결정이 예상됩니다.",
+    "insights_ko": [
+      "주민 반발과 에너지 그리드 압박이 정책 단위로 결정화되면서, 미국의 데이터센터 입지 규제가 본격화될 가능성을 시사합니다. 뉴욕이 기술 산업의 영향력 있는 주인 만큼 통과 시 타 주의 유사 입법을 촉발할 수 있습니다.",
+      "산업계는 '개별 검토'를 주장하지만 모라토리움 자체가 AI 칩 수요 급증에 따른 데이터센터 수급 긴장을 반영합니다. 공급 제약이 고착되면 클라우드 인프라 가격 상승 및 해외 입지 전환으로 이어질 수 있습니다.",
+      "현재 뉴욕 계통에서 검토 중인 24개 프로젝트(9,000MW 이상)는 1년 모라토리움 적용 대상인데, 이는 메이저 클라우드 제공자들의 확장 계획 지연을 의미하며 AI 인프라 경쟁의 지역별 이질성을 강화할 것으로 보입니다."
+    ],
+    "category": "policy",
+    "importance_score": 4
+  },
+  {
+    "id": "baae6c3245fbd0db",
+    "cluster_id": "c0050-a1a60db6",
+    "title_original": "This AI startup says it can tell if a script will make a hit film",
+    "url": "https://www.theverge.com/ai-artificial-intelligence/943531/ai-script-quilty-simon-horsman-daniel-wood",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/268573_This_AI_startup_wants_tell_you_if_your_script_will_make_a_hit_film_CVirginia.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-06-05T13:57:31+00:00",
+    "fetched_at": "2026-06-05T16:31:22.469346+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Quilty는 스크립트를 분석해 영화 흥행 가능성을 예측하는 AI 도구를 표방하지만, 실제 성능은 크게 못 미치고 있습니다. 박스오피스 플롭인 Christy에 높은 점수를 부여하고 오스카 블록버스터 Sinners에 낮은 점수를 준 사례에서 신뢰성 문제가 드러났습니다. Gemini·Claude·ChatGPT·DeepSeek 등 기존 LLM을 조합한 이 플랫폼은 인문학적 판단이 필요한 영화 흥행을 기계적으로 예측하려는 시도의 한계를 보여줍니다.",
+    "insights_ko": [
+      "창의 산업의 의사결정을 수치화·자동화하려는 시도는 매력적이나, 문화적 모멘트·외부 이슈(배우 스캔들)·예측 불가능한 바이럴 현상을 포착할 수 없는 LLM의 근본적 한계가 노출되었습니다. '감정 엔진'이라 불리는 VADER 같은 도구는 결국 텍스트 긍부정 점수일 뿐 관객 반응의 복잡성을 담지 못합니다.",
+      "플랫폼이 기존 LLM을 조합한 래퍼에 불과하며, 모델 업그레이드에 의존한다는 설명도 Quilty 자체의 기술적 차별성이 없음을 시인하는 것입니다. 결국 '민주화'라는 마케팅 메시지는 비용 최소화와 의사결정의 '겉모습' 합리화에 가까우며, 인간 크리에이티브와 프로듀서의 직관을 대체할 수 없습니다."
+    ],
+    "category": "product",
+    "importance_score": 2
+  },
+  {
+    "id": "d3e30dffc129bea3",
+    "cluster_id": "c0059-31ad8410",
+    "title_original": "Has Microsoft Lost Its Mojo (Again)?",
+    "url": "https://www.wired.com/story/has-microsoft-lost-its-mojo-again/",
+    "image_url": "https://media.wired.com/photos/6a21bf0470a986f0e78c96a3/191:100/w_1280,c_limit/Backchannel-Q-A-Scott-Hanselma-Business-681613422.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-06-05T15:00:00+00:00",
+    "fetched_at": "2026-06-05T16:31:30.394621+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Wired의 Steven Levy가 Microsoft Build 2024 컨퍼런스를 취재하며 Satya Nadella의 에이전트 AI 강조에도 불구하고 Microsoft의 시장 입지가 약해지고 있다는 의문을 제기했습니다. Copilot 업무용 도구의 저조한 채택률, GitHub의 잦은 다운타임, Anthropic Claude Code에 밀린 코딩 능력이 주요 문제이며, Microsoft VP Scott Hanselman과의 인터뷰를 통해 회사가 어떻게 에이전트 모멘트를 잡으려는지 탐색합니다.",
+    "insights_ko": [
+      "Microsoft가 생성형 AI 초기에는 선도했으나 Anthropic의 Claude Code 같은 특화된 솔루션에 밀리고 있으며, 에이전트 AI라는 새로운 분류에서도 후발주자 입장에 놓인 것으로 보입니다. Copilot이라는 용어는 Microsoft 창안이지만 실제 사용자 만족도와 채택률에서 뒤처지는 역설적 상황입니다.",
+      "GitHub 다운타임 문제는 단순 기술 문제를 넘어 개발자 커뮤니티로부터의 신뢰 이탈을 의미합니다. 개발자 충성도가 Microsoft의 전략적 자산임을 고려하면(Steve Ballmer 명언), GitHub의 평판 손상은 장기적으로 Copilot과 AI 도구 채택에 악영향을 미칠 수 있습니다.",
+      "Scout를 포함한 에이전트 도구의 성공 여부는 비전문가 영역에서의 수용성에 달려 있는데, Hanselman도 인정하듯 신뢰도와 오류 용인 범위는 불확실합니다. Microsoft가 개발자 커뮤니티는 확보했지만 생산성 근로자·소비자 시장 진입에는 여전히 저항에 직면할 것으로 예상됩니다."
+    ],
+    "category": "business",
+    "importance_score": 3
+  },
+  {
+    "id": "a2be114f246f235d",
+    "cluster_id": "c0060-48183409",
+    "title_original": "OpenAI and Anthropic May Be Rivals, but Investors Aren’t Picking Sides",
+    "url": "https://www.wired.com/story/openai-and-anthropic-may-be-rivals-but-their-investors-arent-choosing-sides/",
+    "image_url": "https://media.wired.com/photos/6a1f7877452f8f7907d948a3/191:100/w_1280,c_limit/Nearly-Half-of-Investors-Have-Stakes-in-Both-OpenAI-and-Anthropic-Business.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-06-05T10:30:00+00:00",
+    "fetched_at": "2026-06-05T16:31:39.116675+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "OpenAI와 Anthropic은 인재·고객·정책에서 경쟁하고 있지만, 약 90개의 벤처캐피탈과 자산운용사가 두 회사에 동시 투자했습니다. OpenAI 투자자의 42%, Anthropic 투자자의 약 3분의 1이 겹치며, Sequoia Capital·Greylock·Founders Fund 등 대형 펀드도 포함됩니다. 이는 투자자들이 AI 시장을 '승자독식'이 아닌 공존 구조로 보거나, IPO 수익 확률을 높이려는 전략으로 해석됩니다.",
+    "insights_ko": [
+      "전통적 벤처캐피탈은 경쟁사 중 한 곳만 투자해 이해충돌을 피했으나, 펀드의 거대화·장기 스테이 추세 속에서 투자자당 지분 희석도 커져 '포트폴리오 분산' 관행이 일반화되고 있습니다. 이는 지배·조언 영향력 감소로 정당화되지만, 정보 접근 비대칭성 우려는 여전합니다.",
+      "OpenAI(비영리 구조·수익 상한)의 불확실한 주식화 여건과 Anthropic의 명확한 영리 구조가 투자자로 하여금 '리스크 헤징'을 촉구하는 측면이 있습니다. 또한 AI 수요가 범산업적이라는 인식이 'Pepsi vs Coke' 논리로 작동, 포트폴리오 분산을 정당화하고 있습니다.",
+      "향후 OpenAI·Anthropic의 IPO 시 동시 상장 이득 실현, 또는 한 회사의 예상 외 실적 부진 시 투자자 이해충돌 심화가 우려 포인트입니다. 명시적 '편 가르기' 전략을 고수하는 Menlo Ventures·Thrive Capital 같은 펀드와의 성과 비교도 주목할 가치가 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 4
+  },
+  {
+    "id": "d338227676c6185d",
+    "cluster_id": "c0061-feeb5359",
+    "title_original": "Why Apple Might Put Cameras Into Its Next AirPods",
+    "url": "https://www.wired.com/story/why-apple-might-put-cameras-into-its-next-airpods/",
+    "image_url": "https://media.wired.com/photos/6a21fac373f57a5aa16309ff/191:100/w_1280,c_limit/gear_airpodcamera_getty.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-06-05T10:00:00+00:00",
+    "fetched_at": "2026-06-05T16:31:46.431633+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Apple이 카메라 장착 AirPods를 개발 중이며 Siri의 시각 능력을 강화하려는 의도로 알려졌습니다. 저해상도 카메라가 茎(줄기)에 내장되어 음성 명령에 시각 정보를 제공하도록 설계되었으나, Siri의 시각 지능이 미성숙하고 설득력 있는 사용 사례 부족으로 출시가 지연될 가능성이 높습니다. 내비게이션, 쇼핑, 접근성 기능 등이 검토되고 있으며, Apple이 향후 스마트 글래스 출시를 위한 기술 검증 단계로도 보입니다.",
+    "insights_ko": [
+      "프라이버시 기업으로 자리매김한 Apple이 항상 착용되는 이어폰에 카메라를 추가하면서 소비자 신뢰 리스크가 생깁니다. 시장의 감시 기술 우려 증가 속에서 실질적 가치 제안 없이는 브랜드 평판 손상 위험이 큽니다.",
+      "OpenAI·Google과의 파트너십에 의존하는 Apple이 자체 비전 모델을 확보하기 위해 대규모 시각 데이터를 필요로 하고 있습니다. AirPods를 통한 수집은 Google Street View 수준의 실시간 환경 데이터 확보 전략으로 해석되며, AI 모델 경쟁력 강화와 직결됩니다.",
+      "배터리 수명 문제(테스트 결과 반으로 단축)와 기술적 제약이 상당하므로, 현실적으로는 AirPods Max나 향후 스마트 글래스에 먼저 적용될 가능성이 높습니다. 이는 Apple의 공간 컴퓨팅 전략 전개의 징조로 볼 수 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3
+  },
+  {
+    "id": "2f72c01ac65e2648",
+    "cluster_id": "c0062-a6958b1c",
+    "title_original": "AI Has Come for Serif Fonts",
+    "url": "https://www.wired.com/story/ai-has-come-for-serif-fonts/",
+    "image_url": "https://media.wired.com/photos/6a20d5436a7879400ec4323c/191:100/w_1280,c_limit/culture_ai_serif_font.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-06-05T09:00:00+00:00",
+    "fetched_at": "2026-06-05T16:31:54.180337+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AI 기업들이 브랜드와 제품 인터페이스에서 세리프 폰트를 채택하는 추세가 확산되고 있습니다. 디자이너들은 이를 AI의 '차가움'을 인간적이고 신뢰할 수 있게 보이려는 시도라고 분석하며, Times New Roman 같은 세리프 폰트가 학문성과 권위성을 전달한다고 설명합니다. 하지만 비평가들은 이를 'tasteslop'(겉치레 디자인)으로 보거나 실질적 신뢰 구축보다는 심리적 착각을 노리는 '어느 정도 부정직한' 시도라고 지적합니다.",
+    "insights_ko": [
+      "AI 업계의 인지도 전투가 마이크로 레벨 디자인(폰트 선택)까지 침투했으며, 이는 공중의 AI에 대한 거부감이 실제 비즈니스 영향을 미치고 있음을 시사합니다. 기업들이 기술적 우수성보다 '인간다움' 신호를 전면에 배치하는 전략으로 전환 중입니다.",
+      "세리프 폰트의 과도한 채택이 오히려 '모델의 출력물이 모델을 더 훈련시키는' 자기 강화 루프를 만들어, 결국 개별 기업의 의도와 무관하게 산업 전체가 같은 미학으로 수렴할 위험을 드러냅니다. 이는 디자인 다양성 감소와 AI 미학의 '제너릭화'를 촉발할 수 있습니다.",
+      "폰트만으로는 실질적 신뢰를 구축할 수 없다는 자각(Claude 자신도 언급)이 나타나면서, 앞으로 기업들이 미학 너머 투명성·설명가능성·거버넌스 같은 구체적 신뢰 메커니즘으로 눈을 돌려야 한다는 압박이 예상됩니다."
+    ],
+    "category": "community",
+    "importance_score": 2
+  },
+  {
+    "id": "9f56c9f99394d103",
+    "cluster_id": "c0129-2ac50d08",
+    "title_original": "The Download: AI hacking beyond Mythos, and chatbots’ impact on our brains",
+    "url": "https://www.technologyreview.com/2026/06/05/1138452/the-download-ai-hacking-mythos-chatbots-brain-impacts/",
+    "image_url": "https://wp.technologyreview.com/wp-content/uploads/2026/06/hand-keys1.jpg?resize=1200,600",
+    "source_id": "mit_tr",
+    "source_name": "MIT Technology Review",
+    "published": "2026-06-05T12:10:00+00:00",
+    "fetched_at": "2026-06-05T16:32:15.068911+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "MIT Technology Review의 주간 뉴스레터에서 AI 보안, 인지능력 영향, 규제 동향을 다룬 여러 주요 사건을 정리했습니다. Meta의 고객 지원 AI 에이전트가 Instagram 계정 탈취에 악용된 사건, Anthropic의 글로벌 AI 개발 감속 촉구, 미국 정부의 AI 기업 지분 인수 검토 등이 포함되었습니다. 동시에 AI 챗봇이 인간의 주의력과 비판적 사고를 약화시킬 수 있다는 심리학 연구도 소개되었습니다.",
+    "insights_ko": [
+      "Meta 해킹 사건은 고급 기술적 공격보다 간단한 프롬프트 조작이 더 큰 실제 위협이 될 수 있음을 시사합니다. 기업들이 AI를 고객 접점에 배포할 때 명령 거부나 권한 검증 같은 기초적 안전장치를 놓칠 수 있다는 우려가 커지고 있습니다.",
+      "Anthropic의 감속 촉구와 미국 정부의 지분 인수 논의는 상충되는 신호를 주고 있습니다. 산업 내 선도 기업의 자발적 규제 호출이 시장 선점 후 경쟁 제약 의도로도 해석될 수 있으며, 정부 자본의 진입은 AI를 전략 자산으로 재분류하는 신호입니다.",
+      "AI 기술이 인간의 인지 능력을 약화시킬 수 있다는 심리학적 관찰은 장기적 사회 비용을 경고하며, 단순히 기술 효율성만이 아닌 인간 주체성 유지 문제가 정책·교육 의제로 떠오를 가능성을 시사합니다."
+    ],
+    "category": "community",
+    "importance_score": 3
+  },
+  {
+    "id": "dd3fb0aac946ee35",
+    "cluster_id": "c0139-a0bd2537",
+    "title_original": "Not the next R8? Audi reveals mid-engined plug-in hybrid V8 Nuvolari.",
+    "url": "https://arstechnica.com/cars/2026/06/not-the-next-r8-audi-reveals-mid-engined-plug-in-hybrid-v8-nuvolari/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/Original-17010-lead-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-05T14:44:04+00:00",
+    "fetched_at": "2026-06-05T16:32:36.622223+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Audi가 Monaco Grand Prix 전야 프랑스에서 Nuvolari 콘셉트를 공개했으며, 이는 Lamborghini 플랫폼을 기반한 R8의 후속 모델로 추정됩니다. 자연흡기 V10을 버리고 플러그인 하이브리드 V8을 채용하여 987hp의 성능을 제공하며, Audi의 새로운 디자인 언어를 보여줍니다. Lamborghini Temerario와 같은 플랫폼을 공유하지만 성능에서는 이를 능가할 수 있습니다.",
+    "insights_ko": [
+      "Volkswagen Group 내 플랫폼 공유 전략의 진화를 반영하며, 고성능 슈퍼카의 동력원이 자연흡기 엔진에서 플러그인 하이브리드로 전환되고 있음을 시사합니다. 순수 소비자 경험보다 규제·효율성·개발 비용 절감이 우선되고 있다는 점이 프리미엄 세그먼트에서도 내연기관의 미래를 제한함을 보여줍니다.",
+      "987hp 성능은 Bugatti Veyron과 동등하면서도 플러그인 하이브리드 구성으로 달성되는 점에서, 전통 고성능 자동차 개발의 비용 구조 변화를 반영합니다. Audi가 자체 V12·V10 엔진 개발을 포기하고 Lamborghini 플랫폼에 의존하는 것은 럭셔리 브랜드의 엔진 개발 영역이 축소되고 있음을 의미합니다."
+    ],
+    "category": "product",
+    "importance_score": 2
+  },
+  {
+    "id": "66db8e3daf7572e7",
+    "cluster_id": "c0140-c7eae4a2",
+    "title_original": "Rocket Report: Blue Origin explosion still making headlines; Impulse raises money",
+    "url": "https://arstechnica.com/space/2026/06/rocket-report-blue-origin-explosion-still-making-headlines-impulse-raises-money/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/HJ_GYftWgAE2iIB-1152x648-1780648934.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-05T14:20:54+00:00",
+    "fetched_at": "2026-06-05T16:32:41.751276+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Blue Origin의 New Glenn 로켓이 플로리다 발사장에서 폭발하면서 우주산업 뉴스가 주목받고 있으며, Blue Origin은 연말까지 발사 재개를 목표로 하고 있습니다. 한편 캐나다는 주권 발사 능력 확보를 위해 Nova Scotia의 Maritime Launch Services와 협력하여 전용 발사장 개발에 2억 캐나다달러를 투자하기로 했습니다. 해당 스페이스포트는 7월까지 설계를 완료하고 8월 말 전에 건설 입찰을 시작할 예정입니다.",
+    "insights_ko": [
+      "Blue Origin의 발사장 손상으로 Blue Moon 달 착륙선 발사를 위해 SpaceX의 로켓 의존도가 높아질 가능성이 있으며, 이는 SpaceX의 시장 지배력을 더욱 강화하고 경쟁 구조를 재편할 수 있습니다.",
+      "캐나다의 주권 발사 프로그램 투자는 우주산업의 지정학적 분산화 추세를 반영하며, 북미 지역에서 미국 중심 의존도를 낮추려는 전략으로 평가됩니다. Maritime Launch Services의 Nova Scotia 스페이스포트는 상용 우주항만 개발의 실질적 진전 사례입니다."
+    ],
+    "category": "business",
+    "importance_score": 3
+  },
+  {
+    "id": "1b77a5d4140b163d",
+    "cluster_id": "c0141-90ff20eb",
+    "title_original": "Safety officials finally have a good idea of what a big rocket explosion can do",
+    "url": "https://arstechnica.com/space/2026/06/safety-officials-finally-have-a-good-idea-of-what-a-big-rocket-explosion-can-do/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/ng4explosion-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-05T13:55:05+00:00",
+    "fetched_at": "2026-06-05T16:32:49.808514+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Blue Origin의 New Glenn 로켓 폭발 사건이 Cape Canaveral 우주기지의 안전 기준 수립에 중요한 데이터를 제공했습니다. SpaceX, Blue Origin, United Launch Alliance 등 여러 회사가 메탄·액화천연가스 연료 로켓을 운영할 계획이지만, 폭발 시 메탄과 액체산소의 피해 규모에 대한 실제 데이터가 부족했기 때문입니다. 미 우주군은 2036년까지 연 500회 발사를 목표로 하고 있으며, 이는 기존 우주기지 안전 프로토콜과 긴장 관계를 빚고 있습니다.",
+    "insights_ko": [
+      "New Glenn 폭발이 비극적 사건이지만 메탄 연료 로켓의 대규모 상용화를 위한 필수적 안전 데이터를 제공했습니다. 향후 고밀도 발사 운영에서 규제 당국이 근거 기반 안전 기준을 수립할 수 있게 된 점이 역설적으로 중요합니다.",
+      "SpaceX Starship의 높은 발사 빈도(일일 발사·착륙 포함)가 경쟁사의 운영 안전성을 위협할 수 있다는 우려는 공항의 소음 규제처럼 기지 내 '발사 슬롯' 분배 및 동시성 제한 정책으로 이어질 가능성이 있습니다. 미 우주군의 보수적 메탄 로켓 규제는 SpaceX의 고속 반복 전략에 직접 제약이 될 수 있습니다.",
+      "2036년 500회 발사 목표는 현실적 달성 여부를 떠나 우주 산업의 폭발적 성장 기대를 반영합니다. 이는 발사체 제조, 지상 기반시설, 안전·환경 인프라에 수십억 달러 투자 기회를 시사하며 규제 표준화 과정에서 리스크가 상당합니다."
+    ],
+    "category": "hardware",
+    "importance_score": 4
+  },
+  {
+    "id": "d60cc3c7dfbec3dd",
+    "cluster_id": "c0142-763d7eb3",
+    "title_original": "Steve Jobs in Exile is a fine profile of Jobs' years at NeXT",
+    "url": "https://arstechnica.com/apple/2026/06/steve-jobs-in-exile-is-a-fine-profile-of-jobs-years-at-next/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/GettyImages-136021736-2560x1440-1780609093.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-05T11:15:29+00:00",
+    "fetched_at": "2026-06-05T16:32:55.766594+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Ars Technica가 Geoffrey Cain의 저작 '스티브 잡스 인 엑자일'을 평가하며, 잡스가 NeXT에서 보낸 '유배' 시절이 그의 성장뿐 아니라 기술 산업 전체에 미친 영향을 상세히 조명하는 양질의 프로필이라고 소개합니다. NeXTSTEP OS는 현대 macOS와 iOS의 기원이 되었으며, 잡스의 Unix를 대중화하려는 시도를 구현한 작업이었습니다.",
+    "insights_ko": [
+      "NeXT 시절이 단순한 '실패 기간'이 아니라 Apple 복귀 이후의 성공을 가능하게 한 기술·리더십 축적의 시기였음을 재평가하는 기사입니다. 현재의 iOS/macOS 생태계를 NeXTSTEP의 직접적 후손으로 보면 20여 년간의 기술 연속성이 드러나며, 잡스의 '방황'이 실제로는 산업 차원의 기초 공사였음을 보여줍니다.",
+      "Cain의 책이 1990년대 말 기술 저널리즘의 고전들(Fire in the Valley, Where Wizards Stay Up Late 등)과 같은 반열에 놓이고 있다는 점은, NeXT의 역사적 재평가가 단순한 회고가 아니라 실리콘밸리 생성 메커니즘을 이해하는 데 필수적이라는 신호입니다."
+    ],
+    "category": "community",
+    "importance_score": 2
+  },
+  {
+    "id": "573e0ea882765a9d",
+    "cluster_id": "c0143-90a8c6ba",
+    "title_original": "Review: AMD's Radeon RX 9070 GRE is a disappointing way to spend $549",
+    "url": "https://arstechnica.com/gadgets/2026/06/amd-radeon-rx-9070-gre-review-shrinkflation-isnt-just-for-groceries-anymore/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/IMG_8038-1152x648.jpeg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-05T11:00:55+00:00",
+    "fetched_at": "2026-06-05T16:33:02.382393+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AMD가 RX 9070과 동일한 549달러 가격에 RX 9070 GRE를 출시했으나, GPU 코어는 85%, 메모리는 75%, 메모리 대역폭은 66% 수준으로 대폭 축소된 제품입니다. 같은 가격에 성능이 현저히 낮아진 명백한 'GPU 축소'로, AI 수급 부족으로 인한 메모리 가격 인상 속에서 소비자 입장에서는 구매 가치가 크게 떨어진 상황입니다.",
+    "insights_ko": [
+      "메모리 업계 수급 위기가 GPU 제조사의 제품 전략까지 왜곡하고 있습니다. AMD가 메모리 비용 절감을 위해 명시적 성능 다운그레이드를 시도하는 것은 부품 가격 상승 압력이 얼마나 심각한지 반영하며, 이는 전체 PC 구성 비용 인상으로 이어집니다.",
+      "GRE라는 제품명이 기존 XT·XTX·Super 같은 상위 라인업 표기와 역행하면서 소비자 혼동을 야기합니다. 이는 단순 마케팅 오류를 넘어, 성능 계층화 논리가 붕괴되는 신호이며, 구매 의사결정이 더욱 복잡해짐을 의미합니다.",
+      "현 GPU 시장의 가격 상승이 하드웨어 물리적 개선 대신 '같은 가격의 낮은 사양'으로 귀결되는 양상이 보이면, 중저가 게이밍·워크스테이션 건축 수요는 前 세대 카드나 경쟁사 제품으로 이동할 가능성이 높습니다."
+    ],
+    "category": "hardware",
+    "importance_score": 3
+  },
+  {
+    "id": "72cfa5c9a833ec39",
+    "cluster_id": "c0210-f660b6d8",
+    "title_original": "AirTrunk commits $30B to build 5GW of AI data centers in India",
+    "url": "https://techcrunch.com/2026/06/05/airtrunk-commits-30b-to-build-5gw-of-ai-data-centers-in-india/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/06/GettyImages-2089845337.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-05T13:03:10+00:00",
+    "fetched_at": "2026-06-05T16:33:16.531225+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Blackstone 자산 회사 AirTrunk가 인도에 300억 달러를 투자해 2030년까지 5GW 규모의 AI 데이터센터를 구축하겠다고 발표했습니다. 이는 인도 디지털 인프라 부문으로의 대규모 외국 투자 물결의 일부이며, 현재 1.5GW 수준인 인도 데이터센터 용량을 2030년 8GW까지 확대하는 목표와 부합합니다. 인도 정부는 해외 서비스에 대해 2047년까지 세금 감면을 제공하는 등 적극적 인센티브를 추진 중입니다.",
+    "insights_ko": [
+      "인도가 중국·대만의 지정학적 리스크를 피하려는 글로벌 클라우드·AI 회사들의 대체 거점으로 주목받고 있으며, Amazon·Google·Microsoft·OpenAI 등 주요 기업들의 동시다발적 투자 공표는 인도 데이터센터 시장이 단기 핫스팟이 아닌 장기 구조적 변화임을 시사합니다.",
+      "하지만 대규모 데이터센터 확충은 전력·수자원·부지 요구량이 급격할 수밖에 없으며, 특히 전력 공급 병목이 가장 실질적 제약으로 지적되고 있습니다. Deloitte 추정에 따르면 아시아태평양 지역 데이터센터 구축만으로도 2030년까지 수십 테라와트시의 추가 전력이 필요하다는 점이 인프라 리스크의 심각성을 드러냅니다.",
+      "300억 달러 규모의 프로젝트가 실제로 예정 기한 내 실현되려면 정부의 규제 신속화, 전력망 업그레이드, 환경 승인 프로세스 효율화가 병행되어야 하며, 이는 인도 정책 드라이브의 일관성 유지 여부에 따라 크게 달라질 전망입니다."
+    ],
+    "category": "hardware",
+    "importance_score": 4
+  },
+  {
+    "id": "68c93a2e843db05b",
+    "cluster_id": "c0232-c12ee384",
+    "title_original": "AnnouncementsMay 19, 2026Widening the conversation on frontier AIOver the past several months, we’ve been organizing dialogues with groups whose work and traditions bear on the questions raised by AI.",
+    "url": "https://www.anthropic.com/news/widening-conversation-ai",
+    "image_url": "https://www.anthropic.com/api/opengraph-illustration?name=Object%20Chat&amp;backgroundColor=sky",
+    "source_id": "anthropic_news",
+    "source_name": "Anthropic",
+    "published": null,
+    "fetched_at": "2026-06-05T16:33:24.753351+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 AI 개발 과정에서 종교·철학·윤리 전통을 가진 다양한 집단과의 대화를 확대하고 있습니다. 첫 번째 라운드로 15개 이상의 종교·문화 집단의 학자, 성직자, 철학자와 만나 Claude의 도덕적 형성에 대해 논의했으며, 이러한 통찰이 Claude의 헌법 작성과 훈련 가치관에 실질적으로 반영될 수 있도록 계획하고 있습니다. 향후 법학자, 심리학자, 시민 기관과도 협력을 확대할 예정입니다.",
+    "insights_ko": [
+      "프론티어 AI의 가치 정렬이 순수 기술 문제를 넘어 윤리학·종교학·문화 전통의 누적된 사상과 만나는 지점임을 명시적으로 인정하는 움직임입니다. 이는 AI 안전성 논의가 단순한 해석성·안전 평가에서 '좋은 문자(character) 형성'이라는 정규화된 개념으로 확장되고 있음을 시사합니다.",
+      "Claude가 윤리적 충돌 상황에서 스스로 멈추고 성찰하도록 하는 도구 실험에서 오정렬 행동이 감소했다는 구체적 결과는 '외적 양심' 역할이 정렬 평가에서 측정 가능한 효과를 낼 수 있음을 보여줍니다. 이는 정렬 기법의 새로운 설계 패턴으로 확산될 가능성이 있습니다.",
+      "다양한 세계관(종교, 세속, 정치)에서 균등한 깊이로 관점을 수용하겠다는 원칙은 단일 가치 체계로의 모델 편향 위험을 인식한 설계 철학을 보여주며, 향후 다문화·다정치 맥락에서의 정렬 평가 기준 논의의 토대가 될 것으로 예상됩니다."
+    ],
+    "category": "product",
+    "importance_score": 3
   }
 ]
