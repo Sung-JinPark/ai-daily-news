@@ -370,5 +370,193 @@
     ],
     "category": "product",
     "importance_score": 4
+  },
+  {
+    "id": "9e88ddcf0c153696",
+    "cluster_id": "c0049-b2ebad71",
+    "title_original": "Fine-tuning an LLM to write docs like it's 1995",
+    "url": "https://passo.uno/fine-tuning-docs-llm/",
+    "image_url": "https://passo.uno/uploads/finetuned.png",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-06-05T05:46:06+00:00",
+    "fetched_at": "2026-06-05T09:53:02.005877+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "기술 글쓰기 연구자가 1990년대 Microsoft 매뉴얼 3,700만 단어를 학습 자료로 삼아 QLoRA 미세조정을 통해 구식 기술 문서 스타일을 재현하는 실험을 수행했습니다. Llama와 Qwen 같은 소형 모델들을 Runpod에서 약 $50에 미세조정하여 malloc() 함수 문서화나 가상의 Win32 API 설명 시 1990년대 구조와 문체를 성공적으로 모방했습니다. 실험 결과 미세조정된 모델은 효과적인 보조 도구가 될 수 있지만 인간 기술 저자를 완전히 대체할 수는 없음을 보여줍니다.",
+    "insights_ko": [
+      "미세조정이 스타일·목소리 모방에 효과적이지만 고품질 학습 데이터 수집과 하이퍼파라미터 튜닝이라는 높은 진입장벽이 있습니다. 이는 맞춤형 로컬 모델의 실용화가 데이터 큐레이션 비용 문제로 아직 멀었음을 의미합니다.",
+      "Rank와 에포크 같은 어댑터 설정 간 상호작용(낮은 rank가 더 강한 스타일 모방, 과도한 에포크는 환각 증가)이 세밀한 조정을 요구합니다. 이는 미세조정이 기술적으로는 저렴하지만 실무 도입에는 전문 지식과 반복 실험이 필요함을 시사합니다.",
+      "로컬 우선 아키텍처로의 전환이 2025년 현재 프론티어 모델의 압도적 우월성으로 미루어 아직 한계가 있으며, 기술 문서 작성처럼 매우 특화된 도메인에서만 경쟁력을 가질 가능성을 보여줍니다."
+    ],
+    "category": "product",
+    "importance_score": 2
+  },
+  {
+    "id": "c489e6fb5febf2ab",
+    "cluster_id": "c0051-81cb70f3",
+    "title_original": "Open Code Review – An AI-powered code review CLI tool",
+    "url": "https://github.com/alibaba/open-code-review",
+    "image_url": "https://opengraph.githubassets.com/1e872fb420e6556904017473e4aa1e9852b0c2af57adfecf7171be49b5fd7b13/alibaba/open-code-review",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-06-05T00:04:29+00:00",
+    "fetched_at": "2026-06-05T09:53:17.106968+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "알리바바 그룹이 2년간 내부에서 운영해온 AI 코드 리뷰 도구를 오픈소스로 공개했습니다. 이 도구는 Git diff를 분석해 LLM에 전송하고 라인 단위 정밀도의 구조화된 리뷰 의견을 생성하며, 결정론적 엔지니어링과 에이전트를 결합해 일반 LLM 에이전트의 불완전한 커버리지·위치 오차·불안정한 품질 문제를 해결합니다. CLI 도구로 제공되며 Claude Code, GitHub Actions, GitLab CI 등과 통합 가능합니다.",
+    "insights_ko": [
+      "프로덕션 규모의 엔지니어링 경험을 토대로 한 오픈소스 공개로, 일반적인 언어 모델 에이전트의 코드 리뷰 한계를 체계적으로 분석하고 해결책을 제시합니다. 결정론적 제약(정확한 파일 선택, 스마트 번들링, 세밀한 규칙 매칭)과 동적 의사결정(에이전트)을 명확히 분리하는 아키텍처가 산업 모범 사례로 자리잡을 가능성이 있습니다.",
+      "개발자 워크플로우 통합(CLI, IDE 플러그인, CI/CD)이 완벽하게 갖춰져 있어, AI 코드 리뷰가 단순한 실험 단계에서 프로덕션 도구로 전환되는 시점을 상징합니다. 동시성 지원과 대규모 변경셋 처리 최적화는 엔터프라이즈급 요구사항을 반영합니다."
+    ],
+    "category": "product",
+    "importance_score": 3
+  },
+  {
+    "id": "33f0034b2c0030b0",
+    "cluster_id": "c0057-e5092d21",
+    "title_original": "AI, Ashby Engineering, and the future",
+    "url": "https://www.ashbyhq.com/blog/engineering/ai-ashby-engineering-and-the-future",
+    "image_url": "https://a-us.storyblok.com/f/1017310/2398x1256/3c1f9b9162/ai-ashby-engineering-and-the-future.png",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-06-04T14:48:44+00:00",
+    "fetched_at": "2026-06-05T09:53:44.685795+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Ashby Engineering은 2025년 8월 이후 신규 프로덕션 코드의 절반 이상을 AI로 생성하고 있지만, 고객 이슈 수준은 안정적으로 유지되고 있습니다. 회사는 AI 도입 과정에서 '공감 능력은 AI로 대체 불가'와 '배포 책임은 엔지니어에게 있다'는 두 가지 핵심 원칙을 수립했으며, sidekick과 delegate 두 가지 협업 모드를 구분하여 위험도에 따라 AI 활용 수준을 조절하고 있습니다.",
+    "insights_ko": [
+      "AI 코드 생성이 대규모 프로덕션 환경에서 단순 코드 생성 속도 향상을 넘어 엔지니어의 역할 자체를 재정의하고 있습니다. 신택스와 글루 코드 작성이 기계화되면서, 제품 이해도·고객 공감·아키텍처 판단 같은 고수준 의사결정이 상대적으로 더 중요해지는 구조 변화를 시사합니다.",
+      "AI 도구의 위험성이 '틀림'이 아니라 '그럴듯하지만 잘못됨'에 있다는 점과, 이를 관리하기 위해 기계적 검증(린트, 테스트, 관찰성)을 인프라에 내장하고 휴먼 리뷰를 고수준 의사결정(추상화 품질, 성능 특성, 설계 일관성)으로 재집중하는 전략이 주목할 만합니다.",
+      "검증 단계의 비용이 급증할 수밖에 없는 구조(쓰기는 저렴해지고 검토는 더 중요해짐)에서, 향후 대규모 팀에게는 자동화된 검증 프레임워크와 AI 기반 코드 리뷰 도구 투자가 경쟁력을 좌우할 가능성이 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 4
+  },
+  {
+    "id": "1f3005a2c6d780dc",
+    "cluster_id": "c0149-a8c58085",
+    "title_original": "Are AI chatbots making us lose control of our brains?",
+    "url": "https://www.technologyreview.com/2026/06/05/1138427/are-ai-chatbots-making-us-lose-control-of-our-brains/",
+    "image_url": "https://wp.technologyreview.com/wp-content/uploads/2026/06/outsource-thought.jpg?resize=1200,600",
+    "source_id": "mit_tr",
+    "source_name": "MIT Technology Review",
+    "published": "2026-06-05T09:00:00+00:00",
+    "fetched_at": "2026-06-05T09:54:17.736171+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "MIT Technology Review가 심리학자 Gloria Mark와의 인터뷰를 통해 AI 챗봇 사용이 인지 능력에 미치는 부정적 영향을 조명했습니다. Mark는 디지털 기기 사용으로 인간의 집중력이 2003년 2.5분에서 2020년 47초로 급격히 단축됐으며, AI에 요약·평가·작성을 맡기면 심화 처리(depth of processing) 기회를 상실해 비판적 사고와 정서 지능이 약화될 위험이 있다고 경고했습니다. 다만 증거가 확정적이지 않다며 노력을 통한 의도적 기술 사용이 해법이 될 수 있다고 제시했습니다.",
+    "insights_ko": [
+      "AI가 인지 노동을 대체할 때의 장기 위험을 심리학 실증 데이터로 구체화했습니다. 단순히 '중독성'이 아니라 '인지 근육 위축'이라는 신체화된 개념으로 설명해 기술의 누적 효과에 대한 우려를 설득력 있게 제시했습니다.",
+      "사회적 합의가 아직 없는 미성숙 영역임을 드러냅니다. 소셜 미디어도 20년이 지났는데 아동 영향에 대한 근거가 여전히 '불확실'하다는 점은 AI 규제와 교육 정책이 증거 부족 상황에서 선제적으로 움직여야 함을 암시합니다.",
+      "기술 거부가 아닌 '노력의 복원'이 솔루션이라는 점이 개발자·기업에게 실질적 책임을 묻습니다. 사용자가 의도적으로 AI 우회를 선택하는 제품·UX 설계(예: 요약 강제 금지, 심화 읽기 권장) 시장이 형성될 가능성을 열어줍니다."
+    ],
+    "category": "community",
+    "importance_score": 3
+  },
+  {
+    "id": "eddeb4938620d7e4",
+    "cluster_id": "c0229-e8991673",
+    "title_original": "Mira Murati steps back into the spotlight, carefully",
+    "url": "https://techcrunch.com/2026/06/04/mira-murati-steps-back-into-the-spotlight-carefully/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/06/Mira-Murati-at-Bloomberg.jpg?w=1024",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-05T05:06:37+00:00",
+    "fetched_at": "2026-06-05T09:54:32.807682+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "OpenAI 전 CTO 미라 무라티가 약 18개월 만에 블룸버그와의 주요 인터뷰에 나타나 자신의 스타트업 Thinking Machines Lab의 새로운 방향을 공개했습니다. 그녀는 오디오·텍스트·비디오를 200밀리초 간격으로 처리하는 상호작용형 AI 모델을 선보였으며, 2023년 11월 OpenAI 이사회 혼란 당시의 결정들과 업계 전반의 거버넌스 부재에 대해 성찰적으로 언급했습니다.",
+    "insights_ko": [
+      "무라티의 복귀는 OpenAI·Anthropic·xAI 같은 프론티어 랩들 사이의 주목도 경쟁이 심화되는 시점에서 전략적 신호입니다. 기술 개발만으로는 부족해 시장에 존재감을 알려야 한다는 판단이 명시적으로 드러나며, 이는 벤처 자금 조달 사이클의 압박을 반영합니다.",
+      "상호작용형 모델(interaction models)이 프롬프트-응답 턴 기반을 벗어나 연속 스트림 처리로 전환하려는 시도로 보이며, 이는 인터페이스 차원의 새로운 경쟁축을 제시합니다. 다만 정식 출시 시점을 명시하지 않은 것은 기술 성숙도 또는 사업화 전략의 불확실성을 시사합니다.",
+      "거버넌스와 권력 집중에 대한 강조는 개별 리더 자질보다 구조적 견제의 부재를 지적하는 것으로, 업계의 거버넌스 이슈가 이사회 분쟁을 넘어 더 근본적인 정책·제도 논의로 확대되는 신호로 읽힙니다."
+    ],
+    "category": "business",
+    "importance_score": 3
+  },
+  {
+    "id": "69e393a89c3bf2b4",
+    "cluster_id": "c0230-c5631b43",
+    "title_original": "Ahead of its IPO, Anthropic’s Daniela Amodei shrugs off doubts about AI’s returns",
+    "url": "https://techcrunch.com/2026/06/04/ahead-of-its-ipo-anthropics-daniela-amodei-shrugs-off-doubts-about-ais-returns/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/06/55314412841_11b924318f_c.jpg?w=799",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-04T22:43:26+00:00",
+    "fetched_at": "2026-06-05T09:54:39.254489+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 SEC에 IPO를 비공개 신청하며 공개 시장 진출을 준비 중입니다. 공동 창업자 Daniela Amodei는 모델 학습과 추론 제공의 막대한 초기 비용이 이유이며, 공개 시장이 프론티어 AI 기업의 자본 조달에 최적이라고 주장했습니다. 회사의 연간 수익이 2025년 말 약 90억 달러에서 5월 470억 달러로 급증했으나, 기업의 AI 지출 효율성에 대한 의문이 커지고 있습니다.",
+    "insights_ko": [
+      "프론티어 랩 간 '자본 경쟁'이 공개 시장 진입 단계로 진입했음을 의미합니다. OpenAI와 xAI가 자체 데이터센터 건설에 수십억 달러를 투자하는 반면, Anthropic의 IPO 추진은 컴퓨트 인프라 비용을 체계적으로 공유하겠다는 전략으로 읽힙니다.",
+      "기업 고객의 AI ROI 의문(Uber 언급)을 Amodei가 '아직 초기 단계'로 해석하며, 장기 가치 실현을 명시함으로써 시장 성숙도 논쟁을 선제적으로 프레임 전환하려는 모습입니다. 그러나 이는 단기 수익 성장 둔화 리스크를 인정하는 신호이기도 합니다.",
+      "xAI와의 월 1.25억 달러 컴퓨트 계약 공개는 비용 리스크를 공시함으로써 IPO 실사(due diligence) 투명성을 높이는 동시에, 자체 인프라 미보유가 운영 유연성이라는 경쟁 우위임을 강조하려는 전략입니다."
+    ],
+    "category": "business",
+    "importance_score": 4
+  },
+  {
+    "id": "36de74c388ec52d7",
+    "cluster_id": "c0251-54671e84",
+    "title_original": "TempoVLA: Learning Speed-Controllable Vision-Language-Action Policies",
+    "url": "https://arxiv.org/abs/2606.06491v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-06-04T17:59:40+00:00",
+    "fetched_at": "2026-06-05T09:54:46.041172+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "TempoVLA는 비전-언어-액션 모델이 실행 속도를 동적으로 제어할 수 있도록 하는 프레임워크입니다. Variable-Speed Trajectory Augmentation(VSTA) 기법으로 학습 데이터를 임의의 속도로 재구성하고, 명시적 속도 조건을 모델에 입력하여 저위험 구간에서는 빠르게, 고위험 접촉 단계에서는 천천히 움직이도록 제어할 수 있습니다. 시뮬레이션과 실제 로봇 작업에서 양방향 속도 제어와 성능 향상을 검증했습니다.",
+    "insights_ko": [
+      "기존 VLA 모델이 고정된 단일 속도만 학습하는 한계를 해결했으며, 예측된 액션의 크기가 이미 속도를 지배한다는 관찰에서 시작한 점이 실용적입니다. 이는 추가 모델 재학습 없이 기존 VLA를 개선할 수 있는 경로를 제시하며 배포 후 속도 조절 능력을 부여할 수 있습니다.",
+      "로봇 매니퓰레이션에서 정확성이 중요한 단계와 속도가 중요한 단계를 구분하여 동적 제어하는 것은 산업 로봇 응용의 실제 요구사항과 정렬됩니다. 대규모 다중모달 모델과의 통합으로 고위험 구간 자동 감지 및 속도 조절이 가능해지면 자율 로봇의 안전성과 효율성 모두 향상될 수 있습니다.",
+      "현재 VLA 개발의 주된 한계(시뮬-투-리얼 전이, 일반화, 속도 적응) 중 하나를 구체적으로 해소하는 기술이므로, 향후 로봇 정책 학습 파이프라인에 표준 기법으로 통합될 가능성이 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3
+  },
+  {
+    "id": "fe751027ce4c5418",
+    "cluster_id": "c0256-7f82a252",
+    "title_original": "Self-Augmenting Retrieval for Diffusion Language Models",
+    "url": "https://arxiv.org/abs/2606.06474v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-06-04T17:56:27+00:00",
+    "fetched_at": "2026-06-05T09:54:58.472633+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "이산 확산 언어 모델이 병렬로 텍스트를 반복 생성할 때, 낮은 신뢰도로 버려지는 토큰들이 실제로는 유용한 선행 신호임을 발견했습니다. SARDI(Self-Augmenting Retrieval for Diffusion Language Models)는 이러한 선행 토큰들을 활용해 잡음 제거 과정 중 동적으로 검색을 유도하는 학습 무료 RAG 프레임워크입니다. 5개의 다단계 질문-답변 벤치마크에서 SARDI는 기존 확산 및 자동회귀 검색 기준선을 8배 높은 처리량으로 능가합니다.",
+    "insights_ko": [
+      "확산 모델의 병렬 생성 구조에서 '버려지는 신호'를 역이용하는 접근은 기존 자동회귀 모델의 RAG 설계와 근본적으로 다른 아키텍처입니다. 이는 확산 기반 생성 모델이 추론 효율성뿐 아니라 검색 통합 관점에서도 고유한 장점을 가질 수 있음을 시사합니다.",
+      "학습 무료이고 검색기에 독립적인 설계로 인해 기존 RAG 시스템의 재학습 비용 없이 다양한 확산 언어 모델과 검색 백엔드에 즉시 적용 가능합니다. 이는 오픈소스 확산 모델 생태계의 실용적 활용도를 크게 높일 가능성을 제시합니다.",
+      "8배 높은 처리량은 확산 모델의 병렬 특성과 동적 검색의 조합이 지연 시간 민감한 응용(실시간 QA, 대규모 배치 추론)에서 경쟁력을 갖춘다는 뜻이며, 에너지 효율성과 확장성 관점의 후속 연구 방향을 제시합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3
+  },
+  {
+    "id": "d50c66dae9bfdd48",
+    "cluster_id": "c0257-7dcdaef6",
+    "title_original": "MLEvolve: A Self-Evolving Framework for Automated Machine Learning Algorithm Discovery",
+    "url": "https://arxiv.org/abs/2606.06473v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-06-04T17:55:59+00:00",
+    "fetched_at": "2026-06-05T09:55:04.536943+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "MLEvolve는 LLM 기반 자기진화 멀티에이전트 프레임워크로, 기계학습 알고리즘 자동 발견을 위한 장기간 최적화 문제를 해결합니다. Progressive MCGS 트리 서치, 회고적 메모리(Retrospective Memory), 적응형 코딩 모드를 통해 가지 간 정보 흐름, 경험 축적, 안정적 반복을 구현했으며, MLE-Bench에서 표준 실행 시간의 절반(12시간)으로 최고 성능을 달성했습니다.",
+    "insights_ko": [
+      "LLM 에이전트가 단기 작업을 넘어 장기 자율 최적화 문제에서 의미 있는 성능을 보이기 시작했으며, 이는 과학 발견과 소프트웨어 엔지니어링 자동화의 실질적 경로를 제시합니다. 특히 절반의 시간에 SOTA를 달성한 점은 샘플 효율성이 획기적으로 개선되었음을 시사합니다.",
+      "회고적 메모리와 점진적 스케줄링 같은 메커니즘은 LLM 에이전트 설계의 일반적 원칙으로 전이될 가능성이 높습니다. 탐색-활용 균형, 경험 재사용, 전략과 실행의 분리 같은 패턴은 장기간 과제를 다루는 다른 도메인(소프트웨어 합성, 실험 설계 자동화)의 틀로도 활용될 수 있습니다.",
+      "수학적 알고리즘 최적화에서 AlphaEvolve 같은 특화 방법론을 능가한 것은 범용 LLM 에이전트의 뛰어난 일반화 능력을 입증하며, 향후 AI 에이전트가 도메인별 솔루션을 점차 대체할 가능성을 높입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4
   }
 ]
