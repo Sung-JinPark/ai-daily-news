@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(git add *)",
+      "PowerShell(git commit *)",
+      "PowerShell(git push*)",
+      "PowerShell(git pull*)",
+      "PowerShell(git rebase*)",
+      "PowerShell(python -m pipeline.*)",
+      "PowerShell(cd C:\\workspace\\ai-daily-news*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -Command \"Set-Location C:\\workspace\\ai-daily-news; $s = & git status --porcelain 2>&1; if ($s) { & git add site/ pipeline/ README.md CLAUDE.md .github/ 2>&1 | Out-Null; $c = & git diff --cached --name-only 2>&1; if ($c) { & git commit -m 'auto: apply changes' 2>&1 | Out-Null; & git push 2>&1 | Out-Null } }\""
+          }
+        ]
+      }
+    ]
+  }
+}

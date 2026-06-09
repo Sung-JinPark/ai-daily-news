@@ -30,13 +30,17 @@ if (!institution && article.category === "model_research") {
 >
   <a href={article.url} target="_blank" rel="noopener noreferrer" class={`block ${aspect} bg-slate-100 overflow-hidden rounded-t-lg relative`}>
     {article.image_url ? (
-      <img
-        src={article.image_url}
-        alt=""
-        referrerpolicy="no-referrer"
-        loading="lazy"
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-      />
+      <>
+        <img
+          src={article.image_url}
+          alt=""
+          referrerpolicy="no-referrer"
+          loading="lazy"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        />
+        <div style="display:none" class="w-full h-full flex items-center justify-center text-slate-300 text-5xl">📰</div>
+      </>
     ) : (
       <div class="w-full h-full flex items-center justify-center text-slate-300 text-5xl">📰</div>
     )}

@@ -19,13 +19,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     class="block w-32 sm:w-36 shrink-0 aspect-[4/3] bg-slate-100 overflow-hidden relative"
   >
     {article.image_url ? (
-      <img
-        src={article.image_url}
-        alt=""
-        referrerpolicy="no-referrer"
-        loading="lazy"
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-      />
+      <>
+        <img
+          src={article.image_url}
+          alt=""
+          referrerpolicy="no-referrer"
+          loading="lazy"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        />
+        <div style="display:none" class="w-full h-full flex items-center justify-center text-slate-300 text-3xl">📰</div>
+      </>
     ) : (
       <div class="w-full h-full flex items-center justify-center text-slate-300 text-3xl">📰</div>
     )}

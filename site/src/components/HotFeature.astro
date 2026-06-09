@@ -22,13 +22,17 @@ const publishedLabel = article.published
     class="block lg:col-span-3 aspect-[16/9] bg-slate-100 overflow-hidden rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none relative group"
   >
     {article.image_url ? (
-      <img
-        src={article.image_url}
-        alt=""
-        referrerpolicy="no-referrer"
-        loading="eager"
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-      />
+      <>
+        <img
+          src={article.image_url}
+          alt=""
+          referrerpolicy="no-referrer"
+          loading="eager"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        />
+        <div style="display:none" class="w-full h-full flex items-center justify-center text-slate-300 text-6xl">📰</div>
+      </>
     ) : (
       <div class="w-full h-full flex items-center justify-center text-slate-300 text-6xl">📰</div>
     )}
