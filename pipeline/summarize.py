@@ -84,12 +84,20 @@ def validate(parsed: dict) -> dict | None:
         return None
     if not (1 <= score <= 5):
         return None
-    return {
+    result: dict = {
         "summary_ko": summary,
         "insights_ko": insights,
         "category": category,
         "importance_score": score,
     }
+    if category == "model_research":
+        institution = parsed.get("institution")
+        authors = parsed.get("authors")
+        if institution and str(institution).strip() not in ("null", ""):
+            result["institution"] = str(institution).strip()
+        if authors and str(authors).strip() not in ("null", ""):
+            result["authors"] = str(authors).strip()
+    return result
 
 
 MIN_BODY_CHARS = 300

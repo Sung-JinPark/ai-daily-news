@@ -7,16 +7,28 @@ interface Props {
 }
 const { article, rank, size = "md" } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const aspect = size === "lg" ? "aspect-[16/9]" : size === "sm" ? "aspect-[16/9]" : "aspect-[16/9]";
+const aspect = "aspect-[16/9]";
 const titleSize = size === "lg" ? "text-xl sm:text-2xl" : size === "sm" ? "text-base" : "text-lg";
 const showSummary = size !== "sm";
+
+// institution/authors: use stored values or derive from source
+let institution = article.institution || "";
+let authors = article.authors || "";
+if (!institution && article.category === "model_research") {
+  if (article.source_id === "deepmind_blog") institution = "Google DeepMind";
+  else if (article.source_id === "openai_news") institution = "OpenAI";
+  else if (article.source_id === "huggingface_blog") {
+    const m = article.url.match(/huggingface\.co\/blog\/([^/]+)\/[^/]+/);
+    if (m) institution = m[1].replace(/-/g, " ");
+  }
+}
 ---
 <article
-  class="group rounded-lg overflow-hidden border border-slate-200 bg-white hover:shadow-md transition-shadow flex flex-col"
+  class="group rounded-lg border border-slate-200 bg-white hover:shadow-md transition-shadow flex flex-col"
   data-category={article.category}
   data-source={article.source_id}
 >
-  <a href={article.url} target="_blank" rel="noopener noreferrer" class={`block ${aspect} bg-slate-100 overflow-hidden relative`}>
+  <a href={article.url} target="_blank" rel="noopener noreferrer" class={`block ${aspect} bg-slate-100 overflow-hidden rounded-t-lg relative`}>
     {article.image_url ? (
       <img
         src={article.image_url}
@@ -46,8 +58,25 @@ const showSummary = size !== "sm";
         {article.title_original}
       </a>
     </h3>
+    {article.category === "model_research" && (institution || authors) && (
+      <p class="text-xs text-indigo-600 leading-snug">
+        {institution && <span class="font-medium">{institution}</span>}
+        {institution && authors && <span class="text-slate-400"> · </span>}
+        {authors && <span>{authors}</span>}
+      </p>
+    )}
     {showSummary && (
-      <p class="text-sm text-slate-600 line-clamp-3">{article.summary_ko}</p>
+      <div class="relative">
+        <p class="peer/tip text-sm text-slate-600 line-clamp-3 cursor-default">
+          {article.summary_ko}
+        </p>
+        <div class="pointer-events-none invisible opacity-0 peer-hover/tip:visible peer-hover/tip:opacity-100
+                    absolute left-0 top-full z-[200] mt-2 w-72
+                    rounded-lg border border-slate-200 bg-white p-3 shadow-2xl
+                    text-sm text-slate-700 leading-relaxed transition-opacity duration-150">
+          {article.summary_ko}
+        </div>
+      </div>
     )}
   </div>
 </article>

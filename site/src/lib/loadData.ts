@@ -19,6 +19,8 @@ export type Article = {
   insights_ko: string[];
   category: string;
   importance_score: number;
+  institution?: string;
+  authors?: string;
 };
 
 export type LatestIndex = {

@@ -1,0 +1,28 @@
+---
+import glossaryRaw from "~/data/glossary.json";
+
+interface GlossaryItem {
+  term: string;
+  full: string;
+  desc: string;
+}
+
+const glossary = glossaryRaw as GlossaryItem[];
+---
+<section class="mb-10">
+  <div class="flex items-baseline justify-between mb-4 border-b border-slate-200 pb-2">
+    <h2 class="text-lg font-semibold text-slate-900">AI 용어 사전</h2>
+    <span class="text-xs text-slate-400">공부용 · {glossary.length}개 용어</span>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    {glossary.map((item) => (
+      <div class="rounded-lg border border-slate-200 bg-white p-4 flex flex-col gap-1.5 hover:border-indigo-300 hover:shadow-sm transition-all">
+        <div class="flex items-baseline gap-2 flex-wrap">
+          <span class="text-base font-bold text-indigo-700">{item.term}</span>
+          <span class="text-xs text-slate-500">{item.full}</span>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+      </div>
+    ))}
+  </div>
+</section>
