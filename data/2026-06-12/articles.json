@@ -603,5 +603,380 @@
     ],
     "category": "product",
     "importance_score": 2
+  },
+  {
+    "id": "4c56fd61e5ef304f",
+    "cluster_id": "c0000-23503675",
+    "title_original": "PixelRAG beats text parsers on accuracy and cuts AI agent token costs 10x",
+    "url": "https://venturebeat.com/data/pixelrag-beats-text-parsers-on-accuracy-and-cuts-ai-agent-token-costs-10x",
+    "image_url": null,
+    "source_id": "venturebeat",
+    "source_name": "VentureBeat",
+    "published": "2026-06-12T15:39:11+00:00",
+    "fetched_at": "2026-06-12T16:45:37.093855+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "UC Berkeley, Princeton, EPFL, Databricks 연구팀이 PixelRAG를 발표했으며, 이는 문서를 텍스트로 변환하는 대신 스크린샷으로 렌더링한 후 비전-언어 모델로 직접 처리합니다. Wikipedia 3천만 개 타일을 대상으로 한 테스트에서 텍스트 기반 RAG 대비 정확도를 최대 18.1% 향상시켰으며, AI 에이전트의 토큰 비용을 10배 감축했습니다.",
+    "insights_ko": [
+      "RAG 파이프라인의 병목이 청킹이나 색인이 아니라 텍스트 파싱 단계에 있다는 점을 실증했습니다. 문서-텍스트 변환 과정에서 레이아웃, 시각적 계층, 표 구조 등 검색 신호가 손실되는데, 이것이 틀린 답변의 다수를 야기한다는 의미입니다.",
+      "이미지 기반 처리로 토큰 비용을 10배 절감한 것은 엔터프라이즈 RAG의 운영 비용 구조를 근본적으로 재설계할 수 있음을 보여줍니다. 비전-언어 모델의 효율성 개선과 맞물리면서 대규모 문서 검색 시스템의 경제성이 급격히 나아질 가능성이 있습니다.",
+      "현재 대부분의 오픈소스·상용 RAG 플랫폼이 텍스트 중심으로 최적화되어 있는 상태에서, PixelRAG 같은 이미지 우선 접근이 실전 도입되면 데이터 파이프라인 재구성의 필요성이 생깁니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "institution": "UC Berkeley, Princeton University, EPFL, Databricks",
+    "authors": "StarTrail-org"
+  },
+  {
+    "id": "ef6782112f9e13cb",
+    "cluster_id": "c0011-f4b1697a",
+    "title_original": "Making a vintage LLM from scratch",
+    "url": "https://crlf.link/log/entries/260525-1/",
+    "image_url": null,
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-06-11T08:38:00+00:00",
+    "fetched_at": "2026-06-12T16:45:59.226349+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "개인 개발자가 1900년 이전의 역사적 영문 텍스트로만 학습한 340M 파라미터 규모의 빈티지 LLM을 처음부터 직접 구축했습니다. 데이터 수집·정제, 토크나이저, 기본 학습, 파인튜닝 전 과정을 독립적으로 수행했으며, GPU 비용만 약 80달러를 소요했습니다. 모든 코드와 데이터셋은 오픈소스로 HuggingFace에 공개되어 있습니다.",
+    "insights_ko": [
+      "개인이 저비용으로 도메인 특화 LLM을 구축할 수 있음을 실증했습니다. 기존 벤치마크 데이터셋을 피하고 수동으로 데이터셋을 큐레이션하는 방식으로 특정 시간대 지식을 가진 모델을 만드는 것이 기술적·경제적으로 가능함을 보여줍니다.",
+      "데이터 정제가 전체 개발 시간의 대부분을 차지했으며, 압축률·Shannon 엔트로피·커스텀 품질 점수 등 통계적 필터링으로 OCR 오류와 저품질 텍스트를 효과적으로 제거할 수 있음을 입증했습니다.",
+      "AMD GPU와 같은 비NVIDIA 하드웨어에서 오픈소스 프레임워크(litGPT, transformers)로 LLM을 학습할 수 있음을 보여주며, 향후 분산된 모델 개발 생태계 확산 가능성을 시사합니다."
+    ],
+    "category": "community",
+    "importance_score": 3
+  },
+  {
+    "id": "c8d146c4047a7deb",
+    "cluster_id": "c0029-40e005be",
+    "title_original": "SpatialClaw: Rethinking Action Interface for Agentic Spatial Reasoning",
+    "url": "https://arxiv.org/abs/2606.13673v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-06-11T17:59:36+00:00",
+    "fetched_at": "2026-06-12T16:46:12.805759+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "SpatialClaw는 시각-언어 모델(VLM)이 3D/4D 공간 추론을 수행할 때 코드를 액션 인터페이스로 활용하는 훈련 불필요 프레임워크입니다. 상태 유지 Python 커널에 입력 프레임과 인식·기하학 프리미티브를 미리 로드하고, VLM 기반 에이전트가 단계별로 실행 가능한 셀을 작성하며 이전 결과에 맞춰 분석을 적응시킵니다. 20개 공간 추론 벤치마크에서 평균 59.9% 정확도를 달성해 기존 공간 에이전트 대비 11.2포인트 상승했으며, 두 모델 가족의 여섯 VLM 백본 전반에서 일관된 개선을 보였습니다.",
+    "insights_ko": [
+      "기존 단일 패스 코드 실행과 구조화된 툴 호출 방식의 한계를 명확히 지적하고, 상태 유지 Python 환경이라는 단순하면서도 효과적인 대안을 제시합니다. 이는 복잡한 다단계 공간 추론에서 에이전트의 적응적 의사결정이 얼마나 중요한지를 입증합니다.",
+      "훈련 없이 6개 VLM 백본과 20개 벤치마크에서 일관된 성능 향상을 달성한 점은 인터페이스 설계의 보편적 가치를 강조합니다. 이러한 설계 패턴은 향후 멀티모달 에이전트 아키텍처 표준으로 영향을 줄 수 있습니다.",
+      "3D/4D 공간 추론이 에이전트 시스템의 핵심 약점으로 남아 있으며, 로보틱스·자율주행·AR/VR 애플리케이션 확대에 필수적입니다. 이 연구는 그 격차를 좁히기 위한 인터페이스 혁신으로 해석됩니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4
+  },
+  {
+    "id": "aad582b325a2c9ce",
+    "cluster_id": "c0035-2b4071ab",
+    "title_original": "Valid Inference with Synthetic Data via Task Exchangeability",
+    "url": "https://arxiv.org/abs/2606.13629v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-06-11T17:41:09+00:00",
+    "fetched_at": "2026-06-12T16:46:34.632897+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "연구진이 합성 데이터를 과학 연구에 사용할 때 통계적 타당성을 보장하는 원칙을 제시했습니다. 핵심은 '작업 교환성(task exchangeability)'이라는 새로운 조건으로, 연구자가 실제 데이터를 가진 과거 작업과 현재 관심 작업 사이의 수학적 교환 가능성을 입증할 수 있을 때 합성 데이터의 유효성을 보장합니다. 이 프레임워크를 여론 조사의 LLM 샘플과 AI 평가의 자동 채점에 적용하여 실제 사용 가능성을 검증했습니다.",
+    "insights_ko": [
+      "합성 데이터의 편향성·노이즈·오명시 문제에 대한 통계적 해결책을 제공함으로써, LLM 기반 데이터 생성이 무분별한 대체가 아닌 검증 가능한 방법론으로 전환될 수 있음을 시사합니다.",
+      "'작업 교환성'이라는 조건이 인정되면 합성 데이터를 실제 데이터만큼 신뢰할 수 있다는 의미로, 파일럿 연구·평가·가속화 연구 모두에서 LLM과 생성 모델의 사용 기준을 제공합니다. 이는 금과 같은 레이블링·평가 비용을 크게 줄일 가능성을 열어줍니다.",
+      "향후 과제는 실제 도메인에서 작업 교환성을 어떻게 엄밀히 검증하고 입증할지, 그리고 교환성이 성립하지 않는 경우 어느 정도의 편향을 용인할 수 있는지 정하는 것이 될 것입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "institution": "arXiv"
+  },
+  {
+    "id": "1106d227b38705f3",
+    "cluster_id": "c0036-ef5c3992",
+    "title_original": "Beyond Runtime Enforcement: Shield Synthesis as Defensibility Analysis for Adversarial Networks",
+    "url": "https://arxiv.org/abs/2606.13621v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-06-11T17:35:40+00:00",
+    "fetched_at": "2026-06-12T16:46:40.527223+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "논문은 강화학습의 쉴드 합성을 런타임 안전 메커니즘에서 설계 단계 분석 도구로 재해석합니다. 네트워크 방어 게임에서 형식적 방어가능성 검증(defensibility verdict)과 운영 효과를 함께 측정해 시스템 구조의 취약점을 파악하는 프레임워크를 제시하며, 작은 아키텍처 변화가 형식적 안전성은 유지하면서 실제 보안 효과를 크게 바꿀 수 있음을 보입니다.",
+    "insights_ko": [
+      "쉴드 합성의 용도를 전환함으로써 형식 검증과 적응형 공격 시뮬레이션 간 괴리를 드러냅니다. 이는 '형식적으로 안전하지만 운영에서 취약한' 설계가 실제로 존재함을 의미하며, 네트워크 방어 및 다중에이전트 보안 시스템의 설계 단계 평가에 새로운 기준을 제시합니다.",
+      "방어가능성 지문(defensibility fingerprint)이라는 다차원 지표 조합은 토폴로지 변경의 영향을 정량화하므로, 네트워크 아키텍처 선택을 뒷받침하는 의사결정 프레임워크로 기능합니다. 게임 이론과 실제 다중에이전트 학습을 결합하는 접근은 사이버 방어 뿐 아니라 로봇, 자율주행 등 대적 환경의 시스템 설계에도 확장 가능합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3
+  },
+  {
+    "id": "7bc6a6fa8da13ca9",
+    "cluster_id": "c0090-7ac56713",
+    "title_original": "The Download: “reprogramming” aging, and the hidden sense of interoception",
+    "url": "https://www.technologyreview.com/2026/06/12/1138899/the-download-reprogramming-reverse-aging-interoception/",
+    "image_url": "https://wp.technologyreview.com/wp-content/uploads/2026/06/a-pill-life.jpg?resize=1200,600",
+    "source_id": "mit_tr",
+    "source_name": "MIT Technology Review",
+    "published": "2026-06-12T12:10:00+00:00",
+    "fetched_at": "2026-06-12T16:46:48.661069+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "MIT Technology Review의 뉴스레터가 세포 '리프로그래밍'을 통한 노화 역전, 신체 내부 신호를 감지하는 생물학적 감각 '인터로셉션' 연구의 진전을 다루고 있습니다. SpaceX 역대 최대 IPO(750억 달러), Jeff Bezos의 산업용 AI 스타트업 Prometheus(120억 달러 조달), Google이 Gemini를 악용한 사기에 대해 소송을 제기한 사건 등 AI·우주·바이오 산업 전반의 주요 소식을 포괄합니다.",
+    "insights_ko": [
+      "세포 리프로그래밍 기술이 노화 역전의 '버즈 워드'로 부상한 것은 Yamanaka 인수 요법의 임상화가 가속되고 있음을 시사하며, 바이오테크 자본이 이 분야에 집중되고 있습니다. Life Biosciences의 녹내장 임상 시작은 단순 질병 치료를 넘어 노화 자체를 '질병'으로 규정하는 패러다임 전환의 신호입니다.",
+      "SpaceX IPO(1.77조 달러 밸류)와 Prometheus 조달(410억 달러)이 동시에 발표된 것은 우주산업과 산업용 AI가 '다음 대형 자본 흡수처'로 인식되고 있음을 반영합니다. 한편 Google-Gemini 악용 사건은 생성형 AI의 외부 통제 불가능성이 규제·소송 리스크로 구체화되는 지점입니다.",
+      "인터로셉션 연구의 부상과 AI 챗봇의 안전성 논란(Anthropic Fable 백래시)은 '신체·생물신호 이해'와 'AI 정렬'이 동시에 의학·기술 경계에서 중요 문제로 떠오르고 있음을 보여줍니다."
+    ],
+    "category": "community",
+    "importance_score": 2
+  },
+  {
+    "id": "3b2cbd1757c361e8",
+    "cluster_id": "c0100-e8585b16",
+    "title_original": "EvoArena: Tracking Memory Evolution for Robust LLM Agents in Dynamic Environments",
+    "url": "https://arxiv.org/abs/2606.13681v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-06-11T17:59:59+00:00",
+    "fetched_at": "2026-06-12T16:47:10.873431+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "EvoArena는 동적으로 변하는 환경에서 LLM 에이전트의 성능을 평가하는 벤치마크 스위트입니다. 터미널, 소프트웨어, 사회 도메인에서 점진적 환경 변화를 모델링하며, EvoMem이라는 패치 기반 메모리 패러다임을 제안해 에이전트가 환경 진화를 추적하도록 합니다. 현재 에이전트들은 평균 39.6% 정확도에 불과하지만, EvoMem을 적용하면 EvoArena에서 1.5%, GAIA와 LoCoMo 같은 표준 벤치마크에서 각각 6.1%, 4.8% 향상됩니다.",
+    "insights_ko": [
+      "정적 벤치마크 가정에서 벗어나 실세계 배포의 필수 특성인 환경 진화에 대응하는 에이전트 평가 프레임워크를 제시합니다. 대부분의 현재 에이전트가 39% 수준의 낮은 정확도를 보이는 것은 이 갭이 얼마나 큰지를 시사하며, 에이전트의 신뢰성 평가에 새로운 기준점을 제공합니다.",
+      "메모리 구조화 방식(패치 기반 진화 기록)이 단순 성능 개선을 넘어 '증거 포착'의 메커니즘적 개선으로 작동한다는 분석이 흥미롭습니다. 이는 에이전트가 상태 추적과 업데이트 이력 관리의 명시적 설계로 더 견고해질 수 있음을 시사하며, 향후 메모리 아키텍처 설계의 방향성을 제시합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3
+  },
+  {
+    "id": "967e112ecf58a78d",
+    "cluster_id": "c0120-fd024f6f",
+    "title_original": "Cameras, sensors, and 3D body scans: All the tech helping eliminate blown calls",
+    "url": "https://arstechnica.com/gadgets/2026/06/cameras-sensors-and-3d-body-scans-all-the-tech-helping-eliminate-blown-calls/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/GettyImages-2281122730-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-12T11:45:18+00:00",
+    "fetched_at": "2026-06-12T16:47:45.009317+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "2026 FIFA 월드컵에서는 VAR, 반자동 오프사이드 기술(SAOT), 디지털 트윈 등 첨단 기술을 동원해 심판 판정을 지원합니다. 모든 선수의 신체를 3D 스캔해 디지털 트윈을 제작하고, 이를 가상 시뮬레이션에 투입해 정확한 위치를 판정하는 방식입니다. 카메라·센서·컴퓨터 비전 소프트웨어가 경기장 전역을 감시하며, 심판의 주관적 판단을 객관적 데이터로 검증할 수 있게 됩니다.",
+    "insights_ko": [
+      "스포츠 판정 기술의 새 기준을 제시합니다. 디지털 트윈 기반 위치 추정은 밀리미터 단위의 정확성을 가능하게 하며, 이는 축구를 넘어 미식축구·하키 등 다른 종목의 벤치마킹 대상이 될 가능성이 높습니다.",
+      "기술이 판정을 '객관화'하면서 새로운 논쟁을 촉발합니다. 게임 유동성과 정확성 사이의 트레이드오프, 극히 미세한 오프사이드(1인치 단위)를 기계적으로 판정할 때의 정당성 문제 등 스포츠 철학적 질문이 대두됩니다.",
+      "컴퓨터 비전·3D 스캐닝·실시간 AI 처리 기술의 고도화가 스포츠 산업 내 상용화 사례로 주목됩니다. 이는 방송 기술·스포츠 데이터 분석 시장의 성장을 견인할 것으로 예상되며, 동시에 판정의 '자동화'에 대한 인프라 투자 구조를 명확히 합니다."
+    ],
+    "category": "product",
+    "importance_score": 3
+  },
+  {
+    "id": "df686ae36e737b61",
+    "cluster_id": "c0121-db0d69d2",
+    "title_original": "Ebola cases in DRC rise to 676 as Kenya protests erupt over US plans",
+    "url": "https://arstechnica.com/health/2026/06/ebola-cases-in-drc-rise-to-676-as-kenya-protests-erupt-over-us-plans/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/GettyImages-2280394536-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-12T11:30:23+00:00",
+    "fetched_at": "2026-06-12T16:47:50.644673+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "콩고민주공화국의 에볼라 확산이 계속되며 6월 11일 기준 676명의 확진자와 136명의 사망자가 보고되었습니다. Bundibugyo 균주로 인한 이번 발병은 이미 역사상 세 번째 규모이며, 2월 초 한 목사의 장례식에서 80명 이상이 감염된 초기 전파 사건이 추적되고 있습니다. 미국 질병통제예방센터는 적절한 공중보건 조치가 없으면 2014~2016년 서아프리카 에볼라 대유행(약 28,000명 감염)을 능가할 수 있다고 경고했습니다.",
+    "insights_ko": [
+      "발병이 5월 15일 공식 선언 전 수개월간 조용히 확산되었다는 점은 감시 체계 공백을 드러내며, 초기 초점 추적이 장례식 같은 문화적 취약점을 노출합니다. 이는 일차 의료 검사 능력 부족으로 인한 누락 진단의 구조적 문제를 시사합니다.",
+      "미국 질병통제예방센터의 모델링이 공중보건 개입의 시급성을 강조하고 있으며, 접촉 추적과 격리 조치의 신속한 이행이 수십만 명 규모 참사와 제한적 확산 사이의 분수령임을 명시합니다. 초기 대응 지연으로 인한 기하급수적 확산 위험이 실질화되고 있습니다."
+    ],
+    "category": "community",
+    "importance_score": 2
+  },
+  {
+    "id": "89b9a2cdbbb71663",
+    "cluster_id": "c0123-67d9fa27",
+    "title_original": "Verizon sent man a refurbished phone with MDM, then deleted his data remotely",
+    "url": "https://arstechnica.com/tech-policy/2026/06/verizon-sent-man-a-refurbished-phone-with-mdm-then-deleted-his-data-remotely/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/verizon-hq-logo-1152x648-1781018733.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-12T11:00:41+00:00",
+    "fetched_at": "2026-06-12T16:48:03.468178+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Verizon이 고객에게 전송한 교체 휴대폰이 MDM(모바일 기기 관리) 프로필이 설치된 미흡하게 초기화된 매장 시연 기기였으며, 고객이 2주일 사용 후 원격으로 데이터가 완전히 삭제되는 사건이 발생했습니다. Verizon은 22년 고객인 Tom Collery에게 사건 경위나 재발 방지 대책을 설명하지 않고 있으며, Collery는 법적 조치를 고려 중입니다.",
+    "insights_ko": [
+      "MDM 프로필이 그대로 남은 재정비 기기를 고객에게 발송한 사건은 Verizon의 기기 초기화 및 품질 관리 프로세스의 근본적인 결함을 드러냅니다. 특히 원격 제어 기능을 통한 사용자 모르게 데이터 삭제가 가능했다는 점은 고객 신뢰 침해를 넘어 개인정보 보호 및 소비자 권리 측면의 심각한 사안입니다.",
+      "대통신사의 장치 관리 인프라가 소비자 기기에 대한 광범위한 제어 권한을 부여하고 있으며, 기기 초기화 실패 시 고객이 아무 통보 없이 데이터 손실을 겪을 수 있다는 구조적 위험이 노출됐습니다. 이는 향후 유사 사건의 집단 소송이나 규제 이슈로 확대될 가능성이 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 3
+  },
+  {
+    "id": "2efd343765ac6835",
+    "cluster_id": "c0124-c1228958",
+    "title_original": "Rocket Report: Nova moving through test campaign; SpaceX IPO launches Friday",
+    "url": "https://arstechnica.com/space/2026/06/rocket-report-nova-moving-through-test-campaign-spacex-ipo-launches-friday/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/stoke-space-2-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-12T11:00:13+00:00",
+    "fetched_at": "2026-06-12T16:48:09.768255+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "우주 산업 주간 리포트로, Blue Origin의 New Glenn 로켓 손실 이후 NASA가 Artemis III 미션 착륙선 운송 수단으로 다른 발사체도 검토 중임을 공식 확인했습니다. 독일 스타트업 Isar Aerospace는 2억 7천만 유로 규모 D 시리즈 펀딩을 마감하고 6월 두 번째 발사를 재시도할 예정이며, Stoke Space는 Nova 로켓 1단 예비 검증을 완료해 연말 첫 비행에 한 발 다가섰습니다.",
+    "insights_ko": [
+      "New Glenn 손실 이후 NASA가 Vulcan과 Falcon Heavy 등 대체 운송 수단을 공식 인정한 점은 정부 조달의 멀티-벤더 전략 전환을 시사하며, Blue Origin의 프로젝트 지배력이 약화되고 있음을 나타냅니다.",
+      "Isar Aerospace의 2억 7천만 유로 펀딩은 첫 발사 실패 후 유럽 상용 발사 시장이 여전히 활발한 자본 조달을 유지 중임을 보여주며, 소형 위성 발사 수요 증가에 대한 VC의 신뢰를 반영합니다.",
+      "Stoke Space의 Nova 로켓이 2026년 말 첫 비행을 목표로 46회 구조 검증 테스트를 완료한 것은 미국 신규 중형 발사체 선택지 다원화를 의미하며, SpaceX의 Falcon 9 독점 구조를 약화시킬 가능성이 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 3
+  },
+  {
+    "id": "773ea9f42ed74926",
+    "cluster_id": "c0139-24282e71",
+    "title_original": "Elon Musk is the world&#8217;s first trillionaire",
+    "url": "https://www.theverge.com/ai-artificial-intelligence/948409/elon-musk-trillionaire-spacex-ipo",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/STKE012_SPACEX_IPO_2026_D.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-06-12T16:24:39+00:00",
+    "fetched_at": "2026-06-12T16:48:14.508971+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Elon Musk이 SpaceX의 IPO 후 순자산 1조 달러를 넘어 세계 최초의 '조 달러 부자'가 되었습니다. SpaceX 주가가 공모가 150달러에서 시작해 안정적으로 유지되면서 Musk의 순자산은 약 800억 달러에서 1조 달러를 돌파했으며, 이는 Tesla와 기타 사업체의 자산을 포함한 것입니다. 현재 Musk의 순자산은 Larry Page, Sergey Brin, Jeff Bezos, Larry Ellison의 합산 자산보다 큽니다.",
+    "insights_ko": [
+      "SpaceX IPO가 단순 자금조달을 넘어 우주 컴퓨팅('orbital AI compute')이라는 새로운 사업 축을 공식화했으며, 이는 향후 AI 인프라 경쟁의 물리적 경계를 우주까지 확장시킬 가능성을 보여줍니다.",
+      "Musk 순자산의 극단적 집중(Tesla, SpaceX, X 등 극소수 비공개·공개 회사)이 유동성 위험과 지정학적 영향력 집중을 동시에 의미하며, 이는 규제 당국의 부의 집중도 감시 압력을 높일 것으로 예상됩니다."
+    ],
+    "category": "business",
+    "importance_score": 4
+  },
+  {
+    "id": "1c3e66acb6180d37",
+    "cluster_id": "c0140-6da949df",
+    "title_original": "SpaceX’s massive IPO: all the latest news",
+    "url": "https://www.theverge.com/business/948996/spacex-ipo-elon-musk",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/268591_SPaceX_IPO_AKrales_0072.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-06-12T14:35:48+00:00",
+    "fetched_at": "2026-06-12T16:48:22.483618+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "SpaceX가 나스닥에 상장하며 상장 첫날 주가가 $150까지 올라 Elon Musk의 순자산을 1조 달러를 넘기게 했습니다. SpaceX는 로켓, AI, 소셜 미디어를 통합한 회사로 상장되었으며, 우주 기반 AI 데이터센터 사업이 주요 성장 동력으로 제시되고 있습니다. 2025년 매출은 186.7억 달러(Starlink 110억 달러)였지만 49억 달러 손실을 기록했으며, 자본지출은 전년 대비 85% 증가한 207억 달러에 달합니다.",
+    "insights_ko": [
+      "초기 시장 반응으로 SpaceX의 시가총액이 2조 달러를 넘어 미국 6번째 기업가치를 기록했지만, 1조 달러 이상의 막대한 손실과 막대한 자본지출 구조는 '우주 기반 AI 컴퓨팅'이라는 미검증 비즈니스 모델에 베팅하는 것으로 보입니다. TAM이 GDP 대비 더 크다고 주장하는 점은 평가의 과도함을 시사합니다.",
+      "Musk의 다중 기업 간 현금 순환(Tesla, xAI, Grok, X, Neuralink 등)이 S-1에 356번 이상 언급되며, 회계 투명성과 관련 당사자 거래 감시 필요성이 높아집니다. 특히 xAI는 수십억 손실을 기록하면서도 매출 22% 성장을 주장해 실제 사업 건전성 평가가 어려운 상태입니다.",
+      "최근 Pentagon 계약($4.16억) 등 정부 계약이 IPO 타이밍과 맞춘 발표로 보여, 정책 리스크(규제, 계약 취소, 관리인 문제)가 주가에 반영되지 않았을 가능성이 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 5
+  },
+  {
+    "id": "b25b2eec7bd70aba",
+    "cluster_id": "c0141-277b83d1",
+    "title_original": "Jeff Bezos’ AI startup aims to build an ‘artificial general engineer’",
+    "url": "https://www.theverge.com/ai-artificial-intelligence/949005/jeff-bezos-prometheus-artificial-general-engineer",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/23951505/VRG_Illo_STK173_L_Normand_JeffBezos_Positive.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-06-12T14:03:39+00:00",
+    "fetched_at": "2026-06-12T16:48:29.304122+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Jeff Bezos가 설립한 AI 스타트업 Prometheus는 '인공 일반 엔지니어'를 목표로 하는 AI 기반 엔지니어링 도구 개발을 추진합니다. 120억 달러 펀딩 라운드를 마감하며 410억 달러 평가가치를 인정받았으며, 로봇공학·신약 설계·제조 등 다양한 산업에서 물리적 제품 설계를 지원하는 소프트웨어를 만들 계획입니다. Bezos는 Blue Origin의 로켓 엔진 같은 복잡한 장비 개발에 이 기술이 큰 도움이 될 것이라고 설명했습니다.",
+    "insights_ko": [
+      "Bezos가 생성형 AI의 '텍스트 중심' 경쟁에서 물리 세계 설계 최적화로 초점을 옮김으로써, 시뮬레이션·CAD·재료 과학과 AI의 결합이 새로운 포지셔닝임을 표현합니다. 이는 LLM 포화 시장에서 구체적 산업 부가가치를 창출하려는 전략으로 보입니다.",
+      "410억 달러 평가가치는 Prometheus가 아직 제품 출시 전이며 고객 검증이 부족한 상태에서 부여된 것으로, 대규모 물리 시뮬레이션 인프라와 엔지니어링 인재 확보에 대한 시장의 베팅을 의미합니다. Blue Origin 같은 내부 사용 사례의 존재가 신뢰도를 높이는 역할을 합니다.",
+      "로봇공학·제약·우주항공 등 R&D 비용이 매우 높은 산업들이 주요 타겟인 만큼, 설계 사이클 단축 및 실패 비용 절감이 구체적 ROI 메커니즘이 됩니다. 향후 실제 제품 개발 시간 단축 사례가 나오면 법인 고객 확보가 급가속할 가능성이 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 4
+  },
+  {
+    "id": "414b4304ec62ead9",
+    "cluster_id": "c0159-cce19bb5",
+    "title_original": "SpaceX, Anthropic, and OpenAI’s hot IPO summer",
+    "url": "https://techcrunch.com/video/spacex-anthropic-and-openais-hot-ipo-summer/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/GettyImages-2275575484.jpg?resize=1200,815",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-12T16:23:25+00:00",
+    "fetched_at": "2026-06-12T16:48:43.371656+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "SpaceX, Anthropic, OpenAI 등 AI·우주 기업들이 동시에 IPO 시장에 진입하면서 기술 기업 공개 시장의 중심축이 변화하고 있습니다. FAANG 시대를 넘어 MANGOS(Meta/Microsoft, Anthropic, Nvidia, Google, OpenAI, SpaceX)라는 신축약어가 부상하며, 2026년 공개 기업의 성격에 대한 근본적인 질문을 던지고 있습니다. 이는 투자자 수요, 밸류에이션 기준, 그리고 공개 기업 거버넌스에 광범위한 영향을 미칠 전망입니다.",
+    "insights_ko": [
+      "AI 프론티어 랩과 우주/인프라 기업이 동시에 공개 시장을 노크하면서 기술주의 정의 자체가 재편되고 있습니다. 프로프라이어터리 모델과 대규모 자본집약적 사업이 공개 기업의 주류가 될 경우, 투명성·감시 요구와 IP 보호 사이의 긴장이 급격히 고조될 것으로 예상됩니다.",
+      "반도체(Nvidia), 클라우드 인프라(Google, Microsoft), 프론티어 AI(Anthropic, OpenAI), 우주 기술(SpaceX)이 동일 시점에 자본 시장 평가를 받으면서 AI 주도권의 공급망 전체가 공개 시장의 감시 대상이 됩니다. 이는 각 기업 간 전략적 의존성이 증권 규제·지정학에 직접 노출된다는 의미입니다."
+    ],
+    "category": "business",
+    "importance_score": 4
+  },
+  {
+    "id": "d343199b65168d40",
+    "cluster_id": "c0160-28d99a91",
+    "title_original": "It’s hot IPO summer, and the MANGOS are ripe",
+    "url": "https://techcrunch.com/podcast/its-hot-ipo-summer-and-the-mangos-are-ripe/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/spacex-rocket-getty.jpg?resize=1200,801",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-12T15:50:52+00:00",
+    "fetched_at": "2026-06-12T16:48:49.906037+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "TechCrunch Equity 팟캐스트는 IPO 시장의 부활과 FAANG을 대체하는 새로운 기업군 MANGOS(Meta·Microsoft, Anthropic, Nvidia, Google, OpenAI, SpaceX)의 공개 시장 진출을 다룹니다. 반년 내 이들 중 절반이 상장을 준비 중이며, 이는 투자자·밸류에이션·공개 기업 기준에 대한 스트레스 테스트가 될 것이라고 분석합니다.",
+    "insights_ko": [
+      "AI 인프라 경쟁이 자본시장 측면에서도 가시화되고 있습니다. OpenAI·Anthropic 같은 프론티어 랩부터 Nvidia·SpaceX 같은 하드웨어·인프라 기업까지 AI 밸류 체인 전 영역이 상장 물결로 몰려올 경우, AI 평가 거품 논쟁이 대규모 자본 이동으로 구체화될 수 있습니다.",
+      "Google과 SpaceX의 월 9억 2천만 달러 규모 컴퓨트 거래 언급은 AI 인프라 비용이 정부·대형 기업만의 영역이 아니며, 민간 우주·통신 기업이 모자 쓰고 데이터센터 사업자로 변모하는 추세를 반영합니다. 이는 AI 훈련 비용의 수직 통합과 자급화 경주를 시사합니다.",
+      "2026년 IPO 기준 변화가 예고되어 있습니다. 전통적 실적·수익성보다 R&D 규모·시장 지배력·기술 혁신 속도를 중시하는 평가 레이프가 형성될 가능성이 있으며, 이는 AI 기업의 손실 체질을 정당화하는 근거가 될 수 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 3
+  },
+  {
+    "id": "bc8e49121b371cbe",
+    "cluster_id": "c0161-4069d4f2",
+    "title_original": "SpaceX IPO: Everything you need to know",
+    "url": "https://techcrunch.com/2026/06/12/spacex-ipo-everything-you-need-to-know/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/01/GettyImages-2240506392.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-12T14:08:54+00:00",
+    "fetched_at": "2026-06-12T16:48:57.292790+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "SpaceX가 역사상 최대 규모 IPO를 단행해 555.6백만 주를 주당 135달러에 공모해 750억 달러를 조달했습니다. 이를 통해 Elon Musk는 약 1.75조 달러 평가가치에서 85.1%의 의결권을 유지하게 되며, 4,400명의 직원이 백만장자가 될 것으로 예상됩니다. 2025년 매출 180억 달러에도 불구하고 49억 달러 손실을 기록했으며, 회사 설립 이래 누적 손실은 370억 달러를 넘습니다.",
+    "insights_ko": [
+      "SpaceX의 역사상 최대 자본조달이지만 심각한 수익성 적자 상황에서 진행된 점이 특이합니다. Starlink와 우주 운송 사업의 장기 성장성을 시장이 사실상 무제한 신용으로 평가하고 있으며, 이는 우주·인프라 기술에 대한 트렌드 투자가 극대화된 상태를 보여줍니다.",
+      "Musk의 85.1% 의결권 유지로 공개 상장 후에도 거의 절대적 통제력을 행사할 수 있으며, 이는 Tesla·xAI 등 다른 자산과의 교차 지배구조 위험을 심화시킵니다. Anthropic과 Google의 월간 컴퓨트 구매 계약(총 월 22.5억 달러)은 단기 자금 확충 수단으로 보이며, 향후 AI 인프라 비용 상승이 예상됩니다.",
+      "S-1 공시 과정에서 Starship 재사용성 경로의 불확실성, 향후 주식 희석 경고, SPV 투자자의 감춤 수수료·지연 위험 등이 드러났으며, 이는 IPO 후 주주 간 갈등과 평가 재조정 가능성을 암시합니다."
+    ],
+    "category": "business",
+    "importance_score": 5
+  },
+  {
+    "id": "8f76e67ad854a6c0",
+    "cluster_id": "c0179-3b89769c",
+    "title_original": "olmo-eval: An evaluation workbench for the model development loop",
+    "url": "https://huggingface.co/blog/allenai/olmo-eval",
+    "image_url": "https://cdn-uploads.huggingface.co/production/uploads/638e39b249de7ae552d977b5/gacAOFYwPkpxu7cC4eeey.png",
+    "source_id": "huggingface_blog",
+    "source_name": "Hugging Face",
+    "published": "2026-06-12T15:56:10+00:00",
+    "fetched_at": "2026-06-12T16:49:20.224879+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Allen Institute for AI가 olmo-eval이라는 모델 개발 루프 전용 평가 워크벤치를 공개했습니다. 기존 평가 도구들과 달리 지속적으로 변하는 모델을 추적하고, 체크포인트 간 성능 변화를 질문 단위로 비교하며, 에이전트와 다중 턴 평가를 기본으로 지원합니다. 2024년 공개한 OLMES 표준을 토대로 확장했으며, 모듈식 설계로 벤치마크 추가와 재실행 비용을 낮췄습니다.",
+    "insights_ko": [
+      "학습 중인 모델의 빠른 실험 피드백 루프를 위한 기술적 수요를 명시적으로 인정합니다. 기존 평가 도구들은 완성된 모델의 최종 점수를 매기는 데 최적화된 반면, olmo-eval은 개발 과정의 반복적 A/B 비교를 중심으로 설계한 점이 프론티어 랩의 개발 프로세스 현실화를 반영합니다.",
+      "작은 성능 변화가 유의미한지 노이즈인지 판단하는 통계적 도구(표준 오차, 최소 탐지 가능 효과)와 질문 단위 시각화를 강조한 것은 대규모 학습 비용 시대에 최적화 효율이 중요해졌음을 의미합니다. 2.4 포인트 변화의 의미를 판단하는 것이 전체 모델 개발 문제가 될 수 있다는 점을 노출합니다.",
+      "모듈식 아키텍처(태스크, 하네스, 컨테이너, 채점 모델 분리)와 오픈소스 공개로 업계 표준 평가 인프라 구축에 기여할 가능성이 있습니다. OLMES의 진화 경로를 보면 재현성 있는 평가가 점점 더 개발 워크플로의 병목이자 차별화 요소가 되고 있음을 시사합니다."
+    ],
+    "category": "product",
+    "importance_score": 3
   }
 ]
