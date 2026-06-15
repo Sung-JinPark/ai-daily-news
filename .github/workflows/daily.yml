@@ -8,7 +8,7 @@ on:
     inputs:
       cap:
         description: "Daily article cap (LLM safety)"
-        default: "100"
+        default: "120"
         required: false
 
 permissions:
@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  DAILY_CAP: ${{ github.event.inputs.cap || '100' }}
+  DAILY_CAP: ${{ github.event.inputs.cap || '120' }}
 
 jobs:
   build-and-deploy:

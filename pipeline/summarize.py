@@ -142,7 +142,7 @@ def process_cluster(client: anthropic.Anthropic, cluster: dict) -> tuple[dict | 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--day", default=today())
-    parser.add_argument("--limit", type=int, default=int(os.environ.get("DAILY_CAP", "100")))
+    parser.add_argument("--limit", type=int, default=int(os.environ.get("DAILY_CAP", "120")))
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
