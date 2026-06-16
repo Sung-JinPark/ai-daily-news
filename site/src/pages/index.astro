@@ -21,53 +21,48 @@ for (const a of ranked) {
 }
 
 const feature = unique[0];
-const sideTop = unique.slice(1, 4);   // 우측 3건
-const grid = unique.slice(4, 9);      // 5건 그리드
-const list = unique.slice(9, 14);     // 5건 리스트
+const sideTop = unique.slice(1, 4);
+const grid = unique.slice(4, 9);
+const list = unique.slice(9, 14);
 ---
 <Base title="HOT — AI Daily News" updatedAt={latest?.updated_at}>
-  <h1 class="text-3xl font-bold text-slate-900 mb-1 flex items-center gap-2">
-    <span class="text-rose-600">🔥</span> HOT
-    <span class="text-base font-normal text-slate-500">— 지난 7일 핵심</span>
-  </h1>
-  <p class="text-sm text-slate-600 mb-4">
-    중요도, 다중 매체 보도, 신선도를 종합한 랭킹. 같은 사건은 한 번만 표시됩니다.
-  </p>
+  <header class="mb-8">
+    <div class="kicker text-accent mb-2">Top Stories · 지난 7일</div>
+    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3">HOT 랭킹</h1>
+    <p class="text-sm text-ink/65 max-w-2xl leading-relaxed">
+      중요도, 다중 매체 보도, 신선도를 종합한 7일 누적 랭킹. 같은 사건은 한 번만 표시됩니다.
+    </p>
+  </header>
 
-  <div id="hot-filter" class="flex flex-wrap gap-1.5 mb-8" data-filter-active="all">
-    <button
-      type="button"
-      data-cat="all"
-      class="hot-chip px-3 py-1 rounded-full text-sm border border-slate-300 bg-slate-900 text-white"
-    >전체</button>
+  <div id="hot-filter" class="flex flex-wrap gap-x-5 gap-y-2 mb-10 pb-4 border-b border-ink/15" data-filter-active="all">
+    <button type="button" data-cat="all" class="hot-chip kicker text-accent border-b-2 border-accent pb-1">전체</button>
     {Object.entries(CATEGORIES).map(([slug, label]) => (
-      <button
-        type="button"
-        data-cat={slug}
-        class="hot-chip px-3 py-1 rounded-full text-sm border border-slate-300 bg-white text-slate-700 hover:bg-slate-100"
-      >{label}</button>
+      <button type="button" data-cat={slug} class="hot-chip kicker text-ink/60 hover:text-ink border-b-2 border-transparent hover:border-ink pb-1">{label}</button>
     ))}
   </div>
 
   {!feature && (
-    <p class="text-slate-500">아직 충분한 데이터가 없습니다.</p>
+    <p class="text-ink/50">아직 충분한 데이터가 없습니다.</p>
   )}
 
   {feature && (
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
-      <div class="lg:col-span-2">
-        <HotFeature article={feature} rank={1} />
-      </div>
-      <div class="space-y-3">
-        {sideTop.map((a, i) => <HotSide article={a} rank={i + 2} />)}
+    <section class="mb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div class="lg:col-span-2">
+          <HotFeature article={feature} rank={1} />
+        </div>
+        <div class="space-y-0">
+          <div class="kicker text-ink/50 mb-3 pb-2 border-b border-ink/15">다음 순위</div>
+          {sideTop.map((a, i) => <HotSide article={a} rank={i + 2} />)}
+        </div>
       </div>
     </section>
   )}
 
   {grid.length > 0 && (
-    <section class="mb-10">
-      <h2 class="text-xs uppercase tracking-wider text-slate-500 mb-4 border-b border-slate-200 pb-2">더 보기</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <section class="mb-14">
+      <div class="kicker text-ink/60 mb-5 pb-3 border-b-2 border-ink">랭킹 05 — 09</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
         {grid.map((a, i) => <NewsTile article={a} rank={i + 5} size="md" />)}
       </div>
     </section>
@@ -75,12 +70,12 @@ const list = unique.slice(9, 14);     // 5건 리스트
 
   {list.length > 0 && (
     <section>
-      <h2 class="text-xs uppercase tracking-wider text-slate-500 mb-4 border-b border-slate-200 pb-2">전체 랭킹</h2>
-      <ol class="space-y-4">
+      <div class="kicker text-ink/60 mb-5 pb-3 border-b-2 border-ink">랭킹 10 — 14</div>
+      <ol class="divide-y divide-ink/15">
         {list.map((a, i) => (
-          <li class="flex gap-4 items-start" data-article-id={a.id} data-category={a.category}>
-            <span class="shrink-0 w-9 h-9 rounded-full bg-slate-100 text-slate-700 font-semibold text-sm flex items-center justify-center mt-2">
-              {i + 10}
+          <li class="flex gap-5 items-start py-2" data-article-id={a.id} data-category={a.category}>
+            <span class="shrink-0 font-serif font-black text-3xl text-ink/30 w-12 leading-none pt-7">
+              {String(i + 10).padStart(2, "0")}
             </span>
             <div class="flex-1 min-w-0">
               <ArticleCard article={a} />
@@ -91,7 +86,7 @@ const list = unique.slice(9, 14);     // 5건 리스트
     </section>
   )}
 
-  <p id="hot-empty" class="hidden text-slate-500 mt-6">선택한 카테고리에 해당하는 항목이 없습니다.</p>
+  <p id="hot-empty" class="hidden text-ink/50 mt-6">선택한 카테고리에 해당하는 항목이 없습니다.</p>
 
   <script is:inline>
     (function () {
@@ -111,10 +106,10 @@ const list = unique.slice(9, 14);     // 5건 리스트
         if (emptyNote) emptyNote.classList.toggle("hidden", visible > 0);
         chips.forEach(function (c) {
           var active = c.getAttribute("data-cat") === cat;
-          c.classList.toggle("bg-slate-900", active);
-          c.classList.toggle("text-white", active);
-          c.classList.toggle("bg-white", !active);
-          c.classList.toggle("text-slate-700", !active);
+          c.classList.toggle("text-accent", active);
+          c.classList.toggle("border-accent", active);
+          c.classList.toggle("text-ink/60", !active);
+          c.classList.toggle("border-transparent", !active);
         });
         bar.setAttribute("data-filter-active", cat);
       }

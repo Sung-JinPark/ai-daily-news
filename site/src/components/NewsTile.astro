@@ -14,7 +14,6 @@ const aspect = "aspect-[16/9]";
 const titleSize = size === "lg" ? "text-xl sm:text-2xl" : size === "sm" ? "text-base" : "text-lg";
 const showSummary = size !== "sm";
 
-// institution/authors: use stored values or derive from source
 let institution = article.institution || "";
 let authors = article.authors || "";
 if (!institution && article.category === "model_research") {
@@ -27,11 +26,11 @@ if (!institution && article.category === "model_research") {
 }
 ---
 <article
-  class="group rounded-lg border border-slate-200 bg-white hover:shadow-md transition-shadow flex flex-col"
+  class="group flex flex-col gap-3 pb-5 border-b border-ink/15"
   data-category={article.category}
   data-source={article.source_id}
 >
-  <a href={article.url} target="_blank" rel="noopener noreferrer" class={`block ${aspect} bg-slate-100 overflow-hidden rounded-t-lg relative`}>
+  <a href={article.url} target="_blank" rel="noopener noreferrer" class={`block ${aspect} bg-ink/5 overflow-hidden relative`}>
     {article.image_url ? (
       <>
         <img
@@ -39,56 +38,57 @@ if (!institution && article.category === "model_research") {
           alt=""
           referrerpolicy="no-referrer"
           loading="lazy"
-          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
         />
-        <div style="display:none" class="w-full h-full flex items-center justify-center text-slate-300 text-5xl">📰</div>
+        <div style="display:none" class="w-full h-full flex items-center justify-center font-serif text-ink/20 text-5xl">A</div>
       </>
     ) : (
-      <div class="w-full h-full flex items-center justify-center text-slate-300 text-5xl">📰</div>
+      <div class="w-full h-full flex items-center justify-center font-serif text-ink/20 text-5xl">A</div>
     )}
     {rank && (
-      <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-rose-600 text-white text-xs font-bold">
-        #{rank}
+      <span class="absolute top-0 left-0 bg-accent text-white font-serif font-black text-base px-2.5 py-1">
+        {String(rank).padStart(2, "0")}
       </span>
     )}
   </a>
-  <div class="p-4 flex-1 flex flex-col gap-2">
-    <div class="flex items-center gap-2 text-xs text-slate-500 flex-wrap">
-      <a href={`${base}/category/${article.category}`} class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700">
+  <div class="flex flex-col gap-2">
+    <div class="flex items-center gap-2 text-[10px] tracking-kicker uppercase font-semibold text-ink/60">
+      <a href={`${base}/category/${article.category}`} class="text-accent hover:underline">
         {CATEGORIES[article.category] ?? article.category}
       </a>
-      <a href={`${base}/source/${article.source_id}`} class="hover:text-slate-700 truncate">{article.source_name}</a>
+      <span class="text-ink/30">·</span>
+      <a href={`${base}/source/${article.source_id}`} class="hover:text-ink truncate">{article.source_name}</a>
     </div>
-    <h3 class={`${titleSize} font-semibold leading-snug text-slate-900`}>
-      <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:underline">
+    <h3 class={`font-serif ${titleSize} font-bold leading-tight text-ink`}>
+      <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
         {article.title_original}
       </a>
     </h3>
     {article.category === "model_research" && (institution || authors) && (
-      <p class="text-xs text-indigo-600 leading-snug">
-        {institution && <span class="font-medium">{institution}</span>}
-        {institution && authors && <span class="text-slate-400"> · </span>}
+      <p class="text-xs text-ink/60 leading-snug">
+        {institution && <span class="font-semibold text-ink/80">{institution}</span>}
+        {institution && authors && <span class="text-ink/30"> · </span>}
         {authors && <span>{authors}</span>}
       </p>
     )}
     {(article.tags && article.tags.length > 0) && (
-      <div class="flex flex-wrap gap-1">
+      <div class="flex flex-wrap gap-x-2 gap-y-1 text-[10px] tracking-kicker uppercase font-semibold">
         {article.tags.slice(0, 3).map((t) => (
           <a
             href={`${base}/topic/${encodeURIComponent(t)}`}
-            class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+            class="text-ink/60 hover:text-accent"
           >#{t}</a>
         ))}
       </div>
     )}
     {showSummary && (
       <div class="group/tip relative">
-        <p class="text-sm text-slate-600 line-clamp-3 cursor-default" set:html={summaryHtml}></p>
+        <p class="text-sm text-ink/70 leading-relaxed line-clamp-3 cursor-default" set:html={summaryHtml}></p>
         <div class="invisible opacity-0 group-hover/tip:visible group-hover/tip:opacity-100
                     absolute left-0 top-full mt-2 z-[200] w-72
-                    rounded-lg border border-slate-200 bg-white p-3 shadow-2xl
-                    text-sm text-slate-700 leading-relaxed transition-opacity duration-150
+                    border border-ink bg-white p-3 shadow-[4px_4px_0_0_rgba(10,10,10,0.06)]
+                    text-sm text-ink/80 leading-relaxed transition-opacity duration-150
                     select-text cursor-text
                     before:content-[''] before:absolute before:-top-2 before:left-0 before:right-0 before:h-2"
              set:html={summaryHtml}></div>

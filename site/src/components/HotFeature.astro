@@ -8,13 +8,13 @@ interface Props {
 const { article, rank = 1 } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const publishedLabel = article.published
-  ? new Date(article.published).toLocaleString("ko-KR")
+  ? new Date(article.published).toLocaleDateString("ko-KR", { month: "long", day: "numeric" })
   : "";
 const glossary = loadGlossary();
 const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
 ---
 <article
-  class="rounded-xl border border-slate-200 bg-white hover:shadow-md transition-shadow grid grid-cols-1 lg:grid-cols-5"
+  class="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 pb-8 border-b border-ink/15"
   data-category={article.category}
   data-source={article.source_id}
 >
@@ -22,7 +22,7 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
     href={article.url}
     target="_blank"
     rel="noopener noreferrer"
-    class="block lg:col-span-3 aspect-[16/9] bg-slate-100 overflow-hidden rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none relative group"
+    class="block lg:col-span-3 aspect-[16/9] bg-ink/5 overflow-hidden relative group"
   >
     {article.image_url ? (
       <>
@@ -31,48 +31,46 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
           alt=""
           referrerpolicy="no-referrer"
           loading="eager"
-          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
         />
-        <div style="display:none" class="w-full h-full flex items-center justify-center text-slate-300 text-6xl">📰</div>
+        <div style="display:none" class="w-full h-full flex items-center justify-center font-serif text-ink/20 text-7xl">A</div>
       </>
     ) : (
-      <div class="w-full h-full flex items-center justify-center text-slate-300 text-6xl">📰</div>
+      <div class="w-full h-full flex items-center justify-center font-serif text-ink/20 text-7xl">A</div>
     )}
-    <span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-rose-600 text-white text-xs font-bold">
-      #{rank}
+    <span class="absolute top-0 left-0 bg-accent text-white font-serif font-black text-2xl px-4 py-2">
+      {String(rank).padStart(2, "0")}
     </span>
   </a>
 
-  <div class="lg:col-span-2 p-5 sm:p-6 flex flex-col gap-3">
-    <div class="flex items-center gap-2 text-xs text-slate-500 flex-wrap">
-      <a href={`${base}/category/${article.category}`} class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700">
+  <div class="lg:col-span-2 flex flex-col gap-3">
+    <div class="flex items-center gap-3 text-[11px] tracking-kicker uppercase font-semibold text-ink/70">
+      <a href={`${base}/category/${article.category}`} class="text-accent hover:underline">
         {CATEGORIES[article.category] ?? article.category}
       </a>
-      <a href={`${base}/source/${article.source_id}`} class="hover:text-slate-700 truncate">{article.source_name}</a>
-      <span class="text-amber-500 ml-auto" title={`중요도 ${article.importance_score}`}>
-        {"★".repeat(article.importance_score)}
-      </span>
+      <span class="text-ink/30">·</span>
+      <a href={`${base}/source/${article.source_id}`} class="hover:text-ink truncate">{article.source_name}</a>
     </div>
 
-    <h2 class="text-xl sm:text-2xl font-bold leading-snug text-slate-900">
-      <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:underline">
+    <h2 class="font-serif text-2xl sm:text-3xl font-black leading-[1.15] text-ink">
+      <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
         {article.title_original}
       </a>
     </h2>
 
     <div class="group/tip relative">
-      <p class="text-sm text-slate-700 leading-relaxed line-clamp-4 cursor-default" set:html={summaryHtml}></p>
+      <p class="text-[15px] text-ink/75 leading-relaxed line-clamp-4 cursor-default" set:html={summaryHtml}></p>
       <div class="invisible opacity-0 group-hover/tip:visible group-hover/tip:opacity-100
                   absolute left-0 top-full mt-2 z-[200] w-80
-                  rounded-lg border border-slate-200 bg-white p-3 shadow-2xl
-                  text-sm text-slate-700 leading-relaxed transition-opacity duration-150
+                  border border-ink bg-white p-4 shadow-[4px_4px_0_0_rgba(10,10,10,0.06)]
+                  text-sm text-ink/80 leading-relaxed transition-opacity duration-150
                   select-text cursor-text
                   before:content-[''] before:absolute before:-top-2 before:left-0 before:right-0 before:h-2"
            set:html={summaryHtml}></div>
     </div>
 
-    <div class="flex items-center justify-between text-xs text-slate-500 mt-auto pt-2">
+    <div class="flex items-center justify-between text-[11px] tracking-kicker uppercase font-semibold text-ink/60 mt-auto pt-3">
       <span>
         {publishedLabel}
         {article.cluster_size > 1 && ` · ${article.cluster_size}개 매체`}
@@ -81,7 +79,7 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
         href={article.url}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-blue-600 hover:text-blue-800 font-medium"
+        class="text-accent hover:underline"
       >
         원문 →
       </a>

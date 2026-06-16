@@ -8,15 +8,18 @@ const { article, rank } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <article
-  class="rounded-lg overflow-hidden border border-slate-200 bg-white hover:shadow-md transition-shadow flex gap-3 group"
+  class="flex gap-3 py-3 border-b border-ink/10 last:border-0 group"
   data-category={article.category}
   data-source={article.source_id}
 >
+  <div class="shrink-0 font-serif font-black text-2xl text-accent w-8 leading-none pt-1">
+    {String(rank).padStart(2, "0")}
+  </div>
   <a
     href={article.url}
     target="_blank"
     rel="noopener noreferrer"
-    class="block w-32 sm:w-36 shrink-0 aspect-[4/3] bg-slate-100 overflow-hidden relative"
+    class="block w-24 sm:w-28 shrink-0 aspect-[4/3] bg-ink/5 overflow-hidden relative"
   >
     {article.image_url ? (
       <>
@@ -25,27 +28,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           alt=""
           referrerpolicy="no-referrer"
           loading="lazy"
-          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
         />
-        <div style="display:none" class="w-full h-full flex items-center justify-center text-slate-300 text-3xl">📰</div>
+        <div style="display:none" class="w-full h-full flex items-center justify-center font-serif text-ink/20 text-3xl">A</div>
       </>
     ) : (
-      <div class="w-full h-full flex items-center justify-center text-slate-300 text-3xl">📰</div>
+      <div class="w-full h-full flex items-center justify-center font-serif text-ink/20 text-3xl">A</div>
     )}
-    <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-rose-600 text-white text-[10px] font-bold">
-      #{rank}
-    </span>
   </a>
-  <div class="flex-1 min-w-0 py-3 pr-3 flex flex-col gap-1.5">
-    <div class="flex items-center gap-1.5 text-[11px] text-slate-500 flex-wrap">
-      <a href={`${base}/category/${article.category}`} class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700">
+  <div class="flex-1 min-w-0 flex flex-col gap-1">
+    <div class="flex items-center gap-2 text-[10px] tracking-kicker uppercase font-semibold text-ink/60">
+      <a href={`${base}/category/${article.category}`} class="text-accent hover:underline">
         {CATEGORIES[article.category] ?? article.category}
       </a>
+      <span class="text-ink/30">·</span>
       <span class="truncate">{article.source_name}</span>
     </div>
-    <h3 class="text-sm font-semibold leading-snug text-slate-900 line-clamp-3">
-      <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:underline">
+    <h3 class="font-serif text-[15px] font-bold leading-tight text-ink line-clamp-3">
+      <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
         {article.title_original}
       </a>
     </h3>

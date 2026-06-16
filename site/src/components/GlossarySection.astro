@@ -2,22 +2,22 @@
 import { loadGlossary } from "~/lib/loadData";
 const glossary = loadGlossary();
 ---
-<section class="mb-10">
-  <div class="flex items-baseline justify-between mb-4 border-b border-slate-200 pb-2">
-    <h2 class="text-lg font-semibold text-slate-900">AI 용어 사전</h2>
-    <span class="text-xs text-slate-400">공부용 · {glossary.length}개 용어 · 주 1회 자동 갱신</span>
+<section class="mt-16 pt-10 border-t-2 border-ink">
+  <div class="flex items-baseline justify-between mb-6 flex-wrap gap-2">
+    <h2 class="font-serif text-2xl sm:text-3xl font-black text-ink">용어 사전</h2>
+    <span class="kicker text-ink/50">{glossary.length}개 · 주 1회 자동 갱신</span>
   </div>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
     {glossary.map((item) => (
-      <div class="rounded-lg border border-slate-200 bg-white p-4 flex flex-col gap-1.5 hover:border-indigo-300 hover:shadow-sm transition-all">
+      <div class="flex flex-col gap-1 border-l-2 border-ink/15 pl-3 hover:border-accent transition-colors">
         <div class="flex items-baseline gap-2 flex-wrap">
-          <span class="text-base font-bold text-indigo-700">{item.term}</span>
-          <span class="text-xs text-slate-500">{item.full}</span>
+          <span class="font-serif font-bold text-base text-ink">{item.term}</span>
+          <span class="text-[11px] text-ink/55">{item.full}</span>
           {!item.seed && item.added_at && (
-            <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 text-rose-600 ml-auto">NEW</span>
+            <span class="kicker text-accent ml-auto">NEW</span>
           )}
         </div>
-        <p class="text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+        <p class="text-sm text-ink/70 leading-relaxed">{item.desc}</p>
       </div>
     ))}
   </div>

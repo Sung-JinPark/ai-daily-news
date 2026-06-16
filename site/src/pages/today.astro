@@ -49,32 +49,34 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   {day && (
     <>
+      <header class="mb-10">
+        <div class="kicker text-accent mb-2">오늘의 핵심 · {day}</div>
+        <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3">오늘의 큐레이션</h1>
+        <p class="text-sm text-ink/65 max-w-2xl leading-relaxed">
+          전 세계 AI 소식을 한국어 인사이트로 정리했습니다.
+          <a href={`${base}/`} class="text-accent hover:underline ml-2">7일간 HOT 보기 →</a>
+        </p>
+      </header>
+
       {digest && <DigestCard digest={digest} />}
 
-      <section class="mb-10">
-        <div class="flex items-baseline justify-between mb-1 flex-wrap gap-2">
-          <h1 class="text-3xl font-bold text-slate-900">오늘의 핵심 <span class="text-slate-500 text-2xl font-medium">{day}</span></h1>
-          <a href={`${base}/`} class="text-sm text-blue-600 hover:text-blue-800">7일간 HOT 보기 →</a>
+      <TrendingChips items={trending} />
+      {hero && <HeroCard article={hero} />}
+      {topRest.length > 0 && (
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0 mb-12">
+          {topRest.map((a) => <ArticleCard article={a} highlight={true} />)}
         </div>
-        <p class="text-sm text-slate-600 mb-6">전 세계 AI 소식을 한국어 인사이트로 정리했습니다.</p>
-        <TrendingChips items={trending} />
-        {hero && <HeroCard article={hero} />}
-        {topRest.length > 0 && (
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {topRest.map((a) => <ArticleCard article={a} highlight={true} />)}
-          </div>
-        )}
-      </section>
+      )}
 
       <SearchBox articles={articles} />
 
       {byCategory.map(({ slug, label, items }) => (
-        <section class="mb-10">
-          <div class="flex items-baseline justify-between mb-4 border-b border-slate-200 pb-2">
-            <h2 class="text-lg font-semibold text-slate-900">{label}</h2>
-            <a href={`${base}/category/${slug}`} class="text-xs text-blue-600 hover:text-blue-800">전체 보기 →</a>
+        <section class="mb-14">
+          <div class="flex items-baseline justify-between mb-5 pb-3 border-b-2 border-ink">
+            <h2 class="kicker text-ink">{label}</h2>
+            <a href={`${base}/category/${slug}`} class="kicker text-accent hover:underline">전체 보기 →</a>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
             {items.map((a) => (
               <div data-article-id={a.id}>
                 <NewsTile article={a} size="md" />

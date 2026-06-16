@@ -9,67 +9,64 @@ const { article, highlight = false } = Astro.props;
 const glossary = loadGlossary();
 const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
 const publishedLabel = article.published
-  ? new Date(article.published).toLocaleString("ko-KR")
+  ? new Date(article.published).toLocaleString("ko-KR", { month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })
   : "발행시각 미상";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <article
   class:list={[
-    "rounded-lg border p-5 flex flex-col gap-3 transition-shadow hover:shadow-sm",
-    highlight
-      ? "border-amber-300 bg-amber-50/60"
-      : "border-slate-200 bg-white",
+    "py-6 border-b border-ink/15 flex flex-col gap-3",
+    highlight && "bg-accent/[0.03] -mx-4 px-4",
   ]}
   data-category={article.category}
   data-source={article.source_id}
 >
-  <div class="flex items-center justify-between text-xs text-slate-500 flex-wrap gap-2">
+  <div class="flex items-center justify-between text-[11px] tracking-kicker uppercase font-semibold text-ink/60 flex-wrap gap-2">
     <span class="inline-flex items-center gap-2 flex-wrap">
-      <a
-        href={`${base}/category/${article.category}`}
-        class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 hover:bg-slate-200"
-      >
+      <a href={`${base}/category/${article.category}`} class="text-accent hover:underline">
         {CATEGORIES[article.category] ?? article.category}
       </a>
-      <a href={`${base}/source/${article.source_id}`} class="hover:text-slate-700">
+      <span class="text-ink/30">·</span>
+      <a href={`${base}/source/${article.source_id}`} class="hover:text-ink">
         {article.source_name}
       </a>
-      <span class="text-slate-300">·</span>
-      <span>{publishedLabel}</span>
+      <span class="text-ink/30">·</span>
+      <span class="normal-case tracking-normal font-normal text-ink/50">{publishedLabel}</span>
     </span>
-    <span class="text-amber-500" title={`중요도 ${article.importance_score}`}>
+    <span class="text-accent" title={`중요도 ${article.importance_score}`}>
       {"★".repeat(article.importance_score)}
     </span>
   </div>
 
-  <h3 class="text-lg font-semibold leading-snug text-slate-900">
-    {article.title_original}
+  <h3 class="font-serif text-2xl font-black leading-[1.15] text-ink">
+    <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+      {article.title_original}
+    </a>
   </h3>
 
-  <p class="text-sm text-slate-700 leading-relaxed" set:html={summaryHtml}></p>
+  <p class="text-[15px] text-ink/75 leading-relaxed" set:html={summaryHtml}></p>
 
   {article.insights_ko?.length > 0 && (
-    <ul class="text-sm text-slate-800 list-disc list-outside ml-5 space-y-1.5">
+    <ul class="text-[14px] text-ink/80 list-disc list-outside ml-5 space-y-1.5 marker:text-accent">
       {article.insights_ko.map((i) => <li>{i}</li>)}
     </ul>
   )}
 
   {(article.tags && article.tags.length > 0) && (
-    <div class="flex flex-wrap gap-1">
+    <div class="flex flex-wrap gap-x-3 gap-y-1 text-[10px] tracking-kicker uppercase font-semibold">
       {article.tags.slice(0, 5).map((t) => (
         <a
           href={`${base}/topic/${encodeURIComponent(t)}`}
-          class="text-[11px] px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+          class="text-ink/60 hover:text-accent"
         >#{t}</a>
       ))}
     </div>
   )}
 
-  <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+  <div class="flex items-center justify-between pt-3 mt-1 border-t border-ink/10">
     {article.also_covered_by?.length > 0 ? (
-      <span class="text-xs text-slate-500">
-        다른 매체 보도: {article.also_covered_by.slice(0, 3).join(", ")}
-        {article.also_covered_by.length > 3 && ` 외 ${article.also_covered_by.length - 3}곳`}
+      <span class="text-[11px] tracking-kicker uppercase font-semibold text-ink/50">
+        다른 매체 {article.also_covered_by.length}곳
       </span>
     ) : (
       <span></span>
@@ -78,7 +75,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       href={article.url}
       target="_blank"
       rel="noopener noreferrer"
-      class="text-sm font-medium text-blue-600 hover:text-blue-800"
+      class="text-[12px] tracking-kicker uppercase font-bold text-accent hover:underline"
     >
       원문 보기 →
     </a>
