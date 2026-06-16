@@ -104,20 +104,21 @@ const datelineEn = today.toLocaleDateString("en-US", { weekday: "long", year: "n
         </a>
       </div>
       <nav class="border-t border-ink/15 bg-white sticky top-0 z-10">
-        <div class="max-w-6xl mx-auto px-4 flex gap-0 overflow-x-auto text-[12px] tracking-kicker uppercase font-semibold">
-          <a href={base + "/"} class="px-3 py-2.5 text-accent border-b-2 border-transparent hover:border-accent whitespace-nowrap">HOT</a>
-          <a href={`${base}/today`} class="px-3 py-2.5 text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">전체</a>
+        <div class="max-w-6xl mx-auto px-4 flex items-stretch gap-0 overflow-x-auto">
+          <a href={base + "/"} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-accent border-b-2 border-transparent hover:border-accent whitespace-nowrap">HOT</a>
+          <a href={`${base}/today`} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">전체</a>
           {Object.entries(CATEGORIES).map(([slug, label]) => (
             <a
               href={`${base}/category/${slug}`}
-              class="px-3 py-2.5 text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap"
+              class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap"
             >{label}</a>
           ))}
-          <a href={`${base}/topic`} class="px-3 py-2.5 text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">토픽</a>
-          <a href={`${base}/players`} class="px-3 py-2.5 text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">플레이어</a>
-          <a href={`${base}/weekly`} class="px-3 py-2.5 text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">주간</a>
-          <a href={`${base}/archive`} class="px-3 py-2.5 text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap ml-auto">아카이브</a>
-          <a href={`${base}/rss.xml`} class="px-3 py-2.5 text-ink/60 border-b-2 border-transparent hover:border-ink whitespace-nowrap">RSS</a>
+          <span class="self-center mx-2 h-4 w-px bg-ink/20" aria-hidden="true"></span>
+          <a href={`${base}/topic`} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent whitespace-nowrap">토픽</a>
+          <a href={`${base}/players`} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent whitespace-nowrap">플레이어</a>
+          <a href={`${base}/weekly`} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent whitespace-nowrap">주간</a>
+          <a href={`${base}/archive`} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent whitespace-nowrap ml-auto">아카이브</a>
+          <a href={`${base}/rss.xml`} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/45 hover:text-accent whitespace-nowrap">RSS</a>
         </div>
       </nav>
     </header>
