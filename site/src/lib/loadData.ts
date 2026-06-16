@@ -39,6 +39,20 @@ export type WeeklyDigest = {
   themes: Array<{ name: string; summary_ko: string; article_ids: string[] }>;
 };
 
+export type GlossaryTerm = {
+  term: string;
+  full: string;
+  desc: string;
+  seed?: boolean;
+  added_at?: string;
+};
+
+export type Glossary = {
+  version: number;
+  updated_at: string;
+  terms: GlossaryTerm[];
+};
+
 export type LatestIndex = {
   latest_day: string;
   all_days: string[];
@@ -90,6 +104,13 @@ export function loadWeeklyDigest(week: string): WeeklyDigest | null {
   const file = path.join(DATA_ROOT, "weekly", `${week}.json`);
   if (!fs.existsSync(file)) return null;
   return readJson<WeeklyDigest | null>(file, null);
+}
+
+export function loadGlossary(): GlossaryTerm[] {
+  const file = path.join(DATA_ROOT, "glossary.json");
+  if (!fs.existsSync(file)) return [];
+  const data = readJson<Glossary | null>(file, null);
+  return data?.terms ?? [];
 }
 
 export function articleById(): Map<string, Article> {

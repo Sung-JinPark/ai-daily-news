@@ -83,6 +83,18 @@ jobs:
             echo "skipping weekly (DOW=$DOW HOUR=$HOUR)"
           fi
 
+      - name: Glossary update (Sunday UTC 14:00 only)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          DOW=$(date -u +%u)
+          HOUR=$(date -u +%H)
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$HOUR" = "14" ]; }; then
+            python -m pipeline.glossary
+          else
+            echo "skipping glossary (DOW=$DOW HOUR=$HOUR)"
+          fi
+
       - name: Trending
         run: python -m pipeline.trending
 
