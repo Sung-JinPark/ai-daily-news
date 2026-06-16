@@ -58,14 +58,16 @@ const publishedLabel = article.published
       </a>
     </h2>
 
-    <div class="relative">
-      <p class="peer/tip text-sm text-slate-700 leading-relaxed line-clamp-4 cursor-default">
+    <div class="group/tip relative">
+      <p class="text-sm text-slate-700 leading-relaxed line-clamp-4 cursor-default">
         {article.summary_ko}
       </p>
-      <div class="pointer-events-none invisible opacity-0 peer-hover/tip:visible peer-hover/tip:opacity-100
-                  absolute left-0 top-full z-[200] mt-2 w-80
+      <div class="invisible opacity-0 group-hover/tip:visible group-hover/tip:opacity-100
+                  absolute left-0 top-full mt-2 z-[200] w-80
                   rounded-lg border border-slate-200 bg-white p-3 shadow-2xl
-                  text-sm text-slate-700 leading-relaxed transition-opacity duration-150">
+                  text-sm text-slate-700 leading-relaxed transition-opacity duration-150
+                  select-text cursor-text
+                  before:content-[''] before:absolute before:-top-2 before:left-0 before:right-0 before:h-2">
         {article.summary_ko}
       </div>
     </div>
