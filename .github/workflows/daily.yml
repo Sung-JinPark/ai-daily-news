@@ -63,6 +63,26 @@ jobs:
       - name: Rank
         run: python -m pipeline.rank
 
+      - name: Digest (daily TL;DR)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m pipeline.digest
+
+      - name: Aggregate tags (30-day rolling)
+        run: python -m pipeline.aggregate_tags
+
+      - name: Weekly digest (Sunday UTC 14:00 only)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          DOW=$(date -u +%u)
+          HOUR=$(date -u +%H)
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$HOUR" = "14" ]; }; then
+            python -m pipeline.weekly
+          else
+            echo "skipping weekly (DOW=$DOW HOUR=$HOUR)"
+          fi
+
       - name: Trending
         run: python -m pipeline.trending
 

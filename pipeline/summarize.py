@@ -26,7 +26,7 @@ RETRYABLE = (anthropic.APIConnectionError, anthropic.RateLimitError, anthropic.I
 from pipeline.collect import RAW_DIR, today
 from pipeline.extract import extract_article
 from pipeline.state import load_seen, save_seen, url_hash
-from pipeline.utils.prompts import SYSTEM_PROMPT, USER_TEMPLATE
+from pipeline.utils.prompts import SYSTEM_PROMPT, TAG_VOCAB, USER_TEMPLATE
 
 log = logging.getLogger(__name__)
 
@@ -90,6 +90,19 @@ def validate(parsed: dict) -> dict | None:
         "category": category,
         "importance_score": score,
     }
+    raw_tags = parsed.get("tags")
+    if isinstance(raw_tags, list):
+        filtered = []
+        seen_tags: set[str] = set()
+        for t in raw_tags:
+            tag = str(t).strip()
+            if tag in TAG_VOCAB and tag not in seen_tags:
+                filtered.append(tag)
+                seen_tags.add(tag)
+            if len(filtered) >= 5:
+                break
+        if filtered:
+            result["tags"] = filtered
     if category == "model_research":
         institution = parsed.get("institution")
         authors = parsed.get("authors")

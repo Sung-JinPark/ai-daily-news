@@ -1,0 +1,45 @@
+---
+import Base from "~/layouts/Base.astro";
+import { loadTagsIndex } from "~/lib/loadData";
+
+const idx = loadTagsIndex();
+const entries = idx
+  ? Object.entries(idx.tags).sort((a, b) => b[1].count - a[1].count)
+  : [];
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Map count to a Tailwind text-size class for a simple weighted cloud.
+function sizeClass(count: number, max: number): string {
+  const ratio = count / Math.max(max, 1);
+  if (ratio > 0.75) return "text-2xl font-bold";
+  if (ratio > 0.5) return "text-xl font-semibold";
+  if (ratio > 0.25) return "text-lg font-medium";
+  if (ratio > 0.1) return "text-base";
+  return "text-sm text-slate-500";
+}
+const maxCount = entries[0]?.[1].count ?? 1;
+---
+<Base title="토픽 — AI Daily News">
+  <h1 class="text-3xl font-bold text-slate-900 mb-2">토픽</h1>
+  <p class="text-sm text-slate-600 mb-8">
+    최근 30일 기사에서 추출된 태그. 글씨 크기는 빈도순.
+    {idx ? <> · 총 {entries.length}개 태그</> : null}
+  </p>
+
+  {entries.length === 0 ? (
+    <p class="text-slate-500">아직 태그 인덱스가 비어 있습니다. 다음 파이프라인 실행 이후 채워집니다.</p>
+  ) : (
+    <div class="flex flex-wrap gap-x-4 gap-y-3 items-baseline">
+      {entries.map(([tag, info]) => (
+        <a
+          href={`${base}/topic/${encodeURIComponent(tag)}`}
+          class={`${sizeClass(info.count, maxCount)} text-indigo-700 hover:text-indigo-900 hover:underline`}
+          title={`${info.count}건`}
+        >
+          #{tag}
+          <span class="text-xs text-slate-400 ml-1">({info.count})</span>
+        </a>
+      ))}
+    </div>
+  )}
+</Base>

@@ -19,8 +19,24 @@ export type Article = {
   insights_ko: string[];
   category: string;
   importance_score: number;
+  tags?: string[];
   institution?: string;
   authors?: string;
+};
+
+export type TagsIndex = {
+  updated_at: string;
+  window_days: number;
+  tags: Record<string, { count: number; article_ids: string[]; categories: string[] }>;
+};
+
+export type WeeklyDigest = {
+  week: string;              // "YYYY-Www"
+  n_input: number;
+  generated_at: string;
+  top_story_ids: string[];
+  theme_recap_ko: string;
+  themes: Array<{ name: string; summary_ko: string; article_ids: string[] }>;
 };
 
 export type LatestIndex = {
@@ -30,6 +46,14 @@ export type LatestIndex = {
 };
 
 export type TrendingItem = { keyword: string; count: number };
+
+export type Digest = {
+  day: string;
+  tldr_ko: string;
+  bullets_ko: string[];
+  theme_of_day: string;
+  n_input?: number;
+};
 
 function readJson<T>(file: string, fallback: T): T {
   try {
@@ -45,16 +69,51 @@ export function loadLatest(): LatestIndex | null {
   return readJson<LatestIndex>(file, { latest_day: "", all_days: [], updated_at: "" });
 }
 
+export function loadTagsIndex(): TagsIndex | null {
+  const file = path.join(DATA_ROOT, "tags_index.json");
+  if (!fs.existsSync(file)) return null;
+  return readJson<TagsIndex | null>(file, null);
+}
+
+export function allWeeklyDigests(): WeeklyDigest[] {
+  const dir = path.join(DATA_ROOT, "weekly");
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".json"))
+    .map((f) => readJson<WeeklyDigest | null>(path.join(dir, f), null))
+    .filter((d): d is WeeklyDigest => d !== null)
+    .sort((a, b) => b.week.localeCompare(a.week));
+}
+
+export function loadWeeklyDigest(week: string): WeeklyDigest | null {
+  const file = path.join(DATA_ROOT, "weekly", `${week}.json`);
+  if (!fs.existsSync(file)) return null;
+  return readJson<WeeklyDigest | null>(file, null);
+}
+
+export function articleById(): Map<string, Article> {
+  const map = new Map<string, Article>();
+  for (const a of loadRecentDays(30)) {
+    if (!map.has(a.id)) map.set(a.id, a);
+  }
+  return map;
+}
+
 export function loadDay(day: string): {
   articles: Article[];
   highlights: string[];
   trending: TrendingItem[];
+  digest: Digest | null;
 } {
   const dir = path.join(DATA_ROOT, day);
+  const digestFile = path.join(dir, "digest.json");
+  const digest = fs.existsSync(digestFile) ? readJson<Digest | null>(digestFile, null) : null;
   return {
     articles: readJson<Article[]>(path.join(dir, "articles.json"), []),
     highlights: readJson<string[]>(path.join(dir, "highlights.json"), []),
     trending: readJson<TrendingItem[]>(path.join(dir, "trending.json"), []),
+    digest,
   };
 }
 

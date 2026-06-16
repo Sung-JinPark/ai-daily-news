@@ -69,6 +69,16 @@ if (!institution && article.category === "model_research") {
         {authors && <span>{authors}</span>}
       </p>
     )}
+    {(article.tags && article.tags.length > 0) && (
+      <div class="flex flex-wrap gap-1">
+        {article.tags.slice(0, 3).map((t) => (
+          <a
+            href={`${base}/topic/${encodeURIComponent(t)}`}
+            class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+          >#{t}</a>
+        ))}
+      </div>
+    )}
     {showSummary && (
       <div class="group/tip relative">
         <p class="text-sm text-slate-600 line-clamp-3 cursor-default">

@@ -51,6 +51,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     </ul>
   )}
 
+  {(article.tags && article.tags.length > 0) && (
+    <div class="flex flex-wrap gap-1">
+      {article.tags.slice(0, 5).map((t) => (
+        <a
+          href={`${base}/topic/${encodeURIComponent(t)}`}
+          class="text-[11px] px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+        >#{t}</a>
+      ))}
+    </div>
+  )}
+
   <div class="flex items-center justify-between pt-2 border-t border-slate-100">
     {article.also_covered_by?.length > 0 ? (
       <span class="text-xs text-slate-500">

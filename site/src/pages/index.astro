@@ -6,13 +6,14 @@ import NewsTile from "~/components/NewsTile.astro";
 import SearchBox from "~/components/SearchBox.astro";
 import TrendingChips from "~/components/TrendingChips.astro";
 import GlossarySection from "~/components/GlossarySection.astro";
+import DigestCard from "~/components/DigestCard.astro";
 import { CATEGORIES, loadDay, loadLatest, type Article } from "~/lib/loadData";
 
 const latest = loadLatest();
 const day = latest?.latest_day ?? "";
-const { articles, highlights, trending } = day
+const { articles, highlights, trending, digest } = day
   ? loadDay(day)
-  : { articles: [], highlights: [], trending: [] };
+  : { articles: [], highlights: [], trending: [], digest: null };
 
 const highlightIds = highlights;
 const hero = articles.find((a) => a.id === highlightIds[0]);
@@ -44,6 +45,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   {day && (
     <>
+      {digest && <DigestCard digest={digest} />}
+
       <section class="mb-10">
         <div class="flex items-baseline justify-between mb-1 flex-wrap gap-2">
           <h1 class="text-3xl font-bold text-slate-900">오늘의 핵심 <span class="text-slate-500 text-2xl font-medium">{day}</span></h1>

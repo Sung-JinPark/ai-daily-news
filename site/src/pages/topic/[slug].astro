@@ -1,0 +1,37 @@
+---
+import Base from "~/layouts/Base.astro";
+import NewsTile from "~/components/NewsTile.astro";
+import { loadTagsIndex, loadRecentDays, hotnessScore, type Article } from "~/lib/loadData";
+
+export async function getStaticPaths() {
+  const idx = loadTagsIndex();
+  if (!idx) return [];
+  return Object.entries(idx.tags).map(([tag, info]) => ({
+    params: { slug: tag },
+    props: { tag, count: info.count, categories: info.categories },
+  }));
+}
+
+const { tag, count, categories } = Astro.props as { tag: string; count: number; categories: string[] };
+const recent = loadRecentDays(30);
+const articles: Article[] = recent
+  .filter((a) => (a.tags ?? []).includes(tag))
+  .sort((a, b) => hotnessScore(b) - hotnessScore(a));
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<Base title={`#${tag} — AI Daily News`}>
+  <div class="mb-6">
+    <a href={`${base}/topic`} class="text-sm text-blue-600 hover:text-blue-800">← 전체 토픽</a>
+  </div>
+  <h1 class="text-3xl font-bold text-slate-900 mb-2">#{tag}</h1>
+  <p class="text-sm text-slate-600 mb-8">최근 30일간 {count}건 · 카테고리: {categories.join(", ")}</p>
+
+  {articles.length === 0 ? (
+    <p class="text-slate-500">아직 이 토픽의 기사가 없습니다.</p>
+  ) : (
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {articles.map((a) => <NewsTile article={a} size="md" />)}
+    </div>
+  )}
+</Base>
