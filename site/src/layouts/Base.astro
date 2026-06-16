@@ -2,9 +2,12 @@
 import { CATEGORIES } from "~/lib/loadData";
 interface Props {
   title?: string;
+  description?: string;
   updatedAt?: string;
+  ogImage?: string;
 }
-const { title = "AI Daily News", updatedAt } = Astro.props;
+const DEFAULT_DESC = "매일 자동 업데이트되는 글로벌 AI 뉴스 한국어 인사이트 대시보드";
+const { title = "AI Daily News", description = DEFAULT_DESC, updatedAt, ogImage } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 ---
@@ -13,11 +16,15 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="매일 자동 업데이트되는 글로벌 AI 뉴스 한국어 인사이트 대시보드" />
+    <meta name="description" content={description} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content="매일 자동 업데이트되는 글로벌 AI 뉴스 한국어 인사이트 대시보드" />
+    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E🤖%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="AI Daily News RSS" href={`${base}/rss.xml`} />
@@ -88,8 +95,10 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
           </a>
         ))}
         <a href={`${base}/topic`} class="px-3 py-1 rounded-md text-indigo-700 hover:bg-indigo-50 whitespace-nowrap" title="토픽별 보기">#토픽</a>
+        <a href={`${base}/players`} class="px-3 py-1 rounded-md text-indigo-700 hover:bg-indigo-50 whitespace-nowrap" title="플레이어별 활동">🏢 플레이어</a>
         <a href={`${base}/weekly`} class="px-3 py-1 rounded-md text-indigo-700 hover:bg-indigo-50 whitespace-nowrap" title="주간 다이제스트">📅 주간</a>
         <a href={`${base}/archive`} class="px-3 py-1 rounded-md text-slate-700 hover:bg-slate-100 ml-auto">아카이브</a>
+        <a href={`${base}/about`} class="px-3 py-1 rounded-md text-slate-500 hover:bg-slate-100">소개</a>
         <a href={`${base}/rss.xml`} class="px-3 py-1 rounded-md text-orange-600 hover:bg-orange-50" title="RSS 구독">RSS</a>
       </nav>
     </header>

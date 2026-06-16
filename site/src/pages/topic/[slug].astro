@@ -20,7 +20,10 @@ const articles: Article[] = recent
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
-<Base title={`#${tag} — AI Daily News`}>
+<Base
+  title={`#${tag} — AI Daily News`}
+  description={`'${tag}' 토픽의 최근 30일간 글로벌 AI 기사 ${count}건을 한국어 인사이트로 정리.`}
+>
   <div class="mb-6">
     <a href={`${base}/topic`} class="text-sm text-blue-600 hover:text-blue-800">← 전체 토픽</a>
   </div>

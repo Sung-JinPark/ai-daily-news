@@ -1,0 +1,50 @@
+---
+import Base from "~/layouts/Base.astro";
+import { PLAYERS, countsForPlayers } from "~/lib/loadPlayers";
+
+const counts = countsForPlayers(30);
+// Sort by activity desc (active labs first), then alphabetically.
+const sorted = [...PLAYERS].sort((a, b) => {
+  const dc = (counts[b.id] ?? 0) - (counts[a.id] ?? 0);
+  if (dc !== 0) return dc;
+  return a.name.localeCompare(b.name);
+});
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<Base
+  title="플레이어 — AI Daily News"
+  description="OpenAI, Anthropic, DeepMind, Meta AI 등 글로벌 AI 주요 랩·기업의 최근 30일 활동을 한 페이지로."
+>
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">플레이어</h1>
+    <p class="text-sm text-slate-600">글로벌 AI 주요 랩·기업의 최근 30일 보도 동향. 카드를 클릭해 타임라인을 확인하세요.</p>
+  </header>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {sorted.map((p) => {
+      const c = counts[p.id] ?? 0;
+      const initial = p.name.charAt(0);
+      return (
+        <a
+          href={`${base}/players/${p.id}`}
+          class="rounded-xl border border-slate-200 bg-white p-5 hover:border-indigo-300 hover:shadow-md transition-all flex items-start gap-3"
+        >
+          <div
+            class="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold"
+            style={`background-color: ${p.color}`}
+          >{initial}</div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <h2 class="text-base font-semibold text-slate-900">{p.name}</h2>
+              <span class={`text-xs ${c > 0 ? "text-indigo-600 font-medium" : "text-slate-400"}`}>
+                {c > 0 ? `${c}건` : "—"}
+              </span>
+            </div>
+            <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">{p.blurb}</p>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+</Base>

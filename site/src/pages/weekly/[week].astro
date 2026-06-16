@@ -32,7 +32,10 @@ const themesResolved = digest.themes.map((t) => ({
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const genLabel = new Date(digest.generated_at).toLocaleString("ko-KR");
 ---
-<Base title={`주간 다이제스트 ${digest.week} — AI Daily News`}>
+<Base
+  title={`주간 다이제스트 ${digest.week} — AI Daily News`}
+  description={digest.theme_recap_ko.slice(0, 200)}
+>
   <div class="mb-6">
     <a href={`${base}/weekly`} class="text-sm text-blue-600 hover:text-blue-800">← 주간 목록</a>
   </div>
