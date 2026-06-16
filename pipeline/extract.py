@@ -11,7 +11,7 @@ import trafilatura
 from pipeline.utils.http import fetch, get_client
 
 log = logging.getLogger(__name__)
-MAX_CHARS = 16000
+MAX_CHARS = 6000
 
 _OG_PATTERNS = [
     re.compile(
