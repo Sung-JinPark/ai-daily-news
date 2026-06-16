@@ -106,33 +106,6 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
     </main>
     <script is:inline>
       (function () {
-        if (window.__shareInit) return;
-        window.__shareInit = true;
-        document.addEventListener("click", async function (e) {
-          var btn = e.target && e.target.closest && e.target.closest(".share-btn");
-          if (!btn) return;
-          e.preventDefault();
-          var title = btn.getAttribute("data-share-title") || "";
-          var text = btn.getAttribute("data-share-text") || "";
-          var url = btn.getAttribute("data-share-url") || "";
-          var via = "— via AI Daily News";
-          var orig = btn.textContent;
-          if (navigator.share) {
-            try { await navigator.share({ title: title, text: text + "\n\n" + via, url: url }); } catch (_) {}
-            return;
-          }
-          if (navigator.clipboard) {
-            try {
-              await navigator.clipboard.writeText(title + "\n" + text + "\n" + via + "\n" + url);
-              btn.textContent = "복사됨 ✓";
-              setTimeout(function () { btn.textContent = orig; }, 1500);
-            } catch (_) {}
-          }
-        });
-      })();
-    </script>
-    <script is:inline>
-      (function () {
         if (window.__glTipInit) return;
         window.__glTipInit = true;
         var tip = document.createElement("div");
