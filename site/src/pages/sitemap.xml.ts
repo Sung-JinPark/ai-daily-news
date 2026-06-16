@@ -1,5 +1,6 @@
 import type { APIContext } from "astro";
-import { CATEGORIES, allDays, loadDay, type Article } from "~/lib/loadData";
+import { CATEGORIES, allDays, allWeeklyDigests, loadDay, loadTagsIndex } from "~/lib/loadData";
+import { PLAYERS } from "~/lib/loadPlayers";
 
 function url(site: URL, base: string, path: string): string {
   const b = base.replace(/\/$/, "");
@@ -20,6 +21,9 @@ export async function GET(context: APIContext) {
   urls.push({ loc: url(site, base, "/"), lastmod: new Date().toISOString() });
   urls.push({ loc: url(site, base, "/hot") });
   urls.push({ loc: url(site, base, "/archive") });
+  urls.push({ loc: url(site, base, "/topic") });
+  urls.push({ loc: url(site, base, "/players") });
+  urls.push({ loc: url(site, base, "/weekly") });
   for (const day of days) {
     urls.push({ loc: url(site, base, `/archive/${day}`), lastmod: `${day}T00:00:00Z` });
   }
@@ -28,6 +32,18 @@ export async function GET(context: APIContext) {
   }
   for (const sid of sources.keys()) {
     urls.push({ loc: url(site, base, `/source/${sid}`) });
+  }
+  const tags = loadTagsIndex();
+  if (tags) {
+    for (const tag of Object.keys(tags.tags)) {
+      urls.push({ loc: url(site, base, `/topic/${encodeURIComponent(tag)}`) });
+    }
+  }
+  for (const p of PLAYERS) {
+    urls.push({ loc: url(site, base, `/players/${p.id}`) });
+  }
+  for (const d of allWeeklyDigests()) {
+    urls.push({ loc: url(site, base, `/weekly/${d.week}`), lastmod: d.generated_at });
   }
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>

@@ -4,7 +4,7 @@ import HotFeature from "~/components/HotFeature.astro";
 import HotSide from "~/components/HotSide.astro";
 import NewsTile from "~/components/NewsTile.astro";
 import ArticleCard from "~/components/ArticleCard.astro";
-import { hotnessScore, loadLatest, loadRecentDays, type Article } from "~/lib/loadData";
+import { CATEGORIES, hotnessScore, loadLatest, loadRecentDays, type Article } from "~/lib/loadData";
 
 const latest = loadLatest();
 const pool: Article[] = loadRecentDays(7);
@@ -30,9 +30,24 @@ const list = unique.slice(9, 14);     // 5건 리스트
     <span class="text-rose-600">🔥</span> HOT
     <span class="text-base font-normal text-slate-500">— 지난 7일 핵심</span>
   </h1>
-  <p class="text-sm text-slate-600 mb-8">
+  <p class="text-sm text-slate-600 mb-4">
     중요도, 다중 매체 보도, 신선도를 종합한 랭킹. 같은 사건은 한 번만 표시됩니다.
   </p>
+
+  <div id="hot-filter" class="flex flex-wrap gap-1.5 mb-8" data-filter-active="all">
+    <button
+      type="button"
+      data-cat="all"
+      class="hot-chip px-3 py-1 rounded-full text-sm border border-slate-300 bg-slate-900 text-white"
+    >전체</button>
+    {Object.entries(CATEGORIES).map(([slug, label]) => (
+      <button
+        type="button"
+        data-cat={slug}
+        class="hot-chip px-3 py-1 rounded-full text-sm border border-slate-300 bg-white text-slate-700 hover:bg-slate-100"
+      >{label}</button>
+    ))}
+  </div>
 
   {!feature && (
     <p class="text-slate-500">아직 충분한 데이터가 없습니다.</p>
@@ -63,7 +78,7 @@ const list = unique.slice(9, 14);     // 5건 리스트
       <h2 class="text-xs uppercase tracking-wider text-slate-500 mb-4 border-b border-slate-200 pb-2">전체 랭킹</h2>
       <ol class="space-y-4">
         {list.map((a, i) => (
-          <li class="flex gap-4 items-start" data-article-id={a.id}>
+          <li class="flex gap-4 items-start" data-article-id={a.id} data-category={a.category}>
             <span class="shrink-0 w-9 h-9 rounded-full bg-slate-100 text-slate-700 font-semibold text-sm flex items-center justify-center mt-2">
               {i + 10}
             </span>
@@ -75,4 +90,40 @@ const list = unique.slice(9, 14);     // 5건 리스트
       </ol>
     </section>
   )}
+
+  <p id="hot-empty" class="hidden text-slate-500 mt-6">선택한 카테고리에 해당하는 항목이 없습니다.</p>
+
+  <script is:inline>
+    (function () {
+      var bar = document.getElementById("hot-filter");
+      if (!bar) return;
+      var chips = bar.querySelectorAll("button[data-cat]");
+      var cards = document.querySelectorAll("[data-category]");
+      var emptyNote = document.getElementById("hot-empty");
+
+      function apply(cat) {
+        var visible = 0;
+        cards.forEach(function (card) {
+          var match = cat === "all" || card.getAttribute("data-category") === cat;
+          card.hidden = !match;
+          if (match) visible++;
+        });
+        if (emptyNote) emptyNote.classList.toggle("hidden", visible > 0);
+        chips.forEach(function (c) {
+          var active = c.getAttribute("data-cat") === cat;
+          c.classList.toggle("bg-slate-900", active);
+          c.classList.toggle("text-white", active);
+          c.classList.toggle("bg-white", !active);
+          c.classList.toggle("text-slate-700", !active);
+        });
+        bar.setAttribute("data-filter-active", cat);
+      }
+
+      chips.forEach(function (c) {
+        c.addEventListener("click", function () {
+          apply(c.getAttribute("data-cat") || "all");
+        });
+      });
+    })();
+  </script>
 </Base>
