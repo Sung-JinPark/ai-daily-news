@@ -62,6 +62,15 @@ export type LatestIndex = {
 
 export type TrendingItem = { keyword: string; count: number };
 
+// English-only trending tokens: ASCII letter start, allow letters/digits/-+./.
+const ASCII_KEYWORD_RE = /^[a-z][a-z0-9\-+.]+$/;
+function isEnglishKeyword(k: string): boolean {
+  return ASCII_KEYWORD_RE.test(k.toLowerCase()) && k.length >= 3;
+}
+function filterEnglish(items: TrendingItem[]): TrendingItem[] {
+  return items.filter((t) => isEnglishKeyword(t.keyword));
+}
+
 export type Digest = {
   day: string;
   tldr_ko: string;
@@ -124,6 +133,7 @@ export function allTrendingKeywords(windowDays: number = 30): Array<{ keyword: s
   for (const day of days) {
     const items = readJson<TrendingItem[]>(path.join(DATA_ROOT, day, "trending.json"), []);
     for (const t of items) {
+      if (!isEnglishKeyword(t.keyword)) continue;
       sums.set(t.keyword, (sums.get(t.keyword) ?? 0) + t.count);
     }
   }
@@ -163,7 +173,7 @@ export function loadDay(day: string): {
   return {
     articles: readJson<Article[]>(path.join(dir, "articles.json"), []),
     highlights: readJson<string[]>(path.join(dir, "highlights.json"), []),
-    trending: readJson<TrendingItem[]>(path.join(dir, "trending.json"), []),
+    trending: filterEnglish(readJson<TrendingItem[]>(path.join(dir, "trending.json"), [])),
     digest,
   };
 }
