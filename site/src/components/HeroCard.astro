@@ -1,5 +1,6 @@
 ---
-import { CATEGORIES, type Article } from "~/lib/loadData";
+import { CATEGORIES, loadGlossary, type Article } from "~/lib/loadData";
+import { linkifyGlossary } from "~/lib/glossaryLinker";
 interface Props {
   article: Article;
 }
@@ -8,6 +9,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const publishedLabel = article.published
   ? new Date(article.published).toLocaleString("ko-KR")
   : "";
+const glossary = loadGlossary();
+const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
 ---
 <section
   class="rounded-xl overflow-hidden border border-slate-200 bg-white mb-10 shadow-sm"
@@ -50,7 +53,7 @@ const publishedLabel = article.published
       )}
     </div>
 
-    <p class="text-base text-slate-700 leading-relaxed mb-4">{article.summary_ko}</p>
+    <p class="text-base text-slate-700 leading-relaxed mb-4" set:html={summaryHtml}></p>
 
     {article.insights_ko?.length > 0 && (
       <ul class="text-sm text-slate-800 list-disc list-outside ml-5 space-y-1.5 mb-5">

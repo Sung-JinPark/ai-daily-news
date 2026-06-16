@@ -25,6 +25,43 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
       <meta name="google-site-verification" content={googleVerification} />
     )}
     <title>{title}</title>
+    <style is:global>
+      .gl {
+        border-bottom: 1px dotted #6366f1;
+        cursor: help;
+      }
+      .gl:hover {
+        background-color: rgba(99, 102, 241, 0.08);
+      }
+      #gl-tip {
+        position: fixed;
+        display: none;
+        z-index: 9999;
+        max-width: 20rem;
+        padding: 0.75rem 0.875rem;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        font-size: 0.875rem;
+        color: #334155;
+        line-height: 1.55;
+        pointer-events: none;
+      }
+      #gl-tip .gl-tip-term {
+        font-weight: 700;
+        color: #4338ca;
+      }
+      #gl-tip .gl-tip-full {
+        font-weight: 400;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        margin-left: 0.25rem;
+      }
+      #gl-tip .gl-tip-desc {
+        margin-top: 0.25rem;
+      }
+    </style>
   </head>
   <body class="min-h-screen bg-white text-slate-900 antialiased selection:bg-amber-100">
     <header class="border-b border-slate-200 sticky top-0 bg-white/85 backdrop-blur z-10">
@@ -59,6 +96,48 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
     <main class="max-w-6xl mx-auto px-4 py-8">
       <slot />
     </main>
+    <script is:inline>
+      (function () {
+        if (window.__glTipInit) return;
+        window.__glTipInit = true;
+        var tip = document.createElement("div");
+        tip.id = "gl-tip";
+        document.body.appendChild(tip);
+
+        function show(el) {
+          var full = el.getAttribute("data-full") || "";
+          var desc = el.getAttribute("data-desc") || "";
+          var term = el.textContent || "";
+          tip.innerHTML =
+            '<div><span class="gl-tip-term"></span><span class="gl-tip-full"></span></div>' +
+            '<div class="gl-tip-desc"></div>';
+          tip.querySelector(".gl-tip-term").textContent = term;
+          tip.querySelector(".gl-tip-full").textContent = full;
+          tip.querySelector(".gl-tip-desc").textContent = desc;
+          tip.style.display = "block";
+          var r = el.getBoundingClientRect();
+          var w = tip.offsetWidth;
+          var h = tip.offsetHeight;
+          var left = r.left;
+          var top = r.bottom + 6;
+          if (top + h > window.innerHeight - 8) top = r.top - h - 6;
+          if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
+          tip.style.left = Math.max(8, left) + "px";
+          tip.style.top = Math.max(8, top) + "px";
+        }
+        function hide() { tip.style.display = "none"; }
+
+        document.addEventListener("mouseover", function (e) {
+          var el = e.target && e.target.closest && e.target.closest(".gl");
+          if (el) show(el);
+        });
+        document.addEventListener("mouseout", function (e) {
+          var el = e.target && e.target.closest && e.target.closest(".gl");
+          if (el) hide();
+        });
+        document.addEventListener("scroll", hide, { passive: true });
+      })();
+    </script>
     <footer class="border-t border-slate-200 mt-16">
       <div class="max-w-6xl mx-auto px-4 py-6 text-xs text-slate-500 flex flex-col sm:flex-row gap-2 justify-between">
         <span>요약·인사이트 by Claude Haiku 4.5. 원문 저작권은 각 매체에 있습니다.</span>
