@@ -1,0 +1,40 @@
+---
+import Base from "~/layouts/Base.astro";
+import NewsTile from "~/components/NewsTile.astro";
+import { allTrendingKeywords, articlesMentioningKeyword, hotnessScore } from "~/lib/loadData";
+
+export async function getStaticPaths() {
+  return allTrendingKeywords(30).map((t) => ({
+    params: { keyword: t.keyword },
+    props: { keyword: t.keyword, weight: t.count },
+  }));
+}
+
+const { keyword, weight } = Astro.props as { keyword: string; weight: number };
+const now = new Date();
+const articles = articlesMentioningKeyword(keyword, 14).sort(
+  (a, b) => hotnessScore(b, now) - hotnessScore(a, now),
+);
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<Base
+  title={`${keyword} — AI Daily News`}
+  description={`'${keyword}' 키워드를 포함하는 최근 14일 글로벌 AI 기사 ${articles.length}건.`}
+>
+  <a href={`${base}/today`} class="kicker text-ink/55 hover:text-accent inline-block mb-5">← 전체 페이지</a>
+
+  <header class="mb-10 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Trending Keyword</div>
+    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3 break-keep">{keyword}</h1>
+    <p class="kicker text-ink/55 tabular-nums">최근 14일 · {String(articles.length).padStart(2, "0")}건 · 30일 점수 {String(weight).padStart(2, "0")}</p>
+  </header>
+
+  {articles.length === 0 ? (
+    <p class="text-ink/50">최근 14일 기사 중 이 키워드를 포함한 항목이 없습니다.</p>
+  ) : (
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
+      {articles.map((a) => <NewsTile article={a} size="md" />)}
+    </div>
+  )}
+</Base>

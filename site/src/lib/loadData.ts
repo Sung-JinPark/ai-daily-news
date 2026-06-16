@@ -114,6 +114,35 @@ export function loadGlossary(): GlossaryTerm[] {
   return data?.terms ?? [];
 }
 
+/**
+ * Collect unique trending keywords across the last `windowDays` days,
+ * summing counts. Useful for generating /trending/[keyword] static pages.
+ */
+export function allTrendingKeywords(windowDays: number = 30): Array<{ keyword: string; count: number }> {
+  const days = allDays().slice(0, windowDays);
+  const sums = new Map<string, number>();
+  for (const day of days) {
+    const items = readJson<TrendingItem[]>(path.join(DATA_ROOT, day, "trending.json"), []);
+    for (const t of items) {
+      sums.set(t.keyword, (sums.get(t.keyword) ?? 0) + t.count);
+    }
+  }
+  return [...sums.entries()]
+    .map(([keyword, count]) => ({ keyword, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+/**
+ * Find articles whose title/summary/insights mention the keyword (case-insensitive).
+ */
+export function articlesMentioningKeyword(keyword: string, windowDays: number = 14): Article[] {
+  const needle = keyword.toLowerCase();
+  return loadRecentDays(windowDays).filter((a) => {
+    const hay = `${a.title_original}\n${a.summary_ko}\n${(a.insights_ko ?? []).join("\n")}`.toLowerCase();
+    return hay.includes(needle);
+  });
+}
+
 export function articleById(): Map<string, Article> {
   const map = new Map<string, Article>();
   for (const a of loadRecentDays(30)) {

@@ -4,17 +4,21 @@ interface Props {
   items: TrendingItem[];
 }
 const { items } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 {items.length > 0 && (
   <div class="mb-10 pb-6 border-b border-ink/15">
     <div class="kicker text-ink/55 mb-3">트렌딩 키워드</div>
     <div class="flex flex-wrap gap-x-5 gap-y-2 items-baseline">
       {items.slice(0, 12).map((t, i) => (
-        <span class="text-sm text-ink/80 font-medium">
+        <a
+          href={`${base}/trending/${encodeURIComponent(t.keyword)}`}
+          class="group text-sm text-ink/80 hover:text-accent font-medium transition-colors"
+        >
           <span class="font-serif text-[11px] text-accent mr-1 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-          {t.keyword}
+          <span class="group-hover:underline">{t.keyword}</span>
           <span class="text-ink/40 ml-1 tabular-nums">{t.count}</span>
-        </span>
+        </a>
       ))}
     </div>
   </div>

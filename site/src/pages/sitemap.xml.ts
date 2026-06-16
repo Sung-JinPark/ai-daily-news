@@ -1,5 +1,5 @@
 import type { APIContext } from "astro";
-import { CATEGORIES, allDays, allWeeklyDigests, loadDay, loadTagsIndex } from "~/lib/loadData";
+import { CATEGORIES, allDays, allTrendingKeywords, allWeeklyDigests, loadDay, loadTagsIndex } from "~/lib/loadData";
 import { PLAYERS } from "~/lib/loadPlayers";
 
 function url(site: URL, base: string, path: string): string {
@@ -44,6 +44,9 @@ export async function GET(context: APIContext) {
   }
   for (const d of allWeeklyDigests()) {
     urls.push({ loc: url(site, base, `/weekly/${d.week}`), lastmod: d.generated_at });
+  }
+  for (const t of allTrendingKeywords(30)) {
+    urls.push({ loc: url(site, base, `/trending/${encodeURIComponent(t.keyword)}`) });
   }
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
