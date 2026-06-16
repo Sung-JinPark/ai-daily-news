@@ -19,7 +19,7 @@ export async function GET(context: APIContext) {
 
   const urls: { loc: string; lastmod?: string }[] = [];
   urls.push({ loc: url(site, base, "/"), lastmod: new Date().toISOString() });
-  urls.push({ loc: url(site, base, "/hot") });
+  urls.push({ loc: url(site, base, "/today") });
   urls.push({ loc: url(site, base, "/archive") });
   urls.push({ loc: url(site, base, "/topic") });
   urls.push({ loc: url(site, base, "/players") });

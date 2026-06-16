@@ -1,0 +1,90 @@
+---
+import Base from "~/layouts/Base.astro";
+import ArticleCard from "~/components/ArticleCard.astro";
+import HeroCard from "~/components/HeroCard.astro";
+import NewsTile from "~/components/NewsTile.astro";
+import SearchBox from "~/components/SearchBox.astro";
+import TrendingChips from "~/components/TrendingChips.astro";
+import GlossarySection from "~/components/GlossarySection.astro";
+import DigestCard from "~/components/DigestCard.astro";
+import { CATEGORIES, loadDay, loadLatest, type Article } from "~/lib/loadData";
+
+const latest = loadLatest();
+const day = latest?.latest_day ?? "";
+const { articles, highlights, trending, digest } = day
+  ? loadDay(day)
+  : { articles: [], highlights: [], trending: [], digest: null };
+
+const highlightIds = highlights;
+const hero = articles.find((a) => a.id === highlightIds[0]);
+const topRest = highlightIds.slice(1).map((id) => articles.find((a) => a.id === id)).filter(Boolean) as Article[];
+const highlightSet = new Set(highlights);
+const rest = articles.filter((a) => !highlightSet.has(a.id));
+
+const PER_CATEGORY = 5;
+const byCategory: Array<{ slug: string; label: string; items: Article[] }> = [];
+for (const [slug, label] of Object.entries(CATEGORIES)) {
+  const items = rest
+    .filter((a) => a.category === slug)
+    .sort((a, b) => {
+      if (b.importance_score !== a.importance_score) return b.importance_score - a.importance_score;
+      return (b.published ?? "").localeCompare(a.published ?? "");
+    })
+    .slice(0, PER_CATEGORY);
+  if (items.length > 0) byCategory.push({ slug, label, items });
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<Base
+  title="전체 — AI Daily News"
+  description={digest?.tldr_ko ?? "매일 자동 업데이트되는 글로벌 AI 뉴스 한국어 인사이트 대시보드"}
+  updatedAt={latest?.updated_at}
+>
+  {!day && (
+    <div class="rounded-md border border-slate-200 bg-slate-50 p-6 text-slate-600">
+      아직 수집된 데이터가 없습니다. GitHub Actions가 처음 실행되면 이곳에 결과가 표시됩니다.
+    </div>
+  )}
+
+  {day && (
+    <>
+      {digest && <DigestCard digest={digest} />}
+
+      <section class="mb-10">
+        <div class="flex items-baseline justify-between mb-1 flex-wrap gap-2">
+          <h1 class="text-3xl font-bold text-slate-900">오늘의 핵심 <span class="text-slate-500 text-2xl font-medium">{day}</span></h1>
+          <a href={`${base}/`} class="text-sm text-blue-600 hover:text-blue-800">7일간 HOT 보기 →</a>
+        </div>
+        <p class="text-sm text-slate-600 mb-6">전 세계 AI 소식을 한국어 인사이트로 정리했습니다.</p>
+        <TrendingChips items={trending} />
+        {hero && <HeroCard article={hero} />}
+        {topRest.length > 0 && (
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {topRest.map((a) => <ArticleCard article={a} highlight={true} />)}
+          </div>
+        )}
+      </section>
+
+      <SearchBox articles={articles} />
+
+      {byCategory.map(({ slug, label, items }) => (
+        <section class="mb-10">
+          <div class="flex items-baseline justify-between mb-4 border-b border-slate-200 pb-2">
+            <h2 class="text-lg font-semibold text-slate-900">{label}</h2>
+            <a href={`${base}/category/${slug}`} class="text-xs text-blue-600 hover:text-blue-800">전체 보기 →</a>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {items.map((a) => (
+              <div data-article-id={a.id}>
+                <NewsTile article={a} size="md" />
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <GlossarySection />
+    </>
+  )}
+</Base>

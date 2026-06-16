@@ -84,8 +84,8 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
         )}
       </div>
       <nav class="max-w-6xl mx-auto px-4 pb-3 flex gap-1 flex-wrap text-sm overflow-x-auto">
-        <a href={base + "/"} class="px-3 py-1 rounded-md text-slate-700 hover:bg-slate-100">전체</a>
-        <a href={`${base}/hot`} class="px-3 py-1 rounded-md text-rose-600 hover:bg-rose-50 font-medium whitespace-nowrap" title="지난 7일 핵심">🔥 HOT</a>
+        <a href={base + "/"} class="px-3 py-1 rounded-md text-rose-600 hover:bg-rose-50 font-medium whitespace-nowrap" title="지난 7일 핵심">🔥 HOT</a>
+        <a href={`${base}/today`} class="px-3 py-1 rounded-md text-slate-700 hover:bg-slate-100">전체</a>
         {Object.entries(CATEGORIES).map(([slug, label]) => (
           <a
             href={`${base}/category/${slug}`}
