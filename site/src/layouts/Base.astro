@@ -87,6 +87,9 @@ const datelineEn = today.toLocaleDateString("en-US", { weekday: "long", year: "n
       }
       .rule-thick { border-top: 3px solid #0a0a0a; }
       .rule-thin  { border-top: 1px solid #d1d5db; }
+      /* Hide horizontal scrollbar on the nav while keeping touch/scroll behavior */
+      .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
   </head>
   <body class="min-h-screen bg-white text-ink antialiased selection:bg-accent/20">
@@ -104,7 +107,7 @@ const datelineEn = today.toLocaleDateString("en-US", { weekday: "long", year: "n
         </a>
       </div>
       <nav class="border-t border-ink/15 bg-white sticky top-0 z-10">
-        <div class="max-w-6xl mx-auto px-4 flex items-stretch gap-0 overflow-x-auto">
+        <div class="max-w-6xl mx-auto px-4 flex items-stretch gap-0 overflow-x-auto no-scrollbar">
           <a href={base + "/"} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-accent border-b-2 border-transparent hover:border-accent whitespace-nowrap">HOT</a>
           <a href={`${base}/today`} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">전체</a>
           {Object.entries(CATEGORIES).map(([slug, label]) => (
