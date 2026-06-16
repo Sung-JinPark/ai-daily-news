@@ -90,6 +90,11 @@ def validate(parsed: dict) -> dict | None:
         "category": category,
         "importance_score": score,
     }
+    subtitle_en = parsed.get("subtitle_en")
+    if subtitle_en and isinstance(subtitle_en, str):
+        sub = subtitle_en.strip().rstrip(".").rstrip("。")
+        if sub and len(sub) <= 200:
+            result["subtitle_en"] = sub
     raw_tags = parsed.get("tags")
     if isinstance(raw_tags, list):
         filtered = []

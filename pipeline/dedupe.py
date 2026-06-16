@@ -17,7 +17,7 @@ import argparse
 import json
 import logging
 import re
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import yaml
@@ -27,8 +27,11 @@ from pipeline.collect import RAW_DIR, today
 
 log = logging.getLogger(__name__)
 HAMMING_THRESHOLD = 12
+CROSS_DAY_THRESHOLD = 8           # stricter for cross-day to avoid false merges
+CONTINUITY_DAYS = 14              # prune index entries older than this
 NGRAM_SIZE = 3
 SOURCES_FILE = Path("pipeline/sources.yaml")
+CONTINUITY_FILE = Path("data/cluster_continuity.json")
 
 
 def trust_map() -> dict[str, int]:
@@ -70,7 +73,51 @@ def load_articles(day_dir: Path) -> list[dict]:
     return items
 
 
-def cluster(articles: list[dict], trust: dict[str, int]) -> list[dict]:
+def load_continuity() -> dict:
+    if not CONTINUITY_FILE.exists():
+        return {"version": 1, "next_id": 0, "entries": []}
+    try:
+        return json.loads(CONTINUITY_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {"version": 1, "next_id": 0, "entries": []}
+
+
+def save_continuity(data: dict) -> None:
+    CONTINUITY_FILE.parent.mkdir(parents=True, exist_ok=True)
+    CONTINUITY_FILE.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+
+def prune_continuity(data: dict, days: int, today_str: str) -> dict:
+    cutoff = (date.fromisoformat(today_str) - timedelta(days=days)).isoformat()
+    data["entries"] = [e for e in data["entries"] if e.get("last_seen", "") >= cutoff]
+    return data
+
+
+def find_stable_id(rep_sh: Simhash, continuity: dict, assigned_today: set[str], today_str: str) -> tuple[str, bool]:
+    """Return (stable_cluster_id, reused). Updates `continuity` in place."""
+    for e in continuity["entries"]:
+        if e["cluster_id"] in assigned_today:
+            continue
+        try:
+            existing_sh = Simhash(int(e["simhash"]))
+        except Exception:
+            continue
+        if rep_sh.distance(existing_sh) <= CROSS_DAY_THRESHOLD:
+            e["last_seen"] = today_str
+            return e["cluster_id"], True
+    continuity["next_id"] = int(continuity.get("next_id", 0)) + 1
+    new_id = f"k{continuity['next_id']:06d}"
+    continuity["entries"].append({
+        "cluster_id": new_id,
+        "simhash": str(rep_sh.value),
+        "last_seen": today_str,
+    })
+    return new_id, False
+
+
+def cluster(articles: list[dict], trust: dict[str, int], day_str: str) -> list[dict]:
     hashed = [(a, title_hash(a["title"])) for a in articles]
     clusters: list[list[tuple[dict, Simhash]]] = []
     for item, sh in hashed:
@@ -83,21 +130,35 @@ def cluster(articles: list[dict], trust: dict[str, int]) -> list[dict]:
         if not placed:
             clusters.append([(item, sh)])
 
+    continuity = load_continuity()
+    prune_continuity(continuity, CONTINUITY_DAYS, day_str)
+    assigned_today: set[str] = set()
+
     output: list[dict] = []
-    for idx, group in enumerate(clusters):
+    reused = 0
+    for group in clusters:
         members = [m for m, _ in group]
         members.sort(
             key=lambda a: (trust.get(a["source_id"], 3), parse_iso(a.get("published"))),
             reverse=True,
         )
         rep = members[0]
+        rep_sh = group[0][1]
+        stable_id, was_reused = find_stable_id(rep_sh, continuity, assigned_today, day_str)
+        if was_reused:
+            reused += 1
+        assigned_today.add(stable_id)
         output.append(
             {
-                "cluster_id": f"c{idx:04d}-{hex(group[0][1].value)[2:10]}",
+                "cluster_id": stable_id,
                 "representative": rep,
                 "members": members,
             }
         )
+
+    save_continuity(continuity)
+    log.info("continuity: %d reused, %d new (index size=%d)",
+             reused, len(output) - reused, len(continuity["entries"]))
     return output
 
 
@@ -116,7 +177,7 @@ def main() -> int:
     if not articles:
         log.warning("no articles to cluster")
         return 0
-    clusters = cluster(articles, trust_map())
+    clusters = cluster(articles, trust_map(), args.day)
     out = day_dir / "clusters.json"
     out.write_text(json.dumps(clusters, ensure_ascii=False, indent=2), encoding="utf-8")
     log.info("dedupe done: %d articles -> %d clusters", len(articles), len(clusters))

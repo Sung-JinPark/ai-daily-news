@@ -20,6 +20,7 @@ export type Article = {
   category: string;
   importance_score: number;
   tags?: string[];
+  subtitle_en?: string;
   institution?: string;
   authors?: string;
 };

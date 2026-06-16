@@ -36,11 +36,14 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
       <span class="text-amber-500 normal-case tracking-normal">{"★".repeat(article.importance_score)}</span>
     </div>
 
-    <h2 class="text-2xl sm:text-3xl font-bold leading-tight text-slate-900 mb-3">
+    <h2 class="text-2xl sm:text-3xl font-bold leading-tight text-slate-900 mb-2">
       <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:underline">
         {article.title_original}
       </a>
     </h2>
+    {article.subtitle_en && (
+      <p class="text-sm italic text-slate-500 mb-3">{article.subtitle_en}</p>
+    )}
 
     <div class="flex items-center gap-2 text-xs text-slate-500 mb-4 flex-wrap">
       <a href={`${base}/category/${article.category}`} class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700">
@@ -61,13 +64,22 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
       </ul>
     )}
 
-    <a
-      href={article.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="inline-flex items-center gap-1 px-4 py-2 rounded-md bg-slate-900 text-white text-sm font-medium hover:bg-slate-700"
-    >
-      원문 보기 →
-    </a>
+    <div class="flex items-center gap-3 flex-wrap">
+      <a
+        href={article.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1 px-4 py-2 rounded-md bg-slate-900 text-white text-sm font-medium hover:bg-slate-700"
+      >
+        원문 보기 →
+      </a>
+      <button
+        type="button"
+        class="share-btn inline-flex items-center gap-1 px-4 py-2 rounded-md border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-50"
+        data-share-title={article.title_original}
+        data-share-text={article.subtitle_en || article.summary_ko.slice(0, 140)}
+        data-share-url={article.url}
+      >공유</button>
+    </div>
   </div>
 </section>
