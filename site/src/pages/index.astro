@@ -3,17 +3,35 @@ import Base from "~/layouts/Base.astro";
 import ArticleCard from "~/components/ArticleCard.astro";
 import HeroCard from "~/components/HeroCard.astro";
 import NewsTile from "~/components/NewsTile.astro";
+import HotFeature from "~/components/HotFeature.astro";
+import HotSide from "~/components/HotSide.astro";
 import SearchBox from "~/components/SearchBox.astro";
 import TrendingChips from "~/components/TrendingChips.astro";
 import GlossarySection from "~/components/GlossarySection.astro";
 import DigestCard from "~/components/DigestCard.astro";
-import { CATEGORIES, loadDay, loadLatest, type Article } from "~/lib/loadData";
+import { CATEGORIES, hotnessScore, loadDay, loadLatest, loadRecentDays, type Article } from "~/lib/loadData";
 
 const latest = loadLatest();
 const day = latest?.latest_day ?? "";
 const { articles, highlights, trending, digest } = day
   ? loadDay(day)
   : { articles: [], highlights: [], trending: [], digest: null };
+
+// HOT teaser at the top: 7-day rolling rank, cluster-deduped, top 4.
+const hotPool: Article[] = loadRecentDays(7);
+const now = new Date();
+const hotRanked = [...hotPool].sort((a, b) => hotnessScore(b, now) - hotnessScore(a, now));
+const hotSeen = new Set<string>();
+const hotUnique: Article[] = [];
+for (const a of hotRanked) {
+  const key = a.cluster_id || a.id;
+  if (hotSeen.has(key)) continue;
+  hotSeen.add(key);
+  hotUnique.push(a);
+  if (hotUnique.length >= 4) break;
+}
+const hotFeature = hotUnique[0];
+const hotSide = hotUnique.slice(1, 4);
 
 const highlightIds = highlights;
 const hero = articles.find((a) => a.id === highlightIds[0]);
@@ -49,12 +67,31 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   {day && (
     <>
+      {hotFeature && (
+        <section class="mb-10">
+          <div class="flex items-baseline justify-between mb-4 flex-wrap gap-2">
+            <h1 class="text-3xl font-bold text-slate-900 flex items-center gap-2">
+              <span class="text-rose-600">🔥</span> HOT
+              <span class="text-base font-normal text-slate-500">— 지난 7일 핵심</span>
+            </h1>
+            <a href={`${base}/hot`} class="text-sm text-blue-600 hover:text-blue-800">전체 HOT 보기 →</a>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div class="lg:col-span-2">
+              <HotFeature article={hotFeature} rank={1} />
+            </div>
+            <div class="space-y-3">
+              {hotSide.map((a, i) => <HotSide article={a} rank={i + 2} />)}
+            </div>
+          </div>
+        </section>
+      )}
+
       {digest && <DigestCard digest={digest} />}
 
       <section class="mb-10">
         <div class="flex items-baseline justify-between mb-1 flex-wrap gap-2">
-          <h1 class="text-3xl font-bold text-slate-900">오늘의 핵심 <span class="text-slate-500 text-2xl font-medium">{day}</span></h1>
-          <a href={`${base}/hot`} class="text-sm text-blue-600 hover:text-blue-800">7일간 HOT 보기 →</a>
+          <h2 class="text-2xl font-bold text-slate-900">오늘의 핵심 <span class="text-slate-500 text-xl font-medium">{day}</span></h2>
         </div>
         <p class="text-sm text-slate-600 mb-6">전 세계 AI 소식을 한국어 인사이트로 정리했습니다.</p>
         <TrendingChips items={trending} />
