@@ -6,12 +6,14 @@ interface Props {
 const { items } = Astro.props;
 ---
 {items.length > 0 && (
-  <div class="mb-6">
-    <h2 class="text-xs uppercase tracking-wider text-slate-500 mb-2">트렌딩 키워드</h2>
-    <div class="flex flex-wrap gap-2">
-      {items.slice(0, 12).map((t) => (
-        <span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-          {t.keyword} <span class="text-slate-400">·{t.count}</span>
+  <div class="mb-10 pb-6 border-b border-ink/15">
+    <div class="kicker text-ink/55 mb-3">트렌딩 키워드</div>
+    <div class="flex flex-wrap gap-x-5 gap-y-2 items-baseline">
+      {items.slice(0, 12).map((t, i) => (
+        <span class="text-sm text-ink/80 font-medium">
+          <span class="font-serif text-[11px] text-accent mr-1 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+          {t.keyword}
+          <span class="text-ink/40 ml-1 tabular-nums">{t.count}</span>
         </span>
       ))}
     </div>

@@ -20,14 +20,17 @@ const filtered = articles
 const label = CATEGORIES[slug!] ?? slug;
 ---
 <Base title={`${label} — AI Daily News`} updatedAt={latest?.updated_at}>
-  <h1 class="text-3xl font-bold mb-1 text-slate-900">{label}</h1>
-  <p class="text-sm text-slate-600 mb-6">{day} · {filtered.length}건</p>
+  <header class="mb-10 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Category</div>
+    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3">{label}</h1>
+    <p class="kicker text-ink/55 tabular-nums">{day} · {String(filtered.length).padStart(2, "0")}건</p>
+  </header>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0">
     {filtered.map((a) => <ArticleCard article={a} />)}
   </div>
 
   {filtered.length === 0 && (
-    <p class="text-slate-500">이 카테고리에 해당하는 오늘 기사가 없습니다.</p>
+    <p class="text-ink/50">이 카테고리에 해당하는 오늘 기사가 없습니다.</p>
   )}
 </Base>

@@ -30,14 +30,17 @@ articlesAcrossDays.sort((a, b) => (b.published ?? "").localeCompare(a.published 
 const recent = articlesAcrossDays.slice(0, 20);
 ---
 <Base title={`${sourceName} — AI Daily News`} updatedAt={latest?.updated_at}>
-  <h1 class="text-3xl font-bold mb-1 text-slate-900">{sourceName}</h1>
-  <p class="text-sm text-slate-600 mb-6">전체 {articlesAcrossDays.length}건 (최신 {recent.length}건 표시)</p>
+  <header class="mb-10 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Source</div>
+    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3">{sourceName}</h1>
+    <p class="kicker text-ink/55 tabular-nums">전체 {String(articlesAcrossDays.length).padStart(2, "0")}건 · 최신 {String(recent.length).padStart(2, "0")}건 표시</p>
+  </header>
 
   {recent.length === 0 && (
-    <p class="text-slate-500">아직 이 매체의 기사가 없습니다.</p>
+    <p class="text-ink/50">아직 이 매체의 기사가 없습니다.</p>
   )}
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0">
     {recent.map((a) => <ArticleCard article={a} />)}
   </div>
 </Base>

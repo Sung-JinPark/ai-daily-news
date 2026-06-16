@@ -30,34 +30,33 @@ const initial = player.name.charAt(0);
   title={`${player.name} — AI Daily News`}
   description={`${player.name}의 최근 30일 글로벌 AI 뉴스 ${articles.length}건을 한국어 인사이트로 정리.`}
 >
-  <div class="mb-6">
-    <a href={`${base}/players`} class="text-sm text-blue-600 hover:text-blue-800">← 전체 플레이어</a>
-  </div>
+  <a href={`${base}/players`} class="kicker text-ink/55 hover:text-accent inline-block mb-5">← 전체 플레이어</a>
 
-  <header class="mb-10 flex items-start gap-4">
+  <header class="mb-12 pb-6 border-b-2 border-ink flex items-start gap-5">
     <div
-      class="shrink-0 w-16 h-16 rounded-xl flex items-center justify-center text-white text-3xl font-bold"
+      class="shrink-0 w-16 h-16 flex items-center justify-center text-white font-serif font-black text-3xl"
       style={`background-color: ${player.color}`}
     >{initial}</div>
-    <div class="min-w-0">
-      <h1 class="text-3xl font-bold text-slate-900 mb-1">{player.name}</h1>
-      <p class="text-sm text-slate-600 leading-relaxed mb-2">{player.blurb}</p>
-      <p class="text-xs text-slate-500">
-        <a href={player.homepage} target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800">{player.homepage} →</a>
-        <span class="mx-2">·</span>
-        최근 30일 {articles.length}건
+    <div class="min-w-0 flex-1">
+      <div class="kicker text-accent mb-1">Player</div>
+      <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-2">{player.name}</h1>
+      <p class="text-[15px] text-ink/70 leading-relaxed mb-3 max-w-2xl">{player.blurb}</p>
+      <p class="kicker text-ink/55">
+        <a href={player.homepage} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">{player.homepage.replace(/^https?:\/\//, "")} →</a>
+        <span class="mx-2 text-ink/30">·</span>
+        최근 30일 {String(articles.length).padStart(2, "0")}건
       </p>
     </div>
   </header>
 
   {articles.length === 0 ? (
-    <p class="text-slate-500">아직 이 플레이어의 기사가 없습니다. 다음 파이프라인 실행 이후 채워집니다.</p>
+    <p class="text-ink/50">아직 이 플레이어의 기사가 없습니다. 다음 파이프라인 실행 이후 채워집니다.</p>
   ) : (
-    <div class="space-y-10">
+    <div class="space-y-12">
       {days.map((day) => (
         <section>
-          <h2 class="text-sm font-semibold text-slate-500 mb-3 sticky top-16 bg-white/90 backdrop-blur py-1 z-[5]">{day}</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <h2 class="kicker text-ink/55 mb-4 pb-2 border-b border-ink/15 sticky top-16 bg-white/90 backdrop-blur py-2 z-[5] tabular-nums">{day}</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
             {byDay.get(day)!.map((a) => <NewsTile article={a} size="md" />)}
           </div>
         </section>

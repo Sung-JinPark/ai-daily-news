@@ -22,25 +22,28 @@ const sources = Array.from(
 const days = allDays();
 ---
 <Base title={`AI Daily News — ${date}`}>
-  <h1 class="text-3xl font-bold mb-1 text-slate-900">{date} 아카이브</h1>
-  <p class="text-sm text-slate-600 mb-6">전체 {articles.length}건</p>
+  <header class="mb-10 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Archive</div>
+    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3 tabular-nums">{date}</h1>
+    <p class="kicker text-ink/55 tabular-nums">전체 {String(articles.length).padStart(2, "0")}건</p>
+  </header>
 
   <TrendingChips items={trending} />
 
   {top.length > 0 && (
-    <section class="mb-10">
-      <h2 class="text-lg font-semibold mb-3">핵심 {top.length}건</h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <section class="mb-12">
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">핵심 {String(top.length).padStart(2, "0")}건</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0">
         {top.map((a) => <ArticleCard article={a} highlight={true} />)}
       </div>
     </section>
   )}
 
   <section>
-    <h2 class="text-lg font-semibold mb-3">전체</h2>
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">전체</h2>
     <SearchBox articles={articles} />
     <FilterBar sources={sources} days={days} currentDay={date!} />
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0">
       {rest.map((a) => (
         <div data-article-id={a.id}>
           <ArticleCard article={a} />

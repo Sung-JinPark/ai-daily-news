@@ -24,16 +24,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   title={`#${tag} — AI Daily News`}
   description={`'${tag}' 토픽의 최근 30일간 글로벌 AI 기사 ${count}건을 한국어 인사이트로 정리.`}
 >
-  <div class="mb-6">
-    <a href={`${base}/topic`} class="text-sm text-blue-600 hover:text-blue-800">← 전체 토픽</a>
-  </div>
-  <h1 class="text-3xl font-bold text-slate-900 mb-2">#{tag}</h1>
-  <p class="text-sm text-slate-600 mb-8">최근 30일간 {count}건 · 카테고리: {categories.join(", ")}</p>
+  <header class="mb-10 pb-4 border-b border-ink/15">
+    <a href={`${base}/topic`} class="kicker text-ink/55 hover:text-accent inline-block mb-3">← 전체 토픽</a>
+    <div class="kicker text-accent mb-2">Topic</div>
+    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3">#{tag}</h1>
+    <p class="kicker text-ink/55">최근 30일 · {count}건 · {categories.join(" · ")}</p>
+  </header>
 
   {articles.length === 0 ? (
-    <p class="text-slate-500">아직 이 토픽의 기사가 없습니다.</p>
+    <p class="text-ink/50">아직 이 토픽의 기사가 없습니다.</p>
   ) : (
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
       {articles.map((a) => <NewsTile article={a} size="md" />)}
     </div>
   )}

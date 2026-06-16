@@ -6,27 +6,27 @@ const digests = allWeeklyDigests();
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <Base title="주간 다이제스트 — AI Daily News">
-  <header class="mb-8">
-    <h1 class="text-3xl font-bold text-slate-900 mb-2">주간 다이제스트</h1>
-    <p class="text-sm text-slate-600">
-      매주 일요일 발행 · 지난 7일간 핵심 흐름을 한 페이지로.
-      <a href={`${base}/weekly.xml`} class="ml-2 text-orange-600 hover:text-orange-800">RSS 구독</a>
+  <header class="mb-10 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Weekly Edition</div>
+    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3">주간 다이제스트</h1>
+    <p class="kicker text-ink/55">매주 일요일 발행 · 지난 7일 핵심 흐름
+      <a href={`${base}/weekly.xml`} class="ml-2 text-accent hover:underline">RSS</a>
     </p>
   </header>
 
   {digests.length === 0 ? (
-    <p class="text-slate-500">첫 주간 다이제스트가 일요일에 발행됩니다.</p>
+    <p class="text-ink/50">첫 주간 다이제스트가 일요일에 발행됩니다.</p>
   ) : (
-    <ul class="space-y-3">
+    <ul class="divide-y divide-ink/15">
       {digests.map((d) => (
-        <li class="rounded-lg border border-slate-200 bg-white p-5 hover:shadow-md transition-shadow">
-          <a href={`${base}/weekly/${d.week}`} class="block">
+        <li>
+          <a href={`${base}/weekly/${d.week}`} class="block py-6 group">
             <div class="flex items-baseline justify-between gap-3 mb-2 flex-wrap">
-              <h2 class="text-lg font-semibold text-indigo-700">{d.week}</h2>
-              <span class="text-xs text-slate-500">{new Date(d.generated_at).toLocaleDateString("ko-KR")}</span>
+              <h2 class="font-serif text-2xl font-black text-ink group-hover:text-accent transition-colors tabular-nums">{d.week}</h2>
+              <span class="kicker text-ink/55 tabular-nums">{new Date(d.generated_at).toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric" })}</span>
             </div>
-            <p class="text-sm text-slate-700 line-clamp-3">{d.theme_recap_ko}</p>
-            <p class="text-xs text-slate-500 mt-2">테마 {d.themes.length}개 · TOP {d.top_story_ids.length}건</p>
+            <p class="text-[15px] text-ink/75 line-clamp-3 leading-relaxed mb-2">{d.theme_recap_ko}</p>
+            <p class="kicker text-ink/45 tabular-nums">테마 {String(d.themes.length).padStart(2, "0")} · TOP {String(d.top_story_ids.length).padStart(2, "0")}</p>
           </a>
         </li>
       ))}

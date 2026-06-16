@@ -12,21 +12,24 @@ const total = stats.reduce((s, r) => s + r.count, 0);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <Base title="아카이브 — AI Daily News" updatedAt={latest?.updated_at}>
-  <h1 class="text-2xl font-bold mb-1">아카이브</h1>
-  <p class="text-sm text-slate-400 mb-6">{days.length}일 / 총 {total}건</p>
+  <header class="mb-10 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Archive</div>
+    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3">아카이브</h1>
+    <p class="kicker text-ink/55 tabular-nums">{String(days.length).padStart(2, "0")}일 · 총 {String(total).padStart(2, "0")}건</p>
+  </header>
 
   {days.length === 0 ? (
-    <p class="text-slate-400">아직 수집된 데이터가 없습니다.</p>
+    <p class="text-ink/50">아직 수집된 데이터가 없습니다.</p>
   ) : (
-    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-0 divide-y divide-ink/15 sm:divide-y-0 sm:[&>li]:border-b sm:[&>li]:border-ink/15">
       {stats.map(({ day, count }) => (
         <li>
           <a
             href={`${base}/archive/${day}`}
-            class="flex items-center justify-between border border-slate-200 hover:border-slate-400 hover:bg-slate-50 rounded-md p-4 transition"
+            class="flex items-baseline justify-between py-4 group hover:text-accent"
           >
-            <span class="font-medium text-slate-900">{day}</span>
-            <span class="text-xs text-slate-500">{count}건</span>
+            <span class="font-serif text-xl font-bold text-ink group-hover:text-accent tabular-nums">{day}</span>
+            <span class="kicker text-ink/55 tabular-nums">{String(count).padStart(2, "0")}건</span>
           </a>
         </li>
       ))}

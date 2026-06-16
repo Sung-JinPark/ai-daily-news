@@ -8,34 +8,43 @@ interface Props {
 const { sources, days, currentDay } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-  <select
-    id="filter-category"
-    class="bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-700 hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-200"
-  >
-    <option value="">모든 카테고리</option>
-    {Object.entries(CATEGORIES).map(([k, label]) => (
-      <option value={k}>{label}</option>
-    ))}
-  </select>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3 mb-8 pb-4 border-b border-ink/15">
+  <label class="block">
+    <span class="kicker text-ink/55 block mb-1">카테고리</span>
+    <select
+      id="filter-category"
+      class="w-full bg-transparent border-0 border-b border-ink/30 px-0 py-1.5 text-sm text-ink focus:outline-none focus:border-accent"
+    >
+      <option value="">모든 카테고리</option>
+      {Object.entries(CATEGORIES).map(([k, label]) => (
+        <option value={k}>{label}</option>
+      ))}
+    </select>
+  </label>
 
-  <select
-    id="filter-source"
-    class="bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-700 hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-200"
-  >
-    <option value="">모든 매체</option>
-    {sources.map((s) => <option value={s.id}>{s.name}</option>)}
-  </select>
+  <label class="block">
+    <span class="kicker text-ink/55 block mb-1">매체</span>
+    <select
+      id="filter-source"
+      class="w-full bg-transparent border-0 border-b border-ink/30 px-0 py-1.5 text-sm text-ink focus:outline-none focus:border-accent"
+    >
+      <option value="">모든 매체</option>
+      {sources.map((s) => <option value={s.id}>{s.name}</option>)}
+    </select>
+  </label>
 
-  <select
-    id="filter-day"
-    class="bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-700 hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-200"
-    data-base={base}
-  >
-    {days.map((d) => (
-      <option value={d} selected={d === currentDay}>{d}</option>
-    ))}
-  </select>
+  <label class="block">
+    <span class="kicker text-ink/55 block mb-1">날짜</span>
+    <select
+      id="filter-day"
+      class="w-full bg-transparent border-0 border-b border-ink/30 px-0 py-1.5 text-sm text-ink focus:outline-none focus:border-accent tabular-nums"
+      data-base={base}
+    >
+      {days.map((d) => (
+        <option value={d} selected={d === currentDay}>{d}</option>
+      ))}
+    </select>
+  </label>
 </div>
 
 <script is:inline>
