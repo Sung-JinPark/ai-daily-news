@@ -70,19 +70,9 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
            set:html={summaryHtml}></div>
     </div>
 
-    <div class="flex items-center justify-between text-[11px] tracking-kicker uppercase font-semibold text-ink/60 mt-auto pt-3">
-      <span>
-        {publishedLabel}
-        {article.cluster_size > 1 && ` · ${article.cluster_size}개 매체`}
-      </span>
-      <a
-        href={article.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-accent hover:underline"
-      >
-        원문 →
-      </a>
+    <div class="text-[11px] tracking-kicker uppercase font-semibold text-ink/60 mt-auto pt-3">
+      {publishedLabel}
+      {article.cluster_size > 1 && ` · ${article.cluster_size}개 매체`}
     </div>
   </div>
 </article>

@@ -4,7 +4,7 @@ import HotFeature from "~/components/HotFeature.astro";
 import HotSide from "~/components/HotSide.astro";
 import NewsTile from "~/components/NewsTile.astro";
 import ArticleCard from "~/components/ArticleCard.astro";
-import { CATEGORIES, hotnessScore, loadLatest, loadRecentDays, type Article } from "~/lib/loadData";
+import { hotnessScore, loadLatest, loadRecentDays, type Article } from "~/lib/loadData";
 
 const latest = loadLatest();
 const pool: Article[] = loadRecentDays(7);
@@ -26,20 +26,10 @@ const grid = unique.slice(4, 9);
 const list = unique.slice(9, 14);
 ---
 <Base title="HOT — AI Daily News" updatedAt={latest?.updated_at}>
-  <header class="mb-8">
+  <header class="mb-10 pb-4 border-b border-ink/15">
     <div class="kicker text-accent mb-2">Top Stories · 지난 7일</div>
-    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3">HOT 랭킹</h1>
-    <p class="text-sm text-ink/65 max-w-2xl leading-relaxed">
-      중요도, 다중 매체 보도, 신선도를 종합한 7일 누적 랭킹. 같은 사건은 한 번만 표시됩니다.
-    </p>
+    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none">HOT 랭킹</h1>
   </header>
-
-  <div id="hot-filter" class="flex flex-wrap gap-x-5 gap-y-2 mb-10 pb-4 border-b border-ink/15" data-filter-active="all">
-    <button type="button" data-cat="all" class="hot-chip kicker text-accent border-b-2 border-accent pb-1">전체</button>
-    {Object.entries(CATEGORIES).map(([slug, label]) => (
-      <button type="button" data-cat={slug} class="hot-chip kicker text-ink/60 hover:text-ink border-b-2 border-transparent hover:border-ink pb-1">{label}</button>
-    ))}
-  </div>
 
   {!feature && (
     <p class="text-ink/50">아직 충분한 데이터가 없습니다.</p>
@@ -86,39 +76,4 @@ const list = unique.slice(9, 14);
     </section>
   )}
 
-  <p id="hot-empty" class="hidden text-ink/50 mt-6">선택한 카테고리에 해당하는 항목이 없습니다.</p>
-
-  <script is:inline>
-    (function () {
-      var bar = document.getElementById("hot-filter");
-      if (!bar) return;
-      var chips = bar.querySelectorAll("button[data-cat]");
-      var cards = document.querySelectorAll("[data-category]");
-      var emptyNote = document.getElementById("hot-empty");
-
-      function apply(cat) {
-        var visible = 0;
-        cards.forEach(function (card) {
-          var match = cat === "all" || card.getAttribute("data-category") === cat;
-          card.hidden = !match;
-          if (match) visible++;
-        });
-        if (emptyNote) emptyNote.classList.toggle("hidden", visible > 0);
-        chips.forEach(function (c) {
-          var active = c.getAttribute("data-cat") === cat;
-          c.classList.toggle("text-accent", active);
-          c.classList.toggle("border-accent", active);
-          c.classList.toggle("text-ink/60", !active);
-          c.classList.toggle("border-transparent", !active);
-        });
-        bar.setAttribute("data-filter-active", cat);
-      }
-
-      chips.forEach(function (c) {
-        c.addEventListener("click", function () {
-          apply(c.getAttribute("data-cat") || "all");
-        });
-      });
-    })();
-  </script>
 </Base>

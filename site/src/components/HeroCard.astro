@@ -58,18 +58,9 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
     <p class="text-[16px] sm:text-[17px] text-ink/80 leading-relaxed mb-5" set:html={summaryHtml}></p>
 
     {article.insights_ko?.length > 0 && (
-      <ul class="text-[15px] text-ink/85 list-disc list-outside ml-5 space-y-2 mb-6 marker:text-accent">
+      <ul class="text-[15px] text-ink/85 list-disc list-outside ml-5 space-y-2 marker:text-accent">
         {article.insights_ko.map((i) => <li>{i}</li>)}
       </ul>
     )}
-
-    <a
-      href={article.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="inline-flex items-center gap-1 self-start px-5 py-2.5 bg-ink text-white text-[12px] tracking-kicker uppercase font-bold hover:bg-accent transition-colors"
-    >
-      원문 보기 →
-    </a>
   </div>
 </section>

@@ -63,21 +63,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     </div>
   )}
 
-  <div class="flex items-center justify-between pt-3 mt-1 border-t border-ink/10">
-    {article.also_covered_by?.length > 0 ? (
-      <span class="text-[11px] tracking-kicker uppercase font-semibold text-ink/50">
-        다른 매체 {article.also_covered_by.length}곳
-      </span>
-    ) : (
-      <span></span>
-    )}
-    <a
-      href={article.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="text-[12px] tracking-kicker uppercase font-bold text-accent hover:underline"
-    >
-      원문 보기 →
-    </a>
-  </div>
+  {article.also_covered_by?.length > 0 && (
+    <span class="text-[11px] tracking-kicker uppercase font-semibold text-ink/50">
+      다른 매체 {article.also_covered_by.length}곳
+    </span>
+  )}
 </article>
