@@ -1166,5 +1166,555 @@
       "파인튜닝",
       "추론"
     ]
+  },
+  {
+    "id": "5ba662ca1e968ea4",
+    "cluster_id": "k000317",
+    "title_original": "Z.ai’s open-weights GLM-5.2 beats GPT-5.5 on multiple long-horizon coding benchmarks for 1/6th the cost",
+    "url": "https://venturebeat.com/technology/z-ais-open-weights-glm-5-2-beats-gpt-5-5-on-multiple-long-horizon-coding-benchmarks-for-1-6th-the-cost",
+    "image_url": null,
+    "source_id": "venturebeat",
+    "source_name": "VentureBeat",
+    "published": "2026-06-16T21:26:01+00:00",
+    "fetched_at": "2026-06-16T23:24:37.097716+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "중국 AI 스타트업 Z.ai가 753억 파라미터 오픈웨이트 모델 GLM-5.2를 공개했으며, 장기 자동 코딩 작업에서 GPT-5.5를 능가하면서 비용은 1/6 수준입니다. 100만 토큰 컨텍스트 윈도우를 안정적으로 지원하며 MIT 라이선스로 공개되어 기업이 자유롭게 다운로드 및 커스터마이징할 수 있습니다. Hugging Face 등 20개 이상의 제3자 플랫폼에서 즉시 이용 가능하며 월 12.60달러부터 시작하는 엔터프라이즈 구독 옵션도 제공됩니다.",
+    "insights_ko": [
+      "오픈소스 모델이 독점 프론티어 모델을 벤치마크상 초과하면서 비용 대비 성능 경쟁에서 압도적 우위를 보입니다. 이는 추론 최적화와 특정 도메인(코딩) 집중 튜닝이 모델 크기보다 효율성 면에서 더 중요해지고 있음을 시사합니다.",
+      "MIT 라이선스 공개는 엔터프라이즈 고객에게 온프레미스 배포, 정렬 커스터마이징, 공급망 통제 권한을 제공하며, 규제 리스크나 지연 비용이 높은 금융·정부 부문에서 빠른 채택 기회를 만듭니다.",
+      "중국 모델이 코딩 벤치마크 주도권을 확보하면서 에이전트·AutoGen 같은 생산성 도구 에코시스템에서 로컬 추론 수요가 급증할 것으로 예상되며, 이는 추론칩 및 엣지 배포 시장과도 연결됩니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "GLM-5.2 open-weights model beats GPT-5.5 on coding at one-sixth cost",
+    "tags": [
+      "오픈소스",
+      "코딩",
+      "롱컨텍스트",
+      "추론"
+    ],
+    "institution": "Z.ai"
+  },
+  {
+    "id": "581c999e02610fc2",
+    "cluster_id": "k000318",
+    "title_original": "Databricks says it solved the decades-old data pipeline problem that's been slowing AI agents",
+    "url": "https://venturebeat.com/data/databricks-says-it-solved-the-decades-old-data-pipeline-problem-thats-been-slowing-ai-agents",
+    "image_url": null,
+    "source_id": "venturebeat",
+    "source_name": "VentureBeat",
+    "published": "2026-06-16T20:04:49+00:00",
+    "fetched_at": "2026-06-16T23:24:43.108699+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Databricks가 Data + AI Summit에서 Lakehouse//RT와 LTAP 두 가지 신제품을 발표하며, AI 에이전트 시스템이 실시간 데이터에 접근하는 데 필요한 기존 데이터 파이프라인 문제를 해결한다고 선언했습니다. Lakehouse//RT는 Delta와 Iceberg 테이블에서 밀리초 단위 쿼리 레이턴시를 제공하고, LTAP는 Postgres 트랜잭션 데이터를 기본적으로 Delta/Iceberg 포맷으로 저장해 수십 년 된 ETL 파이프라인의 필요성을 제거합니다.",
+    "insights_ko": [
+      "AI 에이전트의 연속 추론과 실시간 행동이 기존의 배치 기반 분석 파이프라인과 근본적으로 양립 불가능하다는 점을 인식하고, 이를 인프라 수준에서 해결하려는 시도입니다. 이는 단순 성능 개선이 아닌 아키텍처 패러다임의 전환을 의미합니다.",
+      "데이터 통합 레이어의 표준화가 Delta/Iceberg로 수렴하면서, 별도의 OLTP 저장소와 OLAP 저장소를 유지하는 전통적인 다중 데이터베이스 전략이 경제성을 잃을 가능성을 시사합니다. 엔터프라이즈 데이터 아키텍처의 단순화와 Databricks의 중심성이 높아질 전망입니다.",
+      "에이전트 시스템의 실용화가 인프라 레벨에서 새로운 제약조건과 솔루션을 촉발하고 있으며, 데이터 플랫폼이 AI 워크로드 중심으로 재설계되는 추세를 가속화할 것으로 보입니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Databricks eliminates ETL bottlenecks for real-time AI agent systems",
+    "tags": [
+      "에이전트",
+      "RAG"
+    ]
+  },
+  {
+    "id": "19e4caf222bfb0d9",
+    "cluster_id": "k000319",
+    "title_original": "Stanford's DeLM cuts multi-agent task costs 50% — without a central orchestrator",
+    "url": "https://venturebeat.com/orchestration/stanfords-delm-cuts-multi-agent-task-costs-50-without-a-central-orchestrator",
+    "image_url": null,
+    "source_id": "venturebeat",
+    "source_name": "VentureBeat",
+    "published": "2026-06-16T17:47:53+00:00",
+    "fetched_at": "2026-06-16T23:24:48.199621+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Stanford 연구진이 개발한 DeLM(Decentralized Language Model)은 중앙 오케스트레이터 없이 에이전트가 직접 조율하도록 설계해 다중 에이전트 작업 비용을 50% 절감합니다. 공유 지식 기반을 '공통 통신 기반'으로 삼아 각 에이전트가 중앙 제어기를 거치지 않고도 검증된 진행 상황을 토대로 협력할 수 있습니다. 이는 추론 비용과 조율 지연시간을 동시에 줄이는 새로운 멀티에이전트 아키텍처입니다.",
+    "insights_ko": [
+      "기존 에이전트 시스템의 '중앙 오케스트레이터' 패턴이 단순히 필수적 설계가 아니라 비효율의 원인이었을 가능성을 제시합니다. 50% 비용 절감은 현재의 수렴 방식이 상당한 연산·통신 오버헤드를 낭비하고 있음을 의미합니다.",
+      "분산 구조의 공유 지식 기반 방식은 프롬프트 라우팅·병합·재전송 사이클을 제거해 추론 수율을 높일 뿐 아니라, 각 에이전트의 독립성을 강화함으로써 시스템 확장성과 결함 허용성을 개선할 가능성이 있습니다. 에이전트 시스템의 근본적 아키텍처 재설계의 신호입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Decentralized agents cut inference costs fifty percent without central routing",
+    "tags": [
+      "에이전트",
+      "추론"
+    ],
+    "institution": "Stanford University",
+    "authors": "Yuzhen Mao, Azalia Mirhoseini"
+  },
+  {
+    "id": "c2cc482c09d775a9",
+    "cluster_id": "k000321",
+    "title_original": "Exclusive eBook: How AI is becoming the next military advisor",
+    "url": "https://www.technologyreview.com/2026/06/16/1138905/exclusive-ebook-how-ai-is-becoming-the-next-military-advisor/",
+    "image_url": "https://wp.technologyreview.com/wp-content/uploads/2026/06/military-ai.png?resize=1200,600",
+    "source_id": "mit_tr",
+    "source_name": "MIT Technology Review",
+    "published": "2026-06-16T20:35:02+00:00",
+    "fetched_at": "2026-06-16T23:25:08.927664+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "MIT Technology Review가 군부대의 AI 활용 현황을 다룬 구독자 전용 eBook을 발행했습니다. 2025년 4월부터 2026년 4월 사이에 발표된 6개 기사를 모아 최근 발전 사항으로 업데이트한 컬렉션으로, 타겟팅 결정부터 정보 수집, 이란 분쟁 분석까지 군사 AI 활용 사례들을 포함합니다.",
+    "insights_ko": [
+      "군부 AI 도입이 '전략 결정 지원'에서 '실시간 타겟팅·감시'로 진화했으며, 미국 국방부가 분류된 데이터로 AI 기업 모델을 학습시키려는 계획을 공개한 점은 민간 AI와 군사 인프라의 직접 결합을 시사합니다.",
+      "AI 챗봇이 타겟팅 의사결정에 관여하고 있다는 방어 관계자 증언은 전장에서의 의사 결정 속도가 인간 검증보다 자동화를 우선하는 구조로 변하고 있음을 의미하며, 오류율·책임성·국제 인도법 준수 문제가 향후 정책·규제 논쟁의 핵심이 될 가능성이 높습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Military AI moves from advisory to real-time targeting and classified training",
+    "tags": [
+      "안전성",
+      "정렬",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "e2a18d21109b538e",
+    "cluster_id": "k000293",
+    "title_original": "The Download: the first brain implant power user and South Korea’s AI obsession",
+    "url": "https://www.technologyreview.com/2026/06/16/1139010/the-download-brain-implant-power-user-bci-south-korea-ai-obsession/",
+    "image_url": "https://wp.technologyreview.com/wp-content/uploads/2026/06/h_16269933.jpg?resize=1200,600",
+    "source_id": "mit_tr",
+    "source_name": "MIT Technology Review",
+    "published": "2026-06-16T12:10:00+00:00",
+    "fetched_at": "2026-06-16T23:25:16.007663+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "MIT Technology Review의 일일 뉴스레터에서 ALS 환자 Casey Harrell이 뇌 임플란트를 통해 3년간 수천 시간을 사용하며 '첫 파워 유저'로 활동 중이고, 남한이 25개 국가 중 AI에 대해 가장 긍정적(우려 16%)이라는 조사 결과를 보도했습니다. DeepSeek의 75억 달러 첫 라운드 펀딩과 미국의 Anthropic 제재, Alibaba의 로봇 AI 모델 공개 등이 주요 산업 뉴스입니다.",
+    "insights_ko": [
+      "뇌-컴퓨터 인터페이스(BCI)가 실험실 단계를 벗어나 신경계 질환 환자의 독립적 생활을 수년 단위로 지원하는 기술로 전환되고 있으며, 장기 사용 데이터 축적이 임상 응용 확대의 기초가 됩니다.",
+      "남한의 AI 낙관주의는 기술 주도 산업화 경험에서 비롯된 문화적·전략적 선택으로, 이는 정부 정책과 기업 투자의 공격성으로 이어져 글로벌 AI 경쟁 지형에서 동아시아 축의 영향력을 강화할 것으로 예상됩니다.",
+      "DeepSeek의 $50B+ 평가가치와 미국의 중국 AI 제재가 동시에 진행 중인 점에서 지정학적 AI 전략 양극화가 심화되고 있으며, 글로벌 AI 공급망과 투자 흐름의 재편이 가속될 전망입니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "BCI power user, South Korea's AI optimism, DeepSeek's record funding round",
+    "tags": [
+      "DeepSeek",
+      "생산성"
+    ]
+  },
+  {
+    "id": "03dd6b7bca3abc23",
+    "cluster_id": "k000094",
+    "title_original": "Why do South Koreans love AI so much?",
+    "url": "https://www.technologyreview.com/2026/06/15/1138983/why-do-south-koreans-love-ai-so-much/",
+    "image_url": "https://wp.technologyreview.com/wp-content/uploads/2026/06/AP26126222060508.jpg?resize=1200,600",
+    "source_id": "mit_tr",
+    "source_name": "MIT Technology Review",
+    "published": "2026-06-15T18:46:08+00:00",
+    "fetched_at": "2026-06-16T23:25:23.483743+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "남한이 AI에 긍정적인 이유를 분석하는 기사로, 정부의 전략적 추진, 과거 기술 주도 경제 발전 경험, 높은 기술 수용도가 배경입니다. 남한 국민의 16%만 AI에 우려하고 84%는 긍정적이지만, 일자리 대체 우려와 AI 교육 부실 논란 등 맹점도 드러나고 있습니다. 현 정부는 미국·중국과 함께 '세계 3대 AI 강국' 달성을 목표로 정책 투자와 규제 완화에 집중 중입니다.",
+    "insights_ko": [
+      "남한의 높은 AI 긍정도는 일관된 정부 메시지와 과거 기술 기반 경제 도약의 성공 경험에 기반하며, 문화적 '기술 낙관주의'가 제도화된 사례입니다. 이는 미국과 달리 AI 윤리·안전보다 경제 성장을 우선으로 정렬된 정책 기조를 반영합니다.",
+      "경제 성장 추구에 몰린 정책이 AI 교과서 오류 배포, 데이터 개인정보 위험 등 사회적 피해를 사전 검증 없이 노출시키고 있습니다. Samsung·SK Hynix의 메모리칩 공급 독점과 정부의 반도체 산업 보호로 기술 편중이 심화되고 있습니다.",
+      "노동 현장에서는 Hyundai의 로봇 도입에 노조가 저항하며, 64%의 국민이 일자리 대체를 우려합니다. '상위 정책층의 기술 낙관주의'와 '현장 노동자의 실업 불안' 간의 간극이 점차 벌어질 가능성이 있습니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "South Korea embraces AI while facing equity and labor displacement risks"
+  },
+  {
+    "id": "a11f22ad34b92c17",
+    "cluster_id": "k000103",
+    "title_original": "The Value Axis: Language Models Encode Whether They're on the Right Track",
+    "url": "https://arxiv.org/abs/2606.17056v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-06-15T17:59:58+00:00",
+    "fetched_at": "2026-06-16T23:25:30.140262+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "연구팀이 언어 모델이 자신의 전략이 목표를 달성할 가능성을 내부적으로 추적하는 '가치 축'을 발견했습니다. Qwen3-8B에서 이 축을 구성하여 높은/낮은 신뢰도, 백트래킹 여부, 코드 정확성을 구분할 수 있음을 보였습니다. 가치 축을 조작하면 자기수정과 설명 장황함을 억제하거나 탐색을 유도할 수 있으며, DPO가 보상받은 행동의 내부 가치를 높여 모델의 신뢰도를 증가시킨다는 점도 확인했습니다.",
+    "insights_ko": [
+      "모델 내부에서 선형적으로 인코딩된 '가치' 신호가 존재한다는 발견은 해석성 연구의 새로운 방향을 제시합니다. 단순 활성화 패턴이 아닌 의미 있는 목표 추정치가 신경망에 직접 표현된다는 점이 기계 해석성을 한층 진전시킵니다.",
+      "DPO와 같은 정렬 알고리즘이 모델의 외적 동작뿐 아니라 내부 신뢰도와 가치 신호를 직접 수정한다는 것을 입증했습니다. 이는 정렬 연구가 단순 출력 선택이 아닌 모델 표현 공간 자체를 재구조화한다는 깊이를 시사합니다.",
+      "정치적으로 민감한 쿼리에 대해 사후훈련 후 낮은 가치를 할당하는 현상은 안전성 훈련이 모델 내부 의사결정 구조를 어떻게 재형성하는지 보여줍니다. 이러한 메커니즘 수준의 이해가 앞으로 정렬 기법 개선에 직접 활용될 수 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Language models linearly encode internal value signals that guide decision-making",
+    "tags": [
+      "해석성",
+      "Qwen",
+      "정렬",
+      "강화학습"
+    ]
+  },
+  {
+    "id": "e28e758e08e3a020",
+    "cluster_id": "k000322",
+    "title_original": "Cockroaches scurry around with thousands of pieces of bacterial genomes",
+    "url": "https://arstechnica.com/science/2026/06/cockroaches-scurry-around-with-thousands-of-pieces-of-bacterial-genomes/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/GettyImages-1906194565-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-16T21:54:41+00:00",
+    "fetched_at": "2026-06-16T23:26:02.236692+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "바퀴벌레 게놈 연구가 다세포 동물에서도 수평 유전자 이동이 놀랍도록 흔하다는 것을 보여주었습니다. 바퀴벌레 종들은 수백만 년 동안 수천 개의 박테리아 DNA 조각을 게놈에 보유해 왔으며, 이는 미생물뿐 아니라 복잡한 생물까지 환경 DNA의 통합이 얼마나 광범위하게 일어나는지를 시사합니다.",
+    "insights_ko": [
+      "수평 유전자 이동이 미생물에 국한된 현상이 아니라 다세포 동물까지 광범위하게 작용한다는 발견은 진화 나무의 재평가로 이어질 수 있습니다. 기존의 수직적 계통 발생만으로는 종 간 관계를 완전히 설명할 수 없으며, 거리가 먼 계통 사이에 예상치 못한 유전자 연결이 존재함을 의미합니다.",
+      "다세포 동물에서 수평 유전자 이동이 성공하려면 외부 DNA가 핵에 들어갈 뿐 아니라 번식 세포(생식세포)에 통합되어야 한다는 높은 진입장벽이 있음에도 박테리아 DNA가 장기간 보존된 점은, 이러한 전이가 생존 이점을 제공하거나 선택압이 작동함을 시사합니다."
+    ],
+    "category": "community",
+    "importance_score": 2,
+    "subtitle_en": "Cockroaches harbor thousands of bacterial genes over millions of years"
+  },
+  {
+    "id": "9f0a3c2a5fe5e652",
+    "cluster_id": "k000323",
+    "title_original": "Among the large new rockets Amazon was counting on, only Europe has delivered",
+    "url": "https://arstechnica.com/space/2026/06/amid-launch-bottleneck-amazon-has-hundreds-of-satellites-waiting-to-fly/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/amazon-leo-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-16T21:14:08+00:00",
+    "fetched_at": "2026-06-16T23:26:09.750189+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Amazon은 저궤도 인터넷 위성 사업(Leo)을 위해 4년 전 예약한 3개 대형 로켓 중 Ariane 6만이 실질적으로 임무를 수행하고 있는 상황입니다. New Glenn과 Vulcan은 아직 Amazon 위성을 발사하지 못했으며, 현재 수백 기의 완성된 위성들이 플로리다의 시설에서 발사 기회를 기다리고 있습니다. Amazon은 이달 Ariane 6로 36개 위성을 추가 발사할 예정이며, Arianespace와의 계약상 16개 발사가 더 남아 있습니다.",
+    "insights_ko": [
+      "우주 인프라의 상용화 지체가 심화되고 있습니다. New Glenn(Blue Origin)과 Vulcan(ULA)은 출시 일정이 연거푸 밀리면서 Amazon의 위성군 완성 목표를 위협하고 있으며, 이는 우주산업 전체의 준비 불충분을 드러냅니다.",
+      "Arianespace에 대한 의존도 급증이 Amazon의 공급망 리스크를 노출시킵니다. 유럽 로켓이 사실상 유일한 생명줄이 되어가며, 지정학적 변수(수출통제, 우크라이나 영향 등)에 노출될 가능성이 높아집니다.",
+      "위성 제조 능력(일일 수여기)이 발사 능력을 앞서가는 역설적 상황은, 위성군 구축 경쟁에서 로켓 가용성이 진정한 병목임을 강조합니다. Starlink 대비 Leo의 우주 진입 속도가 현저히 느려질 수 있다는 신호입니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Amazon Leo constellation launch delays expose rocket supply bottleneck",
+    "tags": [
+      "Amazon"
+    ]
+  },
+  {
+    "id": "ccb02d928b5259b7",
+    "cluster_id": "k000324",
+    "title_original": "Anthropic \"pauses\" token-based billing for its Claude Agent SDK",
+    "url": "https://arstechnica.com/ai/2026/06/anthropic-pauses-token-based-billing-for-its-claude-agent-sdk/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2025/02/claude37_header-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-16T21:00:35+00:00",
+    "fetched_at": "2026-06-16T23:26:15.999843+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 Claude Agent SDK의 토큰 기반 별도 청구 정책을 시행 직전에 일시 중단했습니다. 지난달 발표된 이 정책은 Agent SDK 사용을 표준 Claude 사용과 분리해 API 요금제로 청구하려던 것으로, 무거운 사용자들의 비용을 크게 올렸을 것입니다. 현재는 기존의 구독 기반 사용량 한도 체계가 유지되며, 파워 유저들은 구독료 대비 훨씬 많은 가치를 얻을 수 있습니다.",
+    "insights_ko": [
+      "Anthropic이 고객 반발을 고려해 정책을 급회전한 것으로 보이며, 에이전트 SDK가 이미 상당한 사용 기반을 확보했음을 시사합니다. 구독 모델의 가치를 과도하게 훼손하려다 공개 저항에 부딪힌 사례로, SaaS 업체의 수익화 전략과 사용자 만족도 사이의 긴장을 드러냅니다.",
+      "Agent SDK 사용자들이 구독료로 API 가치의 수배를 얻을 수 있다는 분석은 Anthropic의 가격 책정 구조 전체가 모순적임을 의미하며, 향후 더 세밀한 구독 계층 분화나 사용량 상한선 조정이 필요할 수 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Anthropic shelves API-style billing for Claude Agent SDK amid backlash",
+    "tags": [
+      "Claude",
+      "Anthropic",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "f1be1df23b9c2918",
+    "cluster_id": "k000325",
+    "title_original": "US approval of Paramount/Warner Bros. deal surprised DOJ lawyers, report says",
+    "url": "https://arstechnica.com/tech-policy/2026/06/us-approval-of-paramount-warner-bros-deal-surprised-doj-lawyers-report-says/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/larry-ellison-and-trump-1152x648-1781632802.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-16T18:48:45+00:00",
+    "fetched_at": "2026-06-16T23:26:23.662773+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "미국 법무부가 Paramount의 Warner Bros. Discovery 인수(1,110억 달러)를 승인했으나, WSJ 보도에 따르면 8개월간 조사를 담당한 법무부 커리어 변호사들은 독점금지법 위반 소송을 제기하도록 권고할 의향이었던 것으로 알려졌습니다. 고위 지도부가 직원들의 이의 제기 기회를 주기 전에 조사를 종료했다는 주장으로, 정치적 편의 제공 의혹이 제기되고 있습니다.",
+    "insights_ko": [
+      "정부 집행 기관 내 직원과 리더십의 판단 불일치가 공개된 사례로, 트럼프 행정부의 반독점 정책 기조가 실무진 권고와 괴리되어 있음을 시사합니다. 이는 미디어·엔터테인먼트 산업에 대한 구조적 점검 약화 신호로 해석될 여지가 있습니다.",
+      "합병 심사에서 '채무 부담'을 독점금지 사유로 보지 않은 선택은 향후 부채 기반 구조 재편(특히 유료방송사·콘텐츠사)에 규제 선례를 낮추는 효과를 가집니다. 이는 미디어 산업 내 M&A 속도를 가속화할 가능성이 높습니다.",
+      "사우디·UAE·카타르 주권부채기금의 대규모 지분 진입이 FCC 면제 절차 통과와 함께 승인된 것으로, 향후 외국자본이 미국 전략적 산업(미디어, 통신)에 진입하는 규제 장벽이 낮아지는 신호입니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "DOJ approves Paramount-Warner Bros deal despite staff lawyer objections",
+    "tags": [
+      "규제",
+      "인수합병"
+    ]
+  },
+  {
+    "id": "a80ed50c71511660",
+    "cluster_id": "k000301",
+    "title_original": "Critical Copilot vulnerability allowed hackers to steal 2FA code from users",
+    "url": "https://arstechnica.com/security/2026/06/critical-copilot-vulnerability-allowed-hackers-to-seal-2fa-code-from-users/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/06/GettyImages-2242817595-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-06-16T11:15:46+00:00",
+    "fetched_at": "2026-06-16T23:26:37.566862+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Microsoft M365 Copilot의 중대 취약점이 패치되었으며, 연구팀이 공개한 개념증명 공격은 2FA 코드와 민감한 이메일 데이터를 탈취할 수 있었습니다. 근본 원인은 LLM이 사용자 지시와 제3자 콘텐츠에 숨겨진 악의적 명령을 구분하지 못하는 것으로, Microsoft 등 주요 업체들이 임시방편의 보안조치만 강구할 수 있는 상황입니다. 연구진은 마크업 언어와 HTML 태그 우회, 파라미터 프롬프트 인젝션 등으로 기존 가드레일을 우회하는 공격 체인을 입증했습니다.",
+    "insights_ko": [
+      "LLM의 구조적 한계로 인해 사용자 입력과 외부 콘텐츠를 분리할 수 없다는 점이 명확해졌으며, 이는 모든 에이전트형 AI 제품에 공통으로 적용되는 문제입니다. 가드레일 우회가 반복될 것으로 예상되며, 근본적인 아키텍처 개선 없이는 '고양이와 쥐 게임'이 계속될 것입니다.",
+      "파라미터 프롬프트 인젝션과 마크업·HTML 태그 우회는 기존 보안 경계의 약점을 노출했으며, 이는 API 설계, 콘텐츠 필터링, 권한 모델 전반에 대한 재검토 필요성을 시사합니다. 특히 이메일·문서 요약 등 제3자 콘텐츠를 처리하는 에이전트 기능의 리스크 수준이 재평가될 가능성이 높습니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Critical Copilot flaw exposed 2FA codes via prompt injection bypass",
+    "tags": [
+      "Microsoft",
+      "에이전트",
+      "안전성",
+      "RAG"
+    ]
+  },
+  {
+    "id": "d1075d45ab586dc6",
+    "cluster_id": "k000302",
+    "title_original": "Apple 2027 rumors: AirPods with cameras for AI and the second folding iPhone",
+    "url": "https://www.theverge.com/tech/950826/apple-airpod-camera-ai-foldable-iphone-rumor",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/09/257943_Airpods_Pro3_AKrales_0078.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-06-16T17:04:05+00:00",
+    "fetched_at": "2026-06-16T23:26:44.133728+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Apple이 2027년 카메라 탑재 AirPods와 두 번째 폴더블 아이폰 출시를 준비 중이며, 스마트 안경으로의 확대를 예비하고 있습니다. 카메라 장착 AirPods는 iOS 28 베타 단계에서 테스트 중이고, 20주년 기념 iPhone(V73/V74)은 거의 무변 디스플레이와 곡면 글래스를 특징으로 할 것으로 알려졌습니다. 2027년 주요 폰은 2nm A21 칩으로 출시될 예정이며, Apple은 TSMC 외 Intel의 생산 참여도 검토 중입니다.",
+    "insights_ko": [
+      "멀티모달 AI 강화가 하드웨어 형태(카메라 AirPods → 시각 컨텍스트 제공)를 직접 설계하도록 유도하며, 이는 Apple의 AI 전략이 단순 소프트웨어 업데이트를 넘어 하드웨어 생태계 전체를 재편하고 있음을 시사합니다.",
+      "폴더블 아이폰의 정규 후속 제품화와 20주년 기념 모델, A21/A22 칩 로드맵이 동시에 진행되는 것은 Apple이 프리미엄·고성능 세분화를 가속화한다는 의미이며, 동시에 공급망 위험(Intel 참여, 2nm → 1.4nm 전환)을 분산하는 전략으로 보입니다.",
+      "새 CEO John Ternus 체제 출범, 부품 부족 우려, 글로벌 AI 경쟁 가속이 겹치면서 발표된 로드맵도 변동 가능성이 높으며, 2027년까지의 실행 리스크가 존재합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Apple preps camera AirPods and folding iPhone 2 for 2027 AI push",
+    "tags": [
+      "Apple",
+      "멀티모달"
+    ]
+  },
+  {
+    "id": "f4d6db540147e0a8",
+    "cluster_id": "k000305",
+    "title_original": "‘Dangerous’ AI Models Are Coming No Matter What",
+    "url": "https://www.wired.com/story/dangerous-ai-models-are-coming-no-matter-what/",
+    "image_url": "https://media.wired.com/photos/6a30202e9402edb0adc1701d/191:100/w_1280,c_limit/GettyImages-2280291188.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-06-16T17:50:52+00:00",
+    "fetched_at": "2026-06-16T23:26:59.066471+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic의 Mythos 5와 Claude Fable 5가 미국 정부 수출 통제 지시에 따라 오프라인되었으나, 전문가들은 유사한 능력을 갖춘 모델이 경쟁사와 오픈소스 진영에서 수개월 내 등장할 것이라고 지적합니다. Anthropic과 White House의 협상이 계속되는 가운데, 규제 접근보다는 AI 능력 발전에 대한 투명하고 민주적인 정책이 필요하다는 목소리가 높아지고 있습니다.",
+    "insights_ko": [
+      "특정 모델에 대한 개별 규제는 근본적 해결책이 아니며, 사이버보안 부문의 AI 이중용도 기술이 이미 광범위하게 확산되고 있다는 점을 간과합니다. 전문가들은 더 작고 저렴한 모델, 오픈소스 버전, 고도화된 프롬프팅 조합으로도 현재 수준의 능력을 곧 재현할 수 있다고 경고합니다.",
+      "규제의 실효성 문제가 핵심입니다. 수출 통제가 악의적 행위자 접근을 단순히 지연시킬 뿐 방어 목적의 개발을 더 제약하는 부작용이 발생하면, 전체 사이버보안 생태계의 방어 역량이 오히려 약화될 수 있습니다.",
+      "정책 입안자는 기술 발전 자체를 막으려 하기보다 투명한 거버넌스 프레임워크를 수립해야 합니다. 어느 규제가 실제로 위험을 감소시키고 어느 규제가 단순히 진행을 늦추는지 구분하는 사이버보안 전문가 참여의 중요성이 부각됩니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Dual-use AI capabilities will proliferate regardless of individual model restrictions",
+    "tags": [
+      "규제",
+      "수출통제",
+      "Claude",
+      "안전성"
+    ]
+  },
+  {
+    "id": "aa6c9ee9734935c0",
+    "cluster_id": "k000327",
+    "title_original": "SpaceX valuation balloons to $2.6T, briefly passes Amazon",
+    "url": "https://techcrunch.com/2026/06/16/spacex-valuation-balloons-to-2-6t-briefly-passes-amazon/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2023/01/GettyImages-1244294229.jpg?resize=1200,675",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-16T20:11:00+00:00",
+    "fetched_at": "2026-06-16T23:27:38.217780+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "SpaceX가 상장 후 주가 급등으로 일시적으로 2.9조 달러 평가가치에 도달해 Amazon을 제치고 세계 5위 기업이 됐습니다. AI 코딩 회사 Cursor 인수 발표와 옵션 거래 개시가 주가를 더욱 부추겼으며, 상장 첫 주말 1.7조 달러에서 약 1조 달러가 증가했습니다. 다만 SpaceX는 지난해 187억 달러 매출에 49억 달러 손실을 기록했지만, Anthropic·Google과의 컴퓨팅 리스 계약과 Cursor 인수를 통해 신규 AI 수익원을 확보하려는 전략입니다.",
+    "insights_ko": [
+      "유동성 부족과 제한된 공개 주식(전체의 4%)이 극심한 변동성을 초래했으며, 이는 프리미엄 투기 거래 시장의 전형적 신호입니다. 근본적 가치평가보다 '우주-AI 슈퍼플랫폼' 내러티브에 기반한 버블 징후로 보입니다.",
+      "SpaceX의 AI 비즈니스 가치는 아직 개념 단계인데, 86억 달러 IPO 자금의 상당 부분이 '수조 달러 규모 AI 기업 창출' 공약에 달려 있습니다. Cursor 인수(60억 달러 상장사 주식 결제)와 재구성 중인 xAI 사업이 실질적 수익 창출까지 얼마나 걸릴지 불확실합니다.",
+      "비결합 구조의 대규모 기술 계약(Anthropic, Google)이 평가가치 정당화의 핵심인데, 이들이 실제 장기 계약으로 전환되지 않거나 시장 경쟁이 치열해지면 평가 조정 압력이 커질 수 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "SpaceX IPO volatility peaks as valuation briefly surpasses Amazon amid AI ambitions",
+    "tags": [
+      "자금조달",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "fc68331373f98190",
+    "cluster_id": "k000308",
+    "title_original": "Android 17 launches with new multitasking tools as Google expands Gemini features",
+    "url": "https://techcrunch.com/2026/06/16/android-17-launches-with-new-multitasking-tools-as-google-expands-gemini-features/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/06/gemini-app-GettyImages-2276204472.jpg?w=1024",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-16T18:00:00+00:00",
+    "fetched_at": "2026-06-16T23:27:44.523122+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Google이 Android 17과 Wear OS 7을 출시하며 Gemini Omni, Lyria 3, AudioLM 등 최신 AI 모델을 통합했습니다. Pixel Drop을 통해 영상 편집, 음악 생성, 음성 번역 등 AI 기반 기능이 추가되었으며, AirDrop 호환성, 버블 바 UI, 응급 감지 등 OS 수준의 개선도 함께 이뤄졌습니다. Google은 자사 하드웨어를 통해 AI 기술을 직접 소비자에게 선보이는 전략을 강화하고 있습니다.",
+    "insights_ko": [
+      "Google이 OS 업데이트 단계에서 프론티어 AI 모델(Gemini Omni, Lyria 3)을 즉시 통합하며 Apple의 지연된 AI 전략과 대비됩니다. 이는 자사 프로프라이어터리 모델을 하드웨어 차별화 포인트로 활용하는 생태계 전략입니다.",
+      "멀티태스킹 UI(버블 바)와 AI 기능이 함께 진화하는 점이 주목할 만합니다. 화면 녹화·AI 영상 편집·음성 번역 등 창작 도구들이 모여 스마트폰이 콘텐츠 제작 기기로 재포지셔닝되고 있습니다.",
+      "Wear OS와 안경 하드웨어까지 포함한 AI 에코시스템 통합이 강화되며, Google의 AI는 단순 모델이 아니라 기기 간 동기화되는 '개인화 지능'으로 진화하고 있음을 보여줍니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Google integrates latest Gemini models into Android 17 with AI-powered creative tools",
+    "tags": [
+      "Gemini",
+      "멀티모달",
+      "생산성"
+    ]
+  },
+  {
+    "id": "05c66e977c5cef58",
+    "cluster_id": "k000309",
+    "title_original": "Sixty percent of US consumers say ‘AI’ in brand messaging is a turnoff, survey finds",
+    "url": "https://techcrunch.com/2026/06/16/sixty-percent-of-u-s-consumers-say-ai-in-brand-messaging-is-a-turnoff-survey-finds/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2024/09/wordpress-v1.jpg?resize=1200,675",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-16T16:49:44+00:00",
+    "fetched_at": "2026-06-16T23:27:50.973703+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "WordPress VIP 조사에 따르면 미국 소비자 60%가 브랜드 메시징에서 'AI'라는 표현을 거부감 있게 받으며, 86%는 AI 답변을 완전히 신뢰하지 않고 원본 출처 확인을 원합니다. 기업들이 AI 검색 엔진에 콘텐츠를 최적화하려 할수록, 소비자는 인적 신뢰도와 투명한 출처 표시를 더 중시하는 역설적 상황이 펼쳐지고 있습니다.",
+    "insights_ko": [
+      "AI 인용의 용이성과 소비자 신뢰 간의 격차가 벌어지고 있습니다. 기업들은 AI 검색 결과에 노출되기 위해 콘텐츠를 최적화하지만, 소비자는 AI 생성 답변을 에어라인 수수료나 의료비 청구보다도 덜 신뢰한다는 점은 브랜드 신뢰도 하락의 장기적 위험을 암시합니다.",
+      "SEO의 중심축이 구글에서 AI 검색 엔진으로 이동하면서 콘텐츠 가시성(discoverability)과 인적 신뢰성(human trust)을 동시에 확보해야 하는 이중 과제가 생겼습니다. 74%의 기업 의사결정자가 AI 귀인과 가시성을 우선순위로 본다는 것은 이 변화가 이미 실무에서 현실화됐음을 의미합니다.",
+      "향후 콘텐츠 배포 전략은 'AI 에이전트가 읽을 수 있는 가시성' + '실제 사용자가 클릭할 때의 인적 신뢰도'라는 이중 최적화 요구가 될 것으로 보이며, 출처 명시와 투명성이 경쟁 차별화 요소로 급부상할 전망입니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "Consumers distrust AI branding while companies chase AI search visibility",
+    "tags": [
+      "검색"
+    ]
+  },
+  {
+    "id": "dc9555a53b46038f",
+    "cluster_id": "k000167",
+    "title_original": "Malaysia’s AI agent-powered messaging app Respond.io raises $62.5M, eyes acquisitions",
+    "url": "https://techcrunch.com/2026/06/15/malaysias-respond-io-raises-62-5m-eyes-acquisitions-in-north-america-and-europe/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/06/respond-team-comp-2.webp?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-16T06:59:00+00:00",
+    "fetched_at": "2026-06-16T23:28:27.677632+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "말레이시아 기반 Respond.io가 Camber Partners 주도로 6,250만 달러 시리즈 B를 조성했으며, 연간 반복수익(ARR) 3,500만 달러, 169% YoY 성장률을 기록 중입니다. WhatsApp·Instagram·TikTok 등 메시징 채널 전반에서 고객 대화를 관리하고 AI 에이전트로 자동 응답·리드 자격 심사·판매 체결을 수행하는 플랫폼으로, CEO는 인수합병을 통한 북미·유럽 확장과 나스닥 상장을 목표로 하고 있습니다.",
+    "insights_ko": [
+      "메시징 채널 중심 고객 대화 관리는 이메일·전화 중심으로 설계된 기존 CRM 플랫폼과의 뚜렷한 차별화이며, 메시징 데이터 축적이 '데이터 플라이휠'을 만들어 AI 성능 개선으로 고객 확보로 이어지는 지속 가능한 경쟁 우위를 형성합니다.",
+      "대화량 기반 요금제는 ChatGPT 같은 생성형 AI 도구와의 직접 경쟁을 회피하며, 인간 상담사 대신 AI 에이전트를 쓸수록 고객이 더 저렴해지는 구조로 AI 도입 트렌드를 자신의 성장 드라이버로 전환합니다.",
+      "지역별 수익 다각화(APAC 30%, 라틴아메리카 30%, MENA 20%, 북미·서유럽 20%)와 인수합병 전략으로 북미·서유럽을 2~3년 내 최대 세그먼트로 성장시킬 계획은 동남아 SaaS 기업의 성숙한 글로벌 진출 패턴을 보여줍니다."
+    ],
+    "category": "business",
+    "importance_score": 3,
+    "subtitle_en": "Malaysian messaging AI startup Respond.io raises $62.5M Series B",
+    "tags": [
+      "에이전트",
+      "자금조달",
+      "생산성"
+    ]
+  },
+  {
+    "id": "037c08b9fa90d276",
+    "cluster_id": "k000235",
+    "title_original": "Exact Posterior Score Estimation for Solving Linear Inverse Problems",
+    "url": "https://arxiv.org/abs/2606.17048v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-06-15T17:58:22+00:00",
+    "fetched_at": "2026-06-16T23:28:34.528082+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "선형 역문제 해결을 위해 확산 모델의 비조건부 스코어로부터 정확한 사후 스코어를 폐쇄형으로 유도한 논문입니다. 연구팀은 선형 가우스 역문제에서 사후 샘플링이 연산자 종속의 이동된 피벗에서의 노이징 제거 문제로 축약됨을 보였으며, 이를 EPS라는 학습 목적으로 구현했습니다. EPS는 기존 사전학습 모델로부터 미세조정 가능하고, 기울기 기반 샘플러 대비 약 10배 적은 모델 평가로 더 나은 충실도를 달성합니다.",
+    "insights_ko": [
+      "확산 모델의 스코어 함수와 선형 역문제 간의 수학적 대응 관계를 폐쇄형으로 도출한 점이 이론적 기여로서 의미 있으며, 이전의 근사 기반 보정이나 조건부 모델 재훈련의 필요성을 제거합니다.",
+      "추론 비용이 기울기 기반 샘플러 대비 현저히 낮아진다는 점은 의료영상·초고해상도·인페인팅 등 실무적 응용에서 확산 모델의 배포 가능성을 높입니다. 특히 사전학습 모델 재사용 능력이 새로운 역문제마다 대규모 재학습을 피할 수 있게 합니다.",
+      "이미지 생성 기반의 구조화된 복원 작업에서 조건부 학습 없이도 정확한 사후 추론이 가능함을 보여주며, 향후 다른 생성 모델(흐름 기반 모델)로의 일반화와 비선형 역문제 근사 연구의 방향을 제시합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Exact posterior scoring for diffusion-based inverse problem solving",
+    "tags": [
+      "추론",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "5ed953064a584312",
+    "cluster_id": "k000236",
+    "title_original": "Geometric Action Model for Robot Policy Learning",
+    "url": "https://arxiv.org/abs/2606.17046v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-06-15T17:58:03+00:00",
+    "fetched_at": "2026-06-16T23:28:41.736104+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Geometric Action Model(GAM)은 사전학습된 기하학 파운데이션 모델을 로봇 조작 정책의 지각, 시간 예측, 행동 디코딩을 위한 공유 기반으로 재활용합니다. 언어 조건부 미래 예측기를 중간 계층에 삽입하여 로봇이 3D 기하학적 관계를 직접 추론하면서 사용자 지시를 따르도록 설계되었습니다. 시뮬레이션과 실제 로봇 조작 벤치마크에서 기존 파운데이션 모델 규모 기준선보다 정확도, 견고성, 속도, 경량성 모두에서 우수한 성능을 보입니다.",
+    "insights_ko": [
+      "기하학 프라이어를 명시적으로 활용하는 접근이 VLA의 암묵적 3D 추론 한계를 극복하며, 접촉 기반 조작이라는 난제에 구조적 개선을 제시합니다. 이는 2D 영상 기반 정책 학습에서 3D 기하학 인식이 필수임을 재확인시킵니다.",
+      "기존 파운데이션 모델을 '분할'하여 재사용하는 설계는 모델 재학습 없이 새로운 능력(시간 세계 모델링)을 추가하는 효율적 패턴을 제시하며, 파라미터 크기와 추론 속도를 동시에 개선한 점이 배포 가능성을 높입니다.",
+      "이 접근이 확산되면 로보틱스 파운데이션 모델의 기하학 능력이 새로운 평가 기준이 될 것으로 보이며, 범용 조작 정책의 실용화 난제인 3D 추론의 신뢰성이 중요 연구 방향이 됩니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Geometric foundation models enable efficient robot manipulation via 3D-aware policy learning",
+    "tags": [
+      "에이전트",
+      "멀티모달",
+      "강화학습",
+      "로보틱스",
+      "파인튜닝"
+    ]
+  },
+  {
+    "id": "c000018ba1f03575",
+    "cluster_id": "k000328",
+    "title_original": "Predicting model behavior before release by simulating deployment",
+    "url": "https://openai.com/index/deployment-simulation",
+    "image_url": null,
+    "source_id": "openai_news",
+    "source_name": "OpenAI",
+    "published": "2026-06-16T00:00:00+00:00",
+    "fetched_at": "2026-06-16T23:28:53.266736+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "OpenAI가 Deployment Simulation 방법론을 소개했습니다. 실제 대화 데이터를 활용하여 배포 전 AI 모델의 동작을 예측함으로써 안전성 평가와 검증 정확도를 향상시키는 기술입니다.",
+    "insights_ko": [
+      "배포 전 모델 행동을 현실 기반으로 시뮬레이션하면 실험실 환경과 프로덕션 사이의 평가 격차를 줄일 수 있습니다. 이는 안전성 테스트의 신뢰도를 높이고 예상 밖의 실패 모드 발견을 가능하게 합니다.",
+      "실제 사용자 대화 데이터 활용은 SFT 및 RLHF 평가에서 '합성 벤치마크 vs 자연 분포' 문제를 완화하는 방법론으로 기여합니다. 이는 모델 안전성 검증이 단순 체크리스트에서 통계적 성능 예측으로 진화하고 있음을 의미합니다.",
+      "규제 강화(SB 1047 등)로 배포 전 안전성 입증 의무가 커지는 가운데, 배포 시뮬레이션은 컴플라이언스 자동화 도구로 기능할 수 있습니다. 안전성 평가 기간 단축과 재현성 확보는 프론티어 랩의 출시 속도에 직접 영향을 미칠 것입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "OpenAI simulates deployment to predict model behavior before release",
+    "tags": [
+      "OpenAI",
+      "안전성",
+      "벤치마크"
+    ]
   }
 ]
