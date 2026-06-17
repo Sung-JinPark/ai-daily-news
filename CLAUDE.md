@@ -34,9 +34,10 @@ git push
 push하면 GitHub Actions `.github/workflows/deploy.yml`이 자동 빌드·배포.
 
 ## 파이프라인 실행 스케줄
-- 매일 2회 자동 실행 (KST 07:00 / 19:00 = UTC 22:00 / 10:00)
+- 매일 2회 자동 실행 — 파이프라인 시작: KST 06:00 / 18:00 (= UTC 21:00 / 09:00).
+- 1시간 여유를 두어 사용자가 보는 KST 07:00 / 19:00 시점에는 사이트 업데이트가 완료되어 있다.
 - LLM 요약은 Anthropic Batch API (50% 할인). 제출 후 보통 수 분~수십 분 내 완료, 최대 50분까지 폴링.
-- 일요일 UTC 10:00 실행 시 weekly digest + glossary 갱신도 함께 진행.
+- 일요일 UTC 09:00 실행 시 weekly digest + glossary 갱신도 함께 진행.
 
 ## 주요 디렉터리
 - `pipeline/` — 수집·요약·랭킹 파이프라인 (Python)
