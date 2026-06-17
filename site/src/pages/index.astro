@@ -11,17 +11,31 @@ const pool: Article[] = loadRecentDays(7);
 const now = new Date();
 const ranked = [...pool].sort((a, b) => hotnessScore(b, now) - hotnessScore(a, now));
 
-// Dedupe by both article id (URL hash) AND cluster_id.
-// - same URL across days: caught by seenIds
-// - different URLs in the same cluster: caught by seenClusters
+// Normalize titles so re-published / re-indexed articles with the same
+// headline but different URLs (e.g. /2026/06/15/slug vs /2026/06/16/slug)
+// are collapsed to one entry.
+function titleKey(t: string): string {
+  return t
+    .toLowerCase()
+    .replace(/&#?\w+;/g, " ")          // strip HTML entities
+    .replace(/[^\p{L}\p{N}]+/gu, " ")  // strip punctuation
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Dedupe by article id (URL hash), cluster_id, AND normalized title.
 const seenIds = new Set<string>();
 const seenClusters = new Set<string>();
+const seenTitles = new Set<string>();
 const unique: Article[] = [];
 for (const a of ranked) {
   if (seenIds.has(a.id)) continue;
   if (a.cluster_id && seenClusters.has(a.cluster_id)) continue;
+  const tk = titleKey(a.title_original || "");
+  if (tk && seenTitles.has(tk)) continue;
   seenIds.add(a.id);
   if (a.cluster_id) seenClusters.add(a.cluster_id);
+  if (tk) seenTitles.add(tk);
   unique.push(a);
 }
 

@@ -4,6 +4,8 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import re
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -12,6 +14,15 @@ from pipeline.summarize import DATA_DIR
 
 log = logging.getLogger(__name__)
 TOP_N = 5
+_TITLE_NON_ALNUM = re.compile(r"[^\w]+", flags=re.UNICODE)
+
+
+def title_key(t: str) -> str:
+    if not t:
+        return ""
+    t = unicodedata.normalize("NFKC", t).lower()
+    t = re.sub(r"&#?\w+;", " ", t)
+    return _TITLE_NON_ALNUM.sub(" ", t).strip()
 
 
 def freshness_hours(published: str | None) -> float:
@@ -49,20 +60,27 @@ def main() -> int:
         return 0
 
     ranked = sorted(articles, key=score, reverse=True)
-    # Dedupe by article id and cluster_id so the same story can't appear twice.
+    # Dedupe by id, cluster_id, AND normalized title (catches re-published
+    # articles where the headline is identical but URL differs).
     seen_ids: set[str] = set()
     seen_clusters: set[str] = set()
+    seen_titles: set[str] = set()
     highlights: list[str] = []
     for a in ranked:
         aid = a.get("id")
         cid = a.get("cluster_id")
+        tk = title_key(a.get("title_original", ""))
         if not aid or aid in seen_ids:
             continue
         if cid and cid in seen_clusters:
             continue
+        if tk and tk in seen_titles:
+            continue
         seen_ids.add(aid)
         if cid:
             seen_clusters.add(cid)
+        if tk:
+            seen_titles.add(tk)
         highlights.append(aid)
         if len(highlights) >= TOP_N:
             break
