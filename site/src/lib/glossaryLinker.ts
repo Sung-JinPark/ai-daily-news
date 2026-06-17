@@ -1,10 +1,34 @@
-import type { GlossaryTerm } from "./loadData";
+import type { Article, GlossaryTerm } from "./loadData";
 
 function escapeHtml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+}
+
+const ASCII_RE_LOCAL = /^[\x20-\x7E]+$/;
+
+/** Return the subset of glossary terms that appear in at least one of the given
+ *  articles (title, summary, insights). Uses word boundaries for ASCII terms
+ *  and literal contains for non-ASCII. */
+export function termsAppearingIn(
+  terms: GlossaryTerm[],
+  articles: Article[],
+): GlossaryTerm[] {
+  if (!terms.length || !articles.length) return [];
+  const haystack = articles
+    .map((a) => `${a.title_original} ${a.summary_ko} ${(a.insights_ko ?? []).join(" ")}`)
+    .join("\n");
+  const hayLower = haystack.toLowerCase();
+  return terms.filter((t) => {
+    const term = t.term;
+    if (ASCII_RE_LOCAL.test(term)) {
+      const re = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}\\b`, "i");
+      return re.test(haystack);
+    }
+    return hayLower.includes(term.toLowerCase());
+  });
 }
 
 function escapeAttr(s: string): string {

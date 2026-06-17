@@ -1,24 +1,37 @@
 ---
-import { loadGlossary } from "~/lib/loadData";
-const glossary = loadGlossary();
+import { loadGlossary, loadRecentDays, type Article } from "~/lib/loadData";
+import { termsAppearingIn } from "~/lib/glossaryLinker";
+
+interface Props {
+  /** Articles to filter terms against. Defaults to last 7 days. */
+  articles?: Article[];
+  /** Look-back window when `articles` is not provided. */
+  windowDays?: number;
+}
+const { articles, windowDays = 7 } = Astro.props;
+const pool: Article[] = articles ?? loadRecentDays(windowDays);
+const all = loadGlossary();
+const glossary = termsAppearingIn(all, pool);
 ---
-<section class="mt-16 pt-10 border-t-2 border-ink">
-  <div class="flex items-baseline justify-between mb-6 flex-wrap gap-2">
-    <h2 class="font-serif text-2xl sm:text-3xl font-black text-ink">용어 사전</h2>
-    <span class="kicker text-ink/50">{glossary.length}개 · 주 1회 자동 갱신</span>
-  </div>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
-    {glossary.map((item) => (
-      <div class="flex flex-col gap-1 border-l-2 border-ink/15 pl-3 hover:border-accent transition-colors">
-        <div class="flex items-baseline gap-2 flex-wrap">
-          <span class="font-serif font-bold text-base text-ink">{item.term}</span>
-          <span class="text-[11px] text-ink/55">{item.full}</span>
-          {!item.seed && item.added_at && (
-            <span class="kicker text-accent ml-auto">NEW</span>
-          )}
+{glossary.length > 0 && (
+  <section class="mt-16 pt-10 border-t-2 border-ink">
+    <div class="flex items-baseline justify-between mb-6 flex-wrap gap-2">
+      <h2 class="font-serif text-2xl sm:text-3xl font-black text-ink">용어 사전</h2>
+      <span class="kicker text-ink/50">최근 기사에 등장한 {glossary.length}개</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
+      {glossary.map((item) => (
+        <div class="flex flex-col gap-1 border-l-2 border-ink/15 pl-3 hover:border-accent transition-colors">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="font-serif font-bold text-base text-ink">{item.term}</span>
+            <span class="text-[11px] text-ink/55">{item.full}</span>
+            {!item.seed && item.added_at && (
+              <span class="kicker text-accent ml-auto">NEW</span>
+            )}
+          </div>
+          <p class="text-sm text-ink/70 leading-relaxed">{item.desc}</p>
         </div>
-        <p class="text-sm text-ink/70 leading-relaxed">{item.desc}</p>
-      </div>
-    ))}
-  </div>
-</section>
+      ))}
+    </div>
+  </section>
+)}
