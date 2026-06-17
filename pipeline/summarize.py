@@ -1,8 +1,10 @@
-"""Run Claude Haiku 4.5 on each new cluster representative.
+"""Run Claude Haiku 4.5 (Batch API) on each new cluster representative.
 
 Reads raw/<day>/clusters.json, skips URLs already in .cache/seen.json,
-calls extract.extract_body, sends to Haiku with prompt-caching on the system
-prompt, validates the JSON output, and writes data/<day>/articles.json.
+extracts the article body in-memory, sends all new clusters as a single
+Batch API job (50% list-price discount, processed asynchronously),
+polls until completion, validates each result, and writes
+data/<day>/articles.json.
 """
 from __future__ import annotations
 
@@ -11,6 +13,7 @@ import json
 import logging
 import os
 import re
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -33,41 +36,10 @@ log = logging.getLogger(__name__)
 DATA_DIR = Path("data")
 MODEL = "claude-haiku-4-5-20251001"
 ALLOWED_CATEGORIES = {"model_research", "business", "policy", "product", "hardware", "community"}
-MAX_OUTPUT_TOKENS = 700
-
-
-@retry(
-    stop=stop_after_attempt(3),
-    wait=wait_exponential(min=2, max=20),
-    retry=retry_if_exception_type(RETRYABLE),
-)
-def call_haiku(client: anthropic.Anthropic, title: str, source_name: str, body: str) -> dict[str, Any]:
-    user = USER_TEMPLATE.format(title=title, source_name=source_name, body=body or "(본문 추출 실패)")
-    msg = client.messages.create(
-        model=MODEL,
-        max_tokens=MAX_OUTPUT_TOKENS,
-        system=[
-            {
-                "type": "text",
-                "text": SYSTEM_PROMPT,
-                "cache_control": {"type": "ephemeral"},
-            }
-        ],
-        messages=[{"role": "user", "content": user}],
-    )
-    text = "".join(block.text for block in msg.content if getattr(block, "type", "") == "text").strip()
-    # Robust JSON extraction: grab outermost {...} block to tolerate fences / preambles.
-    match = re.search(r"\{.*\}", text, re.S)
-    if not match:
-        raise ValueError(f"no JSON object found in response: {text[:200]!r}")
-    parsed = json.loads(match.group(0))
-    usage = {
-        "input_tokens": msg.usage.input_tokens,
-        "output_tokens": msg.usage.output_tokens,
-        "cache_read_input_tokens": getattr(msg.usage, "cache_read_input_tokens", 0),
-        "cache_creation_input_tokens": getattr(msg.usage, "cache_creation_input_tokens", 0),
-    }
-    return {"parsed": parsed, "usage": usage}
+MAX_OUTPUT_TOKENS = 500
+MIN_BODY_CHARS = 300
+BATCH_POLL_SEC = 30
+BATCH_TIMEOUT_MIN = 50
 
 
 def validate(parsed: dict) -> dict | None:
@@ -118,43 +90,105 @@ def validate(parsed: dict) -> dict | None:
     return result
 
 
-MIN_BODY_CHARS = 300
-
-
-def process_cluster(client: anthropic.Anthropic, cluster: dict) -> tuple[dict | None, dict]:
-    rep = cluster["representative"]
-    fetched = extract_article(rep["url"])
-    body = fetched["body"]
-    image_url = fetched["image_url"]
-    if len(body) < MIN_BODY_CHARS:
-        # Fall back to RSS summary when paywalled / SPA / extractor blank.
-        rss_summary = (rep.get("summary") or "").strip()
-        if rss_summary:
-            body = f"(본문 추출 실패. RSS 요약만 사용)\n\n{rss_summary}"
-        elif not body:
-            log.info("skip cluster %s: no body and no RSS summary", cluster["cluster_id"])
-            return None, {"input_tokens": 0, "output_tokens": 0,
-                          "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}
-    rsp = call_haiku(client, rep["title"], rep["source_name"], body)
-    parsed = validate(rsp["parsed"])
-    if parsed is None:
-        log.warning("schema validation failed for %s", rep["url"])
-        return None, rsp["usage"]
-    article = {
-        "id": url_hash(rep["url"]),
-        "cluster_id": cluster["cluster_id"],
-        "title_original": rep["title"],
-        "url": rep["url"],
-        "image_url": image_url or None,
-        "source_id": rep["source_id"],
-        "source_name": rep["source_name"],
-        "published": rep.get("published"),
-        "fetched_at": datetime.now(timezone.utc).isoformat(),
-        "cluster_size": len(cluster["members"]),
-        "also_covered_by": [m["source_name"] for m in cluster["members"] if m["url"] != rep["url"]],
-        **parsed,
+def build_request(custom_id: str, title: str, source_name: str, body: str) -> dict:
+    user = USER_TEMPLATE.format(title=title, source_name=source_name, body=body or "(본문 추출 실패)")
+    return {
+        "custom_id": custom_id,
+        "params": {
+            "model": MODEL,
+            "max_tokens": MAX_OUTPUT_TOKENS,
+            "system": [
+                {
+                    "type": "text",
+                    "text": SYSTEM_PROMPT,
+                    "cache_control": {"type": "ephemeral"},
+                }
+            ],
+            "messages": [{"role": "user", "content": user}],
+        },
     }
-    return article, rsp["usage"]
+
+
+def extract_bodies(new_clusters: list[dict]) -> tuple[list[dict], dict[str, dict]]:
+    """Returns (batch_requests, cluster_meta). cluster_meta maps custom_id to
+    {cluster, image_url}."""
+    requests_list: list[dict] = []
+    cluster_meta: dict[str, dict] = {}
+    for cluster in new_clusters:
+        rep = cluster["representative"]
+        try:
+            fetched = extract_article(rep["url"])
+        except Exception as exc:  # noqa: BLE001
+            log.warning("extract failed for %s: %s", rep["url"], exc)
+            continue
+        body = fetched["body"]
+        image_url = fetched["image_url"]
+        if len(body) < MIN_BODY_CHARS:
+            rss_summary = (rep.get("summary") or "").strip()
+            if rss_summary:
+                body = f"(본문 추출 실패. RSS 요약만 사용)\n\n{rss_summary}"
+            elif not body:
+                log.info("skip cluster %s: no body and no RSS summary", cluster["cluster_id"])
+                continue
+        custom_id = url_hash(rep["url"])
+        if custom_id in cluster_meta:
+            continue  # same URL twice within batch — guard
+        requests_list.append(build_request(custom_id, rep["title"], rep["source_name"], body))
+        cluster_meta[custom_id] = {"cluster": cluster, "image_url": image_url}
+    return requests_list, cluster_meta
+
+
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(min=2, max=20),
+    retry=retry_if_exception_type(RETRYABLE),
+)
+def submit_batch(client: anthropic.Anthropic, requests_list: list[dict]):
+    return client.messages.batches.create(requests=requests_list)
+
+
+def wait_for_batch(client: anthropic.Anthropic, batch_id: str) -> Any:
+    deadline = time.time() + BATCH_TIMEOUT_MIN * 60
+    last_status = ""
+    while time.time() < deadline:
+        batch = client.messages.batches.retrieve(batch_id)
+        status = batch.processing_status
+        if status != last_status:
+            log.info("batch %s status=%s", batch_id, status)
+            last_status = status
+        if status == "ended":
+            return batch
+        time.sleep(BATCH_POLL_SEC)
+    raise TimeoutError(f"batch {batch_id} did not end within {BATCH_TIMEOUT_MIN} min")
+
+
+def parse_result(result: Any) -> tuple[dict | None, dict]:
+    """Returns (parsed_json, usage). parsed_json is None on failure."""
+    empty_usage = {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0,
+    }
+    rtype = getattr(result.result, "type", "")
+    if rtype != "succeeded":
+        return None, empty_usage
+    message = result.result.message
+    text = "".join(b.text for b in message.content if getattr(b, "type", "") == "text").strip()
+    match = re.search(r"\{.*\}", text, re.S)
+    if not match:
+        return None, empty_usage
+    try:
+        parsed = json.loads(match.group(0))
+    except Exception:  # noqa: BLE001
+        return None, empty_usage
+    usage = {
+        "input_tokens": message.usage.input_tokens,
+        "output_tokens": message.usage.output_tokens,
+        "cache_read_input_tokens": getattr(message.usage, "cache_read_input_tokens", 0),
+        "cache_creation_input_tokens": getattr(message.usage, "cache_creation_input_tokens", 0),
+    }
+    return parsed, usage
 
 
 def main() -> int:
@@ -180,7 +214,6 @@ def main() -> int:
         log.info("dry-run: skipping LLM calls")
         return 0
 
-    client = anthropic.Anthropic()
     out_dir = DATA_DIR / args.day
     out_dir.mkdir(parents=True, exist_ok=True)
     existing_file = out_dir / "articles.json"
@@ -188,32 +221,96 @@ def main() -> int:
         json.loads(existing_file.read_text(encoding="utf-8")) if existing_file.exists() else []
     )
 
-    stats = {"calls": 0, "succeeded": 0, "schema_failed": 0, "errors": 0, "usage": {
-        "input_tokens": 0, "output_tokens": 0,
-        "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0,
-    }}
+    stats = {
+        "calls": 0,
+        "succeeded": 0,
+        "schema_failed": 0,
+        "errors": 0,
+        "skipped_no_body": 0,
+        "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+        },
+    }
 
-    for cluster in new_clusters:
-        stats["calls"] += 1
-        try:
-            article, usage = process_cluster(client, cluster)
-        except Exception as exc:  # noqa: BLE001
-            log.warning("cluster %s failed: %s", cluster["cluster_id"], exc)
-            stats["errors"] += 1
-            continue
+    # Phase 1: extract bodies for all new clusters.
+    log.info("extracting bodies for %d clusters", len(new_clusters))
+    requests_list, cluster_meta = extract_bodies(new_clusters)
+    stats["skipped_no_body"] = len(new_clusters) - len(requests_list)
+    if not requests_list:
+        log.info("no clusters to summarize")
+        existing_file.write_text(
+            json.dumps(articles, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        (out_dir / "_stats.json").write_text(json.dumps(stats, indent=2), encoding="utf-8")
+        save_seen(seen)
+        return 0
+
+    # Phase 2: submit batch.
+    client = anthropic.Anthropic()
+    stats["calls"] = len(requests_list)
+    log.info("submitting batch with %d requests", len(requests_list))
+    try:
+        batch = submit_batch(client, requests_list)
+    except Exception as exc:  # noqa: BLE001
+        log.error("batch submission failed: %s", exc)
+        return 1
+    log.info("batch %s submitted", batch.id)
+
+    # Phase 3: wait.
+    try:
+        batch = wait_for_batch(client, batch.id)
+    except Exception as exc:  # noqa: BLE001
+        log.error("batch wait failed: %s", exc)
+        return 1
+
+    # Phase 4: collect results.
+    log.info("retrieving batch results...")
+    for result in client.messages.batches.results(batch.id):
+        custom_id = result.custom_id
+        meta = cluster_meta.get(custom_id)
+        parsed_json, usage = parse_result(result)
         for k, v in usage.items():
             stats["usage"][k] += v
-        if article is None:
+        if parsed_json is None:
+            log.warning("batch result %s did not succeed or yielded no JSON", custom_id)
+            stats["errors"] += 1
+            continue
+        validated = validate(parsed_json)
+        if validated is None:
+            log.warning("schema validation failed for %s", custom_id)
             stats["schema_failed"] += 1
             continue
+        if meta is None:
+            log.warning("no cluster meta for custom_id %s", custom_id)
+            continue
+        cluster = meta["cluster"]
+        image_url = meta["image_url"]
+        rep = cluster["representative"]
+        article = {
+            "id": url_hash(rep["url"]),
+            "cluster_id": cluster["cluster_id"],
+            "title_original": rep["title"],
+            "url": rep["url"],
+            "image_url": image_url or None,
+            "source_id": rep["source_id"],
+            "source_name": rep["source_name"],
+            "published": rep.get("published"),
+            "fetched_at": datetime.now(timezone.utc).isoformat(),
+            "cluster_size": len(cluster["members"]),
+            "also_covered_by": [m["source_name"] for m in cluster["members"] if m["url"] != rep["url"]],
+            **validated,
+        }
         articles.append(article)
+        seen.add(custom_id)
         stats["succeeded"] += 1
-        seen.add(url_hash(cluster["representative"]["url"]))
 
     existing_file.write_text(json.dumps(articles, ensure_ascii=False, indent=2), encoding="utf-8")
     (out_dir / "_stats.json").write_text(json.dumps(stats, indent=2), encoding="utf-8")
     save_seen(seen)
-    log.info("summarize done: %d articles (stats=%s)", len(articles), stats)
+    log.info("summarize done: %d articles total (stats=%s)", len(articles), stats)
     return 0
 
 

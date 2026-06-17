@@ -2,8 +2,9 @@ name: Daily AI News Pipeline
 
 on:
   schedule:
-    # KST 07:00 / 15:00 / 23:00  ==  UTC 22:00 / 06:00 / 14:00
-    - cron: "0 22,6,14 * * *"
+    # 2x/day to keep Batch API freshness reasonable.
+    # KST 07:00 / 19:00  ==  UTC 22:00 / 10:00
+    - cron: "0 22,10 * * *"
   workflow_dispatch:
     inputs:
       cap:
@@ -71,25 +72,25 @@ jobs:
       - name: Aggregate tags (30-day rolling)
         run: python -m pipeline.aggregate_tags
 
-      - name: Weekly digest (Sunday UTC 14:00 only)
+      - name: Weekly digest (Sunday UTC 10:00 only)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           DOW=$(date -u +%u)
           HOUR=$(date -u +%H)
-          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$HOUR" = "14" ]; }; then
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$HOUR" = "10" ]; }; then
             python -m pipeline.weekly
           else
             echo "skipping weekly (DOW=$DOW HOUR=$HOUR)"
           fi
 
-      - name: Glossary update (Sunday UTC 14:00 only)
+      - name: Glossary update (Sunday UTC 10:00 only)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           DOW=$(date -u +%u)
           HOUR=$(date -u +%H)
-          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$HOUR" = "14" ]; }; then
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$HOUR" = "10" ]; }; then
             python -m pipeline.glossary
           else
             echo "skipping glossary (DOW=$DOW HOUR=$HOUR)"
