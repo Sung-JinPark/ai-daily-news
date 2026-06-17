@@ -1,5 +1,6 @@
 ---
 import Base from "~/layouts/Base.astro";
+import GlossarySection from "~/components/GlossarySection.astro";
 import { loadTagsIndex } from "~/lib/loadData";
 
 const idx = loadTagsIndex();
@@ -41,4 +42,6 @@ const maxCount = entries[0]?.[1].count ?? 1;
       ))}
     </div>
   )}
+
+  <GlossarySection />
 </Base>

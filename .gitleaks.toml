@@ -1,0 +1,18 @@
+# gitleaks config
+# Inherits default ruleset, plus a narrow allowlist for known-safe placeholders.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Repo-specific exemptions"
+paths = [
+    # placeholder env file — contains "sk-ant-..." literally, never a real key
+    '''\.env\.example$''',
+    # Astro/Vite lockfile sometimes embeds package hashes that look entropy-y
+    '''site/package-lock\.json$''',
+]
+regexes = [
+    # GitHub Actions secret references are not actual secrets
+    '''\$\{\{\s*secrets\.[A-Z0-9_]+\s*\}\}''',
+]

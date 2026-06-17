@@ -5,7 +5,6 @@ import HeroCard from "~/components/HeroCard.astro";
 import NewsTile from "~/components/NewsTile.astro";
 import SearchBox from "~/components/SearchBox.astro";
 import TrendingChips from "~/components/TrendingChips.astro";
-import GlossarySection from "~/components/GlossarySection.astro";
 import DigestCard from "~/components/DigestCard.astro";
 import { CATEGORIES, loadDay, loadLatest, type Article } from "~/lib/loadData";
 
@@ -84,8 +83,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           </div>
         </section>
       ))}
-
-      <GlossarySection />
     </>
   )}
 </Base>
