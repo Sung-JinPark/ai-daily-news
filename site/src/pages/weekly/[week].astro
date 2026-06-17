@@ -40,7 +40,7 @@ const genLabel = new Date(digest.generated_at).toLocaleString("ko-KR");
 
   <header class="mb-12 pb-6 border-b-2 border-ink">
     <div class="kicker text-accent mb-2">Weekly Edition · {digest.week}</div>
-    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-black text-ink leading-none mb-3">주간 다이제스트</h1>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] lg:text-[3rem] font-black text-ink leading-none mb-3">주간 다이제스트</h1>
     <p class="kicker text-ink/55 tabular-nums">{genLabel} 생성 · 입력 {String(digest.n_input).padStart(2, "0")}건</p>
   </header>
 

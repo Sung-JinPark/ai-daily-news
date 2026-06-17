@@ -26,7 +26,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   <header class="mb-10 pb-4 border-b border-ink/15">
     <div class="kicker text-accent mb-2">Trending Keyword</div>
-    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3 break-keep">{keyword}</h1>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none mb-3 break-keep">{keyword}</h1>
     <p class="kicker text-ink/55 tabular-nums">최근 14일 · {String(articles.length).padStart(2, "0")}건 · 30일 점수 {String(weight).padStart(2, "0")}</p>
   </header>
 
