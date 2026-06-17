@@ -11,12 +11,17 @@ const pool: Article[] = loadRecentDays(7);
 const now = new Date();
 const ranked = [...pool].sort((a, b) => hotnessScore(b, now) - hotnessScore(a, now));
 
-const seen = new Set<string>();
+// Dedupe by both article id (URL hash) AND cluster_id.
+// - same URL across days: caught by seenIds
+// - different URLs in the same cluster: caught by seenClusters
+const seenIds = new Set<string>();
+const seenClusters = new Set<string>();
 const unique: Article[] = [];
 for (const a of ranked) {
-  const key = a.cluster_id || a.id;
-  if (seen.has(key)) continue;
-  seen.add(key);
+  if (seenIds.has(a.id)) continue;
+  if (a.cluster_id && seenClusters.has(a.cluster_id)) continue;
+  seenIds.add(a.id);
+  if (a.cluster_id) seenClusters.add(a.cluster_id);
   unique.push(a);
 }
 

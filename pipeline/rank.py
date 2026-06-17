@@ -49,7 +49,23 @@ def main() -> int:
         return 0
 
     ranked = sorted(articles, key=score, reverse=True)
-    highlights = [a["id"] for a in ranked[:TOP_N]]
+    # Dedupe by article id and cluster_id so the same story can't appear twice.
+    seen_ids: set[str] = set()
+    seen_clusters: set[str] = set()
+    highlights: list[str] = []
+    for a in ranked:
+        aid = a.get("id")
+        cid = a.get("cluster_id")
+        if not aid or aid in seen_ids:
+            continue
+        if cid and cid in seen_clusters:
+            continue
+        seen_ids.add(aid)
+        if cid:
+            seen_clusters.add(cid)
+        highlights.append(aid)
+        if len(highlights) >= TOP_N:
+            break
     out = DATA_DIR / args.day / "highlights.json"
     out.write_text(json.dumps(highlights, indent=2), encoding="utf-8")
     log.info("rank done: top %d highlights", len(highlights))
