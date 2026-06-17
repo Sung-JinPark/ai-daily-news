@@ -108,12 +108,12 @@ const datelineEn = today.toLocaleDateString("en-US", { weekday: "long", year: "n
       </div>
       <nav class="border-t border-ink/15 bg-white sticky top-0 z-10">
         <div class="max-w-6xl mx-auto px-4 flex items-stretch gap-0 overflow-x-auto no-scrollbar">
-          <a href={base + "/"} class="px-3 py-2.5 text-[10px] tracking-kicker uppercase font-semibold text-accent border-b-2 border-transparent hover:border-accent whitespace-nowrap">HOT</a>
-          <a href={`${base}/today`} class="px-3 py-2.5 text-[10px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">전체</a>
+          <a href={base + "/"} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-accent border-b-2 border-transparent hover:border-accent whitespace-nowrap">HOT</a>
+          <a href={`${base}/today`} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">전체</a>
           {Object.entries(CATEGORIES).map(([slug, label]) => (
             <a
               href={`${base}/category/${slug}`}
-              class="px-3 py-2.5 text-[10px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap"
+              class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap"
             >{label}</a>
           ))}
           <span class="self-center mx-2 h-4 w-px bg-ink/20" aria-hidden="true"></span>

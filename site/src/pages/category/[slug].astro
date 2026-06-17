@@ -22,7 +22,7 @@ const label = CATEGORIES[slug!] ?? slug;
 <Base title={`${label} — AI Daily News`} updatedAt={latest?.updated_at}>
   <header class="mb-10 pb-4 border-b border-ink/15">
     <div class="kicker text-accent mb-2">Category</div>
-    <h1 class="font-serif text-4xl sm:text-5xl font-black text-ink leading-none mb-3">{label}</h1>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none mb-3">{label}</h1>
     <p class="kicker text-ink/55 tabular-nums">{day} · {String(filtered.length).padStart(2, "0")}건</p>
   </header>
 
