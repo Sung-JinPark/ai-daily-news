@@ -30,6 +30,7 @@ HAMMING_THRESHOLD = 12
 CROSS_DAY_THRESHOLD = 8           # stricter for cross-day to avoid false merges
 CONTINUITY_DAYS = 14              # prune index entries older than this
 NGRAM_SIZE = 3
+MAX_AGE_DAYS = 7                  # drop articles with a published date older than this
 SOURCES_FILE = Path("pipeline/sources.yaml")
 CONTINUITY_FILE = Path("data/cluster_continuity.json")
 
@@ -71,6 +72,33 @@ def load_articles(day_dir: Path) -> list[dict]:
             continue
         items.extend(json.loads(file.read_text(encoding="utf-8")))
     return items
+
+
+def filter_fresh(items: list[dict], day_str: str, max_age_days: int = MAX_AGE_DAYS) -> list[dict]:
+    """Drop articles whose published date is older than max_age_days.
+
+    Articles with no published date are kept (e.g. scraped listing pages
+    typically surface the most recent items first).
+    """
+    cutoff = datetime.fromisoformat(day_str).replace(tzinfo=timezone.utc) - timedelta(days=max_age_days)
+    kept: list[dict] = []
+    dropped = 0
+    for a in items:
+        pub = a.get("published")
+        if not pub:
+            kept.append(a)
+            continue
+        try:
+            dt = datetime.fromisoformat(pub)
+        except ValueError:
+            kept.append(a)
+            continue
+        if dt < cutoff:
+            dropped += 1
+            continue
+        kept.append(a)
+    log.info("freshness filter: kept %d, dropped %d older than %dd", len(kept), dropped, max_age_days)
+    return kept
 
 
 def load_continuity() -> dict:
@@ -176,6 +204,10 @@ def main() -> int:
     articles = load_articles(day_dir)
     if not articles:
         log.warning("no articles to cluster")
+        return 0
+    articles = filter_fresh(articles, args.day)
+    if not articles:
+        log.warning("no fresh articles after age filter")
         return 0
     clusters = cluster(articles, trust_map(), args.day)
     out = day_dir / "clusters.json"
