@@ -71,7 +71,7 @@ const list = unique.slice(9, 14);
   {grid.length > 0 && (
     <section class="mb-14">
       <div class="kicker text-ink/60 mb-5 pb-3 border-b-2 border-ink">랭킹 05 — 09</div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
         {grid.map((a, i) => <NewsTile article={a} rank={i + 5} size="md" />)}
       </div>
     </section>

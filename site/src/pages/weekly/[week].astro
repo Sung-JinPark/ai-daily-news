@@ -57,7 +57,7 @@ const genLabel = new Date(digest.generated_at).toLocaleString("ko-KR");
           <div>
             <h3 class="font-serif text-2xl font-black text-ink mb-2">#{theme.name}</h3>
             <p class="text-[15px] text-ink/75 mb-5 leading-relaxed">{theme.summary_ko}</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
               {theme.articles.map((a) => <NewsTile article={a} size="sm" />)}
             </div>
           </div>
@@ -69,7 +69,7 @@ const genLabel = new Date(digest.generated_at).toLocaleString("ko-KR");
   {topArticles.length > 0 && (
     <section>
       <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">이번 주 TOP {String(topArticles.length).padStart(2, "0")}</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
         {topArticles.map((a, i) => <NewsTile article={a} rank={i + 1} size="md" />)}
       </div>
     </section>

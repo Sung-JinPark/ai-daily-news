@@ -74,7 +74,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <h2 class="kicker text-ink">{label}</h2>
             <a href={`${base}/category/${slug}`} class="kicker text-accent hover:underline">전체 보기 →</a>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
             {items.map((a) => (
               <div data-article-id={a.id}>
                 <NewsTile article={a} size="md" />

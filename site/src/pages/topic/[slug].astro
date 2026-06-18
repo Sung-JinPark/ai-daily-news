@@ -34,7 +34,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   {articles.length === 0 ? (
     <p class="text-ink/50">아직 이 토픽의 기사가 없습니다.</p>
   ) : (
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
       {articles.map((a) => <NewsTile article={a} size="md" />)}
     </div>
   )}
