@@ -6,6 +6,9 @@ interface Props {
 }
 const { article, rank } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const publishedLabel = article.published
+  ? new Date(article.published).toLocaleDateString("ko-KR", { month: "long", day: "numeric" })
+  : "";
 ---
 <article
   class="flex gap-3 py-3 border-b border-ink/10 last:border-0 group"
@@ -44,6 +47,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       </a>
       <span class="text-ink/30">·</span>
       <span class="truncate">{article.source_name}</span>
+      {publishedLabel && (
+        <>
+          <span class="text-ink/30">·</span>
+          <span class="normal-case tracking-normal font-normal text-ink/50 shrink-0">{publishedLabel}</span>
+        </>
+      )}
     </div>
     <h3 class="font-serif text-[15px] font-bold leading-tight text-ink line-clamp-3">
       <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">

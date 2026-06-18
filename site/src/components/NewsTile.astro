@@ -10,6 +10,9 @@ const { article, rank, size = "md" } = Astro.props;
 const glossary = loadGlossary();
 const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const publishedLabel = article.published
+  ? new Date(article.published).toLocaleDateString("ko-KR", { month: "long", day: "numeric" })
+  : "";
 const aspect = "aspect-[16/9]";
 const titleSize = size === "lg" ? "text-xl sm:text-2xl" : size === "sm" ? "text-base" : "text-lg";
 const showSummary = size !== "sm";
@@ -59,6 +62,12 @@ if (!institution && article.category === "model_research") {
       </a>
       <span class="text-ink/30">·</span>
       <a href={`${base}/source/${article.source_id}`} class="hover:text-ink truncate">{article.source_name}</a>
+      {publishedLabel && (
+        <>
+          <span class="text-ink/30">·</span>
+          <span class="normal-case tracking-normal font-normal text-ink/50 shrink-0">{publishedLabel}</span>
+        </>
+      )}
     </div>
     <h3 class={`font-serif ${titleSize} font-bold leading-tight text-ink`}>
       <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
