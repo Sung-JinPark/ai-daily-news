@@ -2,10 +2,12 @@ name: Daily AI News Pipeline
 
 on:
   schedule:
-    # 2x/day to keep Batch API freshness reasonable.
-    # Run 1h before KST 07:00 / 19:00 so the site is ready by then.
-    # KST 06:00 / 18:00  ==  UTC 21:00 / 09:00
-    - cron: "0 21,9 * * *"
+    # 2x/day. The first run starts at KST 00:00 so the update timestamp
+    # rolls past midnight (~01:00 KST finish) — morning visitors see a
+    # "today, early morning" stamp instead of "yesterday evening".
+    # The second run starts at KST 18:00 for an afternoon refresh.
+    # KST 00:00 / 18:00  ==  UTC 15:00 / 09:00
+    - cron: "0 15,9 * * *"
   workflow_dispatch:
     inputs:
       cap:
