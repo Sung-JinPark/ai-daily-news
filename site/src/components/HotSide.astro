@@ -41,23 +41,39 @@ const publishedLabel = article.published
     )}
   </a>
   <div class="flex-1 min-w-0 flex flex-col gap-1">
-    <div class="flex items-center gap-2 text-[10px] tracking-kicker uppercase font-semibold text-ink/60">
+    <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[10px] tracking-kicker uppercase font-semibold text-ink/60">
       <a href={`${base}/category/${article.category}`} class="text-accent hover:underline">
         {CATEGORIES[article.category] ?? article.category}
       </a>
       <span class="text-ink/30">·</span>
-      <span class="truncate">{article.source_name}</span>
+      <span class="min-w-0 break-words">{article.source_name}</span>
       {publishedLabel && (
         <>
           <span class="text-ink/30">·</span>
-          <span class="normal-case tracking-normal font-normal text-ink/50 shrink-0">{publishedLabel}</span>
+          <span class="normal-case tracking-normal font-normal text-ink/50">{publishedLabel}</span>
         </>
       )}
     </div>
-    <h3 class="font-serif text-[15px] font-bold leading-tight text-ink line-clamp-3">
-      <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
-        {article.title_original}
+    <div class="relative">
+      <a
+        href={article.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="peer block group/title"
+        aria-label={article.title_original}
+      >
+        <h3 class="font-serif text-[15px] font-bold leading-snug text-ink break-words group-hover/title:text-accent transition-colors">
+          {article.title_original}
+        </h3>
       </a>
-    </h3>
+      {article.summary_ko && (
+        <div
+          role="tooltip"
+          class="pointer-events-none invisible opacity-0 peer-hover:visible peer-hover:opacity-100 absolute z-30 top-full left-0 right-0 mt-2 p-3 bg-white border border-ink shadow-[4px_4px_0_0_rgba(10,10,10,0.08)] text-[12.5px] font-normal normal-case tracking-normal text-ink/85 leading-relaxed transition-opacity duration-150 line-clamp-6"
+        >
+          {article.summary_ko}
+        </div>
+      )}
+    </div>
   </div>
 </article>
