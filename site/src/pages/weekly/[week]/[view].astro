@@ -1,0 +1,51 @@
+---
+import Base from "~/layouts/Base.astro";
+import WeeklyViz from "~/components/WeeklyViz.astro";
+import { allWeeklyDigests, type WeeklyDigest } from "~/lib/loadData";
+
+type View = "network" | "cloud";
+
+export async function getStaticPaths() {
+  const out: Array<{ params: { week: string; view: View }; props: { digest: WeeklyDigest; view: View } }> = [];
+  for (const d of allWeeklyDigests()) {
+    out.push({ params: { week: d.week, view: "network" }, props: { digest: d, view: "network" } });
+    out.push({ params: { week: d.week, view: "cloud" }, props: { digest: d, view: "cloud" } });
+  }
+  return out;
+}
+
+const { digest, view } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const heading = view === "network" ? "토픽 관계망" : "키워드 클라우드";
+const otherView: View = view === "network" ? "cloud" : "network";
+const otherLabel = otherView === "network" ? "토픽 관계망" : "키워드 클라우드";
+---
+<Base
+  title={`${heading} · 주간 ${digest.week} — AI Daily News`}
+  description={`${digest.week} 주간 다이제스트의 ${heading} 시각화.`}
+>
+  <div class="flex items-center gap-3 mb-5 flex-wrap">
+    <a href={`${base}/weekly`} class="kicker text-ink/55 hover:text-accent">← 주간 목록</a>
+    <span class="text-ink/20">/</span>
+    <a href={`${base}/weekly/${digest.week}`} class="kicker text-ink/55 hover:text-accent">{digest.week}</a>
+  </div>
+
+  <header class="mb-8 pb-4 border-b-2 border-ink">
+    <div class="kicker text-accent mb-2">Weekly Edition · {digest.week}</div>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">{heading}</h1>
+  </header>
+
+  <WeeklyViz digest={digest} only={view} />
+
+  <div class="flex gap-2 flex-wrap pt-2">
+    <a
+      href={`${base}/weekly/${digest.week}/${otherView}`}
+      class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
+    >{otherLabel} 보기 →</a>
+    <a
+      href={`${base}/weekly/${digest.week}`}
+      class="kicker text-ink/55 hover:text-accent transition-colors px-3 py-1.5"
+    >전체 다이제스트 →</a>
+  </div>
+</Base>

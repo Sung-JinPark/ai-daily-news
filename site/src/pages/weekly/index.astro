@@ -85,17 +85,13 @@ function formatDate(iso: string): string {
 
             <div class="flex gap-2 flex-wrap">
               <a
-                href={`${base}/weekly/${d.week}#network`}
+                href={`${base}/weekly/${d.week}/network`}
                 class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
               >토픽 관계망 보기 →</a>
               <a
-                href={`${base}/weekly/${d.week}#cloud`}
+                href={`${base}/weekly/${d.week}/cloud`}
                 class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
               >키워드 클라우드 보기 →</a>
-              <a
-                href={`${base}/weekly/${d.week}`}
-                class="kicker text-ink/55 hover:text-accent transition-colors px-3 py-1.5"
-              >전체 다이제스트 →</a>
             </div>
           </article>
         ))}
