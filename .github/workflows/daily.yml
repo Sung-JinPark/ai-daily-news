@@ -75,24 +75,28 @@ jobs:
       - name: Aggregate tags (30-day rolling)
         run: python -m pipeline.aggregate_tags
 
-      - name: Weekly digest (Sunday UTC 09:00 only)
+      - name: Weekly digest (Sunday UTC, self-healing)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           DOW=$(date -u +%u)
-          HOUR=$(date -u +%H)
-          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$HOUR" = "09" ]; }; then
+          WEEK=$(date -u +%G-W%V)
+          WEEK_FILE="data/weekly/${WEEK}.json"
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ ! -f "$WEEK_FILE" ]; }; then
             python -m pipeline.weekly
           else
-            echo "skipping weekly (DOW=$DOW HOUR=$HOUR)"
+            echo "skipping weekly (DOW=$DOW exists=$([ -f "$WEEK_FILE" ] && echo yes || echo no))"
           fi
 
-      - name: Glossary update (Sunday UTC 09:00 only)
+      - name: Glossary update (Sunday UTC)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           DOW=$(date -u +%u)
           HOUR=$(date -u +%H)
+          # First Sunday UTC run only (HOUR=09 = KST 18:00). Skip 15:00 to
+          # avoid redundant LLM cost; glossary doesn't need self-healing
+          # since terms accumulate.
           if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$HOUR" = "09" ]; }; then
             python -m pipeline.glossary
           else
