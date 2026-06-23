@@ -97,7 +97,7 @@ const hasCloud = cloudData.length > 0;
 )}
 
 {hasNetwork && (
-  <section class="mb-10">
+  <section id="network" class="mb-10 scroll-mt-20">
     <div class="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
       <h3 class="kicker text-accent">토픽 관계망</h3>
       <span class="text-[11px] text-ink/45 tabular-nums">노드 {String(networkNodes.length).padStart(2, "0")} · 엣지 {String(networkLinks.length).padStart(2, "0")}</span>
@@ -110,7 +110,7 @@ const hasCloud = cloudData.length > 0;
 )}
 
 {hasCloud && (
-  <section class="mb-14">
+  <section id="cloud" class="mb-14 scroll-mt-20">
     <div class="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
       <h3 class="kicker text-accent">키워드 클라우드</h3>
       <span class="text-[11px] text-ink/45 tabular-nums">태그 {String(cloudData.length).padStart(2, "0")}</span>
@@ -227,10 +227,14 @@ const hasCloud = cloudData.length > 0;
           var g = svg.append('g');
 
           var sim = d3.forceSimulation(N)
-            .force('link', d3.forceLink(L).id(function (x) { return x.id; }).distance(function (x) { return 55 - 5 * Math.min(x.value, 6); }).strength(0.9))
-            .force('charge', d3.forceManyBody().strength(-90))
+            .force('link', d3.forceLink(L).id(function (x) { return x.id; }).distance(function (x) { return 90 - 7 * Math.min(x.value, 6); }).strength(0.6))
+            .force('charge', d3.forceManyBody().strength(-180))
             .force('center', d3.forceCenter(w / 2, h / 2))
-            .force('collide', d3.forceCollide().radius(function (x) { return r(x.value) + 3; }));
+            .force('collide', d3.forceCollide().radius(function (x) { return r(x.value) + 6; }))
+            // forceX/Y pulls every node toward center, so disconnected sub-hubs
+            // settle close to each other without changing intra-cluster spacing.
+            .force('x', d3.forceX(w / 2).strength(0.12))
+            .force('y', d3.forceY(h / 2).strength(0.12));
 
           var link = g.append('g')
             .attr('stroke', '#1a1a1a')

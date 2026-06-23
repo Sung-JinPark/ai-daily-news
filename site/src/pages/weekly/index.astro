@@ -1,11 +1,26 @@
 ---
 import Base from "~/layouts/Base.astro";
 import WeeklyViz from "~/components/WeeklyViz.astro";
-import { allWeeklyDigests } from "~/lib/loadData";
+import { allWeeklyDigests, type WeeklyDigest } from "~/lib/loadData";
 
 const digests = allWeeklyDigests();
 const latest = digests[0];
+const olderDigests = digests.slice(1);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Pick the top 5 themes as the week's bullet summary.
+function bullets(d: WeeklyDigest) {
+  return d.themes.slice(0, 5).map((t) => ({ name: t.name, summary: t.summary_ko }));
+}
+
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("ko-KR", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
 ---
 <Base title="주간 다이제스트 — AI Daily News">
   <header class="mb-10 pb-4 border-b border-ink/15">
@@ -17,35 +32,74 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   </header>
 
   {latest && (
-    <section class="mb-12">
+    <section class="mb-14">
       <div class="flex items-baseline justify-between gap-3 mb-5 flex-wrap pb-3 border-b-2 border-ink">
         <h2 class="kicker text-ink">최신 주차 · {latest.week}</h2>
-        <a href={`${base}/weekly/${latest.week}`} class="kicker text-accent hover:underline">전체 다이제스트 →</a>
+        <span class="kicker text-ink/55 tabular-nums">{formatDate(latest.generated_at)}</span>
       </div>
-      <p class="text-[15px] text-ink/75 leading-relaxed mb-6 line-clamp-4">{latest.theme_recap_ko}</p>
+
+      <ol class="space-y-3 mb-10">
+        {bullets(latest).map((b, i) => (
+          <li class="flex gap-4">
+            <span class="font-serif font-black text-accent w-6 shrink-0 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+            <div class="flex-1 min-w-0">
+              <div class="kicker text-accent mb-1">#{b.name}</div>
+              <p class="text-[14.5px] text-ink/80 leading-relaxed">{b.summary}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
       <WeeklyViz digest={latest} />
+
+      <div class="pt-2">
+        <a href={`${base}/weekly/${latest.week}`} class="kicker text-accent hover:underline">전체 다이제스트 (테마별 기사 + TOP {String(latest.top_story_ids.length).padStart(2, "0")}) →</a>
+      </div>
     </section>
   )}
 
-  {digests.length === 0 ? (
-    <p class="text-ink/50">첫 주간 다이제스트가 일요일에 발행됩니다.</p>
+  {olderDigests.length === 0 ? (
+    !latest && <p class="text-ink/50">첫 주간 다이제스트가 일요일에 발행됩니다.</p>
   ) : (
     <section>
-      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">전체 주차 {String(digests.length).padStart(2, "0")}</h2>
-      <ul class="divide-y divide-ink/15">
-        {digests.map((d) => (
-          <li>
-            <a href={`${base}/weekly/${d.week}`} class="block py-6 group">
-              <div class="flex items-baseline justify-between gap-3 mb-2 flex-wrap">
-                <h3 class="font-serif text-2xl font-black text-ink group-hover:text-accent transition-colors tabular-nums">{d.week}</h3>
-                <span class="kicker text-ink/55 tabular-nums">{new Date(d.generated_at).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", year: "numeric", month: "long", day: "numeric" })}</span>
-              </div>
-              <p class="text-[15px] text-ink/75 line-clamp-3 leading-relaxed mb-2">{d.theme_recap_ko}</p>
-              <p class="kicker text-ink/45 tabular-nums">테마 {String(d.themes.length).padStart(2, "0")} · TOP {String(d.top_story_ids.length).padStart(2, "0")}</p>
-            </a>
-          </li>
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">이전 주차 {String(olderDigests.length).padStart(2, "0")}</h2>
+      <div class="space-y-12">
+        {olderDigests.map((d) => (
+          <article class="border-b border-ink/15 pb-10 last:border-0">
+            <div class="flex items-baseline justify-between gap-3 mb-4 flex-wrap">
+              <a href={`${base}/weekly/${d.week}`} class="font-serif text-2xl font-black text-ink hover:text-accent transition-colors tabular-nums">{d.week}</a>
+              <span class="kicker text-ink/55 tabular-nums">{formatDate(d.generated_at)}</span>
+            </div>
+
+            <ol class="space-y-2.5 mb-5">
+              {bullets(d).map((b, i) => (
+                <li class="flex gap-4">
+                  <span class="font-serif font-black text-accent/80 w-6 shrink-0 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                  <div class="flex-1 min-w-0">
+                    <span class="kicker text-accent">#{b.name}</span>
+                    <span class="text-[14px] text-ink/75 ml-2">{b.summary}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <div class="flex gap-2 flex-wrap">
+              <a
+                href={`${base}/weekly/${d.week}#network`}
+                class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
+              >토픽 관계망 보기 →</a>
+              <a
+                href={`${base}/weekly/${d.week}#cloud`}
+                class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
+              >키워드 클라우드 보기 →</a>
+              <a
+                href={`${base}/weekly/${d.week}`}
+                class="kicker text-ink/55 hover:text-accent transition-colors px-3 py-1.5"
+              >전체 다이제스트 →</a>
+            </div>
+          </article>
         ))}
-      </ul>
+      </div>
     </section>
   )}
 </Base>
