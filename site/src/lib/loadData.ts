@@ -116,6 +116,21 @@ export function loadWeeklyDigest(week: string): WeeklyDigest | null {
   return readJson<WeeklyDigest | null>(file, null);
 }
 
+// True iff at least one article surfaced in the digest carries tags. Older
+// digests (pre-tagging-pipeline) return false so we can hide viz buttons.
+export function digestHasTags(digest: WeeklyDigest): boolean {
+  const lookup = articleById();
+  const ids = [
+    ...digest.top_story_ids,
+    ...digest.themes.flatMap((t) => t.article_ids),
+  ];
+  for (const id of ids) {
+    const a = lookup.get(id);
+    if (a && (a.tags?.length ?? 0) > 0) return true;
+  }
+  return false;
+}
+
 export function loadGlossary(): GlossaryTerm[] {
   const file = path.join(DATA_ROOT, "glossary.json");
   if (!fs.existsSync(file)) return [];

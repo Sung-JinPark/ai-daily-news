@@ -1,7 +1,7 @@
 ---
 import Base from "~/layouts/Base.astro";
 import WeeklyViz from "~/components/WeeklyViz.astro";
-import { allWeeklyDigests, type WeeklyDigest } from "~/lib/loadData";
+import { allWeeklyDigests, digestHasTags, type WeeklyDigest } from "~/lib/loadData";
 
 type View = "network" | "cloud";
 
@@ -20,6 +20,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const heading = view === "network" ? "토픽 관계망" : "키워드 클라우드";
 const otherView: View = view === "network" ? "cloud" : "network";
 const otherLabel = otherView === "network" ? "토픽 관계망" : "키워드 클라우드";
+const hasViz = digestHasTags(digest);
 ---
 <Base
   title={`${heading} · 주간 ${digest.week} — AI Daily News`}
@@ -36,13 +37,26 @@ const otherLabel = otherView === "network" ? "토픽 관계망" : "키워드 클
     <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">{heading}</h1>
   </header>
 
-  <WeeklyViz digest={digest} only={view} />
+  {hasViz ? (
+    <WeeklyViz digest={digest} only={view} />
+  ) : (
+    <div class="border border-ink/15 bg-ink/[0.02] p-8 mb-6 text-center">
+      <p class="text-[15px] text-ink/70 leading-relaxed mb-2">
+        이 주차의 기사에는 태그가 없어 {heading} 시각화를 생성할 수 없습니다.
+      </p>
+      <p class="text-[13px] text-ink/50 leading-relaxed">
+        2026-W25 이전 주차는 태그 추출 파이프라인이 도입되기 전이라 시각화 데이터가 비어 있습니다. 그래도 전체 다이제스트의 테마·기사 목록은 정상적으로 열람할 수 있습니다.
+      </p>
+    </div>
+  )}
 
   <div class="flex gap-2 flex-wrap pt-2">
-    <a
-      href={`${base}/weekly/${digest.week}/${otherView}`}
-      class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
-    >{otherLabel} 보기 →</a>
+    {hasViz && (
+      <a
+        href={`${base}/weekly/${digest.week}/${otherView}`}
+        class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
+      >{otherLabel} 보기 →</a>
+    )}
     <a
       href={`${base}/weekly/${digest.week}`}
       class="kicker text-ink/55 hover:text-accent transition-colors px-3 py-1.5"

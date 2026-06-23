@@ -1,7 +1,7 @@
 ---
 import Base from "~/layouts/Base.astro";
 import WeeklyViz from "~/components/WeeklyViz.astro";
-import { allWeeklyDigests, type WeeklyDigest } from "~/lib/loadData";
+import { allWeeklyDigests, digestHasTags, type WeeklyDigest } from "~/lib/loadData";
 
 const digests = allWeeklyDigests();
 const latest = digests[0];
@@ -12,6 +12,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 function bullets(d: WeeklyDigest) {
   return d.themes.slice(0, 5).map((t) => ({ name: t.name, summary: t.summary_ko }));
 }
+
+// Older digests built before the tag-extraction pipeline have no tags on
+// their articles, so the network/cloud viz pages would be empty. Skip the
+// chips for those weeks.
+const olderWithViz = new Set(olderDigests.filter((d) => digestHasTags(d)).map((d) => d.week));
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("ko-KR", {
@@ -24,11 +29,19 @@ function formatDate(iso: string): string {
 ---
 <Base title="주간 다이제스트 — AI Daily News">
   <header class="mb-10 pb-4 border-b border-ink/15">
-    <div class="kicker text-accent mb-2">Weekly Edition</div>
-    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none mb-3">주간 다이제스트</h1>
-    <p class="kicker text-ink/55">매주 일요일 발행 · 지난 7일 핵심 흐름
-      <a href={`${base}/weekly.xml`} class="ml-2 text-accent hover:underline">RSS</a>
-    </p>
+    <div class="flex items-start justify-between gap-4 flex-wrap">
+      <div class="min-w-0">
+        <div class="kicker text-accent mb-2">Weekly Edition</div>
+        <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none mb-3">주간 다이제스트</h1>
+        <p class="kicker text-ink/55">매주 일요일 발행 · 지난 7일 핵심 흐름
+          <a href={`${base}/weekly.xml`} class="ml-2 text-accent hover:underline">RSS</a>
+        </p>
+      </div>
+      <a
+        href={`${base}/weekly/all`}
+        class="kicker text-white bg-ink hover:bg-accent transition-colors px-4 py-2.5 shrink-0 self-start"
+      >전체 다이제스트 보기 →</a>
+    </div>
   </header>
 
   {latest && (
@@ -51,10 +64,6 @@ function formatDate(iso: string): string {
       </ol>
 
       <WeeklyViz digest={latest} />
-
-      <div class="pt-2">
-        <a href={`${base}/weekly/${latest.week}`} class="kicker text-accent hover:underline">전체 다이제스트 (테마별 기사 + TOP {String(latest.top_story_ids.length).padStart(2, "0")}) →</a>
-      </div>
     </section>
   )}
 
@@ -83,16 +92,20 @@ function formatDate(iso: string): string {
               ))}
             </ol>
 
-            <div class="flex gap-2 flex-wrap">
-              <a
-                href={`${base}/weekly/${d.week}/network`}
-                class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
-              >토픽 관계망 보기 →</a>
-              <a
-                href={`${base}/weekly/${d.week}/cloud`}
-                class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
-              >키워드 클라우드 보기 →</a>
-            </div>
+            {olderWithViz.has(d.week) ? (
+              <div class="flex gap-2 flex-wrap">
+                <a
+                  href={`${base}/weekly/${d.week}/network`}
+                  class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
+                >토픽 관계망 보기 →</a>
+                <a
+                  href={`${base}/weekly/${d.week}/cloud`}
+                  class="kicker text-accent border border-accent/40 hover:bg-accent hover:text-white transition-colors px-3 py-1.5"
+                >키워드 클라우드 보기 →</a>
+              </div>
+            ) : (
+              <p class="text-[12px] text-ink/45 italic">이 주차는 태그 데이터가 없어 시각화를 제공하지 않습니다.</p>
+            )}
           </article>
         ))}
       </div>
