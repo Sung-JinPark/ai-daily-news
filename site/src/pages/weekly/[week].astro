@@ -1,6 +1,7 @@
 ---
 import Base from "~/layouts/Base.astro";
 import NewsTile from "~/components/NewsTile.astro";
+import WeeklyViz from "~/components/WeeklyViz.astro";
 import { allWeeklyDigests, articleById, type Article } from "~/lib/loadData";
 
 export async function getStaticPaths() {
@@ -29,62 +30,8 @@ const themesResolved = digest.themes.map((t) => ({
   articles: resolve(t.article_ids),
 }));
 
-// --- Visualization data (computed at build time) ---
-// Pool: all unique articles surfaced in this week's digest.
-const vizSeen = new Set<string>();
-const vizPool: Article[] = [];
-for (const a of [...topArticles, ...themesResolved.flatMap((t) => t.articles)]) {
-  if (!vizSeen.has(a.id)) {
-    vizSeen.add(a.id);
-    vizPool.push(a);
-  }
-}
-
-// Tag frequency for word cloud.
-const tagFreq = new Map<string, number>();
-for (const a of vizPool) {
-  for (const tag of a.tags ?? []) {
-    tagFreq.set(tag, (tagFreq.get(tag) ?? 0) + 1);
-  }
-}
-const cloudData = Array.from(tagFreq.entries())
-  .map(([text, value]) => ({ text, value }))
-  .sort((a, b) => b.value - a.value)
-  .slice(0, 40);
-const cloudSet = new Set(cloudData.map((d) => d.text));
-
-// Tag co-occurrence edges (only among cloud tags, only count >= 2).
-const coCount = new Map<string, number>();
-function pairKey(a: string, b: string): string {
-  return a < b ? `${a}\u0001${b}` : `${b}\u0001${a}`;
-}
-for (const a of vizPool) {
-  const tags = (a.tags ?? []).filter((t) => cloudSet.has(t));
-  for (let i = 0; i < tags.length; i++) {
-    for (let j = i + 1; j < tags.length; j++) {
-      const k = pairKey(tags[i], tags[j]);
-      coCount.set(k, (coCount.get(k) ?? 0) + 1);
-    }
-  }
-}
-// Drop tags that have no co-occurrence — they'd float alone in the network.
-const linked = new Set<string>();
-for (const k of coCount.keys()) {
-  const [s, t] = k.split("\u0001");
-  linked.add(s);
-  linked.add(t);
-}
-const networkNodes = cloudData
-  .filter((d) => linked.has(d.text))
-  .map((d) => ({ id: d.text, value: d.value }));
-const networkLinks = Array.from(coCount.entries()).map(([k, w]) => {
-  const [s, t] = k.split("\u0001");
-  return { source: s, target: t, value: w };
-});
-
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const genLabel = new Date(digest.generated_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
-const vizData = { base, cloud: cloudData, nodes: networkNodes, links: networkLinks };
 ---
 <Base
   title={`주간 다이제스트 ${digest.week} — AI Daily News`}
@@ -103,25 +50,7 @@ const vizData = { base, cloud: cloudData, nodes: networkNodes, links: networkLin
     <p class="font-serif text-xl sm:text-2xl leading-snug text-ink font-medium">{digest.theme_recap_ko}</p>
   </section>
 
-  {cloudData.length > 0 && (
-    <section class="mb-14">
-      <h2 class="kicker text-ink mb-3 pb-3 border-b-2 border-ink">키워드 클라우드</h2>
-      <p class="text-[13px] text-ink/55 mb-4">이번 주 기사에 등장한 태그를 빈도순으로 시각화. 클릭하면 해당 토픽 페이지로 이동합니다.</p>
-      <div id="viz-cloud" class="w-full h-72 sm:h-96 border border-ink/15 bg-ink/[0.02] relative">
-        <span class="absolute inset-0 flex items-center justify-center text-ink/40 text-sm" id="viz-cloud-status">로딩…</span>
-      </div>
-    </section>
-  )}
-
-  {networkNodes.length >= 3 && networkLinks.length > 0 && (
-    <section class="mb-14">
-      <h2 class="kicker text-ink mb-3 pb-3 border-b-2 border-ink">토픽 관계망</h2>
-      <p class="text-[13px] text-ink/55 mb-4">같은 기사에서 함께 언급된 태그를 연결. 노드 크기 = 등장 빈도, 선 굵기 = 동반 횟수. 드래그·휠 확대 가능, 노드 클릭 시 토픽 페이지로 이동.</p>
-      <div id="viz-network" class="w-full h-[500px] border border-ink/15 bg-ink/[0.02] relative">
-        <span class="absolute inset-0 flex items-center justify-center text-ink/40 text-sm" id="viz-network-status">로딩…</span>
-      </div>
-    </section>
-  )}
+  <WeeklyViz digest={digest} heading="태그 시각화" />
 
   {themesResolved.length > 0 && (
     <section class="mb-14">
@@ -149,174 +78,4 @@ const vizData = { base, cloud: cloudData, nodes: networkNodes, links: networkLin
     </section>
   )}
 
-  <script is:inline src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.7/build/d3.layout.cloud.min.js"></script>
-  <script is:inline define:vars={{ vizData }}>
-    (function () {
-      var data = vizData;
-
-      function ready(check, max, cb) {
-        if (check()) return cb();
-        if (max <= 0) return;
-        setTimeout(function () { ready(check, max - 1, cb); }, 50);
-      }
-
-      ready(
-        function () { return window.d3 && (data.cloud.length === 0 || (window.d3.layout && window.d3.layout.cloud)); },
-        60,
-        function () {
-          if (data.cloud.length) renderCloud(data.cloud, data.base);
-          if (data.nodes.length >= 3 && data.links.length) renderNetwork(data.nodes, data.links, data.base);
-        }
-      );
-
-      function renderCloud(items, base) {
-        var el = document.getElementById('viz-cloud');
-        var status = document.getElementById('viz-cloud-status');
-        if (!el) return;
-        var w = el.clientWidth || 800;
-        var h = el.clientHeight || 320;
-        var max = items[0].value;
-        var min = items[items.length - 1].value;
-        var scale = d3.scaleSqrt().domain([min, max]).range([13, 48]);
-        var layout = d3.layout.cloud()
-          .size([w, h])
-          .words(items.map(function (d) { return { text: d.text, size: scale(d.value), value: d.value }; }))
-          .padding(4)
-          .rotate(function () { return Math.random() < 0.25 ? 90 : 0; })
-          .font('"Noto Serif KR", serif')
-          .fontSize(function (d) { return d.size; })
-          .on('end', draw);
-        layout.start();
-
-        function draw(words) {
-          if (status) status.remove();
-          var svg = d3.select(el).append('svg')
-            .attr('viewBox', '0 0 ' + w + ' ' + h)
-            .attr('width', '100%')
-            .attr('height', '100%');
-          svg.append('g')
-            .attr('transform', 'translate(' + w / 2 + ',' + h / 2 + ')')
-            .selectAll('text')
-            .data(words)
-            .enter()
-            .append('text')
-            .style('font-family', '"Noto Serif KR", serif')
-            .style('font-weight', '700')
-            .style('font-size', function (d) { return d.size + 'px'; })
-            .style('cursor', 'pointer')
-            .style('fill', function (_, i) {
-              var palette = ['#be1622', '#1a1a1a', '#6b7280', '#be1622', '#1a1a1a'];
-              return palette[i % palette.length];
-            })
-            .attr('text-anchor', 'middle')
-            .attr('transform', function (d) { return 'translate(' + d.x + ',' + d.y + ')rotate(' + d.rotate + ')'; })
-            .text(function (d) { return d.text; })
-            .on('mouseover', function () { d3.select(this).style('fill', '#be1622').style('opacity', 0.85); })
-            .on('mouseout', function () {
-              var idx = words.indexOf(d3.select(this).datum());
-              var palette = ['#be1622', '#1a1a1a', '#6b7280', '#be1622', '#1a1a1a'];
-              d3.select(this).style('fill', palette[idx % palette.length]).style('opacity', 1);
-            })
-            .on('click', function (_, d) {
-              window.location.href = base + '/topic/' + encodeURIComponent(d.text);
-            })
-            .append('title')
-            .text(function (d) { return d.text + ' · ' + d.value + '건'; });
-        }
-      }
-
-      function renderNetwork(nodes, links, base) {
-        var el = document.getElementById('viz-network');
-        var status = document.getElementById('viz-network-status');
-        if (!el) return;
-        if (status) status.remove();
-        var w = el.clientWidth || 800;
-        var h = el.clientHeight || 500;
-        var N = nodes.map(function (d) { return Object.assign({}, d); });
-        var L = links.map(function (d) { return Object.assign({}, d); });
-        var maxV = N.reduce(function (m, n) { return Math.max(m, n.value); }, 0);
-        var minV = N.reduce(function (m, n) { return Math.min(m, n.value); }, Infinity);
-        var r = d3.scaleSqrt().domain([Math.max(1, minV), Math.max(2, maxV)]).range([7, 28]);
-        var maxW = L.reduce(function (m, l) { return Math.max(m, l.value); }, 1);
-        var sw = d3.scaleLinear().domain([1, maxW]).range([0.6, 4]);
-
-        var svg = d3.select(el).append('svg')
-          .attr('viewBox', '0 0 ' + w + ' ' + h)
-          .attr('width', '100%')
-          .attr('height', '100%')
-          .style('display', 'block');
-        var g = svg.append('g');
-
-        var sim = d3.forceSimulation(N)
-          .force('link', d3.forceLink(L).id(function (d) { return d.id; }).distance(function (d) { return 90 - 7 * Math.min(d.value, 6); }).strength(0.6))
-          .force('charge', d3.forceManyBody().strength(-180))
-          .force('center', d3.forceCenter(w / 2, h / 2))
-          .force('collide', d3.forceCollide().radius(function (d) { return r(d.value) + 6; }));
-
-        var link = g.append('g')
-          .attr('stroke', '#1a1a1a')
-          .attr('stroke-opacity', 0.18)
-          .selectAll('line')
-          .data(L)
-          .enter().append('line')
-          .attr('stroke-width', function (d) { return sw(d.value); });
-
-        var node = g.append('g')
-          .selectAll('g')
-          .data(N)
-          .enter().append('g')
-          .style('cursor', 'pointer')
-          .on('click', function (_, d) {
-            window.location.href = base + '/topic/' + encodeURIComponent(d.id);
-          })
-          .on('mouseover', function () {
-            d3.select(this).select('circle').attr('fill', '#1a1a1a');
-          })
-          .on('mouseout', function () {
-            d3.select(this).select('circle').attr('fill', '#be1622');
-          });
-
-        node.append('circle')
-          .attr('r', function (d) { return r(d.value); })
-          .attr('fill', '#be1622')
-          .attr('fill-opacity', 0.88)
-          .attr('stroke', '#1a1a1a')
-          .attr('stroke-width', 1);
-
-        node.append('text')
-          .attr('text-anchor', 'middle')
-          .attr('dy', function (d) { return r(d.value) + 12; })
-          .style('font-family', '"Noto Serif KR", serif')
-          .style('font-weight', '700')
-          .style('font-size', '11px')
-          .style('fill', '#1a1a1a')
-          .style('pointer-events', 'none')
-          .style('paint-order', 'stroke')
-          .style('stroke', 'rgba(255,255,255,0.9)')
-          .style('stroke-width', '3px')
-          .text(function (d) { return d.id; });
-
-        node.append('title').text(function (d) { return d.id + ' · ' + d.value + '건'; });
-
-        node.call(d3.drag()
-          .on('start', function (e, d) { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-          .on('drag', function (e, d) { d.fx = e.x; d.fy = e.y; })
-          .on('end', function (e, d) { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
-
-        svg.call(d3.zoom().scaleExtent([0.4, 3]).on('zoom', function (e) {
-          g.attr('transform', e.transform);
-        }));
-
-        sim.on('tick', function () {
-          link
-            .attr('x1', function (d) { return d.source.x; })
-            .attr('y1', function (d) { return d.source.y; })
-            .attr('x2', function (d) { return d.target.x; })
-            .attr('y2', function (d) { return d.target.y; });
-          node.attr('transform', function (d) { return 'translate(' + d.x + ',' + d.y + ')'; });
-        });
-      }
-    })();
-  </script>
 </Base>
