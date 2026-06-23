@@ -233,8 +233,8 @@ const hasCloud = cloudData.length > 0;
             .force('collide', d3.forceCollide().radius(function (x) { return r(x.value) + 6; }))
             // forceX/Y pulls every node toward center, so disconnected sub-hubs
             // settle close to each other without changing intra-cluster spacing.
-            .force('x', d3.forceX(w / 2).strength(0.12))
-            .force('y', d3.forceY(h / 2).strength(0.12));
+            .force('x', d3.forceX(w / 2).strength(0.06))
+            .force('y', d3.forceY(h / 2).strength(0.06));
 
           var link = g.append('g')
             .attr('stroke', '#1a1a1a')
