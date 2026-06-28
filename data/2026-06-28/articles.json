@@ -1,0 +1,235 @@
+[
+  {
+    "id": "31ab6fd58d8b9183",
+    "cluster_id": "k000962",
+    "title_original": "Ford hired AI and sacked humans. It backfired badly",
+    "url": "https://www.the-independent.com/tech/ford-ai-automation-human-workers-b3003787.html",
+    "image_url": "https://static.the-independent.com/s3fs-public/thumbnails/image/2020/07/22/12/ford-uk-factory.jpg?width=1200&height=800&crop=1200:800",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-06-28T03:09:13+00:00",
+    "fetched_at": "2026-06-28T11:10:13.458257+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Ford는 자동화된 품질검사 시스템에 과도하게 의존한 결과 수십억 달러의 손실을 입고, 지난 3년간 350명 이상의 경험 많은 엔지니어('gray beards')를 재고용했습니다. 이들 전문가가 AI 시스템의 실패 지점을 발굴하고 인공지능 모델 개선을 주도하면서 품질이 개선되었고, J.D. Power 최초 품질 조사에서 16년 만에 주류 브랜드 1위를 기록했습니다. Ford는 향후 인간 감독 아래 AI를 보조 도구로 운영하는 하이브리드 전략으로 전환했습니다.",
+    "insights_ko": [
+      "AI가 자동화 효율성에는 우수하지만 복잡한 맥락 판단과 이상 탐지에서 인간 경험을 완전히 대체할 수 없음이 실증적으로 드러났습니다. 특히 제조업 같은 고도의 정성적 검증이 필요한 분야에서 AI 만능주의는 역풍을 초래합니다.",
+      "AI 훈련 데이터의 질이 모델 성능을 결정하는데, 암묵적 지식과 도메인 경험이 풍부한 인간 전문가와의 협업이 필수임을 Ford 사례가 보여줍니다. 이는 AI 투자 시 '인력 재배치'가 아닌 '역할 재정의'로의 인식 전환을 시사합니다.",
+      "자동화로 인한 조직 역량 공동화(deskilling) 현상이 역효과를 초래했으며, 중장기 경쟁력 유지를 위해서는 경험 인력의 보유와 신세대 교육이 동시에 필요함을 시사합니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Ford rehired experts after AI quality control failures cost billions",
+    "tags": [
+      "제조",
+      "인력채용"
+    ]
+  },
+  {
+    "id": "eb166180687b6629",
+    "cluster_id": "k000961",
+    "title_original": "Wayfinder Router: deterministic routing of queries between local and hosted LLM",
+    "url": "https://github.com/itsthelore/wayfinder-router",
+    "image_url": "https://repository-images.githubusercontent.com/1271892689/88c43e02-cd49-45ba-9926-2f82880b57a0",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-06-28T04:31:18+00:00",
+    "fetched_at": "2026-06-28T11:10:13.458550+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Wayfinder Router는 프롬프트의 구조와 문장 특성을 분석해 로컬 모델과 클라우드 모델 중 어디로 라우팅할지 결정하는 결정론적 라우터입니다. 모델 호출 없이 마이크로초 단위로 오프라인 결정이 가능하며, API 키나 네트워크 없이 실행됩니다. 간단한 쿼리는 저비용 로컬 모델로, 복잡한 작업은 고급 클라우드 모델로 자동 분류하여 불필요한 고가 API 호출을 줄입니다.",
+    "insights_ko": [
+      "기존 라우터가 분류 모델이나 LLM 판단을 호출해 추가 지연·비용·불확실성을 야기하는 것과 달리, 결정론적 휴리스틱으로 로컬 연산만으로 결정하는 접근이 새롭습니다. 이는 라우팅 자체의 비용을 원점으로 돌린 철학입니다.",
+      "프롬프트 길이, 코드 블록, 수학 기호, 제약 조건 등 정적 특성만으로 難度를 추정하는 방식은 의미적 복잡성(예: '100번째 소수는?')은 놓치지만, 대신 순전히 구조적 신호에 대해선 재현 가능하고 튜닝 가능한 기저선을 제공합니다.",
+      "로컬-클라우드 이중 구성이 표준화되며 비용 최적화가 실제 사용 트래픽에 따라 세밀하게 조율될 수 있음을 보여줍니다. OpenAI 호환 엔드포인트 지원으로 기존 스택에 무리 없이 통합 가능한 점이 채택 장벽을 낮입니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Offline deterministic routing between local and cloud LLMs without model calls",
+    "tags": [
+      "RAG",
+      "생산성",
+      "오픈소스"
+    ]
+  },
+  {
+    "id": "24307e94bc55fbe0",
+    "cluster_id": "k000963",
+    "title_original": "The best response to AI slop and online noise is from Robin Williams",
+    "url": "https://jayacunzo.com/blog/your-move-chief",
+    "image_url": "http://static1.squarespace.com/static/5feca30531a19847227af3bb/t/6a343855d688d00b2ef2a283/1781807193174/Screenshot+2026-06-18+at+6.55.30%E2%80%AFAM.png?format=1500w",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-06-28T01:28:10+00:00",
+    "fetched_at": "2026-06-28T11:10:13.458806+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "본 에세이는 영화 '굿 윌 헌팅'의 로빈 윌리엄스 명대사를 인용하며, 인터넷의 무한한 조언과 AI 슬롭에 대한 해답은 직접 경험과 실제 삶에 있다고 주장합니다. 지식과 지혜, 이론과 경험의 차이를 강조하며, AI가 아무리 많은 데이터를 읽었어도 실제 감정과 경험을 알 수 없음을 역설합니다. 저자는 독자에게 무한한 정보 속에서도 자신의 실제 경험과 감정이 여전히 가장 중요한 가치라고 재확인시킵니다.",
+    "insights_ko": [
+      "현재의 AI 과포화 상황에서 인간의 유일한 우위는 '살아낸 경험'과 '느낌'이라는 점이 명확해집니다. 이는 단순한 정서적 주장이 아니라, AI가 원천적으로 모방할 수 없는 인간만의 자산이 무엇인지를 구체적으로 정의합니다.",
+      "'알기'와 '경험하기'의 차이가 곧 인간 고유의 창의성·판단·영감의 원천이라는 관찰은 AI가 카피하는 콘텐츠 시대에 개인의 자존감과 역할을 재정의합니다. 이는 작가·예술가·사업가 등 모든 영역에서 자신의 실제 경험을 자신감 있게 표현하도록 하는 하나의 문화적 신호입니다.",
+      "커뮤니티 층위에서 보면, 무한한 조언과 최적화 팁 시장의 과다 공급에 대한 일종의 면역 형성이 시작되고 있음을 보여줍니다. 인간관계, 창의성, 의사결정에서 '타인의 지식'보다 '자신의 경험'을 신뢰하는 움직임이 진정성 추구 트렌드와 맞물리고 있습니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "Human lived experience remains irreplaceable against infinite AI knowledge"
+  },
+  {
+    "id": "3aee932b9bee33ce",
+    "cluster_id": "k000965",
+    "title_original": "Everyone feared AI taking over; the real danger is AI serving just the few",
+    "url": "https://news.ycombinator.com/item?id=48701615",
+    "image_url": null,
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-06-27T20:48:01+00:00",
+    "fetched_at": "2026-06-28T11:10:13.458983+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "저자는 AI가 인류를 지배할 위험보다 정부와 빅테크가 AI를 독점하여 소수만 이득을 보는 시나리오가 실제 위협이라고 주장합니다. OpenAI 규제 발표를 계기로, AI 지배 구조의 중앙화가 더 큰 사회적 불평등을 초래할 수 있다는 우려를 제기합니다. 결국 인류의 진정한 싸움은 AI를 모두에게 접근 가능하게 해방시키는 것이어야 한다고 주장합니다.",
+    "insights_ko": [
+      "기존의 'AI 위험론'(AI 자율성의 위험)이 아닌 'AI 포획론'(정부·빅테크의 독점)을 제시하며, 규제 강화가 오히려 중앙화를 심화시킬 수 있다는 역설적 우려를 표현합니다. 이는 오픈소스와 분산 접근을 옹호하는 커뮤니티의 입장을 반영합니다.",
+      "프론티어 모델 규제 논의(예: 컴퓨트 임계값 기준)가 소수 기업의 시장 진입 장벽을 높이고 기존 강자를 보호할 수 있다는 비판으로, 규제의 의도와 결과 사이의 괴리에 주목합니다.",
+      "AI 민주화 대 AI 중앙화라는 구도에서, 오픈소스·분산형 모델의 필요성과 정보 비대칭 해소의 중요성이 향후 기술 거버넌스 논쟁의 핵심이 될 것 시사합니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "Real AI danger is concentration in few hands, not machine superintelligence",
+    "tags": [
+      "오픈소스",
+      "규제"
+    ]
+  },
+  {
+    "id": "4383664cba90f454",
+    "cluster_id": "k000964",
+    "title_original": "Show HN: Decomp Academy – Learn to decompile GameCube games into matching C",
+    "url": "https://decomp-academy.dev",
+    "image_url": "https://decomp-academy.dev/brand/png/og-image.png",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-06-28T01:21:20+00:00",
+    "fetched_at": "2026-06-28T11:10:13.459176+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Decomp Academy는 GameCube 게임의 어셈블리를 C 코드로 복원하는 방법을 체계적으로 배우는 대화형 튜토리얼입니다. PowerPC 아키텍처의 기계어 읽기부터 시작해 산술·비트 연산, 제어 흐름, 메모리 접근, 구조체·포인터, 부동소수점, 호출 규약(ABI), 최적화 기법까지 6개 단원으로 구성되어 있습니다. 각 주제는 단계적 난이도와 실습 문제를 포함하며 리버스 엔지니어링과 정적 분석 능력 개발을 목표로 합니다.",
+    "insights_ko": [
+      "게임 리버스 엔지니어링이 단순한 크래킹을 넘어 컴파일러 최적화, ABI, 아키텍처 특성을 이해하는 학문적 분야로 위치 지어지고 있습니다. 이는 보안 연구자·에뮬레이터 개발자·레트로 게임 커뮤니티에 진입 장벽을 크게 낮추는 교육 자산입니다.",
+      "현대 AI 코드 생성·분석 모델(GitHub Copilot, Claude, GPT 등)의 학습 데이터로서 구체적인 어셈블리-C 대응 패턴을 교육하는 것의 가치를 암시합니다. 이 같은 패턴 인식 능력은 바이너리 분석 자동화와 취약점 탐지 AI의 토대가 될 수 있습니다.",
+      "GameCube(2001년 출시)라는 특정 플랫폼에 집중함으로써 컴파일러 특성과 최적화가 명확하고, 학습자가 '정답'과 '오답'을 구분하기 쉬워집니다. 모던 x86/ARM 분석보다 더 체계적인 커리큘럼 설계가 가능한 이점이 있습니다."
+    ],
+    "category": "community",
+    "importance_score": 2,
+    "subtitle_en": "Interactive tutorial teaches reverse engineering GameCube games to C source code",
+    "tags": [
+      "오픈소스",
+      "코딩"
+    ]
+  },
+  {
+    "id": "055f836655b9de2f",
+    "cluster_id": "k000960",
+    "title_original": "Claude Code turned every engineer into three. Now companies need more product thinkers",
+    "url": "https://venturebeat.com/infrastructure/claude-code-turned-every-engineer-into-three-now-companies-need-more-product-thinkers",
+    "image_url": null,
+    "source_id": "venturebeat",
+    "source_name": "VentureBeat",
+    "published": "2026-06-27T19:30:09+00:00",
+    "fetched_at": "2026-06-28T11:10:13.459368+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 Claude Code 도입 후 엔지니어링 조직의 생산성이 실제 인원의 약 3배로 증가하자, 오히려 제품 관리자 채용을 늘렸다고 보도됐습니다. 이는 개발 병목이 코딩에서 \"무엇을 만들 것인가\"라는 의사결정으로 이동했음을 의미합니다. 업계 전반이 이 구조적 전환을 겪고 있으며, 기술 실행만 강점인 엔지니어는 성장 한계에 직면할 것으로 예상됩니다.",
+    "insights_ko": [
+      "AI 코딩 도구의 실제 경제적 영향이 단순 생산성 향상이 아니라 조직의 의사결정 권력 구조 재편으로 나타나고 있습니다. 코딩이 자동화되면서 제품 기획·설계·우선순위 결정의 중요성이 상대적으로 급증하는 것입니다.",
+      "엔지니어 채용 대신 PM 채용을 증가시키는 결정은 AI 시대 조직 구성의 새로운 형태를 예시합니다. 순수 코딩 능력 중심의 채용 전략으로는 AI 생산성 이득을 제대로 활용하지 못한다는 신호입니다.",
+      "이 트렌드가 확산되면 엔지니어의 경력 경로가 기술 깊이에서 제품 사고·협업·소통으로 재편될 가능성이 높으며, 조직 문화와 채용 기준이 함께 변화해야 함을 시사합니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "AI coding tools shift engineering bottleneck from execution to decision making",
+    "tags": [
+      "Claude",
+      "Anthropic",
+      "에이전트",
+      "코딩",
+      "생산성"
+    ]
+  },
+  {
+    "id": "bd4103dcd79b7df2",
+    "cluster_id": "k000966",
+    "title_original": "Margaret Atwood says the problem with AI is &#8216;garbage in, garbage out&#8217;",
+    "url": "https://www.theverge.com/ai-artificial-intelligence/958715/margaret-atwood-ai-problem-garbage-in-garbage-out",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/gettyimages-2258417618.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.752607989199%2C100%2C78.494784021602&amp;w=1200",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-06-27T18:39:32+00:00",
+    "fetched_at": "2026-06-28T11:10:13.459523+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "저명한 소설가 Margaret Atwood는 문학·문화 페스티벌에서 AI의 근본적 한계를 지적했습니다. Anthropic의 Claude를 한 번 사용해본 후 틀린 정보를 제공받은 경험을 언급하며, LLM은 학습 데이터의 품질에 전적으로 의존하기 때문에 \"쓰레기 입력, 쓰레기 출력\"이라는 진리에서 벗어날 수 없다고 주장했습니다. 그는 또한 AI의 편의성에 기댓값을 두는 사람들을 비판하며, 비즈니스 목적으로도 AI 출력을 반드시 검증해야 한다고 강조했습니다.",
+    "insights_ko": [
+      "Claude가 Father Brown 드라마 정보 검색에서 환각을 일으킨 실제 사례는 현재 LLM이 여전히 신뢰성 문제를 해결하지 못했음을 시사합니다. 온라인 리뷰의 데이터 특성(결말을 피함)이 모델의 추론을 오도했다는 점은 학습 데이터의 편향과 불완전성이 얼마나 깊이 있는 문제인지 보여줍니다.",
+      "저자는 사용자 검증 필요성을 명시했으나, 이는 AI를 도구로 보는 현재의 업계 주장과 충돌합니다. 비즈니스·콘텐츠 제작·교육 등 많은 분야에서 \"사용자가 확인할 시간과 전문성\"이 충분하지 않으며, 따라서 높은 기준의 신뢰성 없이 광범위한 배포는 위험할 수 있다는 암묵적 경고입니다."
+    ],
+    "category": "community",
+    "importance_score": 2,
+    "subtitle_en": "Margaret Atwood critiques AI as fundamentally limited by training data quality",
+    "tags": [
+      "Claude",
+      "Anthropic",
+      "안전성"
+    ]
+  },
+  {
+    "id": "8d1c02bf165e39db",
+    "cluster_id": "k000967",
+    "title_original": "SoftBank’s CEO isn’t the only one with questions about Elon Musk’s orbital data center hype",
+    "url": "https://techcrunch.com/2026/06/27/softbanks-ceo-isnt-the-only-one-with-questions-about-elon-musks-orbital-data-center-hype/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2021/02/GettyImages-1160112941.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-27T20:42:36+00:00",
+    "fetched_at": "2026-06-28T11:10:13.459729+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "SoftBank의 손정의 CEO가 최근 주주총회에서 궤도 데이터센터 구상에 회의적 입장을 표했으며, TechCrunch 팟캐스트에서는 이 발언을 중심으로 AI 컴퓨팅 부족 현상과 SpaceX의 사업 동기를 분석했습니다. 손 CEO는 우주 데이터센터 건설은 비용 절감 효과가 크지 않으면서도 시간이 오래 걸리므로, \"다음 몇 년이 10년 후보다 훨씬 중요한\" AI 경쟁 현장과 맞지 않는다고 지적했습니다. 팟캐스트 출연자들은 Musk이 결국 SpaceX 발사 사업의 성장을 보장하는 구조를 만들고 있다고 분석했습니다.",
+    "insights_ko": [
+      "손정의가 회의적 입장을 보인 것은 단순한 기술적 지적이 아니라 시장의 긴급성에 대한 현실적 평가로, 현재 AI 인프라 부족 위기는 우주 솔루션으로 해결할 수 없으며 지상 데이터센터 확충이 단기 전략임을 암시합니다.",
+      "Musk의 궤도 데이터센터 구상이 기술 혁신보다는 SpaceX 발사 사업 수요를 인위적으로 창출하는 구조라는 지적은, 거대 기술 리더의 미래 예측이 자신의 사업 이해관계에 편향되기 쉽다는 투명성 문제를 드러냅니다.",
+      "Groq, Google, Anthropic 등 여러 기업이 AI 컴퓨팅 부족으로 인해 신규 칩·인프라 공급자에게 수요를 몰아주고 있으며, 이 과정에서 본연의 비즈니스보다 컴퓨팅 렌탈·신규 사업으로 전환하는 기업들이 늘어나고 있습니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "SoftBank CEO questions economics of Elon Musk's orbital data center vision",
+    "tags": [
+      "에이전트"
+    ]
+  },
+  {
+    "id": "e99e21695232a11a",
+    "cluster_id": "k000968",
+    "title_original": "Apple Vision Pro exec is reportedly leaving for OpenAI",
+    "url": "https://techcrunch.com/2026/06/27/apple-vision-pro-exec-is-reportedly-leaving-for-openai/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2023/06/Vision-Pro-IMG-3.jpeg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-06-27T16:45:09+00:00",
+    "fetched_at": "2026-06-28T11:10:13.460016+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Apple의 Vision Pro 담당 부사장 Paul Meade가 OpenAI 하드웨어 팀으로 이직합니다. Meade는 내년 출시 예정인 Apple의 AI 스마트 글래스 개발도 주도했으며, 이번 이직은 John Ternus의 CEO 승진에 따른 하드웨어 엔지니어링 팀 개편의 여파로 보입니다. OpenAI는 이미 Apple 前 수석 디자인 담당자 Jony Ive와 협력 중이며, 새로운 AI 디바이스 개발을 진행 중입니다.",
+    "insights_ko": [
+      "Apple에서 wearable 하드웨어 부문의 고위급 인재가 OpenAI로 이동하면서 양사의 디바이스 전략 격차가 벌어질 가능성이 있습니다. Vision Pro 실패 이후 Apple의 스마트 글래스가 개발 진행 중인 상황에서 핵심 리더 손실은 프로젝트 일정과 방향성에 영향을 줄 수 있습니다.",
+      "OpenAI가 Jony Ive라는 산업계 최고의 디자인 인재에 이어 Apple의 Vision Pro 담당자까지 영입하면서 하드웨어 야심을 가시화하고 있습니다. 이는 Sam Altman이 표명한 '차분한 AI 디바이스' 비전을 구체화할 역량 강화로 해석되며, 스마트폰을 대체할 새로운 기기 카테고리 창출 경쟁이 심화됨을 의미합니다.",
+      "Vision Pro의 상용화 부진과 내부 구조조정이 겹쳐 Apple의 wearable 전략이 재조정될 가능성이 있으며, OpenAI·Meta·Google이 스마트 글래스 시장 선점을 노리는 가운데 Apple의 움직임이 둔화될 수 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Apple Vision Pro VP joins OpenAI hardware team amid reorganization",
+    "tags": [
+      "Apple",
+      "OpenAI"
+    ]
+  }
+]
