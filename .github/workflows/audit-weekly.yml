@@ -1,0 +1,90 @@
+name: Weekly cluster-merge audit
+
+on:
+  schedule:
+    # Every Monday 03:00 UTC (~= KST 12:00) — after the Sunday KST 18:00
+    # pipeline run so the audit sees the freshest data.
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      simulate_anomaly:
+        description: "Force anomaly issue creation even without real anomalies (for testing)"
+        default: "false"
+        required: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Run audit
+        id: audit
+        run: |
+          mkdir -p .audit
+          REPORT="reviews/cluster-merge-audit-$(date -u +%Y-%m-%d).md"
+          python -m pipeline.audit_cluster_merge \
+            --out "$REPORT" \
+            --anomaly-out .audit/anomalies.json \
+            --issue-body-out .audit/issue.md
+          echo "report=$REPORT" >> "$GITHUB_OUTPUT"
+          N=$(python -c "import json; print(len(json.load(open('.audit/anomalies.json'))))" 2>/dev/null || echo 0)
+          echo "n_anomalies=$N" >> "$GITHUB_OUTPUT"
+          echo "detected $N anomalies"
+
+      - name: Create or update anomaly issue
+        if: steps.audit.outputs.n_anomalies != '0' || github.event.inputs.simulate_anomaly == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -f .audit/issue.md ]; then
+            echo "no issue body produced, skipping"
+            exit 0
+          fi
+          TITLE=$(head -n 1 .audit/issue.md)
+          BODY=$(tail -n +3 .audit/issue.md)
+          # Look for an existing open issue with the same title to avoid
+          # spawning duplicates. gh returns JSON.
+          EXISTING=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number' || echo "")
+          if [ -n "$EXISTING" ]; then
+            echo "commenting on existing issue #$EXISTING"
+            printf '%s\n\n---\n\n### Weekly re-run: %s\n\n%s\n' \
+              "감사 재실행 결과" "$(date -u +%Y-%m-%d)" "$BODY" \
+              | gh issue comment "$EXISTING" --body-file -
+          else
+            echo "creating new issue"
+            gh issue create --title "$TITLE" --body "$BODY" --label "audit"
+          fi
+
+      - name: Commit audit report
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reviews/ || true
+          if ! git diff --cached --quiet; then
+            git commit -m "audit: weekly cluster-merge report $(date -u +%Y-%m-%d) [skip ci]"
+            for attempt in 1 2 3; do
+              if git push; then
+                echo "push ok on attempt $attempt"
+                exit 0
+              fi
+              git pull --rebase origin main || true
+            done
+          fi

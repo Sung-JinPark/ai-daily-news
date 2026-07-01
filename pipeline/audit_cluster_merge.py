@@ -339,6 +339,68 @@ def render(summary: dict) -> str:
     return "\n".join(lines)
 
 
+def _detect_anomalies(summary: dict) -> list[dict]:
+    """Return a list of anomaly records.
+
+    Anomaly 1 — mixed-category clusters at day_span >= 30. A single
+    persistent story should stay in one category; multiple categories in
+    the same long-span cluster is the classical false-merge fingerprint.
+    Anomaly 2 — far-gap merge events piling up at Hamming <= 4. That is
+    below the CROSS_DAY_THRESHOLD_FAR guard and would normally be safe,
+    but a sudden spike (>=5 events in the trailing window) is worth an
+    eyeball because it says the tiered threshold is trending toward the
+    old "just accept close things" behavior.
+    """
+    anomalies: list[dict] = []
+    for c in summary.get("long_span_sample", []):
+        cats = dict(c.get("categories", {}))
+        if len(cats) >= 2 and c.get("day_span", 0) >= 30:
+            anomalies.append({
+                "kind": "mixed_category_long_span",
+                "cluster_id": c.get("cluster_id"),
+                "day_span": c.get("day_span"),
+                "categories": cats,
+                "outlets": c.get("outlet_count"),
+                "sample_titles": c.get("titles", [])[:3],
+            })
+    me = summary.get("merge_events") or {}
+    far_hist = (me.get("hamming_by_kind") or {}).get("cross_far", [])
+    close_far = sum(n for label, n in far_hist if label in ("0~2", "3~4"))
+    if close_far >= 5:
+        anomalies.append({
+            "kind": "far_gap_close_hamming_spike",
+            "events_below_4": close_far,
+            "note": "cross_far 매칭이 Hamming <= 4에 집중되면 티어 임계값 재검토 필요",
+        })
+    return anomalies
+
+
+def _format_anomaly_issue(anomalies: list[dict], report_path: str) -> tuple[str, str]:
+    title = f"[audit] cross-day merge 이상 {len(anomalies)}건 감지"
+    lines: list[str] = []
+    lines.append(f"주간 감사 스크립트 `pipeline/audit_cluster_merge.py`가 아래 이상을 감지했습니다.")
+    lines.append("")
+    lines.append(f"- 리포트: `{report_path}`")
+    lines.append(f"- 이상 개수: **{len(anomalies)}**")
+    lines.append("")
+    for i, a in enumerate(anomalies, 1):
+        lines.append(f"### {i}. `{a['kind']}`")
+        if a["kind"] == "mixed_category_long_span":
+            lines.append(f"- cluster_id: `{a['cluster_id']}` · span {a['day_span']}일 · 매체 {a['outlets']}")
+            lines.append(f"- 카테고리: {a['categories']}")
+            if a.get("sample_titles"):
+                lines.append("- 샘플 제목:")
+                for t in a["sample_titles"]:
+                    lines.append(f"    - {t}")
+        elif a["kind"] == "far_gap_close_hamming_spike":
+            lines.append(f"- Hamming ≤ 4 이벤트: {a['events_below_4']}건")
+            lines.append(f"- 참고: {a['note']}")
+        lines.append("")
+    lines.append("---")
+    lines.append("자동 감사 스텝이 매주 월요일 실행됩니다. 이 이슈는 매주 갱신되며, 이상이 해소되면 자동으로 닫히지는 않으니 처리 후 수동 close 해주세요.")
+    return title, "\n".join(lines)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -347,6 +409,14 @@ def main() -> int:
         help="Output report path",
     )
     parser.add_argument("--print", action="store_true", help="print report to stdout instead")
+    parser.add_argument(
+        "--anomaly-out",
+        help="If set, write anomaly JSON to this path (empty array when none) — used by CI",
+    )
+    parser.add_argument(
+        "--issue-body-out",
+        help="If set and anomalies detected, write GitHub issue body markdown to this path",
+    )
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 
@@ -359,11 +429,28 @@ def main() -> int:
     )
     if args.print:
         print(report)
-        return 0
-    out = Path(args.out)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(report, encoding="utf-8")
-    log.info("wrote %s", out)
+    else:
+        out = Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(report, encoding="utf-8")
+        log.info("wrote %s", out)
+
+    anomalies = _detect_anomalies(summary)
+    if args.anomaly_out:
+        p = Path(args.anomaly_out)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(
+            json.dumps(anomalies, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+    if anomalies:
+        log.warning("audit: %d anomalies detected", len(anomalies))
+        if args.issue_body_out:
+            title, body = _format_anomaly_issue(anomalies, args.out)
+            p = Path(args.issue_body_out)
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(
+                title + "\n\n" + body, encoding="utf-8"
+            )
     return 0
 
 
