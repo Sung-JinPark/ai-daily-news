@@ -24,6 +24,7 @@ import yaml
 from simhash import Simhash
 
 from pipeline.collect import RAW_DIR, today
+from pipeline import corpus_writer
 
 log = logging.getLogger(__name__)
 HAMMING_THRESHOLD = 12
@@ -82,7 +83,7 @@ def filter_fresh(items: list[dict], day_str: str, max_age_days: int = MAX_AGE_DA
     """
     cutoff = datetime.fromisoformat(day_str).replace(tzinfo=timezone.utc) - timedelta(days=max_age_days)
     kept: list[dict] = []
-    dropped = 0
+    dropped: list[dict] = []
     for a in items:
         pub = a.get("published")
         if not pub:
@@ -94,10 +95,25 @@ def filter_fresh(items: list[dict], day_str: str, max_age_days: int = MAX_AGE_DA
             kept.append(a)
             continue
         if dt < cutoff:
-            dropped += 1
+            dropped.append(a)
             continue
         kept.append(a)
-    log.info("freshness filter: kept %d, dropped %d older than %dd", len(kept), dropped, max_age_days)
+    log.info("freshness filter: kept %d, dropped %d older than %dd", len(kept), len(dropped), max_age_days)
+    if dropped:
+        corpus_writer.append_skipped_many(
+            day_str,
+            [
+                {
+                    "url_hash": corpus_writer._url_hash(a.get("url", "")),
+                    "url": a.get("url", ""),
+                    "source_id": a.get("source_id", ""),
+                    "title": a.get("title", ""),
+                    "phase": "freshness_filter",
+                    "reason": f"published={a.get('published','')} older than {max_age_days}d",
+                }
+                for a in dropped
+            ],
+        )
     return kept
 
 
@@ -212,6 +228,8 @@ def main() -> int:
     clusters = cluster(articles, trust_map(), args.day)
     out = day_dir / "clusters.json"
     out.write_text(json.dumps(clusters, ensure_ascii=False, indent=2), encoding="utf-8")
+    corpus_writer.write_members(args.day, clusters)
+    corpus_writer.update_manifest(args.day)
     log.info("dedupe done: %d articles -> %d clusters", len(articles), len(clusters))
     return 0
 

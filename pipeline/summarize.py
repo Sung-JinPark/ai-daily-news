@@ -30,6 +30,7 @@ from pipeline.collect import RAW_DIR, today
 from pipeline.extract import extract_article
 from pipeline.state import load_seen, save_seen, url_hash
 from pipeline.utils.prompts import SYSTEM_PROMPT, TAG_VOCAB, USER_TEMPLATE
+from pipeline import corpus_writer
 
 log = logging.getLogger(__name__)
 
@@ -109,9 +110,14 @@ def build_request(custom_id: str, title: str, source_name: str, body: str) -> di
     }
 
 
-def extract_bodies(new_clusters: list[dict]) -> tuple[list[dict], dict[str, dict]]:
+def extract_bodies(new_clusters: list[dict], day: str | None = None) -> tuple[list[dict], dict[str, dict]]:
     """Returns (batch_requests, cluster_meta). cluster_meta maps custom_id to
-    {cluster, image_url}."""
+    {cluster, image_url}.
+
+    If ``day`` is set, every extracted body is persisted to
+    ``data/corpus/<day>/bodies.jsonl`` and every failure/skip is logged
+    to ``data/corpus/<day>/skipped.jsonl``.
+    """
     requests_list: list[dict] = []
     cluster_meta: dict[str, dict] = {}
     for cluster in new_clusters:
@@ -120,19 +126,54 @@ def extract_bodies(new_clusters: list[dict]) -> tuple[list[dict], dict[str, dict
             fetched = extract_article(rep["url"])
         except Exception as exc:  # noqa: BLE001
             log.warning("extract failed for %s: %s", rep["url"], exc)
+            if day:
+                corpus_writer.append_skipped(
+                    day,
+                    url_hash=url_hash(rep["url"]),
+                    url=rep["url"],
+                    source_id=rep.get("source_id", ""),
+                    title=rep.get("title", ""),
+                    phase="extract",
+                    reason=str(exc),
+                )
             continue
         body = fetched["body"]
         image_url = fetched["image_url"]
+        extract_status = "ok"
         if len(body) < MIN_BODY_CHARS:
             rss_summary = (rep.get("summary") or "").strip()
             if rss_summary:
                 body = f"(본문 추출 실패. RSS 요약만 사용)\n\n{rss_summary}"
+                extract_status = "rss_fallback"
             elif not body:
                 log.info("skip cluster %s: no body and no RSS summary", cluster["cluster_id"])
+                if day:
+                    corpus_writer.append_skipped(
+                        day,
+                        url_hash=url_hash(rep["url"]),
+                        url=rep["url"],
+                        source_id=rep.get("source_id", ""),
+                        title=rep.get("title", ""),
+                        phase="body_too_short",
+                        reason=f"body<{MIN_BODY_CHARS} and no RSS summary",
+                    )
                 continue
         custom_id = url_hash(rep["url"])
         if custom_id in cluster_meta:
             continue  # same URL twice within batch — guard
+        if day:
+            corpus_writer.append_body(
+                day,
+                url_hash=custom_id,
+                url=rep["url"],
+                title=rep.get("title", ""),
+                source_id=rep.get("source_id", ""),
+                source_name=rep.get("source_name", ""),
+                published=rep.get("published"),
+                body_text=body,
+                body_chars=len(body),
+                extract_status=extract_status,
+            )
         requests_list.append(build_request(custom_id, rep["title"], rep["source_name"], body))
         cluster_meta[custom_id] = {"cluster": cluster, "image_url": image_url}
     return requests_list, cluster_meta
@@ -237,7 +278,7 @@ def main() -> int:
 
     # Phase 1: extract bodies for all new clusters.
     log.info("extracting bodies for %d clusters", len(new_clusters))
-    requests_list, cluster_meta = extract_bodies(new_clusters)
+    requests_list, cluster_meta = extract_bodies(new_clusters, day=args.day)
     stats["skipped_no_body"] = len(new_clusters) - len(requests_list)
     if not requests_list:
         log.info("no clusters to summarize")
@@ -277,11 +318,33 @@ def main() -> int:
         if parsed_json is None:
             log.warning("batch result %s did not succeed or yielded no JSON", custom_id)
             stats["errors"] += 1
+            if meta:
+                rep = meta["cluster"]["representative"]
+                corpus_writer.append_skipped(
+                    args.day,
+                    url_hash=custom_id,
+                    url=rep.get("url", ""),
+                    source_id=rep.get("source_id", ""),
+                    title=rep.get("title", ""),
+                    phase="llm_batch",
+                    reason="batch result did not succeed or yielded no JSON",
+                )
             continue
         validated = validate(parsed_json)
         if validated is None:
             log.warning("schema validation failed for %s", custom_id)
             stats["schema_failed"] += 1
+            if meta:
+                rep = meta["cluster"]["representative"]
+                corpus_writer.append_skipped(
+                    args.day,
+                    url_hash=custom_id,
+                    url=rep.get("url", ""),
+                    source_id=rep.get("source_id", ""),
+                    title=rep.get("title", ""),
+                    phase="llm_schema",
+                    reason=f"validation failed: {json.dumps(parsed_json, ensure_ascii=False)[:300]}",
+                )
             continue
         if meta is None:
             log.warning("no cluster meta for custom_id %s", custom_id)
@@ -310,6 +373,7 @@ def main() -> int:
     existing_file.write_text(json.dumps(articles, ensure_ascii=False, indent=2), encoding="utf-8")
     (out_dir / "_stats.json").write_text(json.dumps(stats, indent=2), encoding="utf-8")
     save_seen(seen)
+    corpus_writer.update_manifest(args.day)
     log.info("summarize done: %d articles total (stats=%s)", len(articles), stats)
     return 0
 
