@@ -40,12 +40,10 @@ const categoryPairs = Object.entries(CATEGORIES);
       url: string;
       title: string;
       summary: string;
-      insights: string;
       source: string;
       category: string;
       tags: string[];
       published: string | null;
-      image_url: string | null;
       importance_score: number;
     };
 
@@ -98,7 +96,6 @@ const categoryPairs = Object.entries(CATEGORIES);
       const hay = {
         title: doc.title.toLowerCase(),
         summary: doc.summary.toLowerCase(),
-        insights: doc.insights.toLowerCase(),
         source: doc.source.toLowerCase(),
         tags: doc.tags.join(" ").toLowerCase(),
       };
@@ -106,7 +103,6 @@ const categoryPairs = Object.entries(CATEGORIES);
         let hit = false;
         if (hay.title.includes(t)) { score += 6; hit = true; if (!where.includes("제목")) where.push("제목"); }
         if (hay.summary.includes(t)) { score += 3; hit = true; if (!where.includes("요약")) where.push("요약"); }
-        if (hay.insights.includes(t)) { score += 2; hit = true; if (!where.includes("인사이트")) where.push("인사이트"); }
         if (hay.tags.includes(t)) { score += 3; hit = true; if (!where.includes("태그")) where.push("태그"); }
         if (hay.source.includes(t)) { score += 1; hit = true; if (!where.includes("매체")) where.push("매체"); }
         if (!hit) return { score: 0, where: [] };
