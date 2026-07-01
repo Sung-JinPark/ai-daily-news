@@ -184,16 +184,27 @@ def deterministic_first_key(members: list[dict]) -> tuple[str, str]:
 
 
 def _maybe_update_first_key(entry: dict, today_key: tuple[str, str]) -> None:
-    """If today's minimum key is earlier than the entry's stored key,
-    replace it. Missing fields on the entry are treated as sentinels so
-    the very first pass populates them without touching later ones."""
+    """FREEZE semantics (Y1 F-2 fix): once first_url_hash is set, it is
+    never changed by a later run.
+
+    The prior strict-lower-bound rule kept re-clustering deterministic
+    but let a late-arriving earlier article silently move a cluster's
+    stable slug — which is exactly the SEO-URL failure mode the whole
+    migration was supposed to prevent (an already-indexed s-<hash> URL
+    would 404 after the move). Because ``cluster_continuity.json`` is
+    git-tracked and authoritative, freezing on first assignment is
+    both safe and sufficient. If the file is ever deleted, callers
+    can rebuild by re-running ``pipeline.backfill_first_url_hash`` and
+    every entry gets re-frozen at the deterministic minimum computed
+    across the archive.
+    """
     tp, th = today_key
     if not th:
         return
-    stored = (entry.get("first_published", "") or "", entry.get("first_url_hash", "") or "")
-    if not stored[1] or today_key < stored:
-        entry["first_published"] = tp
-        entry["first_url_hash"] = th
+    if entry.get("first_url_hash"):
+        return  # frozen — never overwrite
+    entry["first_published"] = tp
+    entry["first_url_hash"] = th
 
 
 def _title_tokens(title: str) -> set[str]:

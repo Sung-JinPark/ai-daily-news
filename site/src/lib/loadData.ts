@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 
 const DATA_ROOT = path.resolve(process.cwd(), "../data");
 
@@ -468,13 +469,58 @@ function _ensureSlugMaps(): void {
   }
 }
 
-/** Return the canonical URL slug for a given cluster_id. When the
- * continuity entry has no `first_url_hash` yet, the legacy id is used
- * unchanged so callers can render a link without waiting on backfill.
+// Y1 F-1: same 16-char url_hash the pipeline uses (pipeline/state.py).
+function urlHash16(url: string): string {
+  return crypto.createHash("sha256").update(url, "utf-8").digest("hex").slice(0, 16);
+}
+
+// Y1 F-1: computes the same deterministic (published, url_hash) minimum
+// the pipeline computes on the server side. Used to synthesize a stable
+// slug for clusters that have no continuity entry — either because they
+// come from the legacy c-prefix scheme that predates the current
+// dedupe rollout, or because they were created after the last backfill
+// run.
+function computeSlugFromArticles(articles: Article[]): string | undefined {
+  if (!articles || articles.length === 0) return undefined;
+  const keys: Array<[string, string]> = [];
+  for (const a of articles) {
+    if (!a.url) continue;
+    keys.push([a.published ?? "", urlHash16(a.url)]);
+  }
+  if (keys.length === 0) return undefined;
+  keys.sort((a, b) => (a[0] === b[0] ? a[1].localeCompare(b[1]) : a[0].localeCompare(b[0])));
+  return `s-${keys[0][1]}`;
+}
+
+// Caches the per-cluster fallback slug so we don't recompute for every
+// StoryLink / getStaticPaths / sitemap emission.
+const _computedSlugById = new Map<string, string>();
+
+/** Return the canonical URL slug for a given cluster_id.
+ *
+ * Order of precedence (Y1):
+ *   1. Continuity entry with a frozen first_url_hash.
+ *   2. Deterministic minimum computed from the cluster's articles
+ *      (covers c-prefix legacy clusters + new clusters born after the
+ *      last backfill). Cached per build.
+ *   3. Legacy cluster_id when neither path yields a value.
  */
 export function clusterSlug(clusterId: string): string {
   _ensureSlugMaps();
-  return _slugById!.get(clusterId) ?? clusterId;
+  const fromContinuity = _slugById!.get(clusterId);
+  if (fromContinuity) return fromContinuity;
+  const cached = _computedSlugById.get(clusterId);
+  if (cached) return cached;
+  // Fallback: recompute from articles. Uses articlesByCluster's cache.
+  const grouped = articlesByCluster();
+  const arts = grouped.get(clusterId);
+  const slug = arts ? computeSlugFromArticles(arts) : undefined;
+  if (slug) {
+    _computedSlugById.set(clusterId, slug);
+    _idsBySlug!.set(slug, clusterId);
+    return slug;
+  }
+  return clusterId;
 }
 
 /** Reverse lookup: takes an `s-…` slug and returns the underlying
@@ -543,11 +589,14 @@ function summarizeCluster(clusterId: string, articles: Article[]): ClusterSummar
       (Date.parse(lastSeen) - Date.parse(firstSeen)) / 86400000,
     ) + 1,
   );
-  // Pull the stable slug hash from the continuity index. Undefined
-  // when the backfill has not landed yet (a fresh continuity entry
-  // created after this deploy).
+  // Pull the stable slug hash. Prefer the frozen continuity value
+  // (Y1 F-2); when missing, synthesize deterministically from these
+  // articles (Y1 F-1 fallback for c-prefix / late-arrival clusters).
   _ensureSlugMaps();
-  const slugCandidate = _slugById!.get(clusterId);
+  let slugCandidate = _slugById!.get(clusterId);
+  if (!slugCandidate) {
+    slugCandidate = computeSlugFromArticles(articles);
+  }
   const firstUrlHash = slugCandidate?.startsWith("s-") ? slugCandidate.slice(2) : undefined;
   return {
     cluster_id: clusterId,
