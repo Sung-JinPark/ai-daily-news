@@ -388,7 +388,117 @@ export function loadRecentDays(maxDays: number = 7): Article[] {
   return out;
 }
 
-// ---------- Z1 aggregate JSONL loaders ----------
+// ---------- Z2 co-occurrence graph loader ----------
+
+export type EntityCooc = {
+  day: string;
+  entity_a: string;
+  entity_a_type: "model" | "lab" | "tag";
+  entity_b: string;
+  entity_b_type: "model" | "lab" | "tag";
+  cluster_id: string;
+  article_id: string;
+  category: string;
+};
+
+let _entityCoocCache: EntityCooc[] | null = null;
+export function loadEntityCooccurrence(): EntityCooc[] {
+  if (_entityCoocCache) return _entityCoocCache;
+  const file = path.join(DATA_ROOT, "aggregates", "entity_cooccurrence.jsonl");
+  if (!fs.existsSync(file)) {
+    _entityCoocCache = [];
+    return _entityCoocCache;
+  }
+  const rows: EntityCooc[] = [];
+  for (const line of fs.readFileSync(file, "utf-8").split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    try {
+      rows.push(JSON.parse(trimmed) as EntityCooc);
+    } catch {
+      continue;
+    }
+  }
+  _entityCoocCache = rows;
+  return _entityCoocCache;
+}
+
+export type CooccurrenceEdge = {
+  a: string;
+  a_type: "model" | "lab" | "tag";
+  b: string;
+  b_type: "model" | "lab" | "tag";
+  weight: number;
+  cluster_ids: string[];
+};
+
+export type CooccurrenceGraph = {
+  nodes: Array<{ id: string; type: "model" | "lab" | "tag"; degree: number; total_weight: number }>;
+  edges: CooccurrenceEdge[];
+};
+
+/**
+ * Aggregate entity_cooccurrence.jsonl into a node/edge graph. Filter
+ * options let the caller focus on typed slices (model×lab is the
+ * canonical view; model×tag / lab×tag exist too).
+ */
+export function cooccurrenceGraph(opts: {
+  minWeight?: number;
+  topNodes?: number;
+  includeTypes?: Array<"model" | "lab" | "tag">;
+} = {}): CooccurrenceGraph {
+  const minWeight = opts.minWeight ?? 1;
+  const topNodes = opts.topNodes ?? 25;
+  const includeTypes = new Set(opts.includeTypes ?? ["model", "lab", "tag"]);
+  const rows = loadEntityCooccurrence();
+  if (rows.length === 0) return { nodes: [], edges: [] };
+
+  const edgeMap = new Map<string, CooccurrenceEdge>();
+  const typeOf = new Map<string, "model" | "lab" | "tag">();
+  for (const r of rows) {
+    if (!includeTypes.has(r.entity_a_type) || !includeTypes.has(r.entity_b_type)) continue;
+    typeOf.set(r.entity_a, r.entity_a_type);
+    typeOf.set(r.entity_b, r.entity_b_type);
+    const key = `${r.entity_a}\u0001${r.entity_b}`;
+    const existing = edgeMap.get(key);
+    if (existing) {
+      existing.weight += 1;
+      if (!existing.cluster_ids.includes(r.cluster_id)) existing.cluster_ids.push(r.cluster_id);
+    } else {
+      edgeMap.set(key, {
+        a: r.entity_a,
+        a_type: r.entity_a_type,
+        b: r.entity_b,
+        b_type: r.entity_b_type,
+        weight: 1,
+        cluster_ids: [r.cluster_id],
+      });
+    }
+  }
+
+  // Filter edges by min weight.
+  const edges = Array.from(edgeMap.values())
+    .filter((e) => e.weight >= minWeight)
+    .sort((a, b) => b.weight - a.weight);
+
+  // Score nodes by total edge weight to pick the visible top-N.
+  const nodeScores = new Map<string, { degree: number; total: number }>();
+  for (const e of edges) {
+    for (const id of [e.a, e.b]) {
+      const s = nodeScores.get(id) ?? { degree: 0, total: 0 };
+      s.degree += 1;
+      s.total += e.weight;
+      nodeScores.set(id, s);
+    }
+  }
+  const nodes = Array.from(nodeScores.entries())
+    .map(([id, s]) => ({ id, type: typeOf.get(id)!, degree: s.degree, total_weight: s.total }))
+    .sort((a, b) => b.total_weight - a.total_weight)
+    .slice(0, topNodes);
+  const kept = new Set(nodes.map((n) => n.id));
+  const visibleEdges = edges.filter((e) => kept.has(e.a) && kept.has(e.b));
+  return { nodes, edges: visibleEdges };
+}
 
 export type EntityMention = {
   day: string;
