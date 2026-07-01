@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AI Daily News — 실행 가이드</title>
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --ink-soft: #1a1a1a;
+    --ink-mute: #6b7280;
+    --accent: #be1622;
+    --line: #d1d5db;
+    --bg: #ffffff;
+    --code-bg: #0f172a;
+    --code-fg: #e5e7eb;
+    --code-comment: #94a3b8;
+    --code-cmd: #86efac;
+    --code-arg: #93c5fd;
+    --warn: #fef3c7;
+    --warn-line: #f59e0b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--bg);
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 6rem;
+  }
+  header {
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  h1 {
+    font-size: 2.25rem;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  h1 small {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  header p {
+    color: var(--ink-mute);
+    margin: 0;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin: 3rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--ink);
+  }
+  h2 .num {
+    color: var(--accent);
+    font-family: "SF Mono", ui-monospace, monospace;
+    font-size: 1.25rem;
+    margin-right: 0.5rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 2rem 0 0.75rem;
+    color: var(--ink-soft);
+  }
+  p, li { color: var(--ink-soft); }
+  strong { color: var(--ink); }
+  em { color: var(--accent); font-style: normal; font-weight: 600; }
+  code {
+    font-family: "SF Mono", ui-monospace, "Consolas", monospace;
+    font-size: 0.88em;
+    background: #f3f4f6;
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    line-height: 1.55;
+    font-size: 0.88rem;
+    margin: 1rem 0;
+  }
+  pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+  .cmd { color: var(--code-cmd); }
+  .arg { color: var(--code-arg); }
+  .comment { color: var(--code-comment); font-style: italic; }
+  .flag { color: #fbbf24; }
+  .path { color: #d8b4fe; }
+  .prompt { color: var(--code-comment); user-select: none; }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-body { flex: 1; }
+  .step-body > *:first-child { margin-top: 0; }
+
+  .note {
+    border-left: 4px solid var(--accent);
+    background: rgba(190, 22, 34, 0.04);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .note strong { color: var(--accent); }
+  .warn {
+    border-left: 4px solid var(--warn-line);
+    background: var(--warn);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .toc {
+    background: #f9fafb;
+    border: 1px solid var(--line);
+    padding: 1rem 1.25rem;
+    border-radius: 4px;
+    margin: 2rem 0;
+  }
+  .toc h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 700;
+    border: 0;
+  }
+  .toc ol { margin: 0; padding-left: 1.25rem; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.93rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    background: #f9fafb;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  td code { font-size: 0.82em; }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .card {
+    border: 1px solid var(--line);
+    padding: 1rem 1.25rem;
+    border-radius: 4px;
+  }
+  .card h4 {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    color: var(--accent);
+  }
+  .card p { margin: 0.25rem 0; font-size: 0.9rem; }
+
+  @media (min-width: 700px) {
+    .layout { grid-template-columns: 1fr 1fr; }
+  }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-mute);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>
+    <small>AI Daily News · 실행 가이드</small>
+    명령어를 어디서, 어떻게 실행하나요?
+  </h1>
+  <p>파이프라인 · 사이트 · 감사 도구를 손으로 돌릴 때의 위치, 명령, 흔한 함정을 한 페이지에.</p>
+</header>
+
+<div class="toc">
+  <h3>목차</h3>
+  <ol>
+    <li><a href="#location">프로젝트 위치와 기본 개념</a></li>
+    <li><a href="#site">사이트 빌드 · 개발 (<code>site/</code>)</a></li>
+    <li><a href="#pipeline">파이프라인 (<code>pipeline/</code>)</a></li>
+    <li><a href="#verify">검증 도구 (npm run verify:*)</a></li>
+    <li><a href="#audit">감사 도구 (audit_*)</a></li>
+    <li><a href="#git">Git 배포 흐름</a></li>
+    <li><a href="#faq">자주 하는 실수</a></li>
+    <li><a href="#reference">전체 명령어 표</a></li>
+  </ol>
+</div>
+
+<h2 id="location"><span class="num">01</span>프로젝트 위치와 기본 개념</h2>
+
+<p>이 저장소는 두 개의 큰 부분으로 나뉩니다.</p>
+
+<div class="layout">
+  <div class="card">
+    <h4>pipeline/ (Python)</h4>
+    <p>매일 뉴스를 수집·요약·분석해서 <code>data/</code>에 JSON을 씁니다. Python으로 실행.</p>
+  </div>
+  <div class="card">
+    <h4>site/ (Astro + Node)</h4>
+    <p><code>data/</code>를 읽어서 정적 HTML을 만듭니다. Node/npm으로 실행.</p>
+  </div>
+</div>
+
+<p>모든 경로는 <strong>저장소 최상위</strong>(<code>C:\workspace\ai-daily-news\</code>) 기준입니다.
+<code>cd site</code>라고 쓰여있으면 <em>저장소 최상위에서 site로 들어가라</em>는 뜻입니다.</p>
+
+<h3>터미널 위치 확인</h3>
+
+<p>Windows PowerShell을 열면 보통 <code>C:\Users\사용자명</code>에서 시작합니다. 먼저 저장소로 이동하세요:</p>
+
+<pre><code><span class="prompt">PS&gt;</span> <span class="cmd">cd</span> <span class="path">C:\workspace\ai-daily-news</span></code></pre>
+
+<p>이후 프롬프트가 <code>PS C:\workspace\ai-daily-news&gt;</code>로 바뀌면 준비 완료.
+어디에 있는지 헷갈리면 언제든 <code>pwd</code>(present working directory)를 치세요.</p>
+
+<div class="note">
+  <strong>팁</strong> — 문서에서 <code>cd site && npm run build</code>처럼 <code>&amp;&amp;</code>가 있어도
+  PowerShell 5.1에서는 <code>&amp;&amp;</code>가 안 됩니다. 대신 두 줄로 나누거나 <code>;</code>로 연결하세요.
+</div>
+
+<h2 id="site"><span class="num">02</span>사이트 빌드 · 개발 (<code>site/</code>)</h2>
+
+<p>사이트 관련 명령은 반드시 <code>site/</code> 폴더 <strong>안에서</strong> 실행합니다.</p>
+
+<h3>처음 한 번: 의존성 설치</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">cd</span> <span class="path">site</span>
+<span class="prompt">PS C:\workspace\ai-daily-news\site&gt;</span> <span class="cmd">npm</span> <span class="arg">install</span></code></pre>
+
+<h3>개발 서버 (브라우저에서 실시간 미리보기)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news\site&gt;</span> <span class="cmd">npm</span> <span class="arg">run dev</span>
+<span class="comment"># http://localhost:4321/ 접속</span>
+<span class="comment"># 종료: Ctrl+C</span></code></pre>
+
+<h3>정적 빌드 (배포용)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news\site&gt;</span> <span class="cmd">npm</span> <span class="arg">run build</span>
+<span class="comment"># 결과: site/dist/ 폴더에 HTML 파일들</span>
+<span class="comment"># GitHub Actions가 push 이후 자동으로 동일 빌드를 돌립니다</span></code></pre>
+
+<h3>빌드 미리보기 (dist를 로컬에서 확인)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news\site&gt;</span> <span class="cmd">npm</span> <span class="arg">run preview</span></code></pre>
+
+<div class="note">
+  <strong>루트에서 실행하고 싶다면</strong> — <code>npm --prefix site run build</code>로 <code>site/</code>를
+  지정하면 <code>cd</code> 없이도 됩니다.
+</div>
+
+<h2 id="pipeline"><span class="num">03</span>파이프라인 (<code>pipeline/</code>)</h2>
+
+<p>파이프라인은 <strong>저장소 최상위에서</strong> Python 모듈 형태로 실행합니다.
+<code>cd pipeline</code>은 <em>하지 않습니다</em>.</p>
+
+<h3>처음 한 번: 의존성 설치</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">pip</span> <span class="arg">install -e .</span></code></pre>
+
+<h3>전체 파이프라인 순차 실행 (배치 파일)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">.\run-pipeline.bat</span>
+<span class="comment"># collect → dedupe → summarize → rank → digest → aggregate_tags</span>
+<span class="comment">#   → trending → entity_index → themes → predictions</span>
+<span class="comment">#   → model_facts → quarterly_report --auto → index_latest → build_db</span></code></pre>
+
+<h3>개별 단계</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.collect</span>
+<span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.dedupe</span> <span class="flag">--day</span> <span class="arg">2026-06-30</span>
+<span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.summarize</span> <span class="flag">--dry-run</span></code></pre>
+
+<h3>드라이런 (LLM 호출 없이 검증)</h3>
+
+<p>거의 모든 파이프라인 스텝이 <code>--dry-run</code>을 지원합니다. LLM 비용 없이 후보 개수만 확인하고 싶을 때:</p>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.themes</span> <span class="flag">--dry-run</span>
+<span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.predict_extract</span> <span class="flag">--dry-run</span>
+<span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.model_facts</span> <span class="flag">--dry-run</span>
+<span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.quarterly_report</span> <span class="flag">--quarter</span> <span class="arg">2026-Q2</span> <span class="flag">--dry-run</span></code></pre>
+
+<h2 id="verify"><span class="num">04</span>검증 도구 (<code>npm run verify:*</code>)</h2>
+
+<p>N6에서 만든 <em>합성 픽스처 검증</em>과 X2에서 만든 <em>실데이터 스모크</em>가 있습니다. 둘 다
+<code>site/</code>에서 <code>npm</code>으로 실행하지만 실제 스크립트는 <code>scripts/</code>에 있습니다.</p>
+
+<h3>합성 픽스처 검증 (스키마 드리프트 조기 감지)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news\site&gt;</span> <span class="cmd">npm</span> <span class="arg">run verify:populated</span>
+<span class="comment"># fixtures/*.json을 잠시 data/에 덮어씌운 후 빌드</span>
+<span class="comment"># 10개 어서션을 dist HTML에서 확인하고 원본 복원</span>
+<span class="comment"># 실행 후에도 실 데이터는 그대로</span></code></pre>
+
+<h3>실데이터 스모크 (CI 첫 런 이후)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news\site&gt;</span> <span class="cmd">npm</span> <span class="arg">run verify:realdata</span>
+<span class="comment"># data/의 실제 파일을 그대로 사용</span>
+<span class="comment"># 파일이 없으면 SKIP, 있으면 렌더 마커를 확인</span></code></pre>
+
+<div class="warn">
+  <strong>주의</strong> — <code>verify:populated</code>가 <em>실행 도중</em> 강제 종료돼도
+  <code>finally</code> 블록이 원본을 복원합니다. 그래도 걱정되면 실행 전 <code>git status</code>로
+  data/ 상태를 기억해두세요.
+</div>
+
+<h2 id="audit"><span class="num">05</span>감사 도구 (<code>audit_*</code>)</h2>
+
+<p>세 개의 감사 스크립트가 있습니다. 셋 다 저장소 최상위에서 실행합니다.</p>
+
+<h3>클러스터 병합 감사 (P1a / N3 · N5)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.audit_cluster_merge</span>
+<span class="comment"># reviews/cluster-merge-audit-YYYY-MM-DD.md 자동 생성</span>
+<span class="comment"># day_span 분포 + 상위 클러스터 + N3 Hamming 히스토그램 + N7 same-day 밴드</span></code></pre>
+
+<h3>소스 헬스 감사 (X4)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.audit_sources</span>
+<span class="comment"># 3일 연속 0건 소스 리스트</span>
+<span class="comment"># 매주 월요일 UTC 03:00에 CI가 자동으로 실행 + 이상 시 이슈 생성</span></code></pre>
+
+<h3>파일 카운트 개요 (N7)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">node</span> <span class="arg">scripts/overview-counts.mjs</span>
+<span class="comment"># 페이지·컴포넌트·파이프라인 모듈·데이터 파일 카운트 표</span></code></pre>
+
+<h3>URL 슬러그 백필 (X1)</h3>
+
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">python</span> <span class="arg">-m pipeline.backfill_first_url_hash</span> <span class="flag">--dry-run</span>
+<span class="comment"># cluster_continuity.json에 first_url_hash를 채우는 일회성 스크립트</span>
+<span class="comment"># --dry-run 없이 실행하면 실제로 씀</span></code></pre>
+
+<h2 id="git"><span class="num">06</span>Git 배포 흐름</h2>
+
+<p>커밋 → push하면 GitHub Actions가 자동으로 빌드하고 배포합니다.</p>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-body">
+    <p><strong>변경 상태 확인</strong></p>
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">git</span> <span class="arg">status</span>
+<span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">git</span> <span class="arg">diff</span></code></pre>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-body">
+    <p><strong>스테이징 (특정 파일만 권장)</strong></p>
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">git</span> <span class="arg">add</span> <span class="path">pipeline/foo.py site/src/pages/bar.astro</span></code></pre>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-body">
+    <p><strong>커밋 + push</strong></p>
+<pre><code><span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">git</span> <span class="arg">commit</span> <span class="flag">-m</span> <span class="arg">"feat: 짧은 설명"</span>
+<span class="prompt">PS C:\workspace\ai-daily-news&gt;</span> <span class="cmd">git</span> <span class="arg">push</span></code></pre>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-body">
+    <p><strong>배포 확인</strong> — 2~3분 후 <a href="https://sung-jinpark.github.io/ai-daily-news/" target="_blank">사이트</a>에서 반영 확인. Actions 탭에서 진행 상황도 볼 수 있습니다.</p>
+  </div>
+</div>
+
+<div class="warn">
+  <strong>중요</strong> — <code>.env</code> 같은 secrets 파일은 절대 커밋하지 마세요. <code>gitleaks</code>가 push마다 자동 스캔합니다.
+</div>
+
+<h2 id="faq"><span class="num">07</span>자주 하는 실수</h2>
+
+<table>
+  <thead>
+    <tr><th>증상</th><th>원인 · 해결</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>npm: command not found</code></td>
+      <td>Node.js가 설치 안 됨. <a href="https://nodejs.org/" target="_blank">nodejs.org</a>에서 LTS 설치.</td>
+    </tr>
+    <tr>
+      <td><code>Cannot find module '~/lib/...'</code></td>
+      <td><code>cd site</code>를 안 하고 최상위에서 실행. site 폴더 안에서 실행해야 합니다.</td>
+    </tr>
+    <tr>
+      <td><code>python: command not found</code></td>
+      <td>Python 3.11 설치 후 <code>py</code>가 아니라 <code>python</code>이 되는지 확인. 안 되면 <code>py -m pipeline.collect</code>로 대체.</td>
+    </tr>
+    <tr>
+      <td><code>ANTHROPIC_API_KEY 없음</code></td>
+      <td>저장소 최상위에 <code>.env</code> 파일 만들고 <code>ANTHROPIC_API_KEY=sk-...</code> 입력. <code>.env.example</code> 참고.</td>
+    </tr>
+    <tr>
+      <td>PowerShell에서 <code>&amp;&amp;</code>가 안 됨</td>
+      <td>PS 5.1 한계. 두 명령으로 나누거나 <code>;</code>로 연결.</td>
+    </tr>
+    <tr>
+      <td>커밋 메시지에 한글이 깨짐</td>
+      <td>커밋 메시지를 파일에 저장 후 <code>git commit -F .commitmsg</code>로 전달. <code>-m "한글"</code>은 인코딩 이슈 가능.</td>
+    </tr>
+    <tr>
+      <td>사이트 배포 후 반영 안 됨</td>
+      <td>GitHub Actions 탭에서 <code>deploy.yml</code>이 실패했는지 확인. 보통 2~3분 후 반영.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="reference"><span class="num">08</span>전체 명령어 표</h2>
+
+<table>
+  <thead>
+    <tr><th>목적</th><th>어디서</th><th>명령</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>사이트 빌드</td>
+      <td><code>site/</code></td>
+      <td><code>npm run build</code></td>
+    </tr>
+    <tr>
+      <td>사이트 개발 서버</td>
+      <td><code>site/</code></td>
+      <td><code>npm run dev</code></td>
+    </tr>
+    <tr>
+      <td>합성 픽스처 검증</td>
+      <td><code>site/</code></td>
+      <td><code>npm run verify:populated</code></td>
+    </tr>
+    <tr>
+      <td>실데이터 스모크</td>
+      <td><code>site/</code></td>
+      <td><code>npm run verify:realdata</code></td>
+    </tr>
+    <tr>
+      <td>파이프라인 전체</td>
+      <td>최상위</td>
+      <td><code>.\run-pipeline.bat</code></td>
+    </tr>
+    <tr>
+      <td>파이프라인 개별</td>
+      <td>최상위</td>
+      <td><code>python -m pipeline.&lt;name&gt;</code></td>
+    </tr>
+    <tr>
+      <td>클러스터 감사</td>
+      <td>최상위</td>
+      <td><code>python -m pipeline.audit_cluster_merge</code></td>
+    </tr>
+    <tr>
+      <td>소스 헬스 감사</td>
+      <td>최상위</td>
+      <td><code>python -m pipeline.audit_sources</code></td>
+    </tr>
+    <tr>
+      <td>파일 카운트 개요</td>
+      <td>최상위</td>
+      <td><code>node scripts/overview-counts.mjs</code></td>
+    </tr>
+    <tr>
+      <td>SQLite 리서치 아카이브 빌드</td>
+      <td>최상위</td>
+      <td><code>python -m pipeline.build_db</code></td>
+    </tr>
+    <tr>
+      <td>Git 상태</td>
+      <td>어디서든</td>
+      <td><code>git status</code></td>
+    </tr>
+    <tr>
+      <td>커밋 + 배포</td>
+      <td>어디서든</td>
+      <td><code>git add ... ; git commit -m "..." ; git push</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<footer>
+  AI Daily News · 2026-07-01 세션 기준 · 이 문서는 <code>guide/index.html</code>에 있으며,
+  브라우저로 직접 열어보세요.
+</footer>
+
+</body>
+</html>
