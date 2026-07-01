@@ -227,6 +227,39 @@ export function hotnessScore(a: Article, now: Date = new Date()): number {
   return importance * 0.6 + cluster * 0.15 + recency * 0.25;
 }
 
+export type Theme = {
+  slug: string;
+  name: string;
+  thesis_ko: string;
+  cluster_ids: string[];
+  daily_counts: { day: string; count: number }[];
+};
+
+export type ThemesPayload = {
+  generated_at: string;
+  window_start: string;
+  window_end: string;
+  themes: Theme[];
+  week?: string;
+};
+
+export function loadRollingThemes(): ThemesPayload | null {
+  const file = path.join(DATA_ROOT, "themes", "rolling.json");
+  if (!fs.existsSync(file)) return null;
+  return readJson<ThemesPayload | null>(file, null);
+}
+
+export function allArchivedThemes(): ThemesPayload[] {
+  const dir = path.join(DATA_ROOT, "themes");
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((f) => /^\d{4}-W\d{2}\.json$/.test(f))
+    .map((f) => readJson<ThemesPayload | null>(path.join(dir, f), null))
+    .filter((d): d is ThemesPayload => d !== null)
+    .sort((a, b) => (b.week ?? "").localeCompare(a.week ?? ""));
+}
+
 export function loadRecentDays(maxDays: number = 7): Article[] {
   const days = allDays().slice(0, maxDays);
   const out: Article[] = [];

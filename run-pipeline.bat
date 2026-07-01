@@ -10,6 +10,8 @@ echo === rank ===
 python -m pipeline.rank
 echo === trending ===
 python -m pipeline.trending
+echo === themes (cross-day narratives) ===
+python -m pipeline.themes
 echo === index ===
 python -m pipeline.index_latest
 echo.

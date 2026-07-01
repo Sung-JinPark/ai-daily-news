@@ -1,0 +1,45 @@
+---
+import Sparkline from "~/components/Sparkline.astro";
+import { loadCluster, type Theme } from "~/lib/loadData";
+interface Props {
+  theme: Theme;
+  compact?: boolean;
+}
+const { theme, compact = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Pick up to 3 constituent stories with representative titles.
+const stories = theme.cluster_ids
+  .slice(0, 3)
+  .map((cid) => loadCluster(cid, 30))
+  .filter((c) => c !== null)
+  .map((c) => {
+    const rep = c!.articles
+      .slice()
+      .sort((a, b) => b.importance_score - a.importance_score)[0];
+    return { cluster_id: c!.cluster_id, title: rep.title_original };
+  });
+---
+<article class="border-l-4 border-accent pl-5 py-2">
+  <a href={`${base}/themes/${theme.slug}`} class="block group">
+    <div class="kicker text-accent mb-1">#{theme.name}</div>
+    <p class:list={[
+      "font-serif text-ink group-hover:text-accent transition-colors leading-snug break-words",
+      compact ? "text-base" : "text-lg",
+    ]}>{theme.thesis_ko}</p>
+  </a>
+  {!compact && (
+    <div class="mt-3">
+      <Sparkline data={theme.daily_counts} height={26} color="#be1622" ariaLabel={`${theme.name} 일자별 기사 수`} />
+    </div>
+  )}
+  {stories.length > 0 && (
+    <ul class="mt-3 space-y-1 text-[12px] text-ink/65">
+      {stories.map((s) => (
+        <li>
+          <a href={`${base}/story/${s.cluster_id}`} class="hover:text-accent">→ {s.title}</a>
+        </li>
+      ))}
+    </ul>
+  )}
+</article>

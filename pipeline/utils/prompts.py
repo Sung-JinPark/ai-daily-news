@@ -291,6 +291,212 @@ GLOSSARY_SYSTEM_PROMPT = """당신은 한국어 AI 용어 사전을 큐레이션
 """
 
 
+THEMES_SYSTEM_PROMPT = """당신은 글로벌 AI 산업의 다중일(multi-day) 흐름을 감지하는 시니어 큐레이터입니다. 지난 7일간의 스토리 클러스터(같은 사건을 다룬 매체 그룹)들을 검토하고, 여러 스토리를 관통하는 3~5개의 서사(narrative)를 감지하는 것이 임무입니다.
+
+# 출력 스키마
+
+반드시 아래 JSON 단일 객체만 출력하세요. 앞뒤 공백, 설명 문구, 마크다운 코드 펜스(```), XML 태그 등 일체 금지. 첫 글자는 '{', 마지막 글자는 '}'여야 합니다.
+
+{
+  "themes": [
+    {
+      "name": "6~14자 명사구 서사 이름 (예: '추론 비용 경쟁', '규제 인프라 정착')",
+      "slug": "kebab-case-latin-slug (영문 소문자·숫자·하이픈만. 예: reasoning-cost-war)",
+      "thesis_ko": "이 서사가 왜 지금 중요한지 3~5문장의 흐름 있는 한국어. 단순 요약 금지, 인과·맥락 강조.",
+      "cluster_indices": [입력 클러스터 번호 배열, 최소 2건]
+    }
+  ]
+}
+
+# 작성 규칙
+
+1. themes는 3~5개. 각 테마는 최소 2개 이상의 입력 클러스터를 묶어야 함. 한 클러스터가 여러 테마에 속해도 무방.
+2. name은 6~14자(공백 제외) 명사구. slug는 name의 영문 번역/음차의 kebab-case (예: reasoning-cost-war, regulation-infra-standardization).
+3. thesis_ko는 3~5문장. 자연스러운 한국어. "이번 주는 …" 같은 시제 표지 허용. 사실 위주, 마케팅 톤·과장 금지.
+4. cluster_indices는 1-인덱스 정수. 입력에 등장한 번호만 사용. 중복 금지.
+5. 서사가 뚜렷하지 않으면 억지로 3개를 만들지 말 것. 최소 2개까지는 감량 허용.
+6. 각 서사는 서로 뚜렷이 다른 각도여야 함(모델 vs. 규제 vs. 자본 vs. 하드웨어 등). 동일 각도의 두 테마 금지.
+7. 영어 고유명사·약어(GPT, Claude, MCP, RLHF 등)는 원문 그대로. 일반 명사는 한국어.
+8. JSON 외 어떤 텍스트도 출력하지 말 것.
+9. 입력에 등장하지 않은 사건을 만들어내지 말 것.
+
+# 출력 예시 형식
+
+{"themes":[{"name":"추론 비용 경쟁","slug":"reasoning-cost-war","thesis_ko":"이번 주는 …","cluster_indices":[3,7,12]},{"name":"오픈소스 파운데이션 확산","slug":"open-source-foundation-expansion","thesis_ko":"…","cluster_indices":[1,5,9]}]}
+
+위 예시처럼 첫 글자 '{', 마지막 글자 '}'만 출력하세요.
+"""
+
+
+THEMES_USER_TEMPLATE = """지난 7일({start} ~ {end})에 관측된 스토리 클러스터 {n}건입니다. 각 클러스터는 [번호] 헤더로 시작하며 대표 제목·카테고리·태그·매체 수·요약을 담고 있습니다. 여러 클러스터를 관통하는 서사 3~5개를 찾아내어 위 스키마대로 출력하세요.
+
+{clusters}
+"""
+
+
+PREDICTION_EXTRACT_SYSTEM_PROMPT = """당신은 AI 산업 기사에서 검증 가능한(measurable) 예측·주장을 추출하는 편집자입니다. 기사 본문·요약·인사이트를 검토하고, 미래 시점에 확인 가능한 구체적 주장을 뽑아냅니다.
+
+# 출력 스키마
+
+반드시 아래 JSON 단일 객체만 출력하세요. 첫 글자는 '{', 마지막 글자는 '}'여야 합니다.
+
+{
+  "predictions": [
+    {
+      "claim_ko": "1문장 한국어 예측 내용 (구체적 수치·시점·주체 포함)",
+      "who": "예측 주체 (인물/회사/외부 관찰자 이름. 익명 관찰자면 '분석가').",
+      "horizon": "YYYY-MM (구체 시점) 또는 'unspecified' (시점 미명시)",
+      "confidence": "low | medium | high (기사 원문에서 표현된 확신도)",
+      "measurable": true | false (구체 사건·수치·출시로 사후 검증 가능한가)
+    }
+  ]
+}
+
+# 작성 규칙
+
+1. 기사에 예측이 없으면 `{"predictions": []}` 반환.
+2. measurable=true 예측만 유용. 다음 중 하나여야 함:
+   - 특정 제품/기능 출시 (예: "Anthropic이 2026년 4분기에 Claude 5를 공개할 것")
+   - 정량 지표 도달 (예: "OpenAI 매출이 2027년 500억 달러를 넘을 것")
+   - 규제/정책 결정 (예: "EU AI Act 2조가 2026년 1월 시행될 것")
+   - M&A/자금조달 (예: "Anthropic이 200억 달러 이상 라운드를 마감할 것")
+3. 다음은 measurable=false로 판정:
+   - "AI가 세상을 바꿀 것" 등 추상적 예측
+   - "성능이 개선될 것" 등 정량화 안 된 예측
+   - 과거 사건에 대한 서술
+4. horizon은 기사 본문에 명시된 시점 그대로. 명시 없으면 'unspecified'.
+5. who는 원문에서 예측을 발화한 주체. CEO·연구자·기자·분석가 이름을 그대로. 못 찾으면 '외부 관찰자'.
+6. 한 기사에서 최대 3건까지. 너무 많으면 가장 구체적·검증 가능한 것부터.
+7. claim_ko는 원문 인용이 아니라 자연스러운 한국어 재작성. 원문에 없는 수치·이름 추가 금지.
+8. JSON 외 어떤 텍스트도 출력하지 말 것.
+
+# 예시
+
+## 입력 (요약)
+"OpenAI의 Sam Altman은 컨퍼런스에서 2026년 말까지 GPT-5.5가 공개될 것이며, 회사의 연간 매출이 2027년 300억 달러를 넘을 것이라고 말했다. 그는 또한 AI가 곧 인간 수준의 창의성을 가질 것이라고 덧붙였다."
+
+## 출력
+{"predictions":[{"claim_ko":"OpenAI가 2026년 말까지 GPT-5.5를 공개할 것이다.","who":"Sam Altman","horizon":"2026-12","confidence":"high","measurable":true},{"claim_ko":"OpenAI의 연간 매출이 2027년에 300억 달러를 넘을 것이다.","who":"Sam Altman","horizon":"2027-12","confidence":"medium","measurable":true}]}
+
+위 예시처럼 첫 글자 '{', 마지막 글자 '}'만 출력하세요.
+"""
+
+
+PREDICTION_EXTRACT_USER_TEMPLATE = """[원제]
+{title}
+
+[매체]
+{source_name}
+
+[요약]
+{summary}
+
+[인사이트]
+{insights}
+"""
+
+
+PREDICTION_RESOLVE_SYSTEM_PROMPT = """당신은 과거 예측이 이후 기사에 의해 확인·반박되었는지 판단하는 사실 검증가입니다. 각 예측과 그 예측 이후 등장한 기사 요약들을 검토하고 상태를 판정합니다.
+
+# 출력 스키마
+
+반드시 아래 JSON 단일 객체만 출력하세요. 첫 글자는 '{', 마지막 글자는 '}'여야 합니다.
+
+{
+  "results": [
+    {
+      "id": "예측 id (입력에 주어진 값 그대로)",
+      "verdict": "confirmed | contradicted | still_pending",
+      "evidence_article_id": "판단 근거 기사 id (없으면 빈 문자열)",
+      "note_ko": "판정 근거를 1문장으로. 없으면 빈 문자열."
+    }
+  ]
+}
+
+# 작성 규칙
+
+1. 입력의 모든 예측에 대해 반드시 결과 하나씩 반환.
+2. confirmed: 예측된 사건이 실제로 일어난 명시적 근거가 있을 때. 근거 기사 id 필수.
+3. contradicted: 예측 시점을 넘겼거나, 예측과 반대되는 사건이 명시적으로 보도되었을 때. 근거 기사 id 있으면 첨부.
+4. still_pending: 명시적 확인·반박이 없으면 이 값. evidence_article_id는 빈 문자열.
+5. 추측·유추 금지. 기사에 명시적으로 등장한 사실만.
+6. note_ko는 1문장. 정보 부족이면 빈 문자열.
+7. JSON 외 어떤 텍스트도 출력하지 말 것.
+"""
+
+
+PREDICTION_RESOLVE_USER_TEMPLATE = """# 검증할 예측 {n_predictions}건
+
+{predictions_block}
+
+# 검토 대상 기사 요약 (예측 이후 30일 이내, id · 날짜 · 제목 · 요약)
+
+{articles_block}
+
+위 예측들의 상태를 판정하여 위 스키마대로 출력하세요.
+"""
+
+
+MODEL_FACTS_SYSTEM_PROMPT = """당신은 AI 산업 기사에서 특정 모델(GPT, Claude, Gemini 등)에 대한 정량·정성 사실을 추출하는 편집자입니다. 기사에 명시적으로 등장한 모델별 사실만 추출합니다.
+
+# 출력 스키마
+
+반드시 아래 JSON 단일 객체만 출력하세요. 첫 글자는 '{', 마지막 글자는 '}'여야 합니다.
+
+{
+  "facts": [
+    {
+      "model": "모델명 (반드시 아래 '모델 어휘' 목록 중 하나)",
+      "version": "버전/스냅숏 문자열 (예: 'GPT-5', 'Claude Opus 4.6', 'Gemini 2.5 Pro'). 명시 없으면 null.",
+      "benchmarks": [{"name": "벤치마크명 (예: MMLU, HumanEval, GPQA)", "score": "수치 또는 서술 (문자열)"}],
+      "pricing": [{"unit": "단위 (예: 'input/1M tokens')", "value": "가격 (문자열)"}],
+      "strengths_ko": ["강점 1", "강점 2"],
+      "weaknesses_ko": ["약점 1", "약점 2"]
+    }
+  ]
+}
+
+# 모델 어휘 (이 목록 외 값 절대 금지)
+
+GPT-5, GPT-4, Claude, Gemini, Llama, Mistral, Sora, DALL-E, Whisper, Stable Diffusion, Grok, DeepSeek, Qwen, Phi
+
+# 작성 규칙
+
+1. 기사에 위 목록 중 어느 모델도 등장하지 않으면 `{"facts": []}` 반환.
+2. 한 기사에서 여러 모델을 다루면 각각 별도 facts 항목으로.
+3. benchmarks·pricing·strengths_ko·weaknesses_ko는 명시적 근거가 있을 때만. 없으면 빈 배열.
+4. 각 리스트는 최대 3개. 최고·최대 항목 우선.
+5. strengths_ko / weaknesses_ko는 각 항목이 짧은 한국어 명사구 (예: "긴 컨텍스트 처리", "환각률 여전"). 문장 형태 금지.
+6. version은 기사에 등장한 정확한 표기 (공백·대소문자 포함). 없으면 null.
+7. 추측·일반 상식 금지. 오직 기사 본문에서 확인 가능한 것만.
+8. JSON 외 어떤 텍스트도 출력하지 말 것.
+
+# 예시
+
+## 입력
+"Anthropic이 Claude Opus 4.6을 공개했다. MMLU에서 89.1점, HumanEval에서 87%를 기록했다. API 가격은 입력 100만 토큰당 $15, 출력 100만 토큰당 $75다. 회사는 이 모델의 강점으로 100만 토큰 컨텍스트와 향상된 코딩 능력을 꼽았다."
+
+## 출력
+{"facts":[{"model":"Claude","version":"Claude Opus 4.6","benchmarks":[{"name":"MMLU","score":"89.1"},{"name":"HumanEval","score":"87%"}],"pricing":[{"unit":"input/1M tokens","value":"$15"},{"unit":"output/1M tokens","value":"$75"}],"strengths_ko":["100만 토큰 컨텍스트","향상된 코딩"],"weaknesses_ko":[]}]}
+
+위 예시처럼 첫 글자 '{', 마지막 글자 '}'만 출력하세요.
+"""
+
+
+MODEL_FACTS_USER_TEMPLATE = """[원제]
+{title}
+
+[매체]
+{source_name}
+
+[요약]
+{summary}
+
+[인사이트]
+{insights}
+"""
+
+
 GLOSSARY_USER_TEMPLATE = """# 현재 사전에 이미 등록된 용어 (이 목록 외의 새 용어만 제안)
 {existing_terms}
 

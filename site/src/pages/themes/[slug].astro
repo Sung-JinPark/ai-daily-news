@@ -1,0 +1,68 @@
+---
+import Base from "~/layouts/Base.astro";
+import NewsTile from "~/components/NewsTile.astro";
+import Sparkline from "~/components/Sparkline.astro";
+import { allArchivedThemes, loadCluster, loadRollingThemes, type Theme } from "~/lib/loadData";
+
+export async function getStaticPaths() {
+  const rolling = loadRollingThemes();
+  const arch = allArchivedThemes();
+  const byKey = new Map<string, { theme: Theme; week: string | null; window: { start: string; end: string } }>();
+  if (rolling) {
+    for (const t of rolling.themes) {
+      byKey.set(t.slug, { theme: t, week: null, window: { start: rolling.window_start, end: rolling.window_end } });
+    }
+  }
+  for (const wk of arch) {
+    for (const t of wk.themes) {
+      // Keep the most recent occurrence per slug.
+      if (!byKey.has(t.slug)) {
+        byKey.set(t.slug, { theme: t, week: wk.week ?? null, window: { start: wk.window_start, end: wk.window_end } });
+      }
+    }
+  }
+  return Array.from(byKey.entries()).map(([slug, v]) => ({
+    params: { slug },
+    props: { theme: v.theme, week: v.week, window: v.window },
+  }));
+}
+
+const { theme, week, window } = Astro.props as {
+  theme: Theme;
+  week: string | null;
+  window: { start: string; end: string };
+};
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const clusters = theme.cluster_ids
+  .map((cid) => loadCluster(cid, 60))
+  .filter((c) => c !== null);
+const representativeArticles = clusters.map((c) => {
+  const rep = c!.articles.slice().sort((a, b) => b.importance_score - a.importance_score)[0];
+  return rep;
+});
+---
+<Base
+  title={`#${theme.name} — 테마`}
+  description={theme.thesis_ko.slice(0, 200)}
+>
+  <a href={`${base}/themes`} class="kicker text-ink/55 hover:text-accent inline-block mb-5">← 전체 테마</a>
+
+  <header class="mb-10 pb-6 border-b-2 border-ink">
+    <div class="kicker text-accent mb-2">Theme · {week ? week : `${window.start} ~ ${window.end}`}</div>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none mb-4">#{theme.name}</h1>
+    <p class="font-serif text-xl text-ink leading-relaxed max-w-3xl">{theme.thesis_ko}</p>
+    <div class="mt-6 max-w-lg">
+      <Sparkline data={theme.daily_counts} height={40} ariaLabel={`${theme.name} 일자별 기사 수`} />
+    </div>
+  </header>
+
+  {representativeArticles.length > 0 && (
+    <section>
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">구성 스토리 {representativeArticles.length}건</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+        {representativeArticles.map((a) => <NewsTile article={a} size="md" />)}
+      </div>
+    </section>
+  )}
+</Base>
