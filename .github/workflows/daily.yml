@@ -125,6 +125,28 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python -m pipeline.predict_extract
 
+      - name: Quarterly report (first week after quarter end, --auto)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          MONTH=$(date -u +%m)
+          DAY=$(date -u +%d)
+          # Run only in the first 7 days of Jan/Apr/Jul/Oct so we generate the
+          # previous quarter's report once and rely on --auto to skip if it
+          # already exists.
+          case "$MONTH" in
+            01|04|07|10)
+              if [ "$DAY" -le 07 ] || [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+                python -m pipeline.quarterly_report --auto
+              else
+                echo "skipping quarterly (past 7-day window this month)"
+              fi
+              ;;
+            *)
+              echo "skipping quarterly (month=$MONTH)"
+              ;;
+          esac
+
       - name: Model facts (per-model comparison table)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

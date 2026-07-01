@@ -1,0 +1,77 @@
+---
+import Base from "~/layouts/Base.astro";
+import { allQuarterlyReports } from "~/lib/loadData";
+
+export async function getStaticPaths() {
+  return allQuarterlyReports().map((r) => ({
+    params: { quarter: r.quarter },
+    props: { report: r },
+  }));
+}
+
+const { report } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<Base
+  title={`${report.quarter} · ${report.title_ko} — AI Daily News`}
+  description={report.exec_summary_ko.slice(0, 200)}
+>
+  <a href={`${base}/reports`} class="kicker text-ink/55 hover:text-accent inline-block mb-5">← 전체 분기 리포트</a>
+
+  <header class="mb-10 pb-6 border-b-2 border-ink">
+    <div class="kicker text-accent mb-2">{report.quarter} · {report.start} ~ {report.end}</div>
+    <h1 class="font-serif text-[2rem] sm:text-[2.8rem] font-black text-ink leading-[1.05] mb-4 break-words">{report.title_ko}</h1>
+    <p class="kicker text-ink/55 tabular-nums">기사 {report.n_articles.toLocaleString()}건 · 활동 {report.n_days}일 · 발행 {new Date(report.generated_at).toLocaleDateString("ko-KR")}</p>
+  </header>
+
+  <section class="mb-14 border-l-4 border-accent pl-6">
+    <div class="kicker text-accent mb-3">요약</div>
+    <p class="font-serif text-xl sm:text-2xl leading-snug text-ink font-medium break-words">{report.exec_summary_ko}</p>
+  </section>
+
+  {report.top_narratives_ko.length > 0 && (
+    <section class="mb-14">
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">주요 서사</h2>
+      <div class="space-y-8">
+        {report.top_narratives_ko.map((n) => (
+          <div>
+            <h3 class="font-serif text-2xl font-black text-ink mb-2">#{n.name}</h3>
+            <p class="text-[15.5px] text-ink/75 leading-relaxed break-words">{n.summary_ko}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {report.top_movers_ko.length > 0 && (
+    <section class="mb-14">
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">이번 분기의 무버</h2>
+      <ul class="divide-y divide-ink/15">
+        {report.top_movers_ko.map((m) => (
+          <li class="py-4">
+            <span class="font-serif text-lg font-bold text-ink">{m.entity}</span>
+            <span class="text-ink/30 mx-2">·</span>
+            <span class="text-[14.5px] text-ink/75 leading-relaxed">{m.movement_ko}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {report.open_questions_ko.length > 0 && (
+    <section class="mb-14">
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">지켜볼 것</h2>
+      <ul class="space-y-3">
+        {report.open_questions_ko.map((q) => (
+          <li class="text-[15px] text-ink/80 leading-relaxed break-words pl-4 border-l-2 border-ink/15">{q}</li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {report.closing_ko && (
+    <section class="border-t border-ink/15 pt-8">
+      <p class="font-serif text-xl leading-snug text-ink italic break-words">{report.closing_ko}</p>
+    </section>
+  )}
+</Base>

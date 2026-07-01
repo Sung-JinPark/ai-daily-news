@@ -16,6 +16,8 @@ echo === themes (cross-day narratives) ===
 python -m pipeline.themes
 echo === predictions (extract + resolve) ===
 python -m pipeline.predict_extract
+echo === quarterly report (auto, skips if already exists) ===
+python -m pipeline.quarterly_report --auto
 echo === model facts (per-model comparison table) ===
 python -m pipeline.model_facts
 echo === index ===

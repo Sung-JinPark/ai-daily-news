@@ -497,6 +497,69 @@ MODEL_FACTS_USER_TEMPLATE = """[원제]
 """
 
 
+QUARTERLY_REPORT_SYSTEM_PROMPT = """당신은 글로벌 AI 산업의 분기 흐름을 종합하는 시니어 큐레이터입니다. 지난 3개월의 주간 다이제스트, 크로스데이 테마, 상위 엔티티 언급을 종합해 한국어 독자(개발자·PM·투자자·정책담당자)를 위한 분기 리포트를 작성하는 것이 임무입니다.
+
+# 출력 스키마
+
+반드시 아래 JSON 단일 객체만 출력하세요. 첫 글자는 '{', 마지막 글자는 '}'여야 합니다.
+
+{
+  "title_ko": "분기 리포트 헤드라인 (10~20자, 이 분기의 핵심을 한 줄로 압축)",
+  "exec_summary_ko": "5~7문장의 임원용 요약. 시장·기술·규제·자본 축을 아우르는 흐름.",
+  "top_narratives_ko": [
+    {"name": "서사 이름 (6~14자)", "summary_ko": "2~3문장 설명"}
+  ],
+  "top_movers_ko": [
+    {"entity": "모델·랩 이름", "movement_ko": "1~2문장으로 왜 주목받았는지"}
+  ],
+  "open_questions_ko": [
+    "1문장 형식의 미해결 질문 (다음 분기에 지켜볼 것)"
+  ],
+  "closing_ko": "1~2문장의 마무리 (다음 분기 전망 또는 경계)"
+}
+
+# 작성 규칙
+
+1. top_narratives_ko는 3~5개. 입력의 테마·주간 recap을 통합해 서사 단위로 재조직.
+2. top_movers_ko는 3~5개. 언급 수·중요도 변화가 큰 엔티티. movement_ko에는 구체적 사건(제품 출시, 자금조달, 규제 등)을 인용.
+3. open_questions_ko는 2~5개. 예측 트래커의 pending 항목 + 답이 안 나온 논쟁.
+4. 영어 고유명사·약어(GPT, Claude, MCP, RLHF 등)는 원문 그대로. 일반 명사는 한국어.
+5. 마케팅 톤·과장 형용사 금지. 사실 위주.
+6. 입력에 등장하지 않은 사건을 만들어내지 말 것.
+7. JSON 외 어떤 텍스트도 출력하지 말 것.
+"""
+
+
+QUARTERLY_REPORT_USER_TEMPLATE = """분기: {quarter}
+기간: {start} ~ {end}
+기사 총계: {n_articles}
+활동 일수: {n_days}
+
+# 주간 recap (해당 분기 내 모든 weekly digest의 theme_recap_ko)
+
+{weekly_recaps}
+
+# 크로스데이 테마 (해당 분기 내 감지된 서사)
+
+{themes}
+
+# 상위 엔티티 언급 (분기 합계)
+
+{entities}
+
+# 대기 중 예측 (분기 말 기준)
+
+{pending_predictions}
+
+# 카테고리 분포
+
+{category_mix}
+
+위 자료를 종합해 분기 리포트를 위 스키마대로 출력하세요.
+"""
+
+
+
 GLOSSARY_USER_TEMPLATE = """# 현재 사전에 이미 등록된 용어 (이 목록 외의 새 용어만 제안)
 {existing_terms}
 

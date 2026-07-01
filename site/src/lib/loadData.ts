@@ -230,6 +230,32 @@ export function hotnessScore(a: Article, now: Date = new Date()): number {
   return importance * 0.6 + cluster * 0.15 + recency * 0.25;
 }
 
+export type QuarterlyReport = {
+  quarter: string;
+  generated_at: string;
+  start: string;
+  end: string;
+  n_days: number;
+  n_articles: number;
+  title_ko: string;
+  exec_summary_ko: string;
+  top_narratives_ko: Array<{ name: string; summary_ko: string }>;
+  top_movers_ko: Array<{ entity: string; movement_ko: string }>;
+  open_questions_ko: string[];
+  closing_ko: string;
+};
+
+export function allQuarterlyReports(): QuarterlyReport[] {
+  const dir = path.join(DATA_ROOT, "reports");
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((f) => /^\d{4}-Q[1-4]\.json$/.test(f))
+    .map((f) => readJson<QuarterlyReport | null>(path.join(dir, f), null))
+    .filter((r): r is QuarterlyReport => r !== null)
+    .sort((a, b) => b.quarter.localeCompare(a.quarter));
+}
+
 export type ModelRow = {
   model: string;
   latest_version: string | null;
