@@ -122,6 +122,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python -m pipeline.predict_extract
 
+      - name: Model facts (per-model comparison table)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m pipeline.model_facts
+
       - name: Latest index
         run: python -m pipeline.index_latest
 

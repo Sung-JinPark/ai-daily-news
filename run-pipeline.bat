@@ -14,6 +14,8 @@ echo === themes (cross-day narratives) ===
 python -m pipeline.themes
 echo === predictions (extract + resolve) ===
 python -m pipeline.predict_extract
+echo === model facts (per-model comparison table) ===
+python -m pipeline.model_facts
 echo === index ===
 python -m pipeline.index_latest
 echo.

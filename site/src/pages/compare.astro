@@ -1,0 +1,141 @@
+---
+import Base from "~/layouts/Base.astro";
+import { loadModelsIndex } from "~/lib/loadData";
+
+const idx = loadModelsIndex();
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+function fmtDay(iso: string): string {
+  if (!iso) return "—";
+  return iso;
+}
+---
+<Base
+  title="모델 비교 — AI Daily News"
+  description="GPT · Claude · Gemini 등 주요 AI 모델의 최신 버전, 벤치마크, 가격, 강약점을 최근 60일 코퍼스에서 자동 추출."
+>
+  <header class="mb-8 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Model Comparison</div>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">모델 비교</h1>
+    <p class="mt-3 text-[13px] text-ink/60">최근 60일 기사에서 언급된 프론티어 모델의 버전 · 벤치마크 · 가격 · 강약점을 매일 자동 추출합니다.</p>
+    {idx && (
+      <p class="kicker text-ink/50 mt-2 tabular-nums">최신 갱신 {new Date(idx.generated_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}</p>
+    )}
+  </header>
+
+  {!idx || idx.models.length === 0 ? (
+    <p class="text-ink/50">아직 추출된 모델 사실이 없습니다. 다음 파이프라인 실행 이후 채워집니다.</p>
+  ) : (
+    <>
+      <div class="mb-6 flex flex-wrap items-center gap-3 text-[12px]">
+        <label class="flex items-center gap-2">
+          <span class="kicker text-ink/50">정렬</span>
+          <select id="sort-select" class="border border-ink/25 px-2 py-1 bg-white">
+            <option value="latest">최신 언급 순</option>
+            <option value="count">최근 기사 수 순</option>
+            <option value="alpha">모델명 순</option>
+          </select>
+        </label>
+        <span id="model-count" class="ml-auto kicker text-ink/50 tabular-nums">{idx.models.length}개 모델</span>
+      </div>
+
+      <div class="overflow-x-auto -mx-4 px-4">
+        <table id="model-table" class="w-full text-[13px] border-collapse">
+          <thead>
+            <tr class="text-left kicker text-ink/60 border-b-2 border-ink">
+              <th class="pb-3 pr-4">모델</th>
+              <th class="pb-3 pr-4">최신 버전</th>
+              <th class="pb-3 pr-4">최신 언급</th>
+              <th class="pb-3 pr-4">벤치마크</th>
+              <th class="pb-3 pr-4">가격</th>
+              <th class="pb-3 pr-4">강점</th>
+              <th class="pb-3 pr-4">약점</th>
+              <th class="pb-3 pr-2 text-right">기사 수</th>
+            </tr>
+          </thead>
+          <tbody>
+            {idx.models.map((m) => (
+              <tr class="border-b border-ink/10 align-top hover:bg-accent/[0.02]"
+                data-model={m.model}
+                data-latest={m.latest_seen}
+                data-count={m.article_count}
+              >
+                <td class="py-3 pr-4">
+                  <div class="font-serif font-bold text-ink text-base">{m.model}</div>
+                </td>
+                <td class="py-3 pr-4 text-ink/75">{m.latest_version ?? "—"}</td>
+                <td class="py-3 pr-4 text-ink/60 tabular-nums">{fmtDay(m.latest_seen)}</td>
+                <td class="py-3 pr-4">
+                  {m.top_benchmarks.length > 0 ? (
+                    <ul class="space-y-0.5">
+                      {m.top_benchmarks.map((b) => (
+                        <li><span class="font-semibold text-ink/80">{b.name}</span> <span class="text-ink/60">{b.score}</span></li>
+                      ))}
+                    </ul>
+                  ) : <span class="text-ink/30">—</span>}
+                </td>
+                <td class="py-3 pr-4">
+                  {m.pricing.length > 0 ? (
+                    <ul class="space-y-0.5">
+                      {m.pricing.map((p) => (
+                        <li><span class="text-ink/60">{p.unit}</span> <span class="text-ink/80 font-medium">{p.value}</span></li>
+                      ))}
+                    </ul>
+                  ) : <span class="text-ink/30">—</span>}
+                </td>
+                <td class="py-3 pr-4">
+                  {m.strengths_ko.length > 0 ? (
+                    <ul class="space-y-0.5">
+                      {m.strengths_ko.map((s) => <li class="text-emerald-800">+ {s}</li>)}
+                    </ul>
+                  ) : <span class="text-ink/30">—</span>}
+                </td>
+                <td class="py-3 pr-4">
+                  {m.weaknesses_ko.length > 0 ? (
+                    <ul class="space-y-0.5">
+                      {m.weaknesses_ko.map((w) => <li class="text-accent">− {w}</li>)}
+                    </ul>
+                  ) : <span class="text-ink/30">—</span>}
+                </td>
+                <td class="py-3 pr-2 text-right tabular-nums">
+                  <details>
+                    <summary class="cursor-pointer text-ink/75 hover:text-accent">{m.article_count}</summary>
+                    <ul class="mt-2 text-[11.5px] text-left space-y-1 max-w-xs">
+                      {m.articles.slice(0, 8).map((a) => (
+                        <li>
+                          <a href={a.url} target="_blank" rel="noopener noreferrer" class="text-ink/65 hover:text-accent">
+                            <span class="tabular-nums text-ink/40">{a.day}</span> {a.title}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <script>
+        (function () {
+          const sel = document.getElementById("sort-select") as HTMLSelectElement | null;
+          const table = document.getElementById("model-table") as HTMLTableElement | null;
+          if (!sel || !table) return;
+          const tbody = table.tBodies[0];
+          const rows = Array.from(tbody.querySelectorAll<HTMLTableRowElement>("tr"));
+          function sortBy(mode: string) {
+            const compare = (a: HTMLTableRowElement, b: HTMLTableRowElement) => {
+              if (mode === "count") return (+b.dataset.count! || 0) - (+a.dataset.count! || 0);
+              if (mode === "alpha") return (a.dataset.model || "").localeCompare(b.dataset.model || "");
+              return (b.dataset.latest || "").localeCompare(a.dataset.latest || "");
+            };
+            const sorted = rows.slice().sort(compare);
+            sorted.forEach((r) => tbody.appendChild(r));
+          }
+          sel.addEventListener("change", () => sortBy(sel.value));
+        })();
+      </script>
+    </>
+  )}
+</Base>

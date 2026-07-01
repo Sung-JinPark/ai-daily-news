@@ -227,6 +227,30 @@ export function hotnessScore(a: Article, now: Date = new Date()): number {
   return importance * 0.6 + cluster * 0.15 + recency * 0.25;
 }
 
+export type ModelRow = {
+  model: string;
+  latest_version: string | null;
+  latest_seen: string;
+  article_count: number;
+  articles: Array<{ id: string; day: string; title: string; url: string }>;
+  top_benchmarks: Array<{ name: string; score: string; article_id: string }>;
+  pricing: Array<{ unit: string; value: string; article_id: string }>;
+  strengths_ko: string[];
+  weaknesses_ko: string[];
+};
+
+export type ModelsIndex = {
+  generated_at: string;
+  lookback_days: number;
+  models: ModelRow[];
+};
+
+export function loadModelsIndex(): ModelsIndex | null {
+  const file = path.join(DATA_ROOT, "models", "index.json");
+  if (!fs.existsSync(file)) return null;
+  return readJson<ModelsIndex | null>(file, null);
+}
+
 export type Prediction = {
   id: string;
   article_id: string;
