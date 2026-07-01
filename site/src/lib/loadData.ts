@@ -388,6 +388,119 @@ export function loadRecentDays(maxDays: number = 7): Article[] {
   return out;
 }
 
+// ---------- Z1 aggregate JSONL loaders ----------
+
+export type EntityMention = {
+  day: string;
+  entity_type: "model" | "lab" | "tag";
+  entity: string;
+  article_id: string;
+  cluster_id: string;
+  source_id: string;
+  importance_score: number;
+  category: string;
+};
+
+let _entityMentionsCache: EntityMention[] | null = null;
+export function loadEntityMentions(): EntityMention[] {
+  if (_entityMentionsCache) return _entityMentionsCache;
+  const file = path.join(DATA_ROOT, "aggregates", "entity_mentions.jsonl");
+  if (!fs.existsSync(file)) {
+    _entityMentionsCache = [];
+    return _entityMentionsCache;
+  }
+  const rows: EntityMention[] = [];
+  for (const line of fs.readFileSync(file, "utf-8").split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    try {
+      rows.push(JSON.parse(trimmed) as EntityMention);
+    } catch {
+      continue;
+    }
+  }
+  _entityMentionsCache = rows;
+  return _entityMentionsCache;
+}
+
+export type TimeSeriesPoint = { bucket: string; count: number };
+export type EntityTimeSeries = {
+  entity: string;
+  entity_type: "model" | "lab" | "tag";
+  total: number;
+  series: TimeSeriesPoint[];
+  peak_bucket: string;
+  peak_count: number;
+};
+
+/**
+ * Bucket entity mentions by day/week/month across the whole archive and
+ * return the top-N entities as sparklines. Fills empty buckets with
+ * count=0 so every series has the same x-axis length.
+ */
+export function entityTimeSeries(
+  granularity: "day" | "week" | "month" = "day",
+  topN: number = 15,
+  typeFilter?: "model" | "lab" | "tag",
+): { buckets: string[]; series: EntityTimeSeries[] } {
+  const rows = loadEntityMentions();
+  if (rows.length === 0) return { buckets: [], series: [] };
+
+  function bucketOf(day: string): string {
+    if (granularity === "day") return day;
+    const d = new Date(day + "T00:00:00Z");
+    if (granularity === "month") return day.slice(0, 7);
+    // ISO week — YYYY-Www
+    const target = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+    const dayNum = target.getUTCDay() || 7;
+    target.setUTCDate(target.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil((((target.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+    return `${target.getUTCFullYear()}-W${String(weekNo).padStart(2, "0")}`;
+  }
+
+  const allBuckets = new Set<string>();
+  const byEntity = new Map<string, Map<string, number>>();
+  const typeOf = new Map<string, "model" | "lab" | "tag">();
+  for (const r of rows) {
+    if (typeFilter && r.entity_type !== typeFilter) continue;
+    const b = bucketOf(r.day);
+    allBuckets.add(b);
+    const key = `${r.entity_type}\u0001${r.entity}`;
+    typeOf.set(key, r.entity_type);
+    const inner = byEntity.get(key) ?? new Map<string, number>();
+    inner.set(b, (inner.get(b) ?? 0) + 1);
+    byEntity.set(key, inner);
+  }
+  const buckets = Array.from(allBuckets).sort();
+
+  const scored: EntityTimeSeries[] = [];
+  for (const [key, inner] of byEntity) {
+    let total = 0;
+    let peakBucket = buckets[0] ?? "";
+    let peakCount = 0;
+    const series: TimeSeriesPoint[] = buckets.map((b) => {
+      const count = inner.get(b) ?? 0;
+      total += count;
+      if (count > peakCount) {
+        peakCount = count;
+        peakBucket = b;
+      }
+      return { bucket: b, count };
+    });
+    scored.push({
+      entity: key.split("\u0001")[1],
+      entity_type: typeOf.get(key)!,
+      total,
+      series,
+      peak_bucket: peakBucket,
+      peak_count: peakCount,
+    });
+  }
+  scored.sort((a, b) => b.total - a.total);
+  return { buckets, series: scored.slice(0, topN) };
+}
+
 /**
  * Compute the ISO week's (Monday, Sunday) range for a given YYYY-Www key.
  * Mirrors pipeline/weekly.py:44-52.

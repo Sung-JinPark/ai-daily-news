@@ -171,6 +171,27 @@ const quarterlyReports = allQuarterlyReports();
   </section>
 
   <section class="mb-14">
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">사이트 내 리서치 뷰</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <a href={`${base}/research/evolution`} class="block border border-ink/15 hover:border-accent p-5 group">
+        <div class="kicker text-accent mb-2">Time Series</div>
+        <h3 class="font-serif text-lg font-bold text-ink group-hover:text-accent mb-2">엔티티 시계열</h3>
+        <p class="text-[13px] text-ink/65 leading-relaxed">전 기간 모델·랩·태그 언급을 일/주/월 단위 스파크라인으로. 신규 LLM 비용 0.</p>
+      </a>
+      <a href={`${base}/research/network`} class="block border border-ink/15 hover:border-accent p-5 group">
+        <div class="kicker text-accent mb-2">Network</div>
+        <h3 class="font-serif text-lg font-bold text-ink group-hover:text-accent mb-2">공동 언급 그래프</h3>
+        <p class="text-[13px] text-ink/65 leading-relaxed">모델×랩·모델×태그 페어를 전 기간 그래프로. 클릭해서 관련 스토리로 이동.</p>
+      </a>
+      <a href={`${base}/research/completeness`} class="block border border-ink/15 hover:border-accent p-5 group">
+        <div class="kicker text-accent mb-2">Corpus Health</div>
+        <h3 class="font-serif text-lg font-bold text-ink group-hover:text-accent mb-2">코퍼스 완전성</h3>
+        <p class="text-[13px] text-ink/65 leading-relaxed">skipped 로그 phase 분포 + 소스별 수집량 이력. 데이터 신뢰도 감사용.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="mb-14">
     <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">노트북 · 시작 자료</h2>
     <ul class="text-[13.5px] text-ink/75 leading-relaxed space-y-2">
       <li>
