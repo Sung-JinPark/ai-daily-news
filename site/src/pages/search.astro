@@ -1,0 +1,227 @@
+---
+import Base from "~/layouts/Base.astro";
+import { CATEGORIES } from "~/lib/loadData";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const categoryPairs = Object.entries(CATEGORIES);
+---
+<Base title="검색 — AI Daily News">
+  <header class="mb-8 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Search · 전체 DB</div>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">전체 검색</h1>
+    <p class="mt-3 text-[13px] text-ink/60">제목 · 요약 · 인사이트 · 태그 · 매체명에서 단어를 찾습니다.</p>
+  </header>
+
+  <form id="search-form" method="get" class="mb-6 flex items-center gap-2 border-b-2 border-ink pb-3">
+    <svg aria-hidden="true" viewBox="0 0 24 24" class="w-4 h-4 text-ink/60 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+    <input
+      id="search-q"
+      type="search"
+      name="q"
+      autocomplete="off"
+      autofocus
+      placeholder="검색어를 입력하세요"
+      class="flex-1 bg-transparent border-0 py-2 text-base sm:text-lg text-ink placeholder:text-ink/40 focus:outline-none font-serif"
+    />
+  </form>
+
+  <div id="search-status" class="mb-6 text-[13px] text-ink/60">인덱스를 불러오는 중…</div>
+  <ol id="search-results" class="divide-y divide-ink/15"></ol>
+
+  <script type="application/json" id="category-map" set:html={JSON.stringify(Object.fromEntries(categoryPairs))}></script>
+  <script type="application/json" id="site-base" set:html={JSON.stringify(base)}></script>
+
+  <script>
+    type Doc = {
+      id: string;
+      day: string;
+      url: string;
+      title: string;
+      summary: string;
+      insights: string;
+      source: string;
+      category: string;
+      tags: string[];
+      published: string | null;
+      image_url: string | null;
+      importance_score: number;
+    };
+
+    const catMap: Record<string, string> = JSON.parse(
+      document.getElementById("category-map")?.textContent || "{}",
+    );
+    const siteBase: string = JSON.parse(
+      document.getElementById("site-base")?.textContent || '""',
+    );
+    const status = document.getElementById("search-status") as HTMLDivElement;
+    const list = document.getElementById("search-results") as HTMLOListElement;
+    const form = document.getElementById("search-form") as HTMLFormElement;
+    const input = document.getElementById("search-q") as HTMLInputElement;
+
+    function escapeHtml(s: string): string {
+      return s
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+    function escapeRe(s: string): string {
+      return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+    function highlight(text: string, terms: string[]): string {
+      let out = escapeHtml(text);
+      for (const t of terms) {
+        if (!t) continue;
+        const re = new RegExp(`(${escapeRe(t)})`, "gi");
+        out = out.replace(re, '<mark class="bg-accent/20 text-ink px-0.5">$1</mark>');
+      }
+      return out;
+    }
+    function snippet(text: string, terms: string[], max = 180): string {
+      if (!text) return "";
+      const lower = text.toLowerCase();
+      let idx = -1;
+      for (const t of terms) {
+        const i = lower.indexOf(t);
+        if (i >= 0 && (idx < 0 || i < idx)) idx = i;
+      }
+      if (idx < 0) return text.slice(0, max) + (text.length > max ? "…" : "");
+      const start = Math.max(0, idx - 40);
+      const end = Math.min(text.length, start + max);
+      return (start > 0 ? "…" : "") + text.slice(start, end) + (end < text.length ? "…" : "");
+    }
+    function matches(doc: Doc, terms: string[]): { score: number; where: string[] } {
+      let score = 0;
+      const where: string[] = [];
+      const hay = {
+        title: doc.title.toLowerCase(),
+        summary: doc.summary.toLowerCase(),
+        insights: doc.insights.toLowerCase(),
+        source: doc.source.toLowerCase(),
+        tags: doc.tags.join(" ").toLowerCase(),
+      };
+      for (const t of terms) {
+        let hit = false;
+        if (hay.title.includes(t)) { score += 6; hit = true; if (!where.includes("제목")) where.push("제목"); }
+        if (hay.summary.includes(t)) { score += 3; hit = true; if (!where.includes("요약")) where.push("요약"); }
+        if (hay.insights.includes(t)) { score += 2; hit = true; if (!where.includes("인사이트")) where.push("인사이트"); }
+        if (hay.tags.includes(t)) { score += 3; hit = true; if (!where.includes("태그")) where.push("태그"); }
+        if (hay.source.includes(t)) { score += 1; hit = true; if (!where.includes("매체")) where.push("매체"); }
+        if (!hit) return { score: 0, where: [] };
+      }
+      return { score, where };
+    }
+
+    let docs: Doc[] | null = null;
+    let loading: Promise<Doc[]> | null = null;
+
+    function loadIndex(): Promise<Doc[]> {
+      if (docs) return Promise.resolve(docs);
+      if (loading) return loading;
+      loading = fetch(`${siteBase}/search-index.json`)
+        .then((r) => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
+        })
+        .then((data: Doc[]) => {
+          docs = data;
+          return data;
+        });
+      return loading;
+    }
+
+    function render(query: string) {
+      const q = query.trim();
+      if (!q) {
+        status.textContent = `전체 ${docs?.length ?? 0}건의 기사에서 검색합니다. 검색어를 입력하세요.`;
+        list.innerHTML = "";
+        return;
+      }
+      if (!docs) return;
+      const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      const hits: Array<{ doc: Doc; score: number; where: string[] }> = [];
+      for (const doc of docs) {
+        const m = matches(doc, terms);
+        if (m.score > 0) hits.push({ doc, score: m.score, where: m.where });
+      }
+      hits.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        const pa = a.doc.published || a.doc.day;
+        const pb = b.doc.published || b.doc.day;
+        return pb.localeCompare(pa);
+      });
+
+      status.textContent = `"${q}" — ${hits.length}건`;
+      list.innerHTML = hits
+        .slice(0, 200)
+        .map(({ doc, where }) => {
+          const cat = catMap[doc.category] ?? doc.category;
+          const day = doc.published
+            ? new Date(doc.published).toLocaleDateString("ko-KR", { month: "long", day: "numeric" })
+            : doc.day;
+          const titleHtml = highlight(doc.title, terms);
+          const snip = highlight(snippet(doc.summary, terms, 200), terms);
+          const tagsHtml = doc.tags
+            .slice(0, 5)
+            .map(
+              (t) =>
+                `<a href="${siteBase}/topic/${encodeURIComponent(t)}" class="text-ink/60 hover:text-accent">#${escapeHtml(t)}</a>`,
+            )
+            .join(" ");
+          const whereHtml = where.length
+            ? `<span class="text-ink/40">· ${where.map(escapeHtml).join(" · ")}</span>`
+            : "";
+          return `
+            <li class="py-5">
+              <div class="flex items-center gap-3 text-[11px] tracking-kicker uppercase font-semibold text-ink/60 mb-2 flex-wrap">
+                <a href="${siteBase}/category/${encodeURIComponent(doc.category)}" class="text-accent hover:underline">${escapeHtml(cat)}</a>
+                <span class="text-ink/30">·</span>
+                <span>${escapeHtml(doc.source)}</span>
+                <span class="text-ink/30">·</span>
+                <span class="normal-case tracking-normal font-normal text-ink/50">${escapeHtml(day)}</span>
+                ${whereHtml}
+              </div>
+              <h3 class="font-serif text-xl sm:text-2xl font-black leading-[1.2] text-ink break-words">
+                <a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">${titleHtml}</a>
+              </h3>
+              ${snip ? `<p class="mt-2 text-[14.5px] text-ink/75 leading-relaxed">${snip}</p>` : ""}
+              ${tagsHtml ? `<div class="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] tracking-kicker uppercase font-semibold">${tagsHtml}</div>` : ""}
+            </li>
+          `;
+        })
+        .join("");
+      if (hits.length === 0) {
+        list.innerHTML = `<li class="py-8 text-ink/60">결과가 없습니다. 다른 단어로 시도해 보세요.</li>`;
+      }
+    }
+
+    function updateFromUrl() {
+      const params = new URLSearchParams(location.search);
+      const q = params.get("q") ?? "";
+      input.value = q;
+      render(q);
+    }
+
+    let debounceId: number | null = null;
+    input.addEventListener("input", () => {
+      if (debounceId) window.clearTimeout(debounceId);
+      debounceId = window.setTimeout(() => {
+        const q = input.value;
+        const params = new URLSearchParams(location.search);
+        if (q) params.set("q", q); else params.delete("q");
+        const next = `${location.pathname}${params.toString() ? "?" + params.toString() : ""}`;
+        history.replaceState(null, "", next);
+        render(q);
+      }, 120);
+    });
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      render(input.value);
+    });
+
+    loadIndex()
+      .then(() => updateFromUrl())
+      .catch((err) => {
+        status.textContent = `검색 인덱스를 불러오지 못했습니다: ${err}`;
+      });
+  </script>
+</Base>

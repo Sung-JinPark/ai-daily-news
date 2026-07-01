@@ -57,10 +57,10 @@ const list = unique.slice(9, 14);
   {feature && (
     <section class="mb-12">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2 min-w-0">
           <HotFeature article={feature} rank={1} />
         </div>
-        <div class="space-y-0">
+        <div class="space-y-0 min-w-0">
           <div class="kicker text-ink/50 mb-3 pb-2 border-b border-ink/15">다음 순위</div>
           {sideTop.map((a, i) => <HotSide article={a} rank={i + 2} />)}
         </div>

@@ -14,7 +14,7 @@ const glossary = loadGlossary();
 const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
 ---
 <article
-  class="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 pb-8 border-b border-ink/15"
+  class="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 pb-8 border-b border-ink/15 min-w-0"
   data-category={article.category}
   data-source={article.source_id}
 >
@@ -44,7 +44,7 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
     </span>
   </a>
 
-  <div class="lg:col-span-2 flex flex-col gap-3">
+  <div class="lg:col-span-2 flex flex-col gap-3 min-w-0">
     <div class="flex items-center gap-3 text-[11px] tracking-kicker uppercase font-semibold text-ink/70">
       <a href={`${base}/category/${article.category}`} class="text-accent hover:underline">
         {CATEGORIES[article.category] ?? article.category}
@@ -53,7 +53,7 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
       <a href={`${base}/source/${article.source_id}`} class="hover:text-ink truncate">{article.source_name}</a>
     </div>
 
-    <h2 class="font-serif text-2xl sm:text-3xl font-black leading-[1.15] text-ink">
+    <h2 class="font-serif text-2xl sm:text-3xl font-black leading-[1.15] text-ink break-words">
       <a href={article.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
         {article.title_original}
       </a>

@@ -3,7 +3,6 @@ import Base from "~/layouts/Base.astro";
 import ArticleCard from "~/components/ArticleCard.astro";
 import HeroCard from "~/components/HeroCard.astro";
 import NewsTile from "~/components/NewsTile.astro";
-import SearchBox from "~/components/SearchBox.astro";
 import TrendingChips from "~/components/TrendingChips.astro";
 import DigestCard from "~/components/DigestCard.astro";
 import { CATEGORIES, loadDay, loadLatest, type Article } from "~/lib/loadData";
@@ -48,7 +47,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   {day && (
     <>
-      <SearchBox articles={articles} />
       <TrendingChips items={trending} />
 
       {digest && <DigestCard digest={digest} />}
