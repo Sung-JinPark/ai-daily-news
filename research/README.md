@@ -29,6 +29,10 @@ This folder is the paper's **methodology + reproducibility** home. Analysis code
 
 Full schema version and integrity hashes live in `data/aggregates/manifest.json` per Y2.
 
+### Schema versioning contract (Y2)
+
+Every `data/aggregates/*.jsonl` row set has a `schema_version` recorded in the sidecar manifest — currently `1` for all five streams. The row bodies themselves stay clean (no per-line version noise); the manifest is the single source of truth for what shape a consumer should expect. Producers (`pipeline.collect` for `source_health`, `pipeline.dedupe` for `merge_events`, `pipeline.entity_index` for the three entity streams) call `pipeline.aggregates_manifest.update_files` at the tail of each run so `sha256`, `lines`, and `bytes` stay honest. Consumers (`pipeline.build_db._check_aggregates_manifest`, plus any external notebook) compare the recorded `schema_version` to what they were built for and log a **warning, never a failure** if they drift — that keeps partial deploys (pipeline advances first, downstream lags) buildable while still surfacing the drift. Bump `STREAM_SCHEMA_VERSIONS` in `pipeline/aggregates_manifest.py` whenever a row-level field shape actually changes, and bump the matching `EXPECTED_AGGREGATE_SCHEMA` in `pipeline/build_db.py` in the same PR.
+
 ## Derived (private) artifacts
 
 Not in git; generated locally under `data/research_private/snapshots/YYYY-MM-DD/`:
