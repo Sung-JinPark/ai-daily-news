@@ -1,5 +1,5 @@
 import type { APIContext } from "astro";
-import { CATEGORIES, CLUSTER_WINDOW_DAYS, allClusters, allDays, allTrendingKeywords, allWeeklyDigests, loadDay, loadTagsIndex } from "~/lib/loadData";
+import { CATEGORIES, CLUSTER_WINDOW_DAYS, allClusters, allDays, allTrendingKeywords, allWeeklyDigests, clusterSlug, loadDay, loadTagsIndex } from "~/lib/loadData";
 import { PLAYERS } from "~/lib/loadPlayers";
 
 function url(site: URL, base: string, path: string): string {
@@ -48,8 +48,12 @@ export async function GET(context: APIContext) {
   for (const t of allTrendingKeywords(30)) {
     urls.push({ loc: url(site, base, `/trending/${encodeURIComponent(t.keyword)}`) });
   }
+  // X1 sitemap emits only the canonical URL per cluster: the stable
+  // slug when it exists, the legacy k-id otherwise. Legacy k-id URLs
+  // still resolve (they render redirect stubs) but do not appear here.
   for (const c of allClusters(CLUSTER_WINDOW_DAYS, 2)) {
-    urls.push({ loc: url(site, base, `/story/${c.cluster_id}`), lastmod: `${c.last_seen}T00:00:00Z` });
+    const slug = clusterSlug(c.cluster_id);
+    urls.push({ loc: url(site, base, `/story/${slug}`), lastmod: `${c.last_seen}T00:00:00Z` });
   }
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>

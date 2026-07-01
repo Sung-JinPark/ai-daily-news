@@ -385,7 +385,72 @@ export type ClusterSummary = {
   outlets: string[];
   member_count: number;
   day_span: number;
+  // X1 stable slug — deterministic hash of the earliest (published,
+  // url_hash) tuple observed for the cluster. Undefined if the
+  // continuity entry has not been backfilled yet.
+  first_url_hash?: string;
 };
+
+// ---------- X1 stable-slug URL layer ----------
+// The site advertises `/story/s-<first_url_hash>` as the canonical URL
+// for every cluster once its continuity entry carries a stable hash.
+// The legacy `k000…` route stays alive as a client-side redirect stub
+// so already-indexed links keep working during the six-month migration
+// window (see reviews/story-url-migration-plan-2026-07-01.md).
+
+type ContinuityEntry = {
+  cluster_id: string;
+  simhash?: string;
+  last_seen?: string;
+  first_url_hash?: string;
+  first_published?: string;
+};
+
+let _continuityCache: ContinuityEntry[] | null = null;
+function loadContinuity(): ContinuityEntry[] {
+  if (_continuityCache) return _continuityCache;
+  const file = path.join(DATA_ROOT, "cluster_continuity.json");
+  if (!fs.existsSync(file)) {
+    _continuityCache = [];
+    return _continuityCache;
+  }
+  const data = readJson<{ entries?: ContinuityEntry[] } | null>(file, null);
+  _continuityCache = data?.entries ?? [];
+  return _continuityCache;
+}
+
+let _slugById: Map<string, string> | null = null;
+let _idsBySlug: Map<string, string> | null = null;
+function _ensureSlugMaps(): void {
+  if (_slugById && _idsBySlug) return;
+  _slugById = new Map();
+  _idsBySlug = new Map();
+  for (const e of loadContinuity()) {
+    if (e.first_url_hash) {
+      const slug = `s-${e.first_url_hash}`;
+      _slugById.set(e.cluster_id, slug);
+      _idsBySlug.set(slug, e.cluster_id);
+    }
+  }
+}
+
+/** Return the canonical URL slug for a given cluster_id. When the
+ * continuity entry has no `first_url_hash` yet, the legacy id is used
+ * unchanged so callers can render a link without waiting on backfill.
+ */
+export function clusterSlug(clusterId: string): string {
+  _ensureSlugMaps();
+  return _slugById!.get(clusterId) ?? clusterId;
+}
+
+/** Reverse lookup: takes an `s-…` slug and returns the underlying
+ * cluster_id, or returns the input unchanged when it is not a stable
+ * slug (i.e. the caller passed a legacy `k000…` id).
+ */
+export function clusterIdFromSlug(slug: string): string {
+  _ensureSlugMaps();
+  return _idsBySlug!.get(slug) ?? slug;
+}
 
 let _clusterCache: Map<string, Article[]> | null = null;
 let _clusterCacheDays = -1;
@@ -444,6 +509,12 @@ function summarizeCluster(clusterId: string, articles: Article[]): ClusterSummar
       (Date.parse(lastSeen) - Date.parse(firstSeen)) / 86400000,
     ) + 1,
   );
+  // Pull the stable slug hash from the continuity index. Undefined
+  // when the backfill has not landed yet (a fresh continuity entry
+  // created after this deploy).
+  _ensureSlugMaps();
+  const slugCandidate = _slugById!.get(clusterId);
+  const firstUrlHash = slugCandidate?.startsWith("s-") ? slugCandidate.slice(2) : undefined;
   return {
     cluster_id: clusterId,
     articles,
@@ -454,6 +525,7 @@ function summarizeCluster(clusterId: string, articles: Article[]): ClusterSummar
     outlets,
     member_count: articles.length,
     day_span: daySpan,
+    first_url_hash: firstUrlHash,
   };
 }
 

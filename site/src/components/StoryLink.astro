@@ -1,5 +1,5 @@
 ---
-import type { Article } from "~/lib/loadData";
+import { clusterSlug, type Article } from "~/lib/loadData";
 interface Props {
   article: Article;
   size?: "sm" | "md";
@@ -11,10 +11,14 @@ const worth = (article.cluster_size ?? 1) > 1;
 const tCls = size === "sm"
   ? "text-[10px]"
   : "text-[11px]";
+// X1: prefer the content-hash slug when the continuity entry has been
+// backfilled. Falls back to the legacy k-id for clusters born after
+// the backfill or missing entries.
+const slug = clusterSlug(article.cluster_id);
 ---
 {worth && (
   <a
-    href={`${base}/story/${article.cluster_id}`}
+    href={`${base}/story/${slug}`}
     class:list={["inline-flex items-center gap-1 tracking-kicker uppercase font-semibold text-accent hover:underline", tCls]}
     aria-label={`이 스토리 전체 보기 — ${article.cluster_size}개 매체`}
   >

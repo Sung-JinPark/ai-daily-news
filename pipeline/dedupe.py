@@ -25,6 +25,7 @@ from simhash import Simhash
 
 from pipeline.collect import RAW_DIR, today
 from pipeline import corpus_writer
+from pipeline.state import url_hash
 
 log = logging.getLogger(__name__)
 HAMMING_THRESHOLD = 12
@@ -160,6 +161,39 @@ def _day_gap(a: str, b: str) -> int:
         return 10_000
 
 
+def deterministic_first_key(members: list[dict]) -> tuple[str, str]:
+    """Return the (published, url_hash) minimum tuple across cluster members.
+
+    The pair is the deterministic identity of a cluster: independent of
+    processing order, incremental vs. full recompute, and immune to which
+    trust-scored article happens to be "the representative" on any given
+    day. It is the invariant that makes the stable slug survive a
+    ``data/cluster_continuity.json`` deletion or rebuild (X1 / N2).
+    """
+    keys: list[tuple[str, str]] = []
+    for m in members:
+        pub = m.get("published") or ""
+        u = m.get("url", "")
+        if not u:
+            continue
+        keys.append((pub, url_hash(u)))
+    keys.sort()
+    return keys[0] if keys else ("", "")
+
+
+def _maybe_update_first_key(entry: dict, today_key: tuple[str, str]) -> None:
+    """If today's minimum key is earlier than the entry's stored key,
+    replace it. Missing fields on the entry are treated as sentinels so
+    the very first pass populates them without touching later ones."""
+    tp, th = today_key
+    if not th:
+        return
+    stored = (entry.get("first_published", "") or "", entry.get("first_url_hash", "") or "")
+    if not stored[1] or today_key < stored:
+        entry["first_published"] = tp
+        entry["first_url_hash"] = th
+
+
 def _title_tokens(title: str) -> set[str]:
     return {t for t in normalize(title).split() if len(t) >= 2}
 
@@ -171,6 +205,7 @@ def find_stable_id(
     assigned_today: set[str],
     today_str: str,
     merge_events: list[dict] | None = None,
+    today_first_key: tuple[str, str] = ("", ""),
 ) -> tuple[str, bool]:
     """Return (stable_cluster_id, reused). Updates `continuity` in place.
 
@@ -243,15 +278,24 @@ def find_stable_id(
             if matched_jaccard is not None:
                 event["title_jaccard"] = matched_jaccard
             merge_events.append(event)
+        # X1: keep the deterministic first key (published, url_hash) in
+        # sync so the stable slug reflects the true earliest article
+        # ever observed for this cluster.
+        _maybe_update_first_key(e, today_first_key)
         return e["cluster_id"], True
     continuity["next_id"] = int(continuity.get("next_id", 0)) + 1
     new_id = f"k{continuity['next_id']:06d}"
-    continuity["entries"].append({
+    tp, th = today_first_key
+    entry = {
         "cluster_id": new_id,
         "simhash": str(rep_sh.value),
         "last_seen": today_str,
         "last_titles": [rep_title] if rep_title else [],
-    })
+    }
+    if th:
+        entry["first_published"] = tp
+        entry["first_url_hash"] = th
+    continuity["entries"].append(entry)
     return new_id, False
 
 
@@ -300,9 +344,11 @@ def cluster(articles: list[dict], trust: dict[str, int], day_str: str) -> list[d
         )
         rep = members[0]
         rep_sh = group[0][1]
+        today_first_key = deterministic_first_key(members)
         stable_id, was_reused = find_stable_id(
             rep_sh, rep.get("title", ""), continuity, assigned_today, day_str,
             merge_events=merge_events,
+            today_first_key=today_first_key,
         )
         # Same-day rows that belong to this cluster (one per extra member).
         n_extra = max(0, len(members) - 1)

@@ -1,19 +1,46 @@
 ---
 import Base from "~/layouts/Base.astro";
 import NewsTile from "~/components/NewsTile.astro";
-import { CATEGORIES, CLUSTER_WINDOW_DAYS, allClusters, loadCluster, relatedClusters, type Article } from "~/lib/loadData";
+import { CATEGORIES, CLUSTER_WINDOW_DAYS, allClusters, clusterSlug, loadCluster, relatedClusters, type Article } from "~/lib/loadData";
 
+// X1: emit both the stable-slug canonical page and the legacy k-id
+// redirect stub whenever a cluster has been backfilled. When the
+// backfill has not run yet, the legacy id stays canonical so URLs
+// still resolve.
 export async function getStaticPaths() {
-  return allClusters(CLUSTER_WINDOW_DAYS, 2).map((c) => ({
-    params: { cluster: c.cluster_id },
-    props: { clusterId: c.cluster_id },
-  }));
+  const paths: Array<{
+    params: { cluster: string };
+    props: { clusterId: string; mode: "canonical" | "redirect"; canonicalSlug: string };
+  }> = [];
+  for (const c of allClusters(CLUSTER_WINDOW_DAYS, 2)) {
+    const slug = clusterSlug(c.cluster_id);
+    const stable = slug !== c.cluster_id;
+    paths.push({
+      params: { cluster: slug },
+      props: { clusterId: c.cluster_id, mode: "canonical", canonicalSlug: slug },
+    });
+    if (stable) {
+      paths.push({
+        params: { cluster: c.cluster_id },
+        props: { clusterId: c.cluster_id, mode: "redirect", canonicalSlug: slug },
+      });
+    }
+  }
+  return paths;
 }
 
-const { clusterId } = Astro.props as { clusterId: string };
-const story = loadCluster(clusterId, CLUSTER_WINDOW_DAYS);
-const related = story ? relatedClusters(clusterId, 6, CLUSTER_WINDOW_DAYS) : [];
+const { clusterId, mode, canonicalSlug } = Astro.props as {
+  clusterId: string;
+  mode: "canonical" | "redirect";
+  canonicalSlug: string;
+};
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const canonicalPath = `${base}/story/${canonicalSlug}`;
+
+// Redirect stubs skip the heavy loader — they just need the target
+// URL and enough markup for a canonical link + fallback text.
+const story = mode === "canonical" ? loadCluster(clusterId, CLUSTER_WINDOW_DAYS) : null;
+const related = mode === "canonical" && story ? relatedClusters(clusterId, 6, CLUSTER_WINDOW_DAYS) : [];
 
 function fmtDay(iso: string): string {
   const d = new Date(iso + "T00:00:00Z");
@@ -52,6 +79,25 @@ const relatedArticles: Article[] = related
   .map((c) => c.articles[c.articles.length - 1])
   .filter(Boolean);
 ---
+{mode === "redirect" && (
+  <html lang="ko">
+    <head>
+      <meta charset="UTF-8" />
+      <title>스토리 이동 중…</title>
+      <link rel="canonical" href={canonicalPath} />
+      <meta http-equiv="refresh" content={`0; url=${canonicalPath}`} />
+      <meta name="robots" content="noindex, follow" />
+      <script is:inline set:html={`window.location.replace(${JSON.stringify(canonicalPath)});`} />
+    </head>
+    <body style="font-family:system-ui,sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem;color:#0a0a0a">
+      <p>스토리 페이지가 새 URL로 이동했습니다.</p>
+      <p>자동으로 이동하지 않으면 <a href={canonicalPath} style="color:#be1622">여기</a>를 눌러주세요.</p>
+      <p style="font-size:12px;color:#666">Story pages moved to a content-based slug (X1 migration). Old links keep working for 6 months.</p>
+    </body>
+  </html>
+)}
+
+{mode === "canonical" && (
 <Base
   title={story ? `${rep!.title_original} — 스토리` : "스토리를 찾을 수 없습니다"}
   description={story ? `${story.member_count}개 매체가 다룬 스토리를 시간 순으로 정리합니다.` : undefined}
@@ -132,3 +178,4 @@ const relatedArticles: Article[] = related
     </>
   )}
 </Base>
+)}
