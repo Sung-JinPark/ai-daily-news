@@ -170,6 +170,7 @@ def find_stable_id(
     continuity: dict,
     assigned_today: set[str],
     today_str: str,
+    merge_events: list[dict] | None = None,
 ) -> tuple[str, bool]:
     """Return (stable_cluster_id, reused). Updates `continuity` in place.
 
@@ -178,6 +179,10 @@ def find_stable_id(
       * gap > 30d: SimHash distance ≤ 6 AND title-token Jaccard ≥ 0.4
     Also records ``last_titles`` (up to 3) per entry so the far-gap Jaccard
     check has a real reference to compare against.
+
+    If ``merge_events`` is provided, appends one event per successful
+    cross-day match so audit tooling can plot the Hamming / Jaccard
+    distribution over time (N3).
     """
     rep_tokens: set[str] | None = None
     for e in continuity["entries"]:
@@ -189,9 +194,12 @@ def find_stable_id(
             continue
         distance = rep_sh.distance(existing_sh)
         gap = _day_gap(e.get("last_seen", ""), today_str)
+        matched_kind: str
+        matched_jaccard: float | None = None
         if gap <= FAR_GAP_DAYS:
             if distance > CROSS_DAY_THRESHOLD_NEAR:
                 continue
+            matched_kind = "cross_near"
         else:
             if distance > CROSS_DAY_THRESHOLD_FAR:
                 continue
@@ -215,6 +223,8 @@ def find_stable_id(
                     best_j = j
             if best_j < FAR_JACCARD_MIN:
                 continue
+            matched_kind = "cross_far"
+            matched_jaccard = round(best_j, 3)
         # Match — refresh metadata for future comparisons.
         e["last_seen"] = today_str
         titles = e.get("last_titles") or ([e["last_title"]] if e.get("last_title") else [])
@@ -222,6 +232,17 @@ def find_stable_id(
             titles.append(rep_title)
         e["last_titles"] = titles[-3:]
         e.pop("last_title", None)
+        if merge_events is not None:
+            event = {
+                "day": today_str,
+                "cluster_id": e["cluster_id"],
+                "kind": matched_kind,
+                "hamming": int(distance),
+                "gap_days": int(gap),
+            }
+            if matched_jaccard is not None:
+                event["title_jaccard"] = matched_jaccard
+            merge_events.append(event)
         return e["cluster_id"], True
     continuity["next_id"] = int(continuity.get("next_id", 0)) + 1
     new_id = f"k{continuity['next_id']:06d}"
@@ -235,13 +256,27 @@ def find_stable_id(
 
 
 def cluster(articles: list[dict], trust: dict[str, int], day_str: str) -> list[dict]:
+    merge_events: list[dict] = []
     hashed = [(a, title_hash(a["title"])) for a in articles]
     clusters: list[list[tuple[dict, Simhash]]] = []
     for item, sh in hashed:
         placed = False
         for group in clusters:
-            if any(sh.distance(other_sh) <= HAMMING_THRESHOLD for _, other_sh in group):
+            best_distance: int | None = None
+            for _, other_sh in group:
+                d = sh.distance(other_sh)
+                if d <= HAMMING_THRESHOLD:
+                    if best_distance is None or d < best_distance:
+                        best_distance = d
+            if best_distance is not None:
                 group.append((item, sh))
+                merge_events.append({
+                    "day": day_str,
+                    "cluster_id": "",  # filled later once stable_id assigned
+                    "kind": "same_day",
+                    "hamming": int(best_distance),
+                    "gap_days": 0,
+                })
                 placed = True
                 break
         if not placed:
@@ -253,6 +288,10 @@ def cluster(articles: list[dict], trust: dict[str, int], day_str: str) -> list[d
 
     output: list[dict] = []
     reused = 0
+    # Same-day merge events are collected before stable_id is known, so we
+    # replay them per-cluster to attach the id once available.
+    same_day_backlog = [e for e in merge_events if e["kind"] == "same_day"]
+    same_day_index = 0
     for group in clusters:
         members = [m for m, _ in group]
         members.sort(
@@ -263,7 +302,14 @@ def cluster(articles: list[dict], trust: dict[str, int], day_str: str) -> list[d
         rep_sh = group[0][1]
         stable_id, was_reused = find_stable_id(
             rep_sh, rep.get("title", ""), continuity, assigned_today, day_str,
+            merge_events=merge_events,
         )
+        # Same-day rows that belong to this cluster (one per extra member).
+        n_extra = max(0, len(members) - 1)
+        for j in range(n_extra):
+            if same_day_index < len(same_day_backlog):
+                same_day_backlog[same_day_index]["cluster_id"] = stable_id
+                same_day_index += 1
         if was_reused:
             reused += 1
         assigned_today.add(stable_id)
@@ -276,9 +322,39 @@ def cluster(articles: list[dict], trust: dict[str, int], day_str: str) -> list[d
         )
 
     save_continuity(continuity)
+    _write_merge_events(day_str, merge_events)
     log.info("continuity: %d reused, %d new (index size=%d)",
              reused, len(output) - reused, len(continuity["entries"]))
     return output
+
+
+def _write_merge_events(day_str: str, events: list[dict]) -> None:
+    """Idempotent per-day append to data/aggregates/merge_events.jsonl.
+    Any existing rows whose ``day`` matches are dropped before appending
+    this run's rows, so re-running dedupe never inflates the count.
+    """
+    path = Path("data/aggregates/merge_events.jsonl")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    kept: list[str] = []
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except Exception:
+                continue
+            if obj.get("day") == day_str:
+                continue
+            kept.append(line)
+    with path.open("w", encoding="utf-8", newline="\n") as f:
+        for line in kept:
+            f.write(line)
+            f.write("\n")
+        for e in events:
+            f.write(json.dumps(e, ensure_ascii=False))
+            f.write("\n")
 
 
 def main() -> int:

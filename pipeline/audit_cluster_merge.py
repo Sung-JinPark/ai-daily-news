@@ -78,6 +78,37 @@ def _bucket(span: int) -> str:
     return f"{BANDS[-1]}일+"
 
 
+def _load_merge_events() -> list[dict]:
+    path = DATA_DIR / "aggregates" / "merge_events.jsonl"
+    if not path.exists():
+        return []
+    out: list[dict] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            out.append(json.loads(line))
+        except Exception:
+            continue
+    return out
+
+
+def _histogram(values: list[int], bins: list[int]) -> list[tuple[str, int]]:
+    """Return [(label, count), ...] for the given bin edges."""
+    if not values or not bins:
+        return []
+    result: list[tuple[str, int]] = []
+    prev = 0
+    for edge in bins:
+        n = sum(1 for v in values if prev <= v <= edge)
+        result.append((f"{prev}~{edge}", n))
+        prev = edge + 1
+    n = sum(1 for v in values if v >= prev)
+    result.append((f"{prev}+", n))
+    return result
+
+
 def build_summary() -> dict:
     days = _list_days()
     # Group articles by cluster_id across all days.
@@ -147,6 +178,21 @@ def build_summary() -> dict:
     top_by_span = long_span[:15]
     top_by_members = sorted(clusters, key=lambda c: c["member_count"], reverse=True)[:15]
 
+    # Merge-event histogram (N3). Empty until dedupe has run at least
+    # once with logging enabled.
+    events = _load_merge_events()
+    events_by_kind: dict[str, list[int]] = {"same_day": [], "cross_near": [], "cross_far": []}
+    jaccard_far: list[float] = []
+    for ev in events:
+        kind = ev.get("kind", "")
+        h = ev.get("hamming")
+        if isinstance(h, int) and kind in events_by_kind:
+            events_by_kind[kind].append(h)
+        if kind == "cross_far":
+            j = ev.get("title_jaccard")
+            if isinstance(j, (int, float)):
+                jaccard_far.append(float(j))
+
     return {
         "total_days": day_count,
         "total_articles": total_articles,
@@ -159,6 +205,15 @@ def build_summary() -> dict:
             "entries": len(cont_entries),
             "with_last_titles": n_with_titles,
             "gap_bucket_counts": dict(cont_gap_counts),
+        },
+        "merge_events": {
+            "total": len(events),
+            "hamming_by_kind": {
+                k: _histogram(v, [2, 4, 6, 8, 10, 12]) for k, v in events_by_kind.items()
+            },
+            "kind_counts": {k: len(v) for k, v in events_by_kind.items()},
+            "jaccard_far_mean": round(sum(jaccard_far) / len(jaccard_far), 3) if jaccard_far else None,
+            "jaccard_far_count": len(jaccard_far),
         },
     }
 
@@ -245,6 +300,24 @@ def render(summary: dict) -> str:
         )
     lines.append("")
 
+    me = summary.get("merge_events") or {}
+    if me and me.get("total", 0) > 0:
+        lines.append(f"## 병합 이벤트 로그 (N3)\n")
+        lines.append(f"- 총 병합 이벤트: **{me['total']:,}건**")
+        kc = me.get("kind_counts") or {}
+        lines.append(f"- 종류별: same_day {kc.get('same_day',0)} · cross_near {kc.get('cross_near',0)} · cross_far {kc.get('cross_far',0)}")
+        if me.get("jaccard_far_mean") is not None:
+            lines.append(f"- cross_far Jaccard 평균: **{me['jaccard_far_mean']}** ({me.get('jaccard_far_count', 0)}건)")
+        lines.append("")
+        for kind, hist in (me.get("hamming_by_kind") or {}).items():
+            if not any(n for _, n in hist):
+                continue
+            lines.append(f"### Hamming 거리 분포 — {kind}\n")
+            lines.append("| 구간 | 이벤트 수 |")
+            lines.append("|---|---|")
+            for label, n in hist:
+                lines.append(f"| {label} | {n} |")
+            lines.append("")
     lines.append("## 판단\n")
     if not summary["long_span_sample"]:
         lines.append(

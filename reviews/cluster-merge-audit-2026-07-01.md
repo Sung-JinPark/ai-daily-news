@@ -57,6 +57,35 @@ _현재 아카이브에는 해당 범위의 클러스터가 없습니다._
 | `k000330` | 2 | 2일 | 1 | product×2 | Second carcass-eating fly species cleared by FDA for maggot … |
 | `k000320` | 2 | 2일 | 1 | product×2 | Unlocking UK house-building with AI-accelerated planning |
 
+## 병합 이벤트 로그 (N3)
+
+- 총 병합 이벤트: **179건**
+- 종류별: same_day 14 · cross_near 165 · cross_far 0
+
+### Hamming 거리 분포 — same_day
+
+| 구간 | 이벤트 수 |
+|---|---|
+| 0~2 | 12 |
+| 3~4 | 0 |
+| 5~6 | 1 |
+| 7~8 | 0 |
+| 9~10 | 1 |
+| 11~12 | 0 |
+| 13+ | 0 |
+
+### Hamming 거리 분포 — cross_near
+
+| 구간 | 이벤트 수 |
+|---|---|
+| 0~2 | 164 |
+| 3~4 | 0 |
+| 5~6 | 1 |
+| 7~8 | 0 |
+| 9~10 | 0 |
+| 11~12 | 0 |
+| 13+ | 0 |
+
 ## 판단
 
 - `day_span >= 30`인 크로스데이 클러스터가 **아직 없다** — 아카이브가 짧기 때문 (28~29일). **현 단계에서는 P1b 추가 방어가 불필요**하며 R1의 티어 임계값 + 제목 Jaccard 게이트만으로 충분하다고 판단.
