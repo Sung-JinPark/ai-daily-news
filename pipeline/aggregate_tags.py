@@ -29,6 +29,13 @@ DATA_DIR = Path("data")
 # signal (M2 of research-archive plan); older days simply drop out of
 # scope but remain reachable via `data/YYYY-MM-DD/articles.json`.
 DEFAULT_WINDOW = 365
+
+# tags_index.json is a *display* index (the /topic pages, WeeklyViz,
+# GlossarySection all read it) and only carries the newest MAX_IDS
+# article ids per tag to keep the JSON small enough for the site build.
+# Full temporal analysis (annual sparklines, cumulative frequencies)
+# should read data/aggregates/entity_mentions.jsonl instead — that
+# stream is append-only and has no per-tag cap, so it never truncates.
 MAX_IDS_PER_TAG = 500
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 

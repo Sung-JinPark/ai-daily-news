@@ -81,6 +81,64 @@ def _relevant(article: dict) -> bool:
     return any(m in title for m in MODEL_ENTITIES)
 
 
+# Simple hand-maintained list of tokens that look like new model names but
+# are NOT in MODEL_ENTITIES yet. When one shows up in a title we log the
+# article to data/models/candidates.jsonl so the vocabulary can be
+# reviewed periodically instead of silently missing coverage.
+CANDIDATE_HINTS = {
+    "GPT-6", "GPT-7", "Claude 4", "Claude 5", "Claude Opus", "Claude Sonnet",
+    "Claude Haiku", "Gemini 3", "Gemini 4", "Llama 4", "Llama 5",
+    "o1", "o3", "Reasoner", "Command R",
+}
+CANDIDATES_FILE = DATA_DIR / "models" / "candidates.jsonl"
+
+
+def _log_candidates(day: str, articles: list[dict]) -> int:
+    """Append rows for articles that mention a plausible new model name
+    but no MODEL_ENTITIES tag. This surfaces vocabulary gaps for human
+    review without disrupting the current whitelist."""
+    if not articles:
+        return 0
+    CANDIDATES_FILE.parent.mkdir(parents=True, exist_ok=True)
+    seen: set[str] = set()
+    if CANDIDATES_FILE.exists():
+        for line in CANDIDATES_FILE.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except Exception:
+                continue
+            seen.add(f"{obj.get('day','')}|{obj.get('article_id','')}|{obj.get('hint','')}")
+    n = 0
+    with CANDIDATES_FILE.open("a", encoding="utf-8", newline="\n") as f:
+        for a in articles:
+            title = a.get("title_original", "") or ""
+            tags = set(a.get("tags", []) or [])
+            if tags & MODEL_ENTITIES:
+                continue  # already covered by whitelist
+            hint = next((h for h in CANDIDATE_HINTS if h in title), None)
+            if not hint:
+                continue
+            key = f"{day}|{a.get('id','')}|{hint}"
+            if key in seen:
+                continue
+            seen.add(key)
+            f.write(json.dumps({
+                "logged_at": datetime.now(timezone.utc).isoformat(),
+                "day": day,
+                "article_id": a.get("id", ""),
+                "url": a.get("url", ""),
+                "title": title,
+                "hint": hint,
+                "source_name": a.get("source_name", ""),
+            }, ensure_ascii=False))
+            f.write("\n")
+            n += 1
+    return n
+
+
 def _build_request(custom_id: str, article: dict) -> dict:
     user = MODEL_FACTS_USER_TEMPLATE.format(
         title=article.get("title_original", ""),
@@ -303,6 +361,9 @@ def main() -> int:
     articles = _load_articles_for_day(args.day)
     candidates = [a for a in articles if _relevant(a)]
     log.info("model_facts: %d/%d articles reference a known model", len(candidates), len(articles))
+    n_hints = _log_candidates(args.day, articles)
+    if n_hints:
+        log.info("model_facts: logged %d vocabulary-gap candidates -> %s", n_hints, CANDIDATES_FILE)
     if not candidates:
         rebuild_index()
         return 0

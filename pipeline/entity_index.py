@@ -152,7 +152,8 @@ def process(days: list[str]) -> tuple[int, int, int]:
             # Cooccurrence: unordered pair (a, b) with a < b.
             sorted_tags = sorted(t for t in tags if t in TAG_VOCAB)
             for t1, t2 in combinations(sorted_tags, 2):
-                # tag_cooccurrence.jsonl treats every pair the same.
+                # tag_cooccurrence.jsonl treats every pair the same — this is
+                # the raw edge list for the tag graph.
                 tag_cooc_out.append(
                     json.dumps(
                         {
@@ -167,9 +168,15 @@ def process(days: list[str]) -> tuple[int, int, int]:
                     )
                 )
                 n_tag_cooc += 1
-                # entity_cooccurrence.jsonl tags the pair with types.
+                # entity_cooccurrence.jsonl is the *narrower* entity graph:
+                # at least one side must be a named model or lab, otherwise
+                # the row is redundant with tag_cooccurrence. This is what
+                # makes model×lab / lab×lab / model×tag network views
+                # meaningful.
                 t1_type = _entity_type(t1)
                 t2_type = _entity_type(t2)
+                if t1_type not in ("model", "lab") and t2_type not in ("model", "lab"):
+                    continue
                 entity_cooc_out.append(
                     json.dumps(
                         {

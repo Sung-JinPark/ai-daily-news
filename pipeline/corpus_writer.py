@@ -140,6 +140,39 @@ def write_members(day: str, clusters: list[dict]) -> None:
     _write_jsonl(path, rows)
 
 
+def _load_skipped_keyed(path: Path) -> tuple[list[str], set[tuple[str, str]]]:
+    """Return (existing raw lines, set of (url_hash, phase) keys). Used to
+    make skipped.jsonl idempotent: re-running the same phase for the same
+    URL on the same day updates the timestamp but does not create a new
+    row, so a CI retry never inflates the audit count.
+    """
+    lines: list[str] = []
+    keys: set[tuple[str, str]] = set()
+    if not path.exists():
+        return lines, keys
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            obj = json.loads(line)
+        except Exception:
+            continue
+        lines.append(line)
+        keys.add((str(obj.get("url_hash", "")), str(obj.get("phase", ""))))
+    return lines, keys
+
+
+def _rewrite_skipped(path: Path, kept: list[str], additions: list[dict]) -> None:
+    with path.open("w", encoding="utf-8", newline="\n") as f:
+        for line in kept:
+            f.write(line)
+            f.write("\n")
+        for row in additions:
+            f.write(json.dumps(row, ensure_ascii=False))
+            f.write("\n")
+
+
 def append_skipped(
     day: str,
     url_hash: str,
@@ -149,19 +182,38 @@ def append_skipped(
     phase: str,
     reason: str,
 ) -> None:
-    """Append one row to skipped.jsonl. Not deduplicated — the same
-    URL can be skipped in multiple phases across runs, and each row
-    is an audit event, not a canonical fact.
+    """Append one row to skipped.jsonl, idempotent by (url_hash, phase).
+
+    A repeated call for the same URL + phase on the same day updates the
+    row in place rather than duplicating it. Different phases for the same
+    URL do accumulate (they are distinct audit events).
     """
     path = _day_dir(day) / "skipped.jsonl"
+    existing_lines, existing_keys = _load_skipped_keyed(path)
+    key = (url_hash, phase)
+    if key in existing_keys:
+        # Rewrite the matching line with the newer timestamp/reason.
+        kept: list[str] = []
+        for line in existing_lines:
+            try:
+                obj = json.loads(line)
+            except Exception:
+                kept.append(line)
+                continue
+            if (str(obj.get("url_hash", "")), str(obj.get("phase", ""))) == key:
+                continue
+            kept.append(line)
+        row = {
+            "logged_at": datetime.now(timezone.utc).isoformat(),
+            "url_hash": url_hash, "url": url, "source_id": source_id,
+            "title": title, "phase": phase, "reason": reason[:500],
+        }
+        _rewrite_skipped(path, kept, [row])
+        return
     row = {
         "logged_at": datetime.now(timezone.utc).isoformat(),
-        "url_hash": url_hash,
-        "url": url,
-        "source_id": source_id,
-        "title": title,
-        "phase": phase,  # "freshness_filter" | "extract" | "body_too_short" | "llm_batch" | "llm_schema"
-        "reason": reason[:500],
+        "url_hash": url_hash, "url": url, "source_id": source_id,
+        "title": title, "phase": phase, "reason": reason[:500],
     }
     with path.open("a", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(row, ensure_ascii=False))
@@ -169,16 +221,30 @@ def append_skipped(
 
 
 def append_skipped_many(day: str, rows: list[dict]) -> None:
-    """Batch variant for freshness filter (dedupe.py) which drops many at once."""
+    """Batch variant for freshness filter, idempotent by (url_hash, phase).
+
+    A same-day re-run of dedupe replaces the previous run's freshness-drop
+    rows in place. Reason: dedupe is deterministic per day, so re-running
+    it should not inflate the audit count.
+    """
     if not rows:
         return
     path = _day_dir(day) / "skipped.jsonl"
+    existing_lines, _ = _load_skipped_keyed(path)
+    new_keys = {(r.get("url_hash", ""), r.get("phase", "")) for r in rows}
+    kept: list[str] = []
+    for line in existing_lines:
+        try:
+            obj = json.loads(line)
+        except Exception:
+            kept.append(line)
+            continue
+        if (str(obj.get("url_hash", "")), str(obj.get("phase", ""))) in new_keys:
+            continue
+        kept.append(line)
     now = datetime.now(timezone.utc).isoformat()
-    with path.open("a", encoding="utf-8", newline="\n") as f:
-        for row in rows:
-            row = {"logged_at": now, **row}
-            f.write(json.dumps(row, ensure_ascii=False))
-            f.write("\n")
+    stamped = [{"logged_at": now, **row} for row in rows]
+    _rewrite_skipped(path, kept, stamped)
 
 
 def update_manifest(day: str) -> None:
