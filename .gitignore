@@ -34,3 +34,9 @@ Thumbs.db
 
 # Local review packages (zips for offline review)
 review/
+
+# Research paper private artifacts — NEVER commit.
+# Analysis code under pipeline/research/ and docs under research/ ARE
+# tracked (reproducibility). Only the accumulated derived data stays
+# private so the paper's raw corpus is not exposed pre-publication.
+data/research_private/
