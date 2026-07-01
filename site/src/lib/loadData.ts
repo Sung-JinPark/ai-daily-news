@@ -90,6 +90,34 @@ function readJson<T>(file: string, fallback: T): T {
   }
 }
 
+// X3 schema-version awareness. The loader keeps its own KNOWN_VERSIONS
+// table so that a pipeline producing schema_version=2 (or higher)
+// prints a build-time warning without failing the build — the operator
+// gets an early heads-up that a migration is due, but a partial deploy
+// where the pipeline advances first still renders.
+const KNOWN_SCHEMA_VERSIONS: Record<string, number> = {
+  "themes/rolling.json": 1,
+  "themes/weekly": 1,
+  "predictions/registry.json": 1,
+  "models/index.json": 1,
+  "reports/quarterly": 1,
+  "corpus/manifest.json": 1,
+  "cluster_continuity.json": 1,
+};
+const _warnedFor = new Set<string>();
+function _checkSchemaVersion(label: string, payload: unknown): void {
+  if (!payload || typeof payload !== "object") return;
+  const v = (payload as { schema_version?: unknown }).schema_version;
+  if (typeof v !== "number") return; // missing = legacy file, treat as v1 silently
+  const known = KNOWN_SCHEMA_VERSIONS[label];
+  if (known == null) return;
+  if (v !== known && !_warnedFor.has(label)) {
+    _warnedFor.add(label);
+    // eslint-disable-next-line no-console
+    console.warn(`[loadData] schema drift on ${label}: file schema_version=${v}, loader expects ${known}. Update the site loader/renderer.`);
+  }
+}
+
 export function loadLatest(): LatestIndex | null {
   const file = path.join(DATA_ROOT, "latest.json");
   if (!fs.existsSync(file)) return null;
@@ -254,12 +282,13 @@ export type QuarterlyReport = {
 export function allQuarterlyReports(): QuarterlyReport[] {
   const dir = path.join(DATA_ROOT, "reports");
   if (!fs.existsSync(dir)) return [];
-  return fs
+  const items = fs
     .readdirSync(dir)
     .filter((f) => /^\d{4}-Q[1-4]\.json$/.test(f))
     .map((f) => readJson<QuarterlyReport | null>(path.join(dir, f), null))
-    .filter((r): r is QuarterlyReport => r !== null)
-    .sort((a, b) => b.quarter.localeCompare(a.quarter));
+    .filter((r): r is QuarterlyReport => r !== null);
+  for (const r of items) _checkSchemaVersion("reports/quarterly", r);
+  return items.sort((a, b) => b.quarter.localeCompare(a.quarter));
 }
 
 export type ModelRow = {
@@ -283,7 +312,9 @@ export type ModelsIndex = {
 export function loadModelsIndex(): ModelsIndex | null {
   const file = path.join(DATA_ROOT, "models", "index.json");
   if (!fs.existsSync(file)) return null;
-  return readJson<ModelsIndex | null>(file, null);
+  const data = readJson<ModelsIndex | null>(file, null);
+  _checkSchemaVersion("models/index.json", data);
+  return data;
 }
 
 export type Prediction = {
@@ -308,6 +339,7 @@ export function loadPredictions(): Prediction[] {
   const file = path.join(DATA_ROOT, "predictions", "registry.json");
   if (!fs.existsSync(file)) return [];
   const data = readJson<{ predictions?: Prediction[] } | null>(file, null);
+  _checkSchemaVersion("predictions/registry.json", data);
   return data?.predictions ?? [];
 }
 
@@ -330,7 +362,9 @@ export type ThemesPayload = {
 export function loadRollingThemes(): ThemesPayload | null {
   const file = path.join(DATA_ROOT, "themes", "rolling.json");
   if (!fs.existsSync(file)) return null;
-  return readJson<ThemesPayload | null>(file, null);
+  const data = readJson<ThemesPayload | null>(file, null);
+  _checkSchemaVersion("themes/rolling.json", data);
+  return data;
 }
 
 export function allArchivedThemes(): ThemesPayload[] {

@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "verify:populated": "node ../scripts/verify-populated.mjs",
+    "verify:realdata": "node ../scripts/verify-realdata.mjs"
   },
   "dependencies": {
     "astro": "^4.16.0",

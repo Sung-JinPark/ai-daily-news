@@ -256,6 +256,7 @@ def main() -> int:
         return 1
 
     payload = {
+        "schema_version": 1,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "window_start": start,
         "window_end": end,

@@ -132,11 +132,13 @@ def filter_fresh(items: list[dict], day_str: str, max_age_days: int = MAX_AGE_DA
 
 def load_continuity() -> dict:
     if not CONTINUITY_FILE.exists():
-        return {"version": 1, "next_id": 0, "entries": []}
+        return {"schema_version": 1, "version": 1, "next_id": 0, "entries": []}
     try:
-        return json.loads(CONTINUITY_FILE.read_text(encoding="utf-8"))
+        data = json.loads(CONTINUITY_FILE.read_text(encoding="utf-8"))
     except Exception:
-        return {"version": 1, "next_id": 0, "entries": []}
+        return {"schema_version": 1, "version": 1, "next_id": 0, "entries": []}
+    data.setdefault("schema_version", 1)
+    return data
 
 
 def save_continuity(data: dict) -> None:

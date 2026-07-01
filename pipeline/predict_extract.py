@@ -61,11 +61,11 @@ VALID_VERDICT = {"confirmed", "contradicted", "still_pending"}
 
 def _load_registry() -> dict:
     if not REGISTRY_FILE.exists():
-        return {"version": 1, "predictions": []}
+        return {"schema_version": 1, "version": 1, "predictions": []}
     try:
         return json.loads(REGISTRY_FILE.read_text(encoding="utf-8"))
     except Exception:
-        return {"version": 1, "predictions": []}
+        return {"schema_version": 1, "version": 1, "predictions": []}
 
 
 def _save_registry(reg: dict) -> None:

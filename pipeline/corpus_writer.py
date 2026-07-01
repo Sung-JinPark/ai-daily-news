@@ -255,7 +255,7 @@ def update_manifest(day: str) -> None:
     day_dir = CORPUS_ROOT / day
     if not day_dir.exists():
         return
-    manifest: dict = {"version": 1, "days": {}}
+    manifest: dict = {"schema_version": 1, "version": 1, "days": {}}
     if MANIFEST_FILE.exists():
         try:
             manifest = json.loads(MANIFEST_FILE.read_text(encoding="utf-8"))

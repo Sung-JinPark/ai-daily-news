@@ -334,6 +334,7 @@ def rebuild_index() -> None:
     INDEX_FILE.write_text(
         json.dumps(
             {
+                "schema_version": 1,
                 "generated_at": datetime.now(timezone.utc).isoformat(),
                 "lookback_days": LOOKBACK_DAYS,
                 "models": out,

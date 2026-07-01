@@ -390,6 +390,7 @@ def main() -> int:
 
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     meta = {
+        "schema_version": 1,
         "quarter": quarter,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "start": gathered["start"],
