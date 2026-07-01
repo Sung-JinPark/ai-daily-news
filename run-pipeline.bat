@@ -14,6 +14,8 @@ echo === entity index (mentions + cooccurrence) ===
 python -m pipeline.entity_index
 echo === embed (voyage summaries, ZE1) ===
 python -m pipeline.embed
+echo === similarity (top-K precompute, ZE2) ===
+python -m pipeline.similarity
 echo === themes (cross-day narratives) ===
 python -m pipeline.themes
 echo === predictions (extract + resolve) ===
