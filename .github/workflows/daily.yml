@@ -106,6 +106,9 @@ jobs:
       - name: Trending
         run: python -m pipeline.trending
 
+      - name: Entity index (mentions + cooccurrence, no LLM)
+        run: python -m pipeline.entity_index
+
       - name: Themes (cross-day narratives)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

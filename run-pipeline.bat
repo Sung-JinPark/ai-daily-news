@@ -10,6 +10,8 @@ echo === rank ===
 python -m pipeline.rank
 echo === trending ===
 python -m pipeline.trending
+echo === entity index (mentions + cooccurrence) ===
+python -m pipeline.entity_index
 echo === themes (cross-day narratives) ===
 python -m pipeline.themes
 echo === predictions (extract + resolve) ===
