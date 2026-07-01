@@ -20,6 +20,8 @@ echo === model facts (per-model comparison table) ===
 python -m pipeline.model_facts
 echo === index ===
 python -m pipeline.index_latest
+echo === build SQLite archive (research export) ===
+python -m pipeline.build_db
 echo.
 echo Done. Data updated in data\YYYY-MM-DD\
 pause

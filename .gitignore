@@ -14,6 +14,11 @@ venv/
 raw/
 .cache/
 
+# Query artifacts — rebuilt by pipeline.build_db from git-tracked JSON/JSONL.
+data/archive.db
+data/archive.db-journal
+data/exports/
+
 # Astro / Node
 site/node_modules/
 site/dist/
@@ -26,3 +31,6 @@ Thumbs.db
 
 # Claude Code local permissions
 .claude/settings.local.json
+
+# Local review packages (zips for offline review)
+review/

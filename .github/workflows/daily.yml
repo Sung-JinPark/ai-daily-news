@@ -133,6 +133,17 @@ jobs:
       - name: Latest index
         run: python -m pipeline.index_latest
 
+      - name: Build SQLite research archive
+        run: python -m pipeline.build_db
+
+      - name: Upload research archive artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: archive-db
+          path: data/exports/archive.db.gz
+          if-no-files-found: warn
+          retention-days: 30
+
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
