@@ -22,10 +22,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       {reports.map((r) => (
         <li class="py-6">
           <a href={`${base}/reports/${r.quarter}`} class="block group">
-            <div class="kicker text-accent mb-1">{r.quarter} · {r.start} ~ {r.end}</div>
+            <div class="kicker text-accent mb-1 flex items-center gap-2 flex-wrap">
+              <span>{r.quarter} · {r.start} ~ {r.end}</span>
+              {typeof r.coverage_ratio === "number" && r.coverage_ratio < 0.6 && (
+                <span class="kicker text-accent bg-accent/10 px-1.5">부분 커버리지</span>
+              )}
+            </div>
             <h2 class="font-serif text-2xl font-black text-ink group-hover:text-accent mb-2 leading-snug break-words">{r.title_ko}</h2>
             <p class="text-[14.5px] text-ink/70 leading-relaxed line-clamp-3">{r.exec_summary_ko}</p>
-            <p class="mt-2 kicker text-ink/45 tabular-nums">기사 {r.n_articles}건 · 활동 {r.n_days}일 · 서사 {r.top_narratives_ko.length}개</p>
+            <p class="mt-2 kicker text-ink/45 tabular-nums">
+              기사 {r.n_articles}건 · 활동 {r.n_days}일 · 서사 {r.top_narratives_ko.length}개
+              {typeof r.coverage_ratio === "number" && typeof r.quarter_total_days === "number" && (
+                <> · 커버리지 {Math.round(r.coverage_ratio * 100)}%</>
+              )}
+            </p>
           </a>
         </li>
       ))}

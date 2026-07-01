@@ -198,12 +198,22 @@ def _gather(quarter: str) -> dict:
         (CATEGORY_KO.get(c, c or "기타"), n) for c, n in cat_counter.most_common()
     ]
 
+    # Coverage disclosure — quarter is 89~92 days but the archive may
+    # only contain a fraction of them (esp. the very first report of the
+    # project's life). Reporting this ratio prevents readers from
+    # mistaking a partial-window synthesis for a full-quarter view.
+    quarter_total_days = (end - start).days + 1
+    coverage_ratio = round(len(days) / quarter_total_days, 3) if quarter_total_days else 0.0
+
     return {
         "quarter": quarter,
         "start": start.isoformat(),
         "end": end.isoformat(),
         "n_days": len(days),
         "n_articles": n_articles,
+        "quarter_total_days": quarter_total_days,
+        "coverage_days": len(days),
+        "coverage_ratio": coverage_ratio,
         "weekly_recaps": weekly_recaps,
         "themes": themes,
         "entities": top_entities,
@@ -297,6 +307,16 @@ def _render_markdown(payload: dict, meta: dict) -> str:
     lines.append("")
     lines.append(f"*{meta['start']} ~ {meta['end']} · 기사 {meta['n_articles']}건 · 활동 {meta['n_days']}일*")
     lines.append("")
+    coverage_days = meta.get("coverage_days", meta.get("n_days", 0))
+    total_days = meta.get("quarter_total_days")
+    ratio = meta.get("coverage_ratio")
+    if total_days and ratio is not None:
+        pct = int(round(ratio * 100))
+        lines.append(f"> **커버리지 고지**: 이 리포트는 분기 {total_days}일 중 {coverage_days}일({pct}%)의 데이터를 반영합니다.")
+        if ratio < 0.6:
+            lines.append("> ")
+            lines.append("> ⚠️ **부분 커버리지** — 분기의 절반 미만이 관측된 상태에서 종합했습니다. 후속 분기에 전체 관점이 완성됩니다.")
+        lines.append("")
     lines.append("## 요약")
     lines.append(payload["exec_summary_ko"])
     lines.append("")
@@ -342,10 +362,12 @@ def main() -> int:
 
     gathered = _gather(quarter)
     log.info(
-        "quarterly %s: %d days, %d articles, %d weekly recaps, %d themes, %d entities, %d pending predictions",
-        quarter, gathered["n_days"], gathered["n_articles"],
-        len(gathered["weekly_recaps"]), len(gathered["themes"]),
-        len(gathered["entities"]), len(gathered["pending_predictions"]),
+        "quarterly %s: %d/%d days (%.1f%% coverage), %d articles, %d weekly recaps, %d themes, %d entities, %d pending predictions",
+        quarter, gathered["coverage_days"], gathered["quarter_total_days"],
+        gathered["coverage_ratio"] * 100,
+        gathered["n_articles"], len(gathered["weekly_recaps"]),
+        len(gathered["themes"]), len(gathered["entities"]),
+        len(gathered["pending_predictions"]),
     )
     if gathered["n_articles"] < 20:
         log.warning("too little data (%d articles) — skipping", gathered["n_articles"])
@@ -374,6 +396,9 @@ def main() -> int:
         "end": gathered["end"],
         "n_days": gathered["n_days"],
         "n_articles": gathered["n_articles"],
+        "quarter_total_days": gathered["quarter_total_days"],
+        "coverage_days": gathered["coverage_days"],
+        "coverage_ratio": gathered["coverage_ratio"],
     }
     (REPORTS_DIR / f"{quarter}.json").write_text(
         json.dumps({**meta, **payload}, ensure_ascii=False, indent=2), encoding="utf-8"

@@ -22,7 +22,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <div class="kicker text-accent mb-2">{report.quarter} · {report.start} ~ {report.end}</div>
     <h1 class="font-serif text-[2rem] sm:text-[2.8rem] font-black text-ink leading-[1.05] mb-4 break-words">{report.title_ko}</h1>
     <p class="kicker text-ink/55 tabular-nums">기사 {report.n_articles.toLocaleString()}건 · 활동 {report.n_days}일 · 발행 {new Date(report.generated_at).toLocaleDateString("ko-KR")}</p>
+    {typeof report.coverage_ratio === "number" && typeof report.quarter_total_days === "number" && (
+      <p class="mt-2 text-[12.5px] text-ink/55 tabular-nums">
+        커버리지 {report.coverage_days ?? report.n_days}/{report.quarter_total_days}일 ({Math.round(report.coverage_ratio * 100)}%)
+      </p>
+    )}
   </header>
+
+  {typeof report.coverage_ratio === "number" && report.coverage_ratio < 0.6 && (
+    <div class="mb-10 border border-accent/40 bg-accent/[0.04] px-4 py-3 text-[13px] text-ink/80 flex flex-wrap items-center gap-2">
+      <span class="kicker text-accent">부분 커버리지</span>
+      <span>분기의 절반 미만 데이터를 반영합니다. 후속 분기에 전체 관점이 완성됩니다.</span>
+    </div>
+  )}
 
   <section class="mb-14 border-l-4 border-accent pl-6">
     <div class="kicker text-accent mb-3">요약</div>
