@@ -408,7 +408,40 @@ def _load_corpus(cur: sqlite3.Cursor) -> tuple[int, int, int]:
     return n_bodies, n_members, n_skipped
 
 
+# Y2: what schema_version this build_db release was written for. Any
+# JSONL producing a different value gets a WARNING but the build
+# continues — partial deploys where the pipeline advances first still
+# produce an archive.
+EXPECTED_AGGREGATE_SCHEMA: dict[str, int] = {
+    "entity_mentions.jsonl": 1,
+    "tag_cooccurrence.jsonl": 1,
+    "entity_cooccurrence.jsonl": 1,
+    "source_health.jsonl": 1,
+    "merge_events.jsonl": 1,
+}
+
+
+def _check_aggregates_manifest() -> None:
+    try:
+        from pipeline.aggregates_manifest import load_manifest
+    except Exception:
+        return
+    manifest = load_manifest()
+    files = (manifest or {}).get("files", {}) or {}
+    for name, want in EXPECTED_AGGREGATE_SCHEMA.items():
+        entry = files.get(name)
+        if not entry:
+            continue  # file has never been produced; not a drift
+        got = int(entry.get("schema_version", 1))
+        if got != want:
+            log.warning(
+                "aggregates schema drift on %s: manifest schema_version=%d, build_db expects %d — update build_db when ready",
+                name, got, want,
+            )
+
+
 def _load_aggregates(cur: sqlite3.Cursor) -> tuple[int, int, int, int]:
+    _check_aggregates_manifest()
     n_m = n_tc = n_ec = n_sh = 0
     agg = DATA_DIR / "aggregates"
     if agg.exists():

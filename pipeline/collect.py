@@ -245,6 +245,10 @@ def _append_health(day: str, rows: list[dict]) -> None:
     for r in rows:
         kept.append(json.dumps({"logged_at": now, **r}, ensure_ascii=False))
     path.write_text("\n".join(kept) + "\n", encoding="utf-8")
+    # Y2: refresh sidecar meta so downstream research consumers can
+    # verify schema_version before reading source_health rows.
+    from pipeline.aggregates_manifest import update_files as _update_manifest
+    _update_manifest(["source_health.jsonl"])
 
 
 if __name__ == "__main__":

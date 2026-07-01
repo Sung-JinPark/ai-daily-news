@@ -414,6 +414,10 @@ def _write_merge_events(day_str: str, events: list[dict]) -> None:
         for e in events:
             f.write(json.dumps(e, ensure_ascii=False))
             f.write("\n")
+    # Y2: refresh sidecar meta after the rewrite. Import lazily to
+    # avoid a hot dependency at module load.
+    from pipeline.aggregates_manifest import update_files as _update_manifest
+    _update_manifest(["merge_events.jsonl"])
 
 
 def main() -> int:

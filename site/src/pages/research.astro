@@ -180,7 +180,7 @@ const quarterlyReports = allQuarterlyReports();
     </ul>
   </section>
 
-  <section>
+  <section class="mb-14">
     <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">스키마 요약</h2>
     <ul class="text-[13px] text-ink/70 space-y-2">
       <li><strong class="text-ink">articles</strong> — 대표 요약 기사. id · day · cluster_id · category · importance_score · tags(별도 테이블).</li>
@@ -192,5 +192,22 @@ const quarterlyReports = allQuarterlyReports();
       <li><strong class="text-ink">weekly_digests · themes · predictions · model_facts</strong> — LLM 파생 인사이트.</li>
       <li><strong class="text-ink">source_health</strong> — 매일 매체별 수집량 · 실패 사유.</li>
     </ul>
+  </section>
+
+  <section>
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">스키마 버전</h2>
+    <p class="text-[13px] text-ink/70 leading-relaxed">
+      JSON envelope 산출물 (<code class="text-[12px] font-mono">themes/rolling.json</code>,
+      <code class="text-[12px] font-mono">predictions/registry.json</code>,
+      <code class="text-[12px] font-mono">models/index.json</code>,
+      <code class="text-[12px] font-mono">reports/*.json</code>,
+      <code class="text-[12px] font-mono">corpus/manifest.json</code>,
+      <code class="text-[12px] font-mono">cluster_continuity.json</code>)에는 <code class="text-[12px] font-mono">schema_version: 1</code> 필드가 있습니다.
+      집계 JSONL 스트림(<code class="text-[12px] font-mono">aggregates/*.jsonl</code>)은
+      본문에 필드를 넣는 대신 <code class="text-[12px] font-mono">data/aggregates/manifest.json</code>
+      사이드카에 파일별 <code class="text-[12px] font-mono">schema_version · sha256 · lines · bytes</code>를 기록합니다.
+      외부 소비자는 <em>파일을 열기 전에</em> 이 매니페스트를 확인해서 버전 호환성을 판단할 수 있습니다.
+      현재 모든 스트림은 v1입니다.
+    </p>
   </section>
 </Base>
