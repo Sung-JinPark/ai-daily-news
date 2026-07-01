@@ -59,6 +59,8 @@ const stats = {
 };
 
 const REPO = "Sung-JinPark/ai-daily-news";
+const releasesUrl = `https://github.com/${REPO}/releases/latest`;
+const releasesListUrl = `https://github.com/${REPO}/releases?q=archive-&expanded=true`;
 const artifactUrl = `https://github.com/${REPO}/actions/workflows/daily.yml`;
 ---
 <Base
@@ -115,14 +117,17 @@ const artifactUrl = `https://github.com/${REPO}/actions/workflows/daily.yml`;
   <section class="mb-14">
     <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">다운로드</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <a href={artifactUrl} target="_blank" rel="noopener noreferrer" class="block border border-ink/15 hover:border-accent p-5 group">
-        <div class="kicker text-accent mb-2">SQLite Archive · daily</div>
-        <h3 class="font-serif text-xl font-bold text-ink group-hover:text-accent mb-2">archive.db.gz</h3>
+      <a href={releasesUrl} target="_blank" rel="noopener noreferrer" class="block border border-ink/15 hover:border-accent p-5 group">
+        <div class="kicker text-accent mb-2">SQLite Archive · weekly</div>
+        <h3 class="font-serif text-xl font-bold text-ink group-hover:text-accent mb-2">archive.db.gz — 최신 릴리스</h3>
         <p class="text-[13px] text-ink/65 leading-relaxed">
-          모든 기사·본문·집계·주간 요약·예측·모델 팩트를 하나의 SQLite 파일로 통합. 매일 최신 파이프라인 런의
-          GitHub Actions 아티팩트로 다운로드 가능 (30일 보관). 로컬에서 <code class="text-[12px] font-mono">sqlite3</code>,
-          pandas, DuckDB 등으로 바로 질의.
+          모든 기사·본문·집계·주간 요약·예측·모델 팩트를 하나의 SQLite 파일로 통합. 매주 월요일 UTC에
+          <a href={releasesListUrl} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">GitHub Release</a>로 발행
+          (익명 다운로드 가능 · 영속 URL). 매일 최신본은
+          <a href={artifactUrl} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">Actions 아티팩트</a>
+          (30일 보관, 로그인 필요)로도 제공.
         </p>
+        <p class="mt-2 text-[12px] text-ink/50">로컬에서 <code class="text-[11px] font-mono">gunzip archive.db.gz</code> 후 <code class="text-[11px] font-mono">sqlite3</code>, pandas, DuckDB 등으로 바로 질의.</p>
       </a>
       <div class="border border-ink/15 p-5">
         <div class="kicker text-accent mb-2">JSONL streams · git</div>

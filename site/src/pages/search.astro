@@ -8,7 +8,10 @@ const categoryPairs = Object.entries(CATEGORIES);
   <header class="mb-8 pb-4 border-b border-ink/15">
     <div class="kicker text-accent mb-2">Search · 전체 DB</div>
     <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">전체 검색</h1>
-    <p class="mt-3 text-[13px] text-ink/60">제목 · 요약 · 인사이트 · 태그 · 매체명에서 단어를 찾습니다.</p>
+    <p class="mt-3 text-[13px] text-ink/60">
+      제목 · 요약 · 인사이트 · 태그 · 매체명에서 단어를 찾습니다.
+      <span class="block mt-1 text-ink/50">최근 90일이 검색 범위입니다. 전 기간 원문·본문 검색은 <a href={`${base}/research`} class="text-accent hover:underline">리서치 아카이브(SQLite)</a>를 이용하세요.</span>
+    </p>
   </header>
 
   <form id="search-form" method="get" class="mb-6 flex items-center gap-2 border-b-2 border-ink pb-3">
@@ -122,7 +125,11 @@ const categoryPairs = Object.entries(CATEGORIES);
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
           return r.json();
         })
-        .then((data: Doc[]) => {
+        .then((payload: Doc[] | { docs: Doc[] }) => {
+          // Accept either the legacy flat array or the wrapped
+          // { window_days, count, docs } envelope emitted by the
+          // sharded endpoint.
+          const data = Array.isArray(payload) ? payload : payload.docs;
           docs = data;
           return data;
         });

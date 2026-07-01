@@ -1,7 +1,15 @@
 import type { APIContext } from "astro";
 import { allDays, loadDay } from "~/lib/loadData";
 
+// The client-side /search page fetches this file in full on every visit.
+// Keeping the payload proportional to the whole archive would push mobile
+// users into 20MB+ downloads within a year, so we cap the search index at
+// the recent WINDOW_DAYS. Longer-range research is served by the SQLite
+// archive advertised on /research.
+const WINDOW_DAYS = 90;
+
 export async function GET(_context: APIContext) {
+  const days = allDays().slice(0, WINDOW_DAYS);
   const docs: Array<{
     id: string;
     day: string;
@@ -18,7 +26,7 @@ export async function GET(_context: APIContext) {
   }> = [];
 
   const seen = new Set<string>();
-  for (const day of allDays()) {
+  for (const day of days) {
     for (const a of loadDay(day).articles) {
       if (seen.has(a.id)) continue;
       seen.add(a.id);
@@ -39,7 +47,8 @@ export async function GET(_context: APIContext) {
     }
   }
 
-  return new Response(JSON.stringify(docs), {
-    headers: { "Content-Type": "application/json; charset=utf-8" },
-  });
+  return new Response(
+    JSON.stringify({ window_days: WINDOW_DAYS, count: docs.length, docs }),
+    { headers: { "Content-Type": "application/json; charset=utf-8" } },
+  );
 }

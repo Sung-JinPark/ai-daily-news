@@ -166,6 +166,35 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
+      - name: Publish research archive as GitHub Release (Mon UTC)
+        if: ${{ github.event_name == 'workflow_dispatch' || (env.DOW_FOR_RELEASE == '' && success()) }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Publish once per ISO week so anonymous downloads have a stable
+          # URL. The tag is the ISO week for the current UTC day; if it
+          # already exists we upload the .gz to the same release so the
+          # link always points to the freshest build of the week.
+          DOW=$(date -u +%u)
+          if [ "$DOW" != "1" ] && [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ]; then
+            echo "skipping release (DOW=$DOW, only Mon UTC unless dispatched)"
+            exit 0
+          fi
+          if [ ! -f data/exports/archive.db.gz ]; then
+            echo "no archive.db.gz to release"
+            exit 0
+          fi
+          WEEK=$(date -u +%G-W%V)
+          TAG="archive-${WEEK}"
+          TITLE="Research archive · ${WEEK}"
+          NOTES="Auto-generated SQLite dump of the current corpus. See /research for schema."
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" data/exports/archive.db.gz --clobber
+          else
+            gh release create "$TAG" data/exports/archive.db.gz \
+              --title "$TITLE" --notes "$NOTES" --latest
+          fi
+
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
