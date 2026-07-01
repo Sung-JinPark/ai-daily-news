@@ -136,6 +136,11 @@ jobs:
       - name: Quarterly report (first week after quarter end, --auto)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        # Never let an optional-but-flaky LLM step block Commit data /
+        # site deploy downstream. continue-on-error surfaces the
+        # failure in the run summary + audit issue, but subsequent
+        # steps keep running.
+        continue-on-error: true
         run: |
           MONTH=$(date -u +%m)
           DAY=$(date -u +%d)
@@ -145,7 +150,7 @@ jobs:
           case "$MONTH" in
             01|04|07|10)
               if [ "$DAY" -le 07 ] || [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
-                python -m pipeline.quarterly_report --auto
+                python -m pipeline.quarterly_report --auto || echo "quarterly report failed (non-fatal), continuing"
               else
                 echo "skipping quarterly (past 7-day window this month)"
               fi

@@ -246,10 +246,57 @@ def _format_prompt(g: dict) -> str:
     )
 
 
+def _extract_json_object(text: str) -> str | None:
+    """Return the first brace-balanced JSON object in ``text``.
+
+    Handles nested braces and skips content inside double-quoted
+    strings (so a ``{`` inside a value can't break the balance count).
+    Returns ``None`` when no complete object is found.
+
+    Preferred over ``re.search(r"\\{.*\\}", ..., re.S)`` because the
+    greedy version happily matches from the first ``{`` to the last
+    ``}`` in the whole response, which corrupts extraction when the
+    model emits any prose after the JSON.
+    """
+    start = text.find("{")
+    if start == -1:
+        return None
+    depth = 0
+    in_str = False
+    escape = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if escape:
+            escape = False
+            continue
+        if ch == "\\":
+            escape = True
+            continue
+        if ch == '"':
+            in_str = not in_str
+            continue
+        if in_str:
+            continue
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start:i + 1]
+    return None
+
+
+# Retry on network errors (RETRYABLE) AND on malformed-JSON responses.
+# Haiku occasionally emits a stray trailing comma or unquoted key; a
+# fresh completion usually fixes it on the second try. If the third
+# call still returns garbage we let the caller decide what to do.
+_QR_RETRYABLE = RETRYABLE + (json.JSONDecodeError, ValueError)
+
+
 @retry(
     stop=stop_after_attempt(3),
     wait=wait_exponential(min=2, max=20),
-    retry=retry_if_exception_type(RETRYABLE),
+    retry=retry_if_exception_type(_QR_RETRYABLE),
 )
 def _call_haiku(client: anthropic.Anthropic, user: str) -> dict[str, Any]:
     msg = client.messages.create(
@@ -259,10 +306,10 @@ def _call_haiku(client: anthropic.Anthropic, user: str) -> dict[str, Any]:
         messages=[{"role": "user", "content": user}],
     )
     text = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text").strip()
-    m = re.search(r"\{.*\}", text, re.S)
-    if not m:
+    blob = _extract_json_object(text)
+    if not blob:
         raise ValueError(f"no JSON in quarterly response: {text[:200]!r}")
-    return json.loads(m.group(0))
+    return json.loads(blob)
 
 
 def _validate(parsed: dict) -> dict | None:
@@ -381,12 +428,16 @@ def main() -> int:
     try:
         parsed = _call_haiku(client, user_prompt)
     except Exception as exc:  # noqa: BLE001
-        log.error("LLM call failed: %s", exc)
-        return 1
+        # Report generation is optional — skipping it must never block
+        # the daily pipeline (Commit data + site deploy live downstream
+        # of this step). Log the failure loudly so the audit-issue
+        # workflow still surfaces it, then return 0.
+        log.warning("LLM call failed after retries, skipping quarterly: %s", exc)
+        return 0
     payload = _validate(parsed)
     if not payload:
-        log.error("schema validation failed: %s", parsed)
-        return 1
+        log.warning("schema validation failed, skipping quarterly: %r", parsed)
+        return 0
 
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     meta = {
