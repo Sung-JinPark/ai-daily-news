@@ -353,6 +353,122 @@ export function allClusters(maxDays: number = 30, minMembers: number = 2): Clust
   return out.sort((a, b) => b.last_seen.localeCompare(a.last_seen));
 }
 
+/**
+ * Load all articles published within the calendar week `weekStr` (YYYY-Www).
+ * Uses `weekToDateRange` to compute Mon/Sun and pulls each matching day file.
+ */
+export function loadWeekArticles(weekStr: string): Article[] {
+  const { monday, sunday } = weekToDateRange(weekStr);
+  const out: Article[] = [];
+  for (const day of allDays()) {
+    if (day >= monday && day <= sunday) {
+      out.push(...loadDay(day).articles);
+    }
+  }
+  return out;
+}
+
+export type CoverageCluster = {
+  cluster_id: string;
+  title: string;
+  category: string;
+  outlets: string[];
+  cluster_size: number;
+  importance_score: number;
+};
+
+export type CoverageMatrix = {
+  outlets: string[];
+  clusters: CoverageCluster[];
+  cells: Array<{ outlet: string; cluster_id: string; importance: number }>;
+};
+
+/**
+ * Build a matrix of outlets × top clusters for the given week.
+ * Cluster score = cluster_size × max importance. Outlets sorted by article count.
+ */
+export function weeklyCoverageMatrix(weekStr: string, maxClusters = 12, maxOutlets = 15): CoverageMatrix {
+  const arts = loadWeekArticles(weekStr);
+  const byCluster = new Map<string, Article[]>();
+  for (const a of arts) {
+    if (!a.cluster_id) continue;
+    const arr = byCluster.get(a.cluster_id) ?? [];
+    arr.push(a);
+    byCluster.set(a.cluster_id, arr);
+  }
+  const clusters: CoverageCluster[] = [];
+  for (const [cid, group] of byCluster) {
+    const rep = group.slice().sort((a, b) => b.importance_score - a.importance_score)[0];
+    const outletsSet = new Set<string>();
+    let clusterSize = 1;
+    for (const a of group) {
+      outletsSet.add(a.source_name);
+      for (const co of a.also_covered_by ?? []) outletsSet.add(co);
+      clusterSize = Math.max(clusterSize, a.cluster_size ?? 1);
+    }
+    clusters.push({
+      cluster_id: cid,
+      title: rep.title_original,
+      category: rep.category,
+      outlets: Array.from(outletsSet),
+      cluster_size: clusterSize,
+      importance_score: rep.importance_score,
+    });
+  }
+  clusters.sort((a, b) => {
+    const sa = a.cluster_size * a.importance_score;
+    const sb = b.cluster_size * b.importance_score;
+    if (sb !== sa) return sb - sa;
+    return b.importance_score - a.importance_score;
+  });
+  const topClusters = clusters.slice(0, maxClusters);
+
+  const outletCounts = new Map<string, number>();
+  for (const a of arts) outletCounts.set(a.source_name, (outletCounts.get(a.source_name) ?? 0) + 1);
+  const outletList = Array.from(outletCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, maxOutlets)
+    .map(([o]) => o);
+  const outletSet = new Set(outletList);
+
+  const cells: Array<{ outlet: string; cluster_id: string; importance: number }> = [];
+  for (const c of topClusters) {
+    for (const o of c.outlets) {
+      if (outletSet.has(o)) {
+        cells.push({ outlet: o, cluster_id: c.cluster_id, importance: c.importance_score });
+      }
+    }
+  }
+  return { outlets: outletList, clusters: topClusters, cells };
+}
+
+/**
+ * For each outlet in the week, the fraction of its articles falling in each category.
+ * Only outlets with ≥3 weekly articles are returned.
+ */
+export function weeklyOutletCategoryMix(weekStr: string, minArticles = 3): Array<{
+  outlet: string;
+  total: number;
+  counts: Record<string, number>;
+}> {
+  const arts = loadWeekArticles(weekStr);
+  const byOutlet = new Map<string, Record<string, number>>();
+  const totals = new Map<string, number>();
+  for (const a of arts) {
+    const row = byOutlet.get(a.source_name) ?? {};
+    row[a.category] = (row[a.category] ?? 0) + 1;
+    byOutlet.set(a.source_name, row);
+    totals.set(a.source_name, (totals.get(a.source_name) ?? 0) + 1);
+  }
+  const out: Array<{ outlet: string; total: number; counts: Record<string, number> }> = [];
+  for (const [outlet, counts] of byOutlet) {
+    const total = totals.get(outlet) ?? 0;
+    if (total < minArticles) continue;
+    out.push({ outlet, total, counts });
+  }
+  return out.sort((a, b) => b.total - a.total);
+}
+
 export function loadCluster(clusterId: string, maxDays: number = 30): ClusterSummary | null {
   const grouped = articlesByCluster(maxDays);
   const arr = grouped.get(clusterId);

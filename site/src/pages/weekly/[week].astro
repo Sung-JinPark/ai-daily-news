@@ -2,7 +2,15 @@
 import Base from "~/layouts/Base.astro";
 import NewsTile from "~/components/NewsTile.astro";
 import WeeklyViz from "~/components/WeeklyViz.astro";
-import { allWeeklyDigests, articleById, type Article } from "~/lib/loadData";
+import CoverageMatrix from "~/components/CoverageMatrix.astro";
+import OutletCategoryBars from "~/components/OutletCategoryBars.astro";
+import {
+  allWeeklyDigests,
+  articleById,
+  weeklyCoverageMatrix,
+  weeklyOutletCategoryMix,
+  type Article,
+} from "~/lib/loadData";
 
 export async function getStaticPaths() {
   return allWeeklyDigests().map((d) => ({
@@ -30,6 +38,8 @@ const themesResolved = digest.themes.map((t) => ({
   articles: resolve(t.article_ids),
 }));
 
+const coverage = weeklyCoverageMatrix(digest.week);
+const outletMix = weeklyOutletCategoryMix(digest.week);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const genLabel = new Date(digest.generated_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
 ---
@@ -51,6 +61,24 @@ const genLabel = new Date(digest.generated_at).toLocaleString("ko-KR", { timeZon
   </section>
 
   <WeeklyViz digest={digest} heading="태그 시각화" />
+
+  {(coverage.clusters.length > 0 || outletMix.length > 0) && (
+    <section class="mb-14">
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">매체별 커버리지</h2>
+      {coverage.clusters.length > 0 && (
+        <>
+          <p class="kicker text-ink/50 mb-3">이번 주 상위 스토리 × 활동 매체</p>
+          <CoverageMatrix matrix={coverage} />
+        </>
+      )}
+      {outletMix.length > 0 && (
+        <div class="mt-10">
+          <p class="kicker text-ink/50 mb-3">매체별 카테고리 편중</p>
+          <OutletCategoryBars rows={outletMix} limit={12} />
+        </div>
+      )}
+    </section>
+  )}
 
   {themesResolved.length > 0 && (
     <section class="mb-14">

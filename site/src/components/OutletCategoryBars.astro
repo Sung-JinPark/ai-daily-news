@@ -1,0 +1,42 @@
+---
+import { CATEGORIES } from "~/lib/loadData";
+interface Props {
+  rows: Array<{ outlet: string; total: number; counts: Record<string, number> }>;
+  limit?: number;
+}
+const { rows, limit = 10 } = Astro.props;
+const CATEGORY_COLOR: Record<string, string> = {
+  model_research: "#be1622",
+  business: "#0369a1",
+  policy: "#7c3aed",
+  product: "#059669",
+  hardware: "#d97706",
+  community: "#64748b",
+};
+const catOrder = Object.keys(CATEGORIES);
+const shown = rows.slice(0, limit);
+---
+{shown.length > 0 && (
+  <div class="space-y-2">
+    {shown.map(({ outlet, total, counts }) => (
+      <div class="flex items-center gap-2 text-[12px]">
+        <span class="shrink-0 w-32 truncate text-ink/75 font-medium">{outlet}</span>
+        <div class="flex-1 h-3 flex bg-ink/5 overflow-hidden">
+          {catOrder.map((cat) => {
+            const n = counts[cat] ?? 0;
+            if (n === 0) return null;
+            const pct = (n / total) * 100;
+            return (
+              <div
+                class="h-full"
+                style={`width:${pct}%; background:${CATEGORY_COLOR[cat]};`}
+                title={`${CATEGORIES[cat]} · ${n} / ${total}`}
+              ></div>
+            );
+          })}
+        </div>
+        <span class="shrink-0 w-8 text-right tabular-nums text-ink/60">{total}</span>
+      </div>
+    ))}
+  </div>
+)}
