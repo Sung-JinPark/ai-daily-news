@@ -271,7 +271,82 @@ def _call_resolve(client: anthropic.Anthropic, predictions_block: str, articles_
     return json.loads(m.group(0))
 
 
-def resolve_predictions(client: anthropic.Anthropic, dry_run: bool = False) -> int:
+_KEYWORD_STOP = {
+    "그", "이", "저", "것", "수", "때", "년", "월", "일", "일까지", "내년",
+    "and", "or", "the", "of", "for", "to", "in", "on", "will", "by", "at",
+    "a", "an", "is", "are", "as",
+}
+_KEYWORD_RE = re.compile(r"[A-Za-z][A-Za-z0-9\-\.]*|[\uac00-\ud7a3]{2,}")
+
+
+def _prediction_keywords(pred: dict) -> set[str]:
+    """Return a bag of casefolded keywords worth matching against
+    article haystacks. Uses claim_ko + who; drops short/common tokens.
+    """
+    parts: list[str] = []
+    parts.append(str(pred.get("claim_ko", "")))
+    parts.append(str(pred.get("who", "")))
+    parts.append(str(pred.get("article_title", "")))
+    joined = " ".join(parts)
+    out: set[str] = set()
+    for tok in _KEYWORD_RE.findall(joined):
+        t = tok.lower()
+        if len(t) < 2:
+            continue
+        if t in _KEYWORD_STOP:
+            continue
+        out.add(t)
+    return out
+
+
+def _article_haystack(a: dict) -> str:
+    return " ".join([
+        str(a.get("title_original", "")),
+        str(a.get("summary_ko", "")),
+        " ".join(a.get("tags") or []),
+        str(a.get("source_name", "")),
+    ]).lower()
+
+
+def _rank_articles_for_batch(
+    articles: list[dict],
+    chunk: list[dict],
+    top_k: int,
+    fallback_k: int,
+) -> list[dict]:
+    """Return up to top_k articles most relevant to any prediction in
+    the chunk, ranked by keyword overlap × recency. When overlap is
+    empty (nothing matched), fall back to the most-recent fallback_k so
+    the resolver isn't left blind."""
+    if not articles:
+        return []
+    kw_by_pred = [_prediction_keywords(p) for p in chunk]
+    all_kw: set[str] = set().union(*kw_by_pred) if kw_by_pred else set()
+    if not all_kw:
+        return articles[:fallback_k]
+    scored: list[tuple[float, int, dict]] = []
+    for idx, a in enumerate(articles):
+        hay = _article_haystack(a)
+        hits = sum(1 for k in all_kw if k in hay)
+        if hits == 0:
+            continue
+        # Recency tiebreak: smaller idx means newer (articles already
+        # come in newest-first from _load_recent_articles).
+        score = hits - idx * 0.001
+        scored.append((score, idx, a))
+    scored.sort(key=lambda t: t[0], reverse=True)
+    picked = [a for _, _, a in scored[:top_k]]
+    if not picked:
+        return articles[:fallback_k]
+    return picked
+
+
+def resolve_predictions(
+    client: anthropic.Anthropic,
+    dry_run: bool = False,
+    top_k: int = 20,
+    fallback_k: int = 10,
+) -> int:
     registry = _load_registry()
     today = date.today()
     stale = [p for p in registry["predictions"] if _pending_needs_resolution(p, today)]
@@ -287,22 +362,38 @@ def resolve_predictions(client: anthropic.Anthropic, dry_run: bool = False) -> i
     if dry_run:
         for p in stale[:10]:
             log.info("  needs review: %s (%s) horizon=%s", p["id"], p["claim_ko"][:60], p["horizon"])
+        # Log the pre-filter effect on the first batch so operators can
+        # eyeball the reduction without a live LLM call.
+        first_chunk = stale[:15]
+        if first_chunk:
+            filtered = _rank_articles_for_batch(articles, first_chunk, top_k, fallback_k)
+            log.info(
+                "resolve dry-run: first batch context %d/%d articles (top_k=%d, fallback_k=%d)",
+                len(filtered), min(len(articles), 120), top_k, fallback_k,
+            )
         return 0
 
     updated = 0
-    # Batch predictions in groups of 15 with all recent articles.
-    articles_block_full = "\n".join(
-        f"[{a['id']}] ({a['day']}) {a.get('title_original','')} — {a.get('summary_ko','')[:200]}"
-        for a in articles[:120]  # cap tokens
-    )
     for i in range(0, len(stale), 15):
         chunk = stale[i : i + 15]
+        # N4: pre-filter articles to the batch's keyword footprint
+        # instead of dumping the last 30 days on every call. Cuts the
+        # articles_block token load to roughly top_k lines.
+        filtered = _rank_articles_for_batch(articles, chunk, top_k, fallback_k)
+        articles_block = "\n".join(
+            f"[{a['id']}] ({a['day']}) {a.get('title_original','')} — {a.get('summary_ko','')[:200]}"
+            for a in filtered
+        )
+        log.info(
+            "resolve batch %d/%d: %d predictions, %d articles in context",
+            i // 15 + 1, (len(stale) + 14) // 15, len(chunk), len(filtered),
+        )
         preds_block = "\n".join(
             f"[{p['id']}] ({p['day_made']} · {p['who']} · horizon={p['horizon']}) {p['claim_ko']}"
             for p in chunk
         )
         try:
-            parsed = _call_resolve(client, preds_block, articles_block_full, len(chunk))
+            parsed = _call_resolve(client, preds_block, articles_block, len(chunk))
         except Exception as exc:  # noqa: BLE001
             log.warning("resolve chunk failed: %s", exc)
             continue
@@ -337,6 +428,10 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--day", default=today_str())
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--resolve-top-k", type=int, default=20,
+                        help="Pass B: articles per batch after keyword pre-filter (N4)")
+    parser.add_argument("--resolve-fallback-k", type=int, default=10,
+                        help="Pass B: fallback recent-article count when no keyword overlap")
     parser.add_argument("--skip-extract", action="store_true")
     parser.add_argument("--skip-resolve", action="store_true")
     args = parser.parse_args()
@@ -352,7 +447,12 @@ def main() -> int:
 
     if not args.skip_resolve:
         try:
-            resolve_predictions(client, dry_run=args.dry_run)
+            resolve_predictions(
+                client,
+                dry_run=args.dry_run,
+                top_k=args.resolve_top_k,
+                fallback_k=args.resolve_fallback_k,
+            )
         except Exception as exc:  # noqa: BLE001
             log.error("resolve pass failed: %s", exc)
 
