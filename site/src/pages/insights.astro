@@ -1,7 +1,7 @@
 ---
 import Base from "~/layouts/Base.astro";
 import ThemeCard from "~/components/ThemeCard.astro";
-import { allQuarterlyReports, articleById, loadModelsIndex, loadPredictions, loadRollingThemes } from "~/lib/loadData";
+import { articleById, loadModelsIndex, loadPredictions, loadRollingThemes } from "~/lib/loadData";
 
 const rolling = loadRollingThemes();
 const predictions = loadPredictions();
@@ -21,8 +21,8 @@ const recentPending = predictions
   .slice(0, 3);
 
 const topModels = (models?.models ?? []).slice(0, 5);
-const reports = allQuarterlyReports();
-const latestReport = reports[0] ?? null;
+// Quarterly reports live under /research (single ownership) rather than
+// being duplicated here — the hub card below just points at the portal.
 
 const STATUS_LABEL: Record<string, string> = {
   pending: "대기",
@@ -149,24 +149,13 @@ const STATUS_COLOR: Record<string, string> = {
   </section>
 
   <section class="mt-14 pt-8 border-t border-ink/15">
-    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">더 깊이 · 리포트 · 데이터</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <a href={`${base}/reports`} class="block border border-ink/15 hover:border-accent p-5 group">
-        <div class="kicker text-accent mb-1">분기 리포트</div>
-        <h3 class="font-serif text-lg font-bold text-ink group-hover:text-accent mb-1">
-          {latestReport ? `${latestReport.quarter} · ${latestReport.title_ko}` : "발행 예정"}
-        </h3>
-        <p class="text-[13px] text-ink/65 leading-relaxed line-clamp-3">
-          {latestReport?.exec_summary_ko ?? "분기말에 주간 recap·테마·엔티티·예측을 종합한 리포트가 자동 생성됩니다."}
-        </p>
-      </a>
-      <a href={`${base}/research`} class="block border border-ink/15 hover:border-accent p-5 group">
-        <div class="kicker text-accent mb-1">리서치 포털</div>
-        <h3 class="font-serif text-lg font-bold text-ink group-hover:text-accent mb-1">SQLite 아카이브 · 노트북</h3>
-        <p class="text-[13px] text-ink/65 leading-relaxed">
-          축적 상태 · archive.db.gz 다운로드 · JSONL 스트림 · 스타터 노트북. 시계열·네트워크 분석 재료 전부.
-        </p>
-      </a>
-    </div>
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">더 깊이 · 데이터 · 리포트</h2>
+    <a href={`${base}/research`} class="block border border-ink/15 hover:border-accent p-5 group">
+      <div class="kicker text-accent mb-1">리서치 포털</div>
+      <h3 class="font-serif text-lg font-bold text-ink group-hover:text-accent mb-1">SQLite 아카이브 · 노트북 · 분기 리포트</h3>
+      <p class="text-[13px] text-ink/65 leading-relaxed">
+        축적 상태 · archive.db.gz 다운로드 · JSONL 스트림 · 스타터 노트북 · 분기별 종합 리포트 링크 등 리서치 자원 전부를 한 페이지에 모았습니다.
+      </p>
+    </a>
   </section>
 </Base>
