@@ -24,7 +24,7 @@ import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-from pipeline.research import trend_metrics
+from pipeline.research import network_metrics, trend_metrics
 
 PRIVATE_ROOT = Path("data") / "research_private"
 SNAPSHOTS_DIR = PRIVATE_ROOT / "snapshots"
@@ -71,6 +71,7 @@ def _write_report(snapshot_dir: Path, day: str, stats: dict) -> None:
         f"- Distinct entities: {stats['distinct_entities']}",
         f"- Velocity rows: {stats['velocity_rows']}",
         f"- Acceleration rows: {stats['acceleration_rows']}",
+        f"- Network: {stats['network']['nodes']} nodes · {stats['network']['edges']} edges · density {stats['network']['density']:.3f}",
         "",
         "## Top velocity gainers today",
         "",
@@ -104,12 +105,26 @@ def run(day: str, dry_run: bool = False) -> dict:
 
     bursts = trend_metrics.burst_scores(velocity)
 
+    # Network layer — full-corpus co-occurrence collapsed to a weighted graph.
+    cooc_df = network_metrics.load_cooccurrence_df()
+    print(f"[snapshot] loaded {len(cooc_df):,} co-occurrence rows from {network_metrics.COOCCURRENCE_FILE}")
+    edges = network_metrics.edge_list(cooc_df)
+    graph = network_metrics.build_graph(edges)
+    node_df = network_metrics.node_metrics(graph)
+    graph_stats = network_metrics.graph_metrics(graph)
+    communities = network_metrics.louvain_communities(graph)
+    print(
+        f"[snapshot] network: {graph_stats['nodes']} nodes / {graph_stats['edges']} edges / "
+        f"{len(communities['community_id'].unique()) if not communities.empty else 0} communities"
+    )
+
     gainers, losers = trend_metrics.top_movers(velocity, day, k=5)
     stats = {
         "mention_rows": int(len(mentions_df)),
         "distinct_entities": int(mentions_df["entity"].nunique()) if not mentions_df.empty else 0,
         "velocity_rows": int(len(velocity)),
         "acceleration_rows": int(len(acceleration)),
+        "network": graph_stats,
         "top_gainers": gainers.to_dict(orient="records"),
         "top_losers": losers.to_dict(orient="records"),
     }
@@ -125,6 +140,12 @@ def run(day: str, dry_run: bool = False) -> dict:
     velocity.to_parquet(snapshot_dir / "entity_velocity.parquet", index=False)
     acceleration.to_parquet(snapshot_dir / "entity_acceleration.parquet", index=False)
     bursts.to_parquet(snapshot_dir / "entity_bursts.parquet", index=False)
+    edges.to_parquet(snapshot_dir / "network_edges.parquet", index=False)
+    node_df.to_parquet(snapshot_dir / "network_nodes.parquet", index=False)
+    communities.to_parquet(snapshot_dir / "network_communities.parquet", index=False)
+    (snapshot_dir / "network_metrics.json").write_text(
+        json.dumps(graph_stats, indent=2, sort_keys=True), encoding="utf-8",
+    )
 
     _write_report(snapshot_dir, day, stats)
 
@@ -144,6 +165,7 @@ def run(day: str, dry_run: bool = False) -> dict:
             "velocity_rows": stats["velocity_rows"],
             "acceleration_rows": stats["acceleration_rows"],
         },
+        "network": stats["network"],
         "files": files,
     }
     manifest["schema_version"] = SCHEMA_VERSION
