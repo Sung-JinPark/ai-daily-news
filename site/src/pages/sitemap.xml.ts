@@ -1,5 +1,5 @@
 import type { APIContext } from "astro";
-import { CATEGORIES, allClusters, allDays, allTrendingKeywords, allWeeklyDigests, loadDay, loadTagsIndex } from "~/lib/loadData";
+import { CATEGORIES, CLUSTER_WINDOW_DAYS, allClusters, allDays, allTrendingKeywords, allWeeklyDigests, loadDay, loadTagsIndex } from "~/lib/loadData";
 import { PLAYERS } from "~/lib/loadPlayers";
 
 function url(site: URL, base: string, path: string): string {
@@ -48,7 +48,7 @@ export async function GET(context: APIContext) {
   for (const t of allTrendingKeywords(30)) {
     urls.push({ loc: url(site, base, `/trending/${encodeURIComponent(t.keyword)}`) });
   }
-  for (const c of allClusters(30, 2)) {
+  for (const c of allClusters(CLUSTER_WINDOW_DAYS, 2)) {
     urls.push({ loc: url(site, base, `/story/${c.cluster_id}`), lastmod: `${c.last_seen}T00:00:00Z` });
   }
 

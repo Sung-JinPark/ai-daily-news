@@ -1,6 +1,6 @@
 ---
 import Sparkline from "~/components/Sparkline.astro";
-import { loadCluster, type Theme } from "~/lib/loadData";
+import { CLUSTER_WINDOW_DAYS, loadCluster, type Theme } from "~/lib/loadData";
 interface Props {
   theme: Theme;
   compact?: boolean;
@@ -11,7 +11,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 // Pick up to 3 constituent stories with representative titles.
 const stories = theme.cluster_ids
   .slice(0, 3)
-  .map((cid) => loadCluster(cid, 30))
+  .map((cid) => loadCluster(cid, CLUSTER_WINDOW_DAYS))
   .filter((c) => c !== null)
   .map((c) => {
     const rep = c!.articles

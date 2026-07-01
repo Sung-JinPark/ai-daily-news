@@ -1,18 +1,18 @@
 ---
 import Base from "~/layouts/Base.astro";
 import NewsTile from "~/components/NewsTile.astro";
-import { CATEGORIES, allClusters, loadCluster, relatedClusters, type Article } from "~/lib/loadData";
+import { CATEGORIES, CLUSTER_WINDOW_DAYS, allClusters, loadCluster, relatedClusters, type Article } from "~/lib/loadData";
 
 export async function getStaticPaths() {
-  return allClusters(30, 2).map((c) => ({
+  return allClusters(CLUSTER_WINDOW_DAYS, 2).map((c) => ({
     params: { cluster: c.cluster_id },
     props: { clusterId: c.cluster_id },
   }));
 }
 
 const { clusterId } = Astro.props as { clusterId: string };
-const story = loadCluster(clusterId, 30);
-const related = story ? relatedClusters(clusterId, 6, 30) : [];
+const story = loadCluster(clusterId, CLUSTER_WINDOW_DAYS);
+const related = story ? relatedClusters(clusterId, 6, CLUSTER_WINDOW_DAYS) : [];
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 function fmtDay(iso: string): string {

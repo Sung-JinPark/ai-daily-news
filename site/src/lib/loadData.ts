@@ -388,7 +388,12 @@ let _clusterCacheDays = -1;
  * Group all articles from the recent window by cluster_id, sorted oldest→newest per cluster.
  * Cached across calls within the same build.
  */
-export function articlesByCluster(maxDays: number = 30): Map<string, Article[]> {
+// Cluster window matches pipeline/dedupe.py CONTINUITY_DAYS (90). Keeping
+// these in lockstep prevents story timelines from silently truncating the
+// oldest members of a persistent cluster.
+export const CLUSTER_WINDOW_DAYS = 90;
+
+export function articlesByCluster(maxDays: number = CLUSTER_WINDOW_DAYS): Map<string, Article[]> {
   if (_clusterCache && _clusterCacheDays === maxDays) return _clusterCache;
   const map = new Map<string, Article[]>();
   const seenIds = new Set<string>();
@@ -451,7 +456,7 @@ function summarizeCluster(clusterId: string, articles: Article[]): ClusterSummar
  * OR spanning ≥2 days OR any single article covered by multiple outlets.
  * Used for /story/[cluster] getStaticPaths and for Related-Story lookups.
  */
-export function allClusters(maxDays: number = 30, minMembers: number = 2): ClusterSummary[] {
+export function allClusters(maxDays: number = CLUSTER_WINDOW_DAYS, minMembers: number = 2): ClusterSummary[] {
   const grouped = articlesByCluster(maxDays);
   const out: ClusterSummary[] = [];
   for (const [id, articles] of grouped) {
@@ -580,7 +585,7 @@ export function weeklyOutletCategoryMix(weekStr: string, minArticles = 3): Array
   return out.sort((a, b) => b.total - a.total);
 }
 
-export function loadCluster(clusterId: string, maxDays: number = 30): ClusterSummary | null {
+export function loadCluster(clusterId: string, maxDays: number = CLUSTER_WINDOW_DAYS): ClusterSummary | null {
   const grouped = articlesByCluster(maxDays);
   const arr = grouped.get(clusterId);
   if (!arr || arr.length === 0) return null;
@@ -591,7 +596,7 @@ export function loadCluster(clusterId: string, maxDays: number = 30): ClusterSum
  * Related clusters ranked by tag Jaccard × recency boost.
  * Returns clusters that share ≥1 tag with the given cluster.
  */
-export function relatedClusters(clusterId: string, limit: number = 6, maxDays: number = 30): Array<ClusterSummary & { overlap: number }> {
+export function relatedClusters(clusterId: string, limit: number = 6, maxDays: number = CLUSTER_WINDOW_DAYS): Array<ClusterSummary & { overlap: number }> {
   const target = loadCluster(clusterId, maxDays);
   if (!target || target.tags.length === 0) return [];
   const targetTags = new Set(target.tags);
