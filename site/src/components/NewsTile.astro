@@ -1,6 +1,7 @@
 ---
 import { CATEGORIES, loadGlossary, type Article } from "~/lib/loadData";
 import { linkifyGlossary } from "~/lib/glossaryLinker";
+import StoryLink from "~/components/StoryLink.astro";
 interface Props {
   article: Article;
   rank?: number;
@@ -91,6 +92,7 @@ if (!institution && article.category === "model_research") {
         ))}
       </div>
     )}
+    <StoryLink article={article} size="sm" />
     {showSummary && (
       <div class="group/tip relative">
         <p class="text-sm text-ink/70 leading-relaxed line-clamp-3 cursor-default" set:html={summaryHtml}></p>

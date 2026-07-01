@@ -1,5 +1,6 @@
 ---
 import { CATEGORIES, type Article } from "~/lib/loadData";
+import StoryLink from "~/components/StoryLink.astro";
 interface Props {
   article: Article;
   rank: number;
@@ -75,5 +76,6 @@ const publishedLabel = article.published
         </div>
       )}
     </div>
+    <StoryLink article={article} size="sm" />
   </div>
 </article>

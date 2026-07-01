@@ -1,0 +1,23 @@
+---
+import type { Article } from "~/lib/loadData";
+interface Props {
+  article: Article;
+  size?: "sm" | "md";
+}
+const { article, size = "md" } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+// Only render if the story is worth exploring — multi-outlet OR obviously part of a persistent cluster (has cluster_id).
+const worth = (article.cluster_size ?? 1) > 1;
+const tCls = size === "sm"
+  ? "text-[10px]"
+  : "text-[11px]";
+---
+{worth && (
+  <a
+    href={`${base}/story/${article.cluster_id}`}
+    class:list={["inline-flex items-center gap-1 tracking-kicker uppercase font-semibold text-accent hover:underline", tCls]}
+    aria-label={`이 스토리 전체 보기 — ${article.cluster_size}개 매체`}
+  >
+    스토리 · {article.cluster_size}개 매체 →
+  </a>
+)}

@@ -235,3 +235,154 @@ export function loadRecentDays(maxDays: number = 7): Article[] {
   }
   return out;
 }
+
+/**
+ * Compute the ISO week's (Monday, Sunday) range for a given YYYY-Www key.
+ * Mirrors pipeline/weekly.py:44-52.
+ */
+export function weekToDateRange(weekStr: string): { monday: string; sunday: string } {
+  const m = weekStr.match(/^(\d{4})-W(\d{1,2})$/);
+  if (!m) throw new Error(`invalid week: ${weekStr}`);
+  const year = parseInt(m[1], 10);
+  const week = parseInt(m[2], 10);
+  // ISO week 1 = week containing Jan 4th. Compute Monday of that week, then add (week-1)*7.
+  const jan4 = new Date(Date.UTC(year, 0, 4));
+  const jan4Dow = jan4.getUTCDay() || 7; // 1..7 with Sunday=7
+  const weekOneMon = new Date(jan4);
+  weekOneMon.setUTCDate(jan4.getUTCDate() - (jan4Dow - 1));
+  const mon = new Date(weekOneMon);
+  mon.setUTCDate(weekOneMon.getUTCDate() + (week - 1) * 7);
+  const sun = new Date(mon);
+  sun.setUTCDate(mon.getUTCDate() + 6);
+  const iso = (d: Date) => d.toISOString().slice(0, 10);
+  return { monday: iso(mon), sunday: iso(sun) };
+}
+
+export type ClusterSummary = {
+  cluster_id: string;
+  articles: Article[];
+  first_seen: string;
+  last_seen: string;
+  category: string;
+  tags: string[];
+  outlets: string[];
+  member_count: number;
+  day_span: number;
+};
+
+let _clusterCache: Map<string, Article[]> | null = null;
+let _clusterCacheDays = -1;
+
+/**
+ * Group all articles from the recent window by cluster_id, sorted oldest→newest per cluster.
+ * Cached across calls within the same build.
+ */
+export function articlesByCluster(maxDays: number = 30): Map<string, Article[]> {
+  if (_clusterCache && _clusterCacheDays === maxDays) return _clusterCache;
+  const map = new Map<string, Article[]>();
+  const seenIds = new Set<string>();
+  for (const a of loadRecentDays(maxDays)) {
+    if (!a.cluster_id) continue;
+    if (seenIds.has(a.id)) continue;
+    seenIds.add(a.id);
+    const arr = map.get(a.cluster_id) ?? [];
+    arr.push(a);
+    map.set(a.cluster_id, arr);
+  }
+  for (const arr of map.values()) {
+    arr.sort((a, b) => (a.published ?? a.fetched_at).localeCompare(b.published ?? b.fetched_at));
+  }
+  _clusterCache = map;
+  _clusterCacheDays = maxDays;
+  return map;
+}
+
+function summarizeCluster(clusterId: string, articles: Article[]): ClusterSummary {
+  const outlets = Array.from(new Set(articles.map((a) => a.source_name))).sort();
+  const catCount = new Map<string, number>();
+  const tagCount = new Map<string, number>();
+  for (const a of articles) {
+    catCount.set(a.category, (catCount.get(a.category) ?? 0) + 1);
+    for (const t of a.tags ?? []) tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
+  }
+  let dominantCategory = articles[0]?.category ?? "";
+  let bestCat = 0;
+  for (const [c, n] of catCount) if (n > bestCat) { bestCat = n; dominantCategory = c; }
+  const tags = Array.from(tagCount.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([t]) => t);
+  const first = articles[0];
+  const last = articles[articles.length - 1];
+  const firstSeen = (first.published ?? first.fetched_at).slice(0, 10);
+  const lastSeen = (last.published ?? last.fetched_at).slice(0, 10);
+  const daySpan = Math.max(
+    1,
+    Math.round(
+      (Date.parse(lastSeen) - Date.parse(firstSeen)) / 86400000,
+    ) + 1,
+  );
+  return {
+    cluster_id: clusterId,
+    articles,
+    first_seen: firstSeen,
+    last_seen: lastSeen,
+    category: dominantCategory,
+    tags,
+    outlets,
+    member_count: articles.length,
+    day_span: daySpan,
+  };
+}
+
+/**
+ * Enumerate meaningful clusters — those with ≥minMembers articles across days
+ * OR spanning ≥2 days OR any single article covered by multiple outlets.
+ * Used for /story/[cluster] getStaticPaths and for Related-Story lookups.
+ */
+export function allClusters(maxDays: number = 30, minMembers: number = 2): ClusterSummary[] {
+  const grouped = articlesByCluster(maxDays);
+  const out: ClusterSummary[] = [];
+  for (const [id, articles] of grouped) {
+    const summary = summarizeCluster(id, articles);
+    const multiOutlet = articles.some((a) => (a.cluster_size ?? 1) > 1);
+    if (summary.member_count >= minMembers || summary.day_span >= 2 || multiOutlet) {
+      out.push(summary);
+    }
+  }
+  return out.sort((a, b) => b.last_seen.localeCompare(a.last_seen));
+}
+
+export function loadCluster(clusterId: string, maxDays: number = 30): ClusterSummary | null {
+  const grouped = articlesByCluster(maxDays);
+  const arr = grouped.get(clusterId);
+  if (!arr || arr.length === 0) return null;
+  return summarizeCluster(clusterId, arr);
+}
+
+/**
+ * Related clusters ranked by tag Jaccard × recency boost.
+ * Returns clusters that share ≥1 tag with the given cluster.
+ */
+export function relatedClusters(clusterId: string, limit: number = 6, maxDays: number = 30): Array<ClusterSummary & { overlap: number }> {
+  const target = loadCluster(clusterId, maxDays);
+  if (!target || target.tags.length === 0) return [];
+  const targetTags = new Set(target.tags);
+  const now = Date.now();
+  const scored: Array<ClusterSummary & { overlap: number; score: number }> = [];
+  for (const c of allClusters(maxDays, 1)) {
+    if (c.cluster_id === clusterId) continue;
+    const shared = c.tags.filter((t) => targetTags.has(t));
+    if (shared.length === 0) continue;
+    const union = new Set([...targetTags, ...c.tags]).size;
+    const jaccard = shared.length / union;
+    const daysOld = Math.max(0, (now - Date.parse(c.last_seen)) / 86400000);
+    const recency = Math.max(0, 1 - daysOld / 14);
+    const score = jaccard * (0.6 + 0.4 * recency);
+    scored.push({ ...c, overlap: shared.length, score });
+  }
+  return scored
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ score: _score, ...rest }) => rest);
+}

@@ -1,0 +1,134 @@
+---
+import Base from "~/layouts/Base.astro";
+import NewsTile from "~/components/NewsTile.astro";
+import { CATEGORIES, allClusters, loadCluster, relatedClusters, type Article } from "~/lib/loadData";
+
+export async function getStaticPaths() {
+  return allClusters(30, 2).map((c) => ({
+    params: { cluster: c.cluster_id },
+    props: { clusterId: c.cluster_id },
+  }));
+}
+
+const { clusterId } = Astro.props as { clusterId: string };
+const story = loadCluster(clusterId, 30);
+const related = story ? relatedClusters(clusterId, 6, 30) : [];
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+function fmtDay(iso: string): string {
+  const d = new Date(iso + "T00:00:00Z");
+  return d.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", month: "long", day: "numeric" });
+}
+function fmtTime(iso: string | null | undefined): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleTimeString("ko-KR", { timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit" });
+}
+
+// Group by day for timeline sections.
+const byDay = new Map<string, Article[]>();
+if (story) {
+  for (const a of story.articles) {
+    const day = (a.published ?? a.fetched_at).slice(0, 10);
+    const arr = byDay.get(day) ?? [];
+    arr.push(a);
+    byDay.set(day, arr);
+  }
+}
+const days = Array.from(byDay.keys()).sort();
+
+// Representative article — highest importance, break ties by earliest published (the outlet who broke it).
+const rep = story
+  ? [...story.articles].sort((a, b) => {
+      if (b.importance_score !== a.importance_score) return b.importance_score - a.importance_score;
+      return (a.published ?? "").localeCompare(b.published ?? "");
+    })[0]
+  : null;
+const originator = story
+  ? [...story.articles].sort((a, b) => (a.published ?? a.fetched_at).localeCompare(b.published ?? b.fetched_at))[0]
+  : null;
+
+const relatedArticles: Article[] = related
+  .map((c) => c.articles[c.articles.length - 1])
+  .filter(Boolean);
+---
+<Base
+  title={story ? `${rep!.title_original} — 스토리` : "스토리를 찾을 수 없습니다"}
+  description={story ? `${story.member_count}개 매체가 다룬 스토리를 시간 순으로 정리합니다.` : undefined}
+>
+  {!story && (
+    <p class="text-ink/60">이 스토리는 최근 30일 데이터에 없습니다.</p>
+  )}
+
+  {story && rep && (
+    <>
+      <a href={`${base}/`} class="kicker text-ink/55 hover:text-accent inline-block mb-5">← HOT</a>
+
+      <header class="mb-10 pb-6 border-b-2 border-ink">
+        <div class="kicker text-accent mb-2">Story · {story.cluster_id}</div>
+        <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-[1.1] mb-4 break-words">
+          {rep.title_original}
+        </h1>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] tracking-kicker uppercase font-semibold text-ink/60">
+          <a href={`${base}/category/${story.category}`} class="text-accent hover:underline">
+            {CATEGORIES[story.category] ?? story.category}
+          </a>
+          <span>{fmtDay(story.first_seen)} → {fmtDay(story.last_seen)}</span>
+          <span>{story.member_count}개 기사 · {story.outlets.length}개 매체</span>
+          {originator && originator.id !== rep.id && (
+            <span class="normal-case tracking-normal font-normal text-ink/50">
+              최초 보도: {originator.source_name} · {fmtDay(originator.published?.slice(0,10) ?? story.first_seen)}
+            </span>
+          )}
+        </div>
+        {story.tags.length > 0 && (
+          <div class="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-[11px] tracking-kicker uppercase font-semibold">
+            {story.tags.map((t) => (
+              <a href={`${base}/topic/${encodeURIComponent(t)}`} class="text-ink/60 hover:text-accent">#{t}</a>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <section class="mb-14">
+        <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">타임라인</h2>
+        <div class="space-y-10">
+          {days.map((day) => (
+            <div>
+              <h3 class="kicker text-ink/55 mb-3 tabular-nums">{fmtDay(day)}</h3>
+              <ul class="border-l-2 border-ink/15 pl-5 space-y-6">
+                {byDay.get(day)!.map((a) => (
+                  <li class="relative">
+                    <span class="absolute -left-[calc(1.25rem+5px)] top-2 w-2.5 h-2.5 bg-accent"></span>
+                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] tracking-kicker uppercase font-semibold text-ink/60 mb-1">
+                      <a href={`${base}/source/${a.source_id}`} class="hover:text-ink">{a.source_name}</a>
+                      {a.published && (
+                        <span class="normal-case tracking-normal font-normal text-ink/50 tabular-nums">{fmtTime(a.published)}</span>
+                      )}
+                      <span class="text-accent" title={`중요도 ${a.importance_score}`}>{"★".repeat(a.importance_score)}</span>
+                    </div>
+                    <h4 class="font-serif text-lg font-black leading-snug text-ink break-words">
+                      <a href={a.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+                        {a.title_original}
+                      </a>
+                    </h4>
+                    <p class="mt-1.5 text-[14.5px] text-ink/75 leading-relaxed">{a.summary_ko}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {relatedArticles.length > 0 && (
+        <section>
+          <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">관련 스토리</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+            {relatedArticles.map((a) => <NewsTile article={a} size="sm" />)}
+          </div>
+        </section>
+      )}
+    </>
+  )}
+</Base>
