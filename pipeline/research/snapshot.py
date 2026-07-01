@@ -24,7 +24,7 @@ import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-from pipeline.research import network_metrics, trend_metrics
+from pipeline.research import network_metrics, report, rollup, trend_metrics
 
 PRIVATE_ROOT = Path("data") / "research_private"
 SNAPSHOTS_DIR = PRIVATE_ROOT / "snapshots"
@@ -148,6 +148,11 @@ def run(day: str, dry_run: bool = False) -> dict:
     )
 
     _write_report(snapshot_dir, day, stats)
+
+    # Long-horizon rollups + Δ report against the previous snapshot.
+    rollup_stats = rollup.run()
+    stats["rollup"] = rollup_stats
+    report.run(day)
 
     # Update manifest with input hash + file inventory for reproducibility.
     manifest = _load_manifest()
