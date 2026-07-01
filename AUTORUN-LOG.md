@@ -13,3 +13,10 @@
 - [ ] Z4 — finish arXiv enrichment backlog + notebook example cells
 
 ## Progress
+
+### [DONE] Z1 — trust_flag backward-compat + retroactive backfill
+
+- New `pipeline/research/backfill_trust_flag.py` derives the flag from each snapshot's **stored** nodes/edges (thresholds imported from `network_metrics` — cannot drift). Deliberately does NOT re-run snapshots for past days: `snapshot.py` always reads the full current corpus regardless of `--day`, so a re-run would falsify history. This also auto-satisfies the "no field other than trust_flag changes" requirement.
+- `report.py` Δ section now shows `- trust: <today> (prior: <prior>)` via `.get(..., "unknown")` — tolerant of pre-P2 snapshots.
+- Notebook 02 Δ cell filters to numeric keys before subtraction (string trust_flag would have broken it) and prints trust separately.
+- Verified: dry-run → 1 candidate (2026-06-30); real run added `trust_flag=ok`; second run 0 backfilled (idempotent). Installed matplotlib 3.11.0; `jupyter nbconvert --execute` on both notebooks exit 0. Regenerated 2026-07-01 delta report renders the trust line.

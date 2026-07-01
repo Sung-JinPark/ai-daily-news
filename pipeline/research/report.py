@@ -132,6 +132,12 @@ def build_delta_report(day: str) -> str:
             delta = cur - old if isinstance(cur, (int, float)) and isinstance(old, (int, float)) else 0
             fmt = ".4f" if isinstance(cur, float) else "g"
             lines.append(f"- {key}: {cur:{fmt}} (Δ {_fmt_delta(delta)})")
+        # trust_flag is a string, not a delta — show side by side.
+        # .get with a default keeps pre-P2 snapshots (no key) readable.
+        lines.append(
+            f"- trust: {today_net.get('trust_flag', 'unknown')} "
+            f"(prior: {prior_net.get('trust_flag', 'unknown')})"
+        )
         lines.append("")
 
     return "\n".join(lines) + "\n"
