@@ -127,13 +127,56 @@ def sync(dry_run: bool = False) -> dict:
     return {"uploaded": uploaded, "skipped": skipped, "missing_credentials": False}
 
 
+def self_check() -> dict:
+    """Credential-free audit of what an actual sync would touch.
+
+    Walks ``data/research_private/`` locally, enumerates every file
+    under it (including any historical backlog — the walker uses
+    ``rglob('*')`` so nothing is skipped), and prints a summary. This
+    lets the researcher confirm the backup would be complete before
+    handing GCP credentials over. It never contacts the network and
+    never requires ``google-cloud-storage`` to be installed.
+    """
+    prefix = os.environ.get("GCS_PREFIX", DEFAULT_PREFIX).strip("/")
+    print(f"[gcs] self-check - target prefix: gs://<bucket>/{prefix}/")
+    if not PRIVATE_ROOT.exists():
+        print(f"[gcs] {PRIVATE_ROOT} does not exist - nothing would upload.")
+        return {"files": 0, "bytes": 0, "root_exists": False}
+    files = list(_iter_files(PRIVATE_ROOT))
+    total_bytes = sum(p.stat().st_size for p in files)
+    by_subdir: dict[str, dict[str, int]] = {}
+    for p in files:
+        rel = p.relative_to(PRIVATE_ROOT)
+        top = rel.parts[0] if len(rel.parts) > 1 else "."
+        b = by_subdir.setdefault(top, {"files": 0, "bytes": 0})
+        b["files"] += 1
+        b["bytes"] += p.stat().st_size
+    print(f"[gcs] would upload {len(files)} files ({total_bytes:,} bytes) from {PRIVATE_ROOT}")
+    for top in sorted(by_subdir):
+        s = by_subdir[top]
+        print(f"[gcs]   {top:<20} {s['files']:>5} files  {s['bytes']:>12,} bytes")
+    creds_ready = bool(os.environ.get("GCS_BUCKET")) and bool(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
+    print(f"[gcs] credentials configured: {creds_ready}")
+    return {
+        "files": len(files),
+        "bytes": total_bytes,
+        "root_exists": True,
+        "by_subdir": by_subdir,
+        "credentials_configured": creds_ready,
+    }
+
+
 def main() -> None:
     import argparse
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dry-run", action="store_true", help="log only, no uploads")
+    parser.add_argument("--dry-run", action="store_true", help="log only, no uploads (requires credentials)")
+    parser.add_argument("--self-check", action="store_true", help="offline audit - no credentials needed")
     args = parser.parse_args()
-    sync(dry_run=args.dry_run)
+    if args.self_check:
+        self_check()
+    else:
+        sync(dry_run=args.dry_run)
 
 
 if __name__ == "__main__":

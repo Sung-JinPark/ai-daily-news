@@ -26,6 +26,20 @@ COOCCURRENCE_FILE = DATA_DIR / "aggregates" / "entity_cooccurrence.jsonl"
 # to enter the analytic graph — filters one-off spurious co-occurrences.
 MIN_EDGE_WEIGHT = 1
 
+# Below these thresholds PageRank / Louvain lose statistical meaning:
+# tiny graphs converge to trivial partitions and centrality collapses
+# onto whichever node the algorithm hit first. Metrics still emit so
+# the time series is unbroken, but the ``trust_flag`` marks them so
+# downstream analysis / the paper can drop untrusted early days.
+MIN_NODES_FOR_TRUST = 5
+MIN_EDGES_FOR_TRUST = 10
+
+# Louvain seed — pinned so repeated snapshots of the same graph yield
+# identical community assignments. Do NOT change between snapshots
+# without documenting a methodology bump; downstream evolution diffs
+# rely on stable community_ids.
+LOUVAIN_SEED = 42
+
 
 def load_cooccurrence_df(path: Path = COOCCURRENCE_FILE) -> pd.DataFrame:
     """Return the raw co-occurrence log as a DataFrame with columns
@@ -119,7 +133,14 @@ def node_metrics(g: nx.Graph) -> pd.DataFrame:
 
 
 def graph_metrics(g: nx.Graph) -> dict:
-    """Whole-graph summary statistics."""
+    """Whole-graph summary statistics.
+
+    Adds a ``trust_flag`` field: ``"ok"`` when the graph is large
+    enough for PageRank / Louvain to be statistically meaningful,
+    ``"small_graph"`` otherwise. Metrics still emit either way — a
+    downstream consumer can filter untrusted rows without losing the
+    time series.
+    """
     n = g.number_of_nodes()
     m = g.number_of_edges()
     if n == 0:
@@ -127,9 +148,11 @@ def graph_metrics(g: nx.Graph) -> dict:
             "nodes": 0, "edges": 0, "density": 0.0,
             "avg_clustering": 0.0, "connected_components": 0,
             "largest_component_size": 0,
+            "trust_flag": "empty",
         }
     components = list(nx.connected_components(g))
     largest = max((len(c) for c in components), default=0)
+    trust = "ok" if n >= MIN_NODES_FOR_TRUST and m >= MIN_EDGES_FOR_TRUST else "small_graph"
     return {
         "nodes": int(n),
         "edges": int(m),
@@ -137,18 +160,31 @@ def graph_metrics(g: nx.Graph) -> dict:
         "avg_clustering": float(nx.average_clustering(g, weight="weight")) if m > 0 else 0.0,
         "connected_components": int(len(components)),
         "largest_component_size": int(largest),
+        "trust_flag": trust,
     }
 
 
-def louvain_communities(g: nx.Graph, seed: int = 42) -> pd.DataFrame:
+def louvain_communities(g: nx.Graph, seed: int = LOUVAIN_SEED) -> pd.DataFrame:
     """Return ``(entity, community_id)`` frame using the Louvain
-    weight-aware modularity algorithm. Deterministic on ``seed``.
+    weight-aware modularity algorithm.
+
+    Determinism: ``seed`` defaults to ``LOUVAIN_SEED`` (module-level
+    constant). Community IDs are assigned by sorting parts by (size
+    descending, min-entity-name) so that trivial permutations of the
+    algorithm's internal set ordering do not renumber communities
+    across runs. This is what makes evolution diffs between snapshots
+    honest — a paper "moved from community 2 to community 0" now
+    reflects real motion, not label shuffling.
     """
     if g.number_of_edges() == 0:
         return pd.DataFrame(columns=["entity", "community_id"])
     parts = nx.community.louvain_communities(g, weight="weight", seed=seed)
+    # Canonicalize part order: bigger first; tiebreak on the
+    # lexicographically smallest member so equal-sized parts still
+    # get a stable id.
+    ordered = sorted(parts, key=lambda s: (-len(s), min(s) if s else ""))
     rows = []
-    for cid, members in enumerate(parts):
+    for cid, members in enumerate(ordered):
         for e in members:
             rows.append({"entity": e, "community_id": cid})
     return pd.DataFrame(rows)

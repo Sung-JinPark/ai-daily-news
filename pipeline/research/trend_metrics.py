@@ -52,15 +52,23 @@ def load_mentions_df(path: Path = MENTIONS_FILE) -> pd.DataFrame:
 def daily_counts(df: pd.DataFrame) -> pd.DataFrame:
     """Return a long-format frame ``(day, entity, entity_type, count)``
     where every entity has one row per calendar day between its first
-    and last observation (zero-fill inclusive)."""
+    and last observation (zero-fill inclusive).
+
+    The calendar range is filled with ``pd.date_range`` — not the set
+    of days that happened to have any mention — so a missing snapshot
+    day (pipeline outage, weekend gap) does not silently compress a
+    multi-day change into a single ``diff`` step. Velocity computed
+    from this grid is one calendar day per step by construction.
+    """
     if df.empty:
         return pd.DataFrame(columns=["day", "entity", "entity_type", "count"])
     grouped = (
         df.groupby(["day", "entity", "entity_type"]).size().rename("count").reset_index()
     )
-    # Build the full (entity × day) grid so subsequent diffs are dense.
-    all_days = sorted(grouped["day"].unique())
-    all_days_idx = pd.to_datetime(all_days)
+    # Full calendar-day range between first and last observed day so
+    # subsequent diffs are one-calendar-day steps, not step-count steps.
+    observed = pd.to_datetime(sorted(grouped["day"].unique()))
+    all_days_idx = pd.date_range(observed.min(), observed.max(), freq="D")
     filled: list[pd.DataFrame] = []
     for (entity, entity_type), sub in grouped.groupby(["entity", "entity_type"]):
         sub_indexed = sub.set_index(pd.to_datetime(sub["day"]))["count"]
