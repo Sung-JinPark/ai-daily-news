@@ -1,0 +1,93 @@
+---
+import Base from "~/layouts/Base.astro";
+import { loadTagsIndex } from "~/lib/loadData";
+import { PLAYERS, countsForPlayers } from "~/lib/loadPlayers";
+
+const counts = countsForPlayers(30);
+const topPlayers = [...PLAYERS]
+  .map((p) => ({ player: p, count: counts[p.id] ?? 0 }))
+  .filter((r) => r.count > 0)
+  .sort((a, b) => b.count - a.count)
+  .slice(0, 8);
+
+const tagsIdx = loadTagsIndex();
+const topTags = tagsIdx
+  ? Object.entries(tagsIdx.tags)
+      .sort((a, b) => b[1].count - a[1].count)
+      .slice(0, 24)
+      .map(([tag, info]) => ({ tag, count: info.count }))
+  : [];
+const maxTagCount = topTags[0]?.count ?? 1;
+
+function sizeClass(count: number): string {
+  const ratio = count / Math.max(maxTagCount, 1);
+  if (ratio > 0.75) return "text-3xl font-black";
+  if (ratio > 0.5) return "text-2xl font-bold";
+  if (ratio > 0.25) return "text-xl font-semibold";
+  if (ratio > 0.1) return "text-lg font-medium";
+  return "text-base text-ink/55";
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<Base
+  title="엔티티 — AI Daily News"
+  description="주요 랩·기업(플레이어) 활동량 + 최근 30일 토픽 클라우드를 한 페이지로."
+>
+  <header class="mb-10 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Entity Layer</div>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">엔티티</h1>
+    <p class="mt-3 text-[13px] text-ink/60">누가(플레이어) · 무엇(토픽)을 중심으로 훑어봅니다. 각 하위 페이지에서 전체 목록 · 대시보드로 이어집니다.</p>
+  </header>
+
+  <section class="mb-14">
+    <div class="flex items-baseline justify-between mb-5 pb-3 border-b-2 border-ink">
+      <h2 class="kicker text-ink">플레이어 · 최근 30일 활동량 TOP {String(topPlayers.length).padStart(2, "0")}</h2>
+      <a href={`${base}/players`} class="kicker text-accent hover:underline">전체 플레이어 →</a>
+    </div>
+    {topPlayers.length > 0 ? (
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {topPlayers.map(({ player, count }) => (
+          <a
+            href={`${base}/players/${player.id}`}
+            class="flex items-center gap-3 p-3 border border-ink/10 hover:border-accent group"
+          >
+            <span
+              class="shrink-0 w-10 h-10 flex items-center justify-center text-white font-serif font-black text-lg"
+              style={`background-color: ${player.color}`}
+            >{player.name.charAt(0)}</span>
+            <div class="min-w-0 flex-1">
+              <div class="font-serif font-bold text-ink group-hover:text-accent truncate">{player.name}</div>
+              <div class="kicker text-accent tabular-nums">{String(count).padStart(2, "0")}건</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="text-ink/50 text-[13px]">최근 30일 활동 데이터가 없습니다.</p>
+    )}
+  </section>
+
+  <section>
+    <div class="flex items-baseline justify-between mb-5 pb-3 border-b-2 border-ink">
+      <h2 class="kicker text-ink">토픽 클라우드 · TOP {topTags.length}</h2>
+      <a href={`${base}/topic`} class="kicker text-accent hover:underline">전체 토픽 →</a>
+    </div>
+    {topTags.length > 0 ? (
+      <div class="flex flex-wrap gap-x-5 gap-y-3 items-baseline font-serif">
+        {topTags.map(({ tag, count }) => (
+          <a
+            href={`${base}/topic/${encodeURIComponent(tag)}`}
+            class={`${sizeClass(count)} text-ink hover:text-accent transition-colors`}
+            title={`${count}건`}
+          >
+            #{tag}
+            <span class="text-[10px] text-ink/40 ml-0.5 tabular-nums tracking-normal font-sans">{count}</span>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="text-ink/50 text-[13px]">아직 태그 인덱스가 비어 있습니다.</p>
+    )}
+  </section>
+</Base>
