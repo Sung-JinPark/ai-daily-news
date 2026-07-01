@@ -109,6 +109,11 @@ jobs:
       - name: Entity index (mentions + cooccurrence, no LLM)
         run: python -m pipeline.entity_index
 
+      - name: Embed summaries (Voyage-3, ZE1)
+        env:
+          VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
+        run: python -m pipeline.embed
+
       - name: Themes (cross-day narratives)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

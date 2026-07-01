@@ -12,6 +12,8 @@ echo === trending ===
 python -m pipeline.trending
 echo === entity index (mentions + cooccurrence) ===
 python -m pipeline.entity_index
+echo === embed (voyage summaries, ZE1) ===
+python -m pipeline.embed
 echo === themes (cross-day narratives) ===
 python -m pipeline.themes
 echo === predictions (extract + resolve) ===
