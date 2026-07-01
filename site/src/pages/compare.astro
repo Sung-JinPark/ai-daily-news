@@ -27,8 +27,8 @@ function fmtDay(iso: string): string {
     <p class="text-ink/50">아직 추출된 모델 사실이 없습니다. 다음 파이프라인 실행 이후 채워집니다.</p>
   ) : (
     <>
-      <div class="mb-6 flex flex-wrap items-center gap-3 text-[12px]">
-        <label class="flex items-center gap-2">
+      <div class="mb-6 flex flex-wrap items-center gap-3 text-[12px]" role="group" aria-label="모델 표 정렬">
+        <label for="sort-select" class="flex items-center gap-2">
           <span class="kicker text-ink/50">정렬</span>
           <select id="sort-select" class="border border-ink/25 px-2 py-1 bg-white">
             <option value="latest">최신 언급 순</option>
@@ -36,7 +36,7 @@ function fmtDay(iso: string): string {
             <option value="alpha">모델명 순</option>
           </select>
         </label>
-        <span id="model-count" class="ml-auto kicker text-ink/50 tabular-nums">{idx.models.length}개 모델</span>
+        <span id="model-count" class="ml-auto kicker text-ink/50 tabular-nums" aria-live="polite">{idx.models.length}개 모델</span>
       </div>
 
       <div class="overflow-x-auto -mx-4 px-4">

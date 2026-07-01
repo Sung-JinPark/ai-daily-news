@@ -45,8 +45,8 @@ const sources = Array.from(sourceSet).sort();
     <p class="text-ink/50">아직 추적 중인 예측이 없습니다. 다음 파이프라인 실행 이후 채워집니다.</p>
   ) : (
     <>
-      <div class="mb-6 flex flex-wrap items-center gap-3 text-[12px]">
-        <label class="flex items-center gap-2">
+      <div class="mb-6 flex flex-wrap items-center gap-3 text-[12px]" role="group" aria-label="예측 필터">
+        <label for="filter-status" class="flex items-center gap-2">
           <span class="kicker text-ink/50">상태</span>
           <select id="filter-status" class="border border-ink/25 px-2 py-1 bg-white">
             <option value="">전체</option>
@@ -55,14 +55,14 @@ const sources = Array.from(sourceSet).sort();
             <option value="contradicted">반박됨</option>
           </select>
         </label>
-        <label class="flex items-center gap-2">
+        <label for="filter-source" class="flex items-center gap-2">
           <span class="kicker text-ink/50">매체</span>
           <select id="filter-source" class="border border-ink/25 px-2 py-1 bg-white">
             <option value="">전체</option>
             {sources.map((s) => <option value={s}>{s}</option>)}
           </select>
         </label>
-        <span id="filter-count" class="ml-auto kicker text-ink/50 tabular-nums">{sorted.length}건</span>
+        <span id="filter-count" class="ml-auto kicker text-ink/50 tabular-nums" aria-live="polite">{sorted.length}건</span>
       </div>
 
       <ul id="pred-list" class="divide-y divide-ink/15">
