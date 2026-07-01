@@ -1,0 +1,196 @@
+---
+import Base from "~/layouts/Base.astro";
+import Sparkline from "~/components/Sparkline.astro";
+import {
+  allDays,
+  loadCorpusManifest,
+  loadDay,
+  loadSkippedRows,
+  loadSourceHealth,
+} from "~/lib/loadData";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// --- Skipped phase breakdown ---
+const skipped = loadSkippedRows();
+const phaseCounts = new Map<string, number>();
+for (const s of skipped) {
+  phaseCounts.set(s.phase, (phaseCounts.get(s.phase) ?? 0) + 1);
+}
+const totalSkipped = skipped.length;
+const phaseList = Array.from(phaseCounts.entries()).sort((a, b) => b[1] - a[1]);
+
+const PHASE_LABEL: Record<string, string> = {
+  freshness_filter: "신선도 필터 (7일 이상 오래됨)",
+  extract: "본문 추출 실패",
+  body_too_short: "본문 부족 · RSS 요약 없음",
+  llm_batch: "LLM 배치 응답 실패",
+  llm_schema: "LLM 스키마 검증 실패",
+  test_phase: "테스트",
+};
+
+// --- Corpus coverage per day (bodies/members/skipped presence) ---
+const manifest = loadCorpusManifest();
+const days = allDays().slice().reverse(); // oldest first for the timeline
+const coverage = days.map((day) => {
+  const c = manifest.days[day];
+  const dayArticles = loadDay(day).articles.length;
+  return {
+    day,
+    articles: dayArticles,
+    bodies: c?.bodies?.lines ?? 0,
+    members: c?.members?.lines ?? 0,
+    skipped: c?.skipped?.lines ?? 0,
+    has_bodies: (c?.bodies?.lines ?? 0) > 0,
+    has_members: (c?.members?.lines ?? 0) > 0,
+  };
+});
+const bodyDays = coverage.filter((c) => c.has_bodies).length;
+const memberDays = coverage.filter((c) => c.has_members).length;
+
+// --- Source health summary ---
+const healthRows = loadSourceHealth();
+const bySource = new Map<string, { total: number; days: Set<string>; zeroDays: number; lastDay: string; lastError: string }>();
+for (const r of healthRows) {
+  const s = bySource.get(r.source_id) ?? { total: 0, days: new Set<string>(), zeroDays: 0, lastDay: "", lastError: "" };
+  s.total += r.items ?? 0;
+  s.days.add(r.day);
+  if ((r.items ?? 0) === 0) s.zeroDays += 1;
+  if (r.day > s.lastDay) {
+    s.lastDay = r.day;
+    s.lastError = r.error ?? "";
+  }
+  bySource.set(r.source_id, s);
+}
+const sourceSummary = Array.from(bySource.entries())
+  .map(([source_id, s]) => ({
+    source_id,
+    total: s.total,
+    days: s.days.size,
+    zeroDays: s.zeroDays,
+    lastDay: s.lastDay,
+    lastError: s.lastError,
+  }))
+  .sort((a, b) => b.total - a.total);
+
+const sparklineBodies = coverage.map((c) => ({ day: c.day, count: c.bodies }));
+const sparklineArticles = coverage.map((c) => ({ day: c.day, count: c.articles }));
+
+const PHASE_COLOR: Record<string, string> = {
+  freshness_filter: "#64748b",
+  extract: "#d97706",
+  body_too_short: "#7c3aed",
+  llm_batch: "#be1622",
+  llm_schema: "#0369a1",
+  test_phase: "#94a3b8",
+};
+
+// Build a stacked bar per phase for the top row visualization.
+const maxPhase = Math.max(1, ...phaseList.map(([, n]) => n));
+---
+<Base
+  title="코퍼스 완전성 — AI Daily News"
+  description="어떤 기사가 어느 단계에서 왜 드롭되었는지, 어떤 소스가 얼마나 수집되는지 감사용 뷰."
+>
+  <a href={`${base}/research`} class="kicker text-ink/55 hover:text-accent inline-block mb-5">← 리서치 포털</a>
+
+  <header class="mb-8 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Research · Corpus Health</div>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">코퍼스 완전성</h1>
+    <p class="mt-3 text-[13px] text-ink/60">
+      M1에서 저장한 <code class="text-[12px] font-mono">skipped.jsonl</code>과
+      X4가 트래킹하는 <code class="text-[12px] font-mono">source_health.jsonl</code>을 종합해,
+      아카이브가 "얼마나 빠짐없이" 수집되고 있는지 관측합니다.
+    </p>
+  </header>
+
+  <section class="mb-14">
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">Skipped — 어느 단계에서 얼마나 드롭되었나</h2>
+    {totalSkipped === 0 ? (
+      <p class="text-ink/60 text-[13px]">skipped.jsonl에 아직 로그가 없습니다.</p>
+    ) : (
+      <>
+        <p class="kicker text-ink/50 mb-4 tabular-nums">총 {totalSkipped.toLocaleString()}건</p>
+        <div class="space-y-2">
+          {phaseList.map(([phase, n]) => {
+            const pct = (n / totalSkipped) * 100;
+            const barPct = (n / maxPhase) * 100;
+            const color = PHASE_COLOR[phase] ?? "#6b7280";
+            const label = PHASE_LABEL[phase] ?? phase;
+            return (
+              <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(4rem,5rem)] gap-3 items-center text-[12.5px]">
+                <div class="min-w-0">
+                  <div class="font-serif font-bold text-ink truncate">{label}</div>
+                  <div class="kicker text-ink/45">{phase}</div>
+                </div>
+                <div class="h-4 bg-ink/5">
+                  <div class="h-full" style={`width:${barPct}%; background:${color}`}></div>
+                </div>
+                <div class="text-right text-ink/75 tabular-nums">
+                  {n.toLocaleString()}
+                  <span class="text-ink/40 ml-2">{pct.toFixed(1)}%</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    )}
+  </section>
+
+  <section class="mb-14">
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">아카이브 커버리지 — 일별</h2>
+    <p class="kicker text-ink/50 mb-4 tabular-nums">
+      본문 저장 일수 {bodyDays}/{days.length} · 멤버 로그 일수 {memberDays}/{days.length}
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h3 class="kicker text-ink/60 mb-2">기사 수 (articles.json)</h3>
+        <Sparkline data={sparklineArticles} height={48} ariaLabel="일별 기사 수 추이" />
+      </div>
+      <div>
+        <h3 class="kicker text-ink/60 mb-2">본문 저장 (bodies.jsonl 라인 수)</h3>
+        <Sparkline data={sparklineBodies} height={48} color="#0369a1" ariaLabel="일별 본문 저장 라인 수" />
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">소스별 수집 이력</h2>
+    {sourceSummary.length === 0 ? (
+      <p class="text-ink/60 text-[13px]">source_health.jsonl에 로그가 아직 없습니다. 첫 CI 런 이후 채워집니다.</p>
+    ) : (
+      <div class="overflow-x-auto">
+        <table class="w-full text-[12.5px] border-collapse">
+          <thead>
+            <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
+              <th class="py-2 pr-3">소스</th>
+              <th class="py-2 pr-3 text-right tabular-nums">총 수집 (건)</th>
+              <th class="py-2 pr-3 text-right tabular-nums">활동 일수</th>
+              <th class="py-2 pr-3 text-right tabular-nums">0건 일수</th>
+              <th class="py-2 pr-3 tabular-nums">최근일</th>
+              <th class="py-2 pr-3">최근 에러</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sourceSummary.map((s) => {
+              const danger = s.zeroDays >= 3 || (s.total === 0 && s.days >= 3);
+              return (
+                <tr class:list={["border-b border-ink/5", danger && "bg-accent/[0.03]"]}>
+                  <td class="py-1.5 pr-3">
+                    <a href={`${base}/source/${s.source_id}`} class="font-serif font-bold text-ink hover:text-accent">{s.source_id}</a>
+                  </td>
+                  <td class="py-1.5 pr-3 text-right tabular-nums">{s.total.toLocaleString()}</td>
+                  <td class="py-1.5 pr-3 text-right tabular-nums">{s.days}</td>
+                  <td class:list={["py-1.5 pr-3 text-right tabular-nums", s.zeroDays >= 3 ? "text-accent font-semibold" : "text-ink/60"]}>{s.zeroDays}</td>
+                  <td class="py-1.5 pr-3 text-ink/60 tabular-nums">{s.lastDay}</td>
+                  <td class="py-1.5 pr-3 text-ink/60 text-[11.5px] font-mono truncate max-w-[16rem]">{s.lastError || "—"}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    )}
+  </section>
+</Base>

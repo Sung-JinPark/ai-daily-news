@@ -388,6 +388,96 @@ export function loadRecentDays(maxDays: number = 7): Article[] {
   return out;
 }
 
+// ---------- Z3 corpus completeness ----------
+
+export type SkippedRow = {
+  logged_at?: string;
+  day: string;
+  url_hash?: string;
+  url?: string;
+  source_id?: string;
+  title?: string;
+  phase: string;
+  reason?: string;
+};
+
+export type SourceHealthRow = {
+  logged_at?: string;
+  day: string;
+  source_id: string;
+  items: number;
+  capped?: number;
+  error?: string;
+};
+
+export type CorpusDayCoverage = {
+  day: string;
+  bodies?: { lines: number; bytes: number };
+  members?: { lines: number; bytes: number };
+  skipped?: { lines: number; bytes: number };
+};
+
+export function loadCorpusManifest(): {
+  days: Record<string, CorpusDayCoverage>;
+} {
+  const file = path.join(DATA_ROOT, "corpus", "manifest.json");
+  if (!fs.existsSync(file)) return { days: {} };
+  try {
+    const raw = JSON.parse(fs.readFileSync(file, "utf-8"));
+    const daysIn = raw?.days ?? {};
+    const days: Record<string, CorpusDayCoverage> = {};
+    for (const [day, entry] of Object.entries<any>(daysIn)) {
+      const files = entry?.files ?? {};
+      days[day] = {
+        day,
+        bodies: files["bodies.jsonl"] ? { lines: files["bodies.jsonl"].lines ?? 0, bytes: files["bodies.jsonl"].bytes ?? 0 } : undefined,
+        members: files["members.jsonl"] ? { lines: files["members.jsonl"].lines ?? 0, bytes: files["members.jsonl"].bytes ?? 0 } : undefined,
+        skipped: files["skipped.jsonl"] ? { lines: files["skipped.jsonl"].lines ?? 0, bytes: files["skipped.jsonl"].bytes ?? 0 } : undefined,
+      };
+    }
+    return { days };
+  } catch {
+    return { days: {} };
+  }
+}
+
+export function loadSkippedRows(): SkippedRow[] {
+  const corpusRoot = path.join(DATA_ROOT, "corpus");
+  if (!fs.existsSync(corpusRoot)) return [];
+  const rows: SkippedRow[] = [];
+  for (const day of fs.readdirSync(corpusRoot)) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) continue;
+    const p = path.join(corpusRoot, day, "skipped.jsonl");
+    if (!fs.existsSync(p)) continue;
+    for (const line of fs.readFileSync(p, "utf-8").split("\n")) {
+      const t = line.trim();
+      if (!t) continue;
+      try {
+        rows.push({ day, ...(JSON.parse(t) as SkippedRow) });
+      } catch {
+        continue;
+      }
+    }
+  }
+  return rows;
+}
+
+export function loadSourceHealth(): SourceHealthRow[] {
+  const file = path.join(DATA_ROOT, "aggregates", "source_health.jsonl");
+  if (!fs.existsSync(file)) return [];
+  const rows: SourceHealthRow[] = [];
+  for (const line of fs.readFileSync(file, "utf-8").split("\n")) {
+    const t = line.trim();
+    if (!t) continue;
+    try {
+      rows.push(JSON.parse(t) as SourceHealthRow);
+    } catch {
+      continue;
+    }
+  }
+  return rows;
+}
+
 // ---------- Z2 co-occurrence graph loader ----------
 
 export type EntityCooc = {
