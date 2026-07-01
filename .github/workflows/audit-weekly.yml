@@ -34,7 +34,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .
 
-      - name: Run audit
+      - name: Run cluster-merge audit
         id: audit
         run: |
           mkdir -p .audit
@@ -48,7 +48,18 @@ jobs:
           echo "n_anomalies=$N" >> "$GITHUB_OUTPUT"
           echo "detected $N anomalies"
 
-      - name: Create or update anomaly issue
+      - name: Run source-health audit (X4)
+        id: sources
+        run: |
+          mkdir -p .audit
+          python -m pipeline.audit_sources \
+            --anomaly-out .audit/sources-anomalies.json \
+            --issue-body-out .audit/sources-issue.md
+          N=$(python -c "import json; print(len(json.load(open('.audit/sources-anomalies.json'))))" 2>/dev/null || echo 0)
+          echo "n_dead=$N" >> "$GITHUB_OUTPUT"
+          echo "detected $N dead source(s)"
+
+      - name: Create or update cluster-merge anomaly issue
         if: steps.audit.outputs.n_anomalies != '0' || github.event.inputs.simulate_anomaly == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -59,8 +70,6 @@ jobs:
           fi
           TITLE=$(head -n 1 .audit/issue.md)
           BODY=$(tail -n +3 .audit/issue.md)
-          # Look for an existing open issue with the same title to avoid
-          # spawning duplicates. gh returns JSON.
           EXISTING=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number' || echo "")
           if [ -n "$EXISTING" ]; then
             echo "commenting on existing issue #$EXISTING"
@@ -70,6 +79,29 @@ jobs:
           else
             echo "creating new issue"
             gh issue create --title "$TITLE" --body "$BODY" --label "audit"
+          fi
+
+      - name: Create or update source-health anomaly issue (X4)
+        if: steps.sources.outputs.n_dead != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -f .audit/sources-issue.md ]; then
+            echo "no source-issue body produced, skipping"
+            exit 0
+          fi
+          TITLE=$(head -n 1 .audit/sources-issue.md)
+          BODY=$(tail -n +3 .audit/sources-issue.md)
+          # Same de-dupe pattern as the cluster-merge branch above.
+          EXISTING=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number' || echo "")
+          if [ -n "$EXISTING" ]; then
+            echo "commenting on existing source-health issue #$EXISTING"
+            printf '%s\n\n---\n\n### Weekly re-run: %s\n\n%s\n' \
+              "소스 헬스 재감사 결과" "$(date -u +%Y-%m-%d)" "$BODY" \
+              | gh issue comment "$EXISTING" --body-file -
+          else
+            echo "creating new source-health issue"
+            gh issue create --title "$TITLE" --body "$BODY" --label "source-health"
           fi
 
       - name: Commit audit report
