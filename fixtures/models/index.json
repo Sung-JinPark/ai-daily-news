@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-07-01T00:00:00+00:00",
+  "lookback_days": 60,
+  "models": [
+    {
+      "model": "GPT-5",
+      "latest_version": "TestModel-GPT5-v1",
+      "latest_seen": "2026-06-30",
+      "article_count": 5,
+      "articles": [
+        {"id": "fixture-article-6", "day": "2026-06-30", "title": "Fixture GPT-5 article", "url": "https://example.com/fixture-6"}
+      ],
+      "top_benchmarks": [
+        {"name": "MMLU", "score": "90.1", "article_id": "fixture-article-6"}
+      ],
+      "pricing": [
+        {"unit": "input/1M tokens", "value": "$5.00", "article_id": "fixture-article-6"}
+      ],
+      "strengths_ko": ["긴 컨텍스트 처리", "추론 정확도"],
+      "weaknesses_ko": ["가격 상승"]
+    },
+    {
+      "model": "Claude",
+      "latest_version": "TestModel-Claude-v1",
+      "latest_seen": "2026-06-29",
+      "article_count": 3,
+      "articles": [
+        {"id": "fixture-article-7", "day": "2026-06-29", "title": "Fixture Claude article", "url": "https://example.com/fixture-7"}
+      ],
+      "top_benchmarks": [
+        {"name": "HumanEval", "score": "88%", "article_id": "fixture-article-7"}
+      ],
+      "pricing": [],
+      "strengths_ko": ["코딩 강점"],
+      "weaknesses_ko": []
+    }
+  ]
+}

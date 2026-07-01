@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "predictions": [
+    {
+      "id": "fixture-pred-01",
+      "article_id": "fixture-article-1",
+      "article_url": "https://example.com/fixture-article-1",
+      "article_title": "Fixture Article One",
+      "source_name": "Fixture Source",
+      "day_made": "2026-06-25",
+      "claim_ko": "테스트 예측 하나 — 대기 상태 렌더링을 검증합니다.",
+      "who": "테스트 주체 A",
+      "horizon": "2026-12",
+      "confidence": "medium",
+      "status": "pending",
+      "resolution_article_id": null,
+      "resolution_day": null,
+      "resolution_note_ko": null
+    },
+    {
+      "id": "fixture-pred-02",
+      "article_id": "fixture-article-2",
+      "article_url": "https://example.com/fixture-article-2",
+      "article_title": "Fixture Article Two",
+      "source_name": "Fixture Source",
+      "day_made": "2026-06-20",
+      "claim_ko": "테스트 예측 둘 — 확인됨 상태 렌더링을 검증합니다.",
+      "who": "테스트 주체 B",
+      "horizon": "2026-06",
+      "confidence": "high",
+      "status": "confirmed",
+      "resolution_article_id": "fixture-article-3",
+      "resolution_day": "2026-06-28",
+      "resolution_note_ko": "합성 근거로 확인 완료."
+    },
+    {
+      "id": "fixture-pred-03",
+      "article_id": "fixture-article-4",
+      "article_url": "https://example.com/fixture-article-4",
+      "article_title": "Fixture Article Four",
+      "source_name": "Fixture Source",
+      "day_made": "2026-06-15",
+      "claim_ko": "테스트 예측 셋 — 반박됨 상태 렌더링을 검증합니다.",
+      "who": "테스트 주체 C",
+      "horizon": "2026-06",
+      "confidence": "low",
+      "status": "contradicted",
+      "resolution_article_id": "fixture-article-5",
+      "resolution_day": "2026-06-30",
+      "resolution_note_ko": "예측과 반대되는 사건이 관측됨."
+    }
+  ]
+}
