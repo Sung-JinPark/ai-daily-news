@@ -11,6 +11,19 @@ const { title = "AI Daily News", description = DEFAULT_DESC, updatedAt, ogImage 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const _latestForBanner = loadLatest();
 const showLowVolume = _latestForBanner?.low_volume === true;
+
+// N7 aria-current helper — trailing slashes vary between rendered
+// pages so normalize before comparison.
+const currentPath = (Astro.url?.pathname ?? "").replace(/\/$/, "") || "/";
+function isCurrent(target: string): "page" | undefined {
+  const t = target.replace(/\/$/, "") || "/";
+  if (t === currentPath) return "page";
+  // Category / hub roots match child pages so the top-nav highlight
+  // stays lit while browsing inside (e.g. /category/model_research vs
+  // /category/model_research/some-day).
+  if (t !== "/" && currentPath.startsWith(t + "/")) return "page";
+  return undefined;
+}
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 const today = new Date();
@@ -101,6 +114,7 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
     </style>
   </head>
   <body class="min-h-screen bg-white text-ink antialiased selection:bg-accent/20">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:bg-white focus:border focus:border-accent focus:px-3 focus:py-2 focus:text-[13px]">본문으로 건너뛰기</a>
     <header class="border-b-2 border-ink bg-white">
       <div class="max-w-6xl mx-auto px-4">
         <div class="flex items-center justify-between pt-4 pb-1 text-[11px] tracking-kicker uppercase font-semibold text-ink/70">
@@ -116,18 +130,18 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
       </div>
       <nav class="border-t border-ink/15 bg-white sticky top-0 z-10">
         <div class="max-w-6xl mx-auto px-4 flex items-stretch gap-0 overflow-x-auto no-scrollbar">
-          <a href={base + "/"} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-accent border-b-2 border-transparent hover:border-accent whitespace-nowrap">HOT</a>
-          <a href={`${base}/today`} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">전체</a>
-          <a href={`${base}/category/model_research`} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">{CATEGORIES.model_research}</a>
-          <a href={`${base}/category/business`} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">{CATEGORIES.business}</a>
-          <a href={`${base}/category/policy`} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">{CATEGORIES.policy}</a>
-          <a href={`${base}/category/tech`} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">제품/인프라</a>
-          <a href={`${base}/category/community`} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink whitespace-nowrap">{CATEGORIES.community}</a>
+          <a href={base + "/"} aria-current={isCurrent(base + "/")} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-accent border-b-2 border-transparent hover:border-accent aria-[current=page]:border-accent whitespace-nowrap">HOT</a>
+          <a href={`${base}/today`} aria-current={isCurrent(`${base}/today`)} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink aria-[current=page]:border-ink aria-[current=page]:text-ink whitespace-nowrap">전체</a>
+          <a href={`${base}/category/model_research`} aria-current={isCurrent(`${base}/category/model_research`)} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink aria-[current=page]:border-ink aria-[current=page]:text-ink whitespace-nowrap">{CATEGORIES.model_research}</a>
+          <a href={`${base}/category/business`} aria-current={isCurrent(`${base}/category/business`)} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink aria-[current=page]:border-ink aria-[current=page]:text-ink whitespace-nowrap">{CATEGORIES.business}</a>
+          <a href={`${base}/category/policy`} aria-current={isCurrent(`${base}/category/policy`)} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink aria-[current=page]:border-ink aria-[current=page]:text-ink whitespace-nowrap">{CATEGORIES.policy}</a>
+          <a href={`${base}/category/tech`} aria-current={isCurrent(`${base}/category/tech`)} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink aria-[current=page]:border-ink aria-[current=page]:text-ink whitespace-nowrap">제품/인프라</a>
+          <a href={`${base}/category/community`} aria-current={isCurrent(`${base}/category/community`)} class="px-3 py-2.5 text-[12px] tracking-kicker uppercase font-semibold text-ink/80 border-b-2 border-transparent hover:border-ink aria-[current=page]:border-ink aria-[current=page]:text-ink whitespace-nowrap">{CATEGORIES.community}</a>
           <span class="self-center mx-2 h-4 w-px bg-ink/20" aria-hidden="true"></span>
-          <a href={`${base}/insights`} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent whitespace-nowrap">인사이트</a>
-          <a href={`${base}/entities`} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent whitespace-nowrap">엔티티</a>
-          <a href={`${base}/weekly`} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent whitespace-nowrap">주간</a>
-          <a href={`${base}/archive`} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent whitespace-nowrap ml-auto">아카이브</a>
+          <a href={`${base}/insights`} aria-current={isCurrent(`${base}/insights`)} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent aria-[current=page]:text-accent whitespace-nowrap">인사이트</a>
+          <a href={`${base}/entities`} aria-current={isCurrent(`${base}/entities`)} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent aria-[current=page]:text-accent whitespace-nowrap">엔티티</a>
+          <a href={`${base}/weekly`} aria-current={isCurrent(`${base}/weekly`)} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent aria-[current=page]:text-accent whitespace-nowrap">주간</a>
+          <a href={`${base}/archive`} aria-current={isCurrent(`${base}/archive`)} class="px-2.5 py-2.5 text-[12.5px] font-serif italic font-medium text-ink/55 hover:text-accent aria-[current=page]:text-accent whitespace-nowrap ml-auto">아카이브</a>
           <a
             href={`${base}/search`}
             aria-label="검색 페이지로 이동"
@@ -155,7 +169,7 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
         </div>
       </nav>
     </header>
-    <main class="max-w-6xl mx-auto px-4 py-10">
+    <main id="main" class="max-w-6xl mx-auto px-4 py-10">
       {showLowVolume && (
         <div class="mb-6 border border-accent/40 bg-accent/[0.04] px-4 py-2 text-[12.5px] text-ink/75 flex flex-wrap items-center gap-2">
           <span class="kicker text-accent">저조 수집</span>

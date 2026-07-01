@@ -57,6 +57,13 @@ _현재 아카이브에는 해당 범위의 클러스터가 없습니다._
 | `k000330` | 2 | 2일 | 1 | product×2 | Second carcass-eating fly species cleared by FDA for maggot … |
 | `k000320` | 2 | 2일 | 1 | product×2 | Unlocking UK house-building with AI-accelerated planning |
 
+## Same-day 클러스터 카테고리 혼재 밴드 (N7 관측)
+
+- 멤버 2건 이상 same-day 클러스터: **3**
+- 카테고리 혼재 클러스터: **0** (0%)
+
+_이 밴드는 관측용입니다. HAMMING_THRESHOLD (same-day)는 이번 세션에서 변경하지 않았습니다._
+
 ## 병합 이벤트 로그 (N3)
 
 - 총 병합 이벤트: **179건**

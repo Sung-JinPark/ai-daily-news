@@ -178,6 +178,28 @@ def build_summary() -> dict:
     top_by_span = long_span[:15]
     top_by_members = sorted(clusters, key=lambda c: c["member_count"], reverse=True)[:15]
 
+    # Same-day category-mix band (N7): observation-only signal for the
+    # HAMMING_THRESHOLD=12 same-day clustering path. The R1 tiered
+    # thresholds only govern cross-day merges; this band tracks whether
+    # the looser same-day threshold ever merges genuinely unrelated
+    # stories (e.g., different categories under the same title n-gram).
+    same_day_multi = [c for c in clusters if c["day_span"] == 1 and c["member_count"] >= 2]
+    same_day_mixed = [c for c in same_day_multi if len(c["categories"]) >= 2]
+    same_day_band = {
+        "total_multi_member_same_day": len(same_day_multi),
+        "mixed_category": len(same_day_mixed),
+        "mixed_ratio": round(len(same_day_mixed) / len(same_day_multi), 3) if same_day_multi else 0.0,
+        "sample_mixed": [
+            {
+                "cluster_id": c["cluster_id"],
+                "member_count": c["member_count"],
+                "categories": dict(c["categories"]),
+                "titles": c["titles"][:2],
+            }
+            for c in same_day_mixed[:5]
+        ],
+    }
+
     # Merge-event histogram (N3). Empty until dedupe has run at least
     # once with logging enabled.
     events = _load_merge_events()
@@ -206,6 +228,7 @@ def build_summary() -> dict:
             "with_last_titles": n_with_titles,
             "gap_bucket_counts": dict(cont_gap_counts),
         },
+        "same_day_band": same_day_band,
         "merge_events": {
             "total": len(events),
             "hamming_by_kind": {
@@ -299,6 +322,20 @@ def render(summary: dict) -> str:
             f"{c['outlet_count']} | {cats} | {latest_title} |"
         )
     lines.append("")
+
+    sd = summary.get("same_day_band") or {}
+    if sd.get("total_multi_member_same_day", 0) > 0:
+        lines.append("## Same-day 클러스터 카테고리 혼재 밴드 (N7 관측)\n")
+        lines.append(f"- 멤버 2건 이상 same-day 클러스터: **{sd['total_multi_member_same_day']}**")
+        lines.append(f"- 카테고리 혼재 클러스터: **{sd['mixed_category']}** ({int(sd['mixed_ratio']*100)}%)")
+        if sd.get("sample_mixed"):
+            lines.append("\n### 혼재 샘플")
+            for c in sd["sample_mixed"]:
+                lines.append(f"- `{c['cluster_id']}` (멤버 {c['member_count']}, {c['categories']})")
+                for t in c["titles"]:
+                    lines.append(f"    - {t}")
+        lines.append("")
+        lines.append("_이 밴드는 관측용입니다. HAMMING_THRESHOLD (same-day)는 이번 세션에서 변경하지 않았습니다._\n")
 
     me = summary.get("merge_events") or {}
     if me and me.get("total", 0) > 0:
