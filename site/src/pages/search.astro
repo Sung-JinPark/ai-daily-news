@@ -14,7 +14,7 @@ const categoryPairs = Object.entries(CATEGORIES);
     </p>
   </header>
 
-  <form id="search-form" method="get" role="search" aria-label="전체 검색" class="mb-6 flex items-center gap-2 border-b-2 border-ink pb-3">
+  <form id="search-form" method="get" role="search" aria-label="전체 검색" class="mb-4 flex items-center gap-2 border-b-2 border-ink pb-3">
     <label for="search-q" class="sr-only">전체 검색어</label>
     <svg aria-hidden="true" viewBox="0 0 24 24" class="w-4 h-4 text-ink/60 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
     <input
@@ -27,6 +27,14 @@ const categoryPairs = Object.entries(CATEGORIES);
       class="flex-1 bg-transparent border-0 py-2 text-base sm:text-lg text-ink placeholder:text-ink/40 focus:outline-none font-serif"
     />
   </form>
+
+  <div class="mb-6 flex flex-wrap items-center gap-2 text-[12px]">
+    <label for="semantic-toggle" class="flex items-center gap-2 cursor-pointer" title="문자열이 정확히 일치하지 않아도 의미상 관련된 기사를 결과에 포함합니다.">
+      <input id="semantic-toggle" type="checkbox" class="accent-accent" />
+      <span class="kicker text-ink/70">시맨틱 확장</span>
+    </label>
+    <span id="semantic-status" class="kicker text-ink/40"></span>
+  </div>
 
   <div id="search-status" class="mb-6 text-[13px] text-ink/60">인덱스를 불러오는 중…</div>
   <ol id="search-results" class="divide-y divide-ink/15"></ol>
@@ -113,6 +121,30 @@ const categoryPairs = Object.entries(CATEGORIES);
 
     let docs: Doc[] | null = null;
     let loading: Promise<Doc[]> | null = null;
+    let similarMap: Record<string, string[]> | null = null;
+    let similarLoading: Promise<Record<string, string[]>> | null = null;
+
+    function loadSimilar(): Promise<Record<string, string[]>> {
+      if (similarMap) return Promise.resolve(similarMap);
+      if (similarLoading) return similarLoading;
+      similarLoading = fetch(`${siteBase}/search-similar.json`)
+        .then((r) => (r.ok ? r.json() : { similar: {} }))
+        .then((payload: { similar?: Record<string, string[]>; available?: boolean; count?: number }) => {
+          similarMap = payload.similar ?? {};
+          const semSt = document.getElementById("semantic-status") as HTMLSpanElement | null;
+          if (semSt) {
+            semSt.textContent = payload.available
+              ? `${payload.count ?? Object.keys(similarMap).length}건에 유사도 인덱스 준비됨`
+              : "유사도 인덱스가 아직 없습니다 (첫 CI 임베딩 이후 활성화)";
+          }
+          return similarMap;
+        })
+        .catch(() => {
+          similarMap = {};
+          return similarMap;
+        });
+      return similarLoading;
+    }
 
     function loadIndex(): Promise<Doc[]> {
       if (docs) return Promise.resolve(docs);
@@ -143,9 +175,13 @@ const categoryPairs = Object.entries(CATEGORIES);
       if (!docs) return;
       const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
       const hits: Array<{ doc: Doc; score: number; where: string[] }> = [];
+      const stringHitIds = new Set<string>();
       for (const doc of docs) {
         const m = matches(doc, terms);
-        if (m.score > 0) hits.push({ doc, score: m.score, where: m.where });
+        if (m.score > 0) {
+          hits.push({ doc, score: m.score, where: m.where });
+          stringHitIds.add(doc.id);
+        }
       }
       hits.sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
@@ -154,7 +190,31 @@ const categoryPairs = Object.entries(CATEGORIES);
         return pb.localeCompare(pa);
       });
 
-      status.textContent = `"${q}" — ${hits.length}건`;
+      // ZE4 semantic expansion — inject the top-K neighbors of each
+      // string hit as additional results even when they don't
+      // literally contain the query. Neighbors get a "관련" badge
+      // and are placed after the string hits so precision stays
+      // visible.
+      const semanticToggle = (document.getElementById("semantic-toggle") as HTMLInputElement | null)?.checked;
+      if (semanticToggle && similarMap && Object.keys(similarMap).length > 0) {
+        const byId = new Map(docs.map((d) => [d.id, d] as const));
+        const added = new Set<string>();
+        for (const h of hits.slice(0, 30)) {
+          for (const nid of similarMap[h.doc.id] ?? []) {
+            if (stringHitIds.has(nid) || added.has(nid)) continue;
+            const nd = byId.get(nid);
+            if (!nd) continue;
+            hits.push({ doc: nd, score: -0.001, where: ["관련"] });
+            added.add(nid);
+          }
+        }
+      }
+
+      const semanticCount = hits.filter((h) => h.where.includes("관련")).length;
+      const stringCount = hits.length - semanticCount;
+      status.textContent = semanticCount > 0
+        ? `"${q}" — 문자열 ${stringCount}건 + 시맨틱 확장 ${semanticCount}건`
+        : `"${q}" — ${hits.length}건`;
       list.innerHTML = hits
         .slice(0, 200)
         .map(({ doc, where }) => {
@@ -222,8 +282,23 @@ const categoryPairs = Object.entries(CATEGORIES);
       render(input.value);
     });
 
+    // Trigger a re-render whenever the semantic toggle flips so the
+    // expansion applies live without needing another keystroke.
+    const semanticInput = document.getElementById("semantic-toggle") as HTMLInputElement | null;
+    semanticInput?.addEventListener("change", () => {
+      // Load the sidecar the first time we actually flip it on.
+      if (semanticInput.checked) loadSimilar().finally(() => render(input.value));
+      else render(input.value);
+    });
+
     loadIndex()
-      .then(() => updateFromUrl())
+      .then(() => {
+        // Load similar index lazily so the default page paint stays
+        // lean. Also lets us update the "semantic-status" line with
+        // "인덱스 준비됨" without the user having to click anything.
+        loadSimilar();
+        updateFromUrl();
+      })
       .catch((err) => {
         status.textContent = `검색 인덱스를 불러오지 못했습니다: ${err}`;
       });
