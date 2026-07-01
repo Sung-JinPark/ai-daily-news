@@ -2,8 +2,9 @@
 import { CATEGORIES, type CoverageMatrix } from "~/lib/loadData";
 interface Props {
   matrix: CoverageMatrix;
+  caption?: string;
 }
-const { matrix } = Astro.props;
+const { matrix, caption = "매체 × 스토리 커버리지 매트릭스" } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const CATEGORY_COLOR: Record<string, string> = {
@@ -27,18 +28,20 @@ function shortTitle(t: string, max = 42): string {
 ---
 {matrix.clusters.length > 0 && matrix.outlets.length > 0 && (
   <div class="overflow-x-auto -mx-4 px-4">
-    <table class="text-[11px] border-collapse min-w-full">
+    <table class="text-[11px] border-collapse min-w-full" role="table">
+      <caption class="sr-only">{caption}. 행은 매체, 열은 이번 주 상위 스토리. 셀의 도트는 그 매체가 해당 스토리를 다뤘음을 나타내며 크기는 중요도(1~5)를 반영합니다.</caption>
       <thead>
         <tr>
-          <th class="sticky left-0 bg-white z-[2] text-left kicker text-ink/50 pr-3 pb-3 align-bottom">매체 \ 스토리</th>
+          <th scope="col" class="sticky left-0 bg-white z-[2] text-left kicker text-ink/50 pr-3 pb-3 align-bottom">매체 \ 스토리</th>
           {matrix.clusters.map((c) => (
-            <th class="align-bottom py-2 pr-2 whitespace-nowrap" style="min-width:2rem">
+            <th scope="col" class="align-bottom py-2 pr-1 whitespace-nowrap" style="min-width:1.8rem; height:9rem;">
               <a
                 href={`${base}/story/${c.cluster_id}`}
-                class="inline-block origin-bottom-left -rotate-45 translate-y-1 text-ink/70 hover:text-accent text-[11px] font-medium"
+                class="inline-block text-ink/75 hover:text-accent text-[11px] font-medium leading-tight"
+                style="writing-mode: vertical-rl; transform: rotate(180deg); max-height: 8.5rem;"
                 title={c.title}
               >
-                {shortTitle(c.title, 34)}
+                {shortTitle(c.title, 28)}
               </a>
             </th>
           ))}
@@ -47,20 +50,23 @@ function shortTitle(t: string, max = 42): string {
       <tbody>
         {matrix.outlets.map((outlet) => (
           <tr class="border-t border-ink/10">
-            <td class="sticky left-0 bg-white z-[1] py-2 pr-3 text-ink/75 font-medium whitespace-nowrap">{outlet}</td>
+            <th scope="row" class="sticky left-0 bg-white z-[1] py-2 pr-3 text-ink/75 font-medium whitespace-nowrap text-left text-[11px]">{outlet}</th>
             {matrix.clusters.map((c) => {
               const imp = cellMap.get(`${outlet}\u0001${c.cluster_id}`);
               const color = CATEGORY_COLOR[c.category] ?? "#64748b";
               const size = imp ? Math.min(14, 5 + imp * 2) : 0;
+              const label = imp
+                ? `${outlet}이(가) ${CATEGORIES[c.category] ?? c.category} 분류의 "${shortTitle(c.title, 40)}" 스토리를 다룸 · 중요도 ${imp}`
+                : `${outlet}는(은) "${shortTitle(c.title, 40)}"를 다루지 않음`;
               return (
                 <td class="py-2 pr-2 text-center align-middle">
                   {imp ? (
                     <a
                       href={`${base}/story/${c.cluster_id}`}
-                      class="inline-block rounded-full hover:opacity-80"
+                      class="inline-block rounded-full hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-accent"
                       style={`width:${size}px;height:${size}px;background:${color}`}
                       title={`${outlet} · ${CATEGORIES[c.category] ?? c.category} · 중요도 ${imp}`}
-                      aria-label={`${outlet}이(가) ${c.title} 스토리를 다뤘습니다`}
+                      aria-label={label}
                     ></a>
                   ) : (
                     <span class="inline-block w-1 h-1 bg-ink/10 rounded-full" aria-hidden="true"></span>
@@ -72,11 +78,11 @@ function shortTitle(t: string, max = 42): string {
         ))}
       </tbody>
     </table>
-    <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] tracking-kicker uppercase font-semibold text-ink/60">
+    <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] tracking-kicker uppercase font-semibold text-ink/60" role="list" aria-label="카테고리 범례">
       <span>범례</span>
       {Object.entries(CATEGORY_COLOR).map(([k, color]) => (
-        <span class="inline-flex items-center gap-1.5">
-          <span class="inline-block w-2 h-2 rounded-full" style={`background:${color}`}></span>
+        <span class="inline-flex items-center gap-1.5" role="listitem">
+          <span class="inline-block w-2 h-2 rounded-full" style={`background:${color}`} aria-hidden="true"></span>
           <span>{CATEGORIES[k] ?? k}</span>
         </span>
       ))}
@@ -84,3 +90,17 @@ function shortTitle(t: string, max = 42): string {
     </div>
   </div>
 )}
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>
