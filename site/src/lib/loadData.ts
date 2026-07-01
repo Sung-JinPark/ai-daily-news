@@ -56,6 +56,9 @@ export type Glossary = {
 
 export type LatestIndex = {
   latest_day: string;
+  latest_count?: number;
+  low_volume?: boolean;
+  low_volume_floor?: number;
   all_days: string[];
   updated_at: string;
 };

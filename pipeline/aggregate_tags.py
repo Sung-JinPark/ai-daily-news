@@ -25,8 +25,11 @@ from pathlib import Path
 log = logging.getLogger(__name__)
 
 DATA_DIR = Path("data")
-DEFAULT_WINDOW = 30
-MAX_IDS_PER_TAG = 200
+# Rolling window used for the tags index. 365d preserves annual trend
+# signal (M2 of research-archive plan); older days simply drop out of
+# scope but remain reachable via `data/YYYY-MM-DD/articles.json`.
+DEFAULT_WINDOW = 365
+MAX_IDS_PER_TAG = 500
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 

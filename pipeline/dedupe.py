@@ -29,7 +29,7 @@ from pipeline import corpus_writer
 log = logging.getLogger(__name__)
 HAMMING_THRESHOLD = 12
 CROSS_DAY_THRESHOLD = 8           # stricter for cross-day to avoid false merges
-CONTINUITY_DAYS = 14              # prune index entries older than this
+CONTINUITY_DAYS = 90              # prune index entries older than this (M2: 14→90 for longer story tracking)
 NGRAM_SIZE = 3
 MAX_AGE_DAYS = 7                  # drop articles with a published date older than this
 SOURCES_FILE = Path("pipeline/sources.yaml")

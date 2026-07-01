@@ -21,13 +21,26 @@ def main() -> int:
         log.warning("no day directories found")
         return 0
     latest = days[0]
+    # Volume floor — flag days that came in below a research-usable
+    # threshold so the site can render a small notice.
+    LOW_VOLUME_FLOOR = 25
+    latest_count = 0
+    try:
+        latest_articles = json.loads((DATA_DIR / latest / "articles.json").read_text(encoding="utf-8"))
+        latest_count = len(latest_articles)
+    except Exception:  # noqa: BLE001
+        latest_count = 0
     payload = {
         "latest_day": latest,
+        "latest_count": latest_count,
+        "low_volume": latest_count < LOW_VOLUME_FLOOR,
+        "low_volume_floor": LOW_VOLUME_FLOOR,
         "all_days": days,
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
     (DATA_DIR / "latest.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    log.info("latest.json -> %s (%d days)", latest, len(days))
+    log.info("latest.json -> %s (%d days, latest_count=%d, low_volume=%s)",
+             latest, len(days), latest_count, payload["low_volume"])
     return 0
 
 

@@ -184,6 +184,7 @@ def main() -> int:
         out_dir.mkdir(parents=True, exist_ok=True)
 
     total = 0
+    health_rows: list[dict] = []
     for source in sources:
         if not source.get("enabled", True):
             continue
@@ -191,20 +192,59 @@ def main() -> int:
             continue
         try:
             items = fetch_source(source)
+            error = ""
         except Exception as exc:  # noqa: BLE001 - one failing source must not stop pipeline
             log.warning("source %s failed: %s", source["id"], exc)
+            health_rows.append(
+                {"day": day, "source_id": source["id"], "items": 0, "capped": 0, "error": str(exc)[:200]}
+            )
             continue
-        items = items[:PER_SOURCE_CAP]
-        log.info("source %s -> %d items", source["id"], len(items))
-        total += len(items)
+        capped_items = items[:PER_SOURCE_CAP]
+        log.info("source %s -> %d items", source["id"], len(capped_items))
+        total += len(capped_items)
+        health_rows.append(
+            {"day": day, "source_id": source["id"], "items": len(items), "capped": len(capped_items), "error": ""}
+        )
         if args.dry_run:
             continue
         (out_dir / f"{source['id']}.json").write_text(
-            json.dumps(items, ensure_ascii=False, indent=2), encoding="utf-8"
+            json.dumps(capped_items, ensure_ascii=False, indent=2), encoding="utf-8"
         )
 
     log.info("collect done: %d items across active sources", total)
+    if not args.dry_run and health_rows:
+        _append_health(day, health_rows)
     return 0
+
+
+def _append_health(day: str, rows: list[dict]) -> None:
+    """Append per-source counts to data/aggregates/source_health.jsonl.
+
+    Idempotent for a single day: existing rows for the same day are
+    replaced so that re-runs of the collect step don't multiply lines.
+    """
+    from datetime import datetime, timezone
+    from pathlib import Path as _Path
+    agg_dir = _Path("data/aggregates")
+    agg_dir.mkdir(parents=True, exist_ok=True)
+    path = agg_dir / "source_health.jsonl"
+    now = datetime.now(timezone.utc).isoformat()
+    kept: list[str] = []
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except Exception:
+                continue
+            if obj.get("day") == day:
+                continue  # will be replaced below
+            kept.append(line)
+    for r in rows:
+        kept.append(json.dumps({"logged_at": now, **r}, ensure_ascii=False))
+    path.write_text("\n".join(kept) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

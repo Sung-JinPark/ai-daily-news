@@ -1,5 +1,5 @@
 ---
-import { CATEGORIES } from "~/lib/loadData";
+import { CATEGORIES, loadLatest } from "~/lib/loadData";
 interface Props {
   title?: string;
   description?: string;
@@ -9,6 +9,8 @@ interface Props {
 const DEFAULT_DESC = "매일 자동 업데이트되는 글로벌 AI 뉴스 한국어 인사이트 대시보드";
 const { title = "AI Daily News", description = DEFAULT_DESC, updatedAt, ogImage } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const _latestForBanner = loadLatest();
+const showLowVolume = _latestForBanner?.low_volume === true;
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 const today = new Date();
@@ -140,6 +142,12 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
       </nav>
     </header>
     <main class="max-w-6xl mx-auto px-4 py-10">
+      {showLowVolume && (
+        <div class="mb-6 border border-accent/40 bg-accent/[0.04] px-4 py-2 text-[12.5px] text-ink/75 flex flex-wrap items-center gap-2">
+          <span class="kicker text-accent">저조 수집</span>
+          <span>오늘 수집된 기사가 평소보다 적습니다 ({_latestForBanner?.latest_count ?? 0}건 · 임계값 {_latestForBanner?.low_volume_floor ?? 25}). 소스 상태를 확인 중입니다.</span>
+        </div>
+      )}
       <slot />
     </main>
     <script is:inline>

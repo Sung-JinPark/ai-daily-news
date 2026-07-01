@@ -133,3 +133,52 @@ sources:
     category: community
     trust: 2
     enabled: true
+
+  # ------------------------------------------------------------------
+  # M2 additions — broaden research corpus. Newly added sources are
+  # tracked in data/aggregates/source_health.jsonl; disable any that
+  # register 3+ consecutive days of zero items.
+  # ------------------------------------------------------------------
+
+  - id: arxiv_cs_cv
+    name: arXiv cs.CV
+    type: arxiv
+    query: cat:cs.CV
+    category: model_research
+    trust: 5
+    enabled: true
+    max_results: 10
+
+  - id: arxiv_cs_ro
+    name: arXiv cs.RO
+    type: arxiv
+    query: cat:cs.RO
+    category: model_research
+    trust: 5
+    enabled: true
+    max_results: 8
+
+  - id: arxiv_stat_ml
+    name: arXiv stat.ML
+    type: arxiv
+    query: cat:stat.ML
+    category: model_research
+    trust: 5
+    enabled: true
+    max_results: 8
+
+  - id: google_ai_blog
+    name: Google (Technology / AI)
+    type: rss
+    url: https://blog.google/technology/ai/rss/
+    category: model_research
+    trust: 5
+    enabled: true
+
+  - id: aws_ml_blog
+    name: AWS Machine Learning
+    type: rss
+    url: https://aws.amazon.com/blogs/machine-learning/feed/
+    category: product
+    trust: 4
+    enabled: true
