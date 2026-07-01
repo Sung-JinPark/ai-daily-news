@@ -1,0 +1,48 @@
+---
+interface Props {
+  data: { day: string; count: number }[];
+  height?: number;
+  gap?: number;
+  color?: string;
+  ariaLabel?: string;
+}
+const { data, height = 40, gap = 1, color = "#be1622", ariaLabel = "일자별 언급 추이" } = Astro.props;
+const max = Math.max(1, ...data.map((d) => d.count));
+const cols = data.length;
+// The bar width is derived from a viewBox so the SVG scales fluidly; we
+// only care about relative widths inside 100 units total.
+const barW = (100 - gap * (cols - 1)) / cols;
+---
+<figure class="w-full">
+  <svg
+    viewBox={`0 0 100 ${height}`}
+    preserveAspectRatio="none"
+    role="img"
+    aria-label={ariaLabel}
+    class="w-full block"
+    style={`height:${height}px`}
+  >
+    {data.map((d, i) => {
+      const h = d.count === 0 ? 1 : Math.max(1.5, (d.count / max) * (height - 2));
+      const x = i * (barW + gap);
+      const y = height - h;
+      return (
+        <g>
+          <rect
+            x={x}
+            y={y}
+            width={barW}
+            height={h}
+            fill={d.count === 0 ? "#e5e7eb" : color}
+            opacity={d.count === 0 ? 0.5 : 0.85}
+          />
+          <title>{d.day} · {d.count}건</title>
+        </g>
+      );
+    })}
+  </svg>
+  <figcaption class="mt-1 flex justify-between text-[10px] tracking-kicker uppercase font-semibold text-ink/40 tabular-nums">
+    <span>{data[0]?.day}</span>
+    <span>{data[data.length - 1]?.day}</span>
+  </figcaption>
+</figure>

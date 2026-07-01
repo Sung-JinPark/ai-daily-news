@@ -1,7 +1,16 @@
 ---
 import Base from "~/layouts/Base.astro";
 import NewsTile from "~/components/NewsTile.astro";
-import { PLAYERS, articlesForPlayer, type Player } from "~/lib/loadPlayers";
+import Sparkline from "~/components/Sparkline.astro";
+import {
+  PLAYERS,
+  articlesForPlayer,
+  coMentionedPlayers,
+  countsForPlayers,
+  playerDailyCounts,
+  playerTopTags,
+  type Player,
+} from "~/lib/loadPlayers";
 
 export async function getStaticPaths() {
   return PLAYERS.map((p) => ({
@@ -12,8 +21,24 @@ export async function getStaticPaths() {
 
 const { player } = Astro.props as { player: Player };
 const articles = articlesForPlayer(player, 30);
+const daily = playerDailyCounts(player, 30);
+const topTags = playerTopTags(player, 30, 8);
+const coMentioned = coMentionedPlayers(player, 30, 5);
+const allCounts = countsForPlayers(30);
 
-// Group by yyyy-mm-dd for a timeline feel.
+// Share-of-voice: this player's count vs top-5 other players by count.
+const others = Object.entries(allCounts)
+  .filter(([id]) => id !== player.id)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 5)
+  .map(([id, count]) => ({ player: PLAYERS.find((p) => p.id === id)!, count }));
+const sovRows = [
+  { player, count: allCounts[player.id] ?? 0 },
+  ...others.filter((r) => r.player),
+];
+const sovMax = Math.max(1, ...sovRows.map((r) => r.count));
+
+// Timeline groupings
 const byDay = new Map<string, typeof articles>();
 for (const a of articles) {
   const day = (a.published ?? a.fetched_at).slice(0, 10);
@@ -28,17 +53,29 @@ const initial = player.name.charAt(0);
 ---
 <Base
   title={`${player.name} — AI Daily News`}
-  description={`${player.name}의 최근 30일 글로벌 AI 뉴스 ${articles.length}건을 한국어 인사이트로 정리.`}
+  description={`${player.name}의 최근 30일 글로벌 AI 뉴스 ${articles.length}건과 언급 추이, 함께 언급되는 플레이어를 한 페이지로.`}
 >
   <a href={`${base}/players`} class="kicker text-ink/55 hover:text-accent inline-block mb-5">← 전체 플레이어</a>
 
-  <header class="mb-12 pb-6 border-b-2 border-ink flex items-start gap-5">
+  <header class="mb-8 pb-6 border-b-2 border-ink flex items-start gap-5">
     <div
       class="shrink-0 w-16 h-16 flex items-center justify-center text-white font-serif font-black text-3xl"
       style={`background-color: ${player.color}`}
     >{initial}</div>
     <div class="min-w-0 flex-1">
-      <div class="kicker text-accent mb-1">Player</div>
+      <div class="flex items-center gap-3 mb-1">
+        <div class="kicker text-accent">Player</div>
+        <button
+          type="button"
+          id="follow-btn"
+          data-player-id={player.id}
+          class="kicker text-ink/50 hover:text-accent border border-ink/20 hover:border-accent px-2 py-0.5 leading-tight transition-colors"
+          aria-pressed="false"
+        >
+          <span class="follow-icon">☆</span>
+          <span class="follow-label">팔로우</span>
+        </button>
+      </div>
       <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none mb-2">{player.name}</h1>
       <p class="text-[15px] text-ink/70 leading-relaxed mb-3 max-w-2xl">{player.blurb}</p>
       <p class="kicker text-ink/55">
@@ -48,6 +85,77 @@ const initial = player.name.charAt(0);
       </p>
     </div>
   </header>
+
+  {articles.length > 0 && (
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14">
+      <div class="lg:col-span-2 min-w-0">
+        <h2 class="kicker text-ink/60 mb-3">30일 언급 추이</h2>
+        <Sparkline data={daily} height={56} ariaLabel={`${player.name}의 최근 30일 언급 추이`} />
+        {topTags.length > 0 && (
+          <div class="mt-6">
+            <h3 class="kicker text-ink/60 mb-2">주요 태그</h3>
+            <div class="flex flex-wrap gap-x-3 gap-y-1 text-[11px] tracking-kicker uppercase font-semibold">
+              {topTags.map(({ tag, count }) => (
+                <a href={`${base}/topic/${encodeURIComponent(tag)}`} class="text-ink/65 hover:text-accent">
+                  #{tag}<span class="ml-1 text-ink/35 tabular-nums">{count}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div class="min-w-0">
+        <h2 class="kicker text-ink/60 mb-3">점유율 (30일)</h2>
+        <ul class="space-y-1.5">
+          {sovRows.map(({ player: rp, count }) => {
+            const pct = (count / sovMax) * 100;
+            const active = rp.id === player.id;
+            return (
+              <li class="flex items-center gap-2 text-xs">
+                <a
+                  href={`${base}/players/${rp.id}`}
+                  class:list={["shrink-0 w-20 truncate", active ? "font-bold text-ink" : "text-ink/65 hover:text-accent"]}
+                >{rp.name}</a>
+                <div class="flex-1 h-2.5 bg-ink/5">
+                  <div
+                    class="h-full"
+                    style={`width:${pct}%; background-color:${active ? player.color : "#94a3b8"}; opacity:${active ? 1 : 0.5}`}
+                  ></div>
+                </div>
+                <span class:list={["shrink-0 w-6 text-right tabular-nums", active ? "text-ink font-semibold" : "text-ink/50"]}>
+                  {count}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+
+        {coMentioned.length > 0 && (
+          <div class="mt-6">
+            <h2 class="kicker text-ink/60 mb-3">함께 언급되는 플레이어</h2>
+            <ul class="space-y-1.5">
+              {coMentioned.map(({ player: op, overlap }) => (
+                <li>
+                  <a
+                    href={`${base}/players/${op.id}`}
+                    class="flex items-center gap-2 text-xs text-ink/70 hover:text-accent"
+                  >
+                    <span
+                      class="shrink-0 w-4 h-4 flex items-center justify-center text-white font-serif text-[10px] font-bold"
+                      style={`background-color: ${op.color}`}
+                    >{op.name.charAt(0)}</span>
+                    <span class="truncate">{op.name}</span>
+                    <span class="ml-auto text-ink/40 tabular-nums">{overlap}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
 
   {articles.length === 0 ? (
     <p class="text-ink/50">아직 이 플레이어의 기사가 없습니다. 다음 파이프라인 실행 이후 채워집니다.</p>
@@ -63,4 +171,43 @@ const initial = player.name.charAt(0);
       ))}
     </div>
   )}
+
+  <script>
+    (function () {
+      const KEY = "followed_players";
+      const btn = document.getElementById("follow-btn") as HTMLButtonElement | null;
+      if (!btn) return;
+      const id = btn.dataset.playerId!;
+      const icon = btn.querySelector(".follow-icon") as HTMLElement;
+      const label = btn.querySelector(".follow-label") as HTMLElement;
+
+      function read(): string[] {
+        try {
+          const raw = localStorage.getItem(KEY);
+          return raw ? JSON.parse(raw) : [];
+        } catch { return []; }
+      }
+      function write(v: string[]) {
+        try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {}
+      }
+      function paint(followed: boolean) {
+        icon.textContent = followed ? "★" : "☆";
+        label.textContent = followed ? "팔로우 중" : "팔로우";
+        btn.setAttribute("aria-pressed", followed ? "true" : "false");
+        btn.classList.toggle("text-accent", followed);
+        btn.classList.toggle("border-accent", followed);
+      }
+
+      let list = read();
+      paint(list.includes(id));
+
+      btn.addEventListener("click", () => {
+        list = read();
+        const i = list.indexOf(id);
+        if (i >= 0) list.splice(i, 1); else list.push(id);
+        write(list);
+        paint(list.includes(id));
+      });
+    })();
+  </script>
 </Base>

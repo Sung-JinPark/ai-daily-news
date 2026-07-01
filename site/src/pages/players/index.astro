@@ -21,12 +21,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <p class="kicker text-ink/55">최근 30일 보도 동향 · 활동량 순</p>
   </header>
 
-  <ul class="divide-y divide-ink/15">
+  <section id="followed-section" class="mb-10 hidden">
+    <h2 class="kicker text-accent mb-4 pb-2 border-b border-ink/15">★ 팔로우</h2>
+    <ul id="followed-list" class="divide-y divide-ink/15"></ul>
+  </section>
+
+  <ul id="all-players" class="divide-y divide-ink/15">
     {sorted.map((p) => {
       const c = counts[p.id] ?? 0;
       const initial = p.name.charAt(0);
       return (
-        <li>
+        <li data-player-id={p.id}>
           <a
             href={`${base}/players/${p.id}`}
             class="flex items-center gap-5 py-5 hover:bg-accent/[0.02] -mx-4 px-4 group"
@@ -49,4 +54,29 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       );
     })}
   </ul>
+
+  <script>
+    (function () {
+      const KEY = "followed_players";
+      let ids: string[] = [];
+      try {
+        const raw = localStorage.getItem(KEY);
+        ids = raw ? JSON.parse(raw) : [];
+      } catch {}
+      if (!ids.length) return;
+      const section = document.getElementById("followed-section") as HTMLElement | null;
+      const list = document.getElementById("followed-list") as HTMLUListElement | null;
+      const all = document.getElementById("all-players") as HTMLUListElement | null;
+      if (!section || !list || !all) return;
+      let moved = 0;
+      for (const id of ids) {
+        const li = all.querySelector<HTMLLIElement>(`li[data-player-id="${id}"]`);
+        if (li) {
+          list.appendChild(li);
+          moved++;
+        }
+      }
+      if (moved > 0) section.classList.remove("hidden");
+    })();
+  </script>
 </Base>
