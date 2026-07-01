@@ -388,6 +388,70 @@ export function loadRecentDays(maxDays: number = 7): Article[] {
   return out;
 }
 
+// ---------- ZE3 semantic similarity loader ----------
+
+export type SimilarNeighbor = { article_id: string; score: number };
+
+let _similarityCache: Record<string, SimilarNeighbor[]> | null = null;
+function loadSimilarity(): Record<string, SimilarNeighbor[]> {
+  if (_similarityCache) return _similarityCache;
+  const file = path.join(DATA_ROOT, "similarity", "similar.json");
+  if (!fs.existsSync(file)) {
+    _similarityCache = {};
+    return _similarityCache;
+  }
+  const data = readJson<{ similar?: Record<string, SimilarNeighbor[]> } | null>(file, null);
+  _similarityCache = data?.similar ?? {};
+  return _similarityCache;
+}
+
+/** Whether the similarity index has any entries. Consumers use this to
+ * decide between semantic and tag-based fallback. */
+export function similarityAvailable(): boolean {
+  return Object.keys(loadSimilarity()).length > 0;
+}
+
+/**
+ * Return clusters semantically closest to the given cluster by
+ * aggregating the top-K neighbors of every article inside it.
+ * Returns an empty list when the similarity file has no data yet;
+ * callers should fall back to tag-based relatedClusters().
+ */
+export function relatedSemanticClusters(
+  clusterId: string,
+  limit: number = 6,
+  maxDays: number = CLUSTER_WINDOW_DAYS,
+): Array<ClusterSummary & { score: number }> {
+  const target = loadCluster(clusterId, maxDays);
+  if (!target) return [];
+  const sim = loadSimilarity();
+  if (!Object.keys(sim).length) return [];
+  const grouped = articlesByCluster(maxDays);
+  const clusterByArticle = new Map<string, string>();
+  for (const [cid, arts] of grouped) {
+    for (const a of arts) clusterByArticle.set(a.id, cid);
+  }
+  const bestByCluster = new Map<string, number>();
+  for (const a of target.articles) {
+    const neighbors = sim[a.id] ?? [];
+    for (const n of neighbors) {
+      const otherCluster = clusterByArticle.get(n.article_id);
+      if (!otherCluster || otherCluster === clusterId) continue;
+      const prev = bestByCluster.get(otherCluster) ?? 0;
+      if (n.score > prev) bestByCluster.set(otherCluster, n.score);
+    }
+  }
+  const scored: Array<ClusterSummary & { score: number }> = [];
+  for (const [otherCluster, score] of bestByCluster) {
+    const summary = loadCluster(otherCluster, maxDays);
+    if (!summary) continue;
+    scored.push({ ...summary, score });
+  }
+  return scored
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+}
+
 // ---------- Z3 corpus completeness ----------
 
 export type SkippedRow = {

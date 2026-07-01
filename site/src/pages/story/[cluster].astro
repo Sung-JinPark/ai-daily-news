@@ -1,7 +1,7 @@
 ---
 import Base from "~/layouts/Base.astro";
 import NewsTile from "~/components/NewsTile.astro";
-import { CATEGORIES, CLUSTER_WINDOW_DAYS, allClusters, clusterSlug, loadCluster, relatedClusters, type Article } from "~/lib/loadData";
+import { CATEGORIES, CLUSTER_WINDOW_DAYS, allClusters, clusterSlug, loadCluster, relatedClusters, relatedSemanticClusters, similarityAvailable, type Article } from "~/lib/loadData";
 
 // X1: emit both the stable-slug canonical page and the legacy k-id
 // redirect stub whenever a cluster has been backfilled. When the
@@ -40,7 +40,25 @@ const canonicalPath = `${base}/story/${canonicalSlug}`;
 // Redirect stubs skip the heavy loader — they just need the target
 // URL and enough markup for a canonical link + fallback text.
 const story = mode === "canonical" ? loadCluster(clusterId, CLUSTER_WINDOW_DAYS) : null;
-const related = mode === "canonical" && story ? relatedClusters(clusterId, 6, CLUSTER_WINDOW_DAYS) : [];
+// ZE3: prefer semantic similarity when the ZE2 index is populated;
+// fall back to the tag-Jaccard heuristic when it is empty (e.g. the
+// first CI run has not yet embedded anything). Track which path was
+// used so the header can label the section honestly.
+let related: any[] = [];
+let relatedMode: "semantic" | "tag" = "tag";
+if (mode === "canonical" && story) {
+  if (similarityAvailable()) {
+    const semantic = relatedSemanticClusters(clusterId, 6, CLUSTER_WINDOW_DAYS);
+    if (semantic.length > 0) {
+      related = semantic;
+      relatedMode = "semantic";
+    }
+  }
+  if (related.length === 0) {
+    related = relatedClusters(clusterId, 6, CLUSTER_WINDOW_DAYS);
+    relatedMode = "tag";
+  }
+}
 
 function fmtDay(iso: string): string {
   const d = new Date(iso + "T00:00:00Z");
@@ -169,7 +187,13 @@ const relatedArticles: Article[] = related
 
       {relatedArticles.length > 0 && (
         <section>
-          <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">관련 스토리</h2>
+          <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink flex items-center gap-3">
+            <span>관련 스토리</span>
+            <span class:list={[
+              "kicker text-[10px] px-1.5 py-0.5",
+              relatedMode === "semantic" ? "bg-accent/10 text-accent" : "bg-ink/10 text-ink/60",
+            ]}>{relatedMode === "semantic" ? "시맨틱" : "태그 기반"}</span>
+          </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
             {relatedArticles.map((a) => <NewsTile article={a} size="sm" />)}
           </div>
