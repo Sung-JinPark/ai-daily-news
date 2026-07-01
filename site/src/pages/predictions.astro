@@ -1,0 +1,149 @@
+---
+import Base from "~/layouts/Base.astro";
+import { articleById, loadPredictions } from "~/lib/loadData";
+
+const predictions = loadPredictions();
+const lookup = articleById();
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const STATUS_LABEL: Record<string, string> = {
+  pending: "대기",
+  still_pending: "대기",
+  confirmed: "확인됨",
+  contradicted: "반박됨",
+};
+const STATUS_COLOR: Record<string, string> = {
+  pending: "text-ink/50",
+  still_pending: "text-ink/50",
+  confirmed: "text-emerald-700",
+  contradicted: "text-accent",
+};
+
+// Sort: confirmed & contradicted (resolved) most-recent first, then pending most-recent first.
+const sorted = [...predictions].sort((a, b) => {
+  const aRes = a.status === "confirmed" || a.status === "contradicted";
+  const bRes = b.status === "confirmed" || b.status === "contradicted";
+  if (aRes !== bRes) return aRes ? -1 : 1;
+  return b.day_made.localeCompare(a.day_made);
+});
+
+// Facet options for client-side filtering.
+const sourceSet = new Set(sorted.map((p) => p.source_name));
+const sources = Array.from(sourceSet).sort();
+---
+<Base
+  title="예측 트래커 — AI Daily News"
+  description="AI 산업 기사에서 자동 추출된 검증 가능한 예측·주장의 상태를 추적합니다."
+>
+  <header class="mb-8 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Prediction Tracker</div>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">예측 트래커</h1>
+    <p class="mt-3 text-[13px] text-ink/60">고중요도 기사에서 뽑아낸 검증 가능한 예측을 저장하고, 이후 기사가 확인·반박했는지 자동 판정합니다.</p>
+  </header>
+
+  {sorted.length === 0 ? (
+    <p class="text-ink/50">아직 추적 중인 예측이 없습니다. 다음 파이프라인 실행 이후 채워집니다.</p>
+  ) : (
+    <>
+      <div class="mb-6 flex flex-wrap items-center gap-3 text-[12px]">
+        <label class="flex items-center gap-2">
+          <span class="kicker text-ink/50">상태</span>
+          <select id="filter-status" class="border border-ink/25 px-2 py-1 bg-white">
+            <option value="">전체</option>
+            <option value="pending">대기</option>
+            <option value="confirmed">확인됨</option>
+            <option value="contradicted">반박됨</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-2">
+          <span class="kicker text-ink/50">매체</span>
+          <select id="filter-source" class="border border-ink/25 px-2 py-1 bg-white">
+            <option value="">전체</option>
+            {sources.map((s) => <option value={s}>{s}</option>)}
+          </select>
+        </label>
+        <span id="filter-count" class="ml-auto kicker text-ink/50 tabular-nums">{sorted.length}건</span>
+      </div>
+
+      <ul id="pred-list" class="divide-y divide-ink/15">
+        {sorted.map((p) => {
+          const status = STATUS_LABEL[p.status] ?? p.status;
+          const color = STATUS_COLOR[p.status] ?? "text-ink/50";
+          const evidence = p.resolution_article_id ? lookup.get(p.resolution_article_id) : null;
+          return (
+            <li
+              id={`pred-${p.id}`}
+              class="py-5"
+              data-status={p.status === "still_pending" ? "pending" : p.status}
+              data-source={p.source_name}
+            >
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] tracking-kicker uppercase font-semibold text-ink/60 mb-2">
+                <span class={`${color} font-bold`}>{status}</span>
+                <span class="text-ink/30">·</span>
+                <span>{p.who}</span>
+                <span class="text-ink/30">·</span>
+                <span>예측 {p.day_made}</span>
+                {p.horizon !== "unspecified" && (
+                  <>
+                    <span class="text-ink/30">·</span>
+                    <span>만기 {p.horizon}</span>
+                  </>
+                )}
+                <span class="text-ink/30">·</span>
+                <span>확신도 {p.confidence}</span>
+              </div>
+              <p class="font-serif text-lg text-ink leading-snug break-words">{p.claim_ko}</p>
+              <div class="mt-2 text-[12.5px] text-ink/65 leading-relaxed">
+                <span>원출처: </span>
+                <a href={p.article_url} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline break-words">
+                  {p.article_title}
+                </a>
+                <span class="text-ink/40"> · {p.source_name}</span>
+              </div>
+              {(p.status === "confirmed" || p.status === "contradicted") && (
+                <div class="mt-2 pl-3 border-l-2 border-ink/15 text-[12.5px] text-ink/70 leading-relaxed">
+                  {p.resolution_note_ko && <p>{p.resolution_note_ko}</p>}
+                  {evidence && (
+                    <p class="mt-1">
+                      <span class="text-ink/50">근거: </span>
+                      <a href={evidence.url} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">
+                        {evidence.title_original}
+                      </a>
+                      <span class="text-ink/40"> · {p.resolution_day}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+
+      <script>
+        (function () {
+          const status = document.getElementById("filter-status") as HTMLSelectElement | null;
+          const source = document.getElementById("filter-source") as HTMLSelectElement | null;
+          const count = document.getElementById("filter-count") as HTMLSpanElement | null;
+          const list = document.getElementById("pred-list") as HTMLUListElement | null;
+          if (!status || !source || !count || !list) return;
+          const items = Array.from(list.querySelectorAll<HTMLLIElement>("li"));
+          function apply() {
+            const s = status!.value;
+            const src = source!.value;
+            let n = 0;
+            for (const li of items) {
+              const okS = !s || li.dataset.status === s;
+              const okSrc = !src || li.dataset.source === src;
+              const show = okS && okSrc;
+              li.style.display = show ? "" : "none";
+              if (show) n++;
+            }
+            count!.textContent = `${n}건`;
+          }
+          status.addEventListener("change", apply);
+          source.addEventListener("change", apply);
+        })();
+      </script>
+    </>
+  )}
+</Base>

@@ -12,6 +12,8 @@ echo === trending ===
 python -m pipeline.trending
 echo === themes (cross-day narratives) ===
 python -m pipeline.themes
+echo === predictions (extract + resolve) ===
+python -m pipeline.predict_extract
 echo === index ===
 python -m pipeline.index_latest
 echo.

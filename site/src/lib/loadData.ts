@@ -227,6 +227,31 @@ export function hotnessScore(a: Article, now: Date = new Date()): number {
   return importance * 0.6 + cluster * 0.15 + recency * 0.25;
 }
 
+export type Prediction = {
+  id: string;
+  article_id: string;
+  article_url: string;
+  article_title: string;
+  source_name: string;
+  day_made: string;
+  claim_ko: string;
+  who: string;
+  horizon: string;
+  confidence: "low" | "medium" | "high";
+  status: "pending" | "confirmed" | "contradicted" | "still_pending";
+  resolution_article_id: string | null;
+  resolution_day: string | null;
+  resolution_note_ko: string | null;
+  last_reviewed?: string;
+};
+
+export function loadPredictions(): Prediction[] {
+  const file = path.join(DATA_ROOT, "predictions", "registry.json");
+  if (!fs.existsSync(file)) return [];
+  const data = readJson<{ predictions?: Prediction[] } | null>(file, null);
+  return data?.predictions ?? [];
+}
+
 export type Theme = {
   slug: string;
   name: string;
