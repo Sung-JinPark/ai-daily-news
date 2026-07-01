@@ -39,6 +39,13 @@ from pathlib import Path
 PRIVATE_ROOT = Path("data") / "research_private"
 DEFAULT_PREFIX = "ai-daily-news/research_private"
 
+# NOTE: data/papers_private/ (the arXiv paper corpus / SQLite DB) is
+# also gitignored and privacy-sensitive, but it's a live SQLite file
+# and needs snapshot-style export rather than a naive rsync (avoid
+# uploading mid-write). Wire that here once the paper ingest pipeline
+# ships a checkpoint export step. For now this uploader mirrors only
+# data/research_private/.
+
 
 def _sha256_file(path: Path) -> str:
     h = hashlib.sha256()
