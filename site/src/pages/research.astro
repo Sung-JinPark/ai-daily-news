@@ -58,7 +58,9 @@ const stats = {
   source_health_rows: countJsonlLines("aggregates/source_health.jsonl"),
 };
 
-const REPO = "Sung-JinPark/ai-daily-news";
+// Derive from the Actions env like astro.config/footer so forks and
+// renames keep working; fall back to the canonical repo for local dev.
+const REPO = import.meta.env.GITHUB_REPOSITORY || "Sung-JinPark/ai-daily-news";
 const releasesUrl = `https://github.com/${REPO}/releases/latest`;
 const releasesListUrl = `https://github.com/${REPO}/releases?q=archive-&expanded=true`;
 const artifactUrl = `https://github.com/${REPO}/actions/workflows/daily.yml`;
