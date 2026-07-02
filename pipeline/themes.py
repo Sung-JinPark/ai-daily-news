@@ -42,7 +42,7 @@ CATEGORY_KO = {
 
 
 def _load_recent_articles(days: int) -> tuple[str, str, list[dict]]:
-    today = date.today()
+    today = datetime.now(timezone.utc).date()
     start = today - timedelta(days=days - 1)
     out: list[dict] = []
     seen_ids: set[str] = set()
@@ -270,7 +270,7 @@ def main() -> int:
     log.info("themes: wrote rolling.json with %d themes (usage=%s)", len(themes), rsp["usage"])
 
     if args.archive_week:
-        week = iso_week_for(date.today())
+        week = iso_week_for(datetime.now(timezone.utc).date())
         (out_dir / f"{week}.json").write_text(
             json.dumps({**payload, "week": week}, ensure_ascii=False, indent=2), encoding="utf-8"
         )

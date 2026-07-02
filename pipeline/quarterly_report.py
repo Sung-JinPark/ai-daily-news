@@ -66,14 +66,14 @@ def quarter_bounds(quarter: str) -> tuple[date, date]:
 
 
 def current_quarter(d: date | None = None) -> str:
-    d = d or date.today()
+    d = d or datetime.now(timezone.utc).date()
     q = (d.month - 1) // 3 + 1
     return f"{d.year}-Q{q}"
 
 
 def previous_completed_quarter(d: date | None = None) -> str:
     """Return the most recent fully-completed quarter."""
-    d = d or date.today()
+    d = d or datetime.now(timezone.utc).date()
     q = (d.month - 1) // 3 + 1
     if q == 1:
         return f"{d.year - 1}-Q4"

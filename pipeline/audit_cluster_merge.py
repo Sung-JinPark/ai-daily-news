@@ -259,7 +259,7 @@ def _sources_block(sources: Counter, limit: int = 5) -> str:
 
 def render(summary: dict) -> str:
     lines: list[str] = []
-    today = date.today().isoformat()
+    today = datetime.now(timezone.utc).date().isoformat()
     lines.append(f"# Cross-day cluster merge audit — {today}\n")
     lines.append(
         "R1 (커밋 `00cf89a`)로 크로스데이 병합에 티어 임계값 + 제목 Jaccard "
@@ -442,7 +442,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--out",
-        default=str(Path("reviews") / f"cluster-merge-audit-{date.today().isoformat()}.md"),
+        default=str(Path("reviews") / f"cluster-merge-audit-{datetime.now(timezone.utc).date().isoformat()}.md"),
         help="Output report path",
     )
     parser.add_argument("--print", action="store_true", help="print report to stdout instead")

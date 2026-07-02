@@ -58,7 +58,7 @@ def detect_dead_sources() -> list[dict]:
             continue
         by_source[sid].append(e)
 
-    today = date.today()
+    today = datetime.now(timezone.utc).date()
     anomalies: list[dict] = []
     for sid, rows in by_source.items():
         rows.sort(key=lambda r: r.get("day", ""))

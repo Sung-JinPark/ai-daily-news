@@ -89,7 +89,7 @@ def validate_new_terms(parsed: dict, existing_keys: set[str]) -> list[dict]:
     if not isinstance(raw, list):
         return []
     out: list[dict] = []
-    today_str = date.today().isoformat()
+    today_str = datetime.now(timezone.utc).date().isoformat()
     for item in raw:
         if not isinstance(item, dict):
             continue
@@ -128,7 +128,7 @@ def cap_terms(terms: list[dict], max_n: int) -> list[dict]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--week", default=iso_week_for(date.today()))
+    parser.add_argument("--week", default=iso_week_for(datetime.now(timezone.utc).date()))
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")

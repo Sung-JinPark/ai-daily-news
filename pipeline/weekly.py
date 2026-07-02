@@ -173,7 +173,7 @@ def validate_and_map(parsed: dict, articles: list[dict]) -> dict | None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--week", default=iso_week_for(date.today()))
+    parser.add_argument("--week", default=iso_week_for(datetime.now(timezone.utc).date()))
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
