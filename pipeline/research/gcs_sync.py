@@ -12,11 +12,14 @@ Env vars (all required to enable upload):
 - ``GCS_PREFIX`` (optional)         -subpath inside the bucket
                                        (defaults to ``ai-daily-news/research_private``)
 
-Uploaded object layout mirrors the local tree:
+Uploaded object layout mirrors the local tree (rglob — everything
+under research_private/ syncs), currently:
 
     gs://<bucket>/<prefix>/manifest.json
-    gs://<bucket>/<prefix>/snapshots/YYYY-MM-DD/*.parquet
+    gs://<bucket>/<prefix>/snapshots/YYYY-MM-DD/*
     gs://<bucket>/<prefix>/timeseries/*.parquet
+    gs://<bucket>/<prefix>/paper_trends/*  briefs/*  exports/*
+    gs://<bucket>/<prefix>/db_exports/papers-*.db research-*.db
 
 To enable, install google-cloud-storage (deliberately kept optional so
 the base install doesn't pull it):
@@ -46,12 +49,12 @@ load_dotenv()
 PRIVATE_ROOT = Path("data") / "research_private"
 DEFAULT_PREFIX = "ai-daily-news/research_private"
 
-# NOTE: data/papers_private/ (the arXiv paper corpus / SQLite DB) is
-# also gitignored and privacy-sensitive, but it's a live SQLite file
-# and needs snapshot-style export rather than a naive rsync (avoid
-# uploading mid-write). Wire that here once the paper ingest pipeline
-# ships a checkpoint export step. For now this uploader mirrors only
-# data/research_private/.
+# papers.db / research.db backup: handled — export_papers_db.py and
+# export_dataset.py drop consistent cold checkpoints (sqlite3 backup
+# API) into research_private/db_exports/, which this uploader already
+# mirrors. The live DB files under papers_private/ are deliberately
+# NOT synced (hot-copy torn-snapshot risk); the checkpoints are the
+# backup artifact. (AUD-018: NOTE refreshed after C4-2/RDB-5 shipped.)
 
 
 def _sha256_file(path: Path) -> str:
