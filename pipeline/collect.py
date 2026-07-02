@@ -258,7 +258,9 @@ def _append_health(day: str, rows: list[dict]) -> None:
             kept.append(line)
     for r in rows:
         kept.append(json.dumps({"logged_at": now, **r}, ensure_ascii=False))
-    path.write_text("\n".join(kept) + "\n", encoding="utf-8")
+    # Atomic (AUDIT-1 AUD-006): read-modify-rewrite stream.
+    from pipeline.utils.atomic import write_text_atomic
+    write_text_atomic(path, "\n".join(kept) + "\n")
     # Y2: refresh sidecar meta so downstream research consumers can
     # verify schema_version before reading source_health rows.
     from pipeline.aggregates_manifest import update_files as _update_manifest

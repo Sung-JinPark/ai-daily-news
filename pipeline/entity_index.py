@@ -194,9 +194,12 @@ def process(days: list[str]) -> tuple[int, int, int]:
                 )
                 n_entity_cooc += 1
 
-    MENTIONS_FILE.write_text("\n".join(kept_mentions + mentions_out) + "\n", encoding="utf-8")
-    TAG_COOC_FILE.write_text("\n".join(kept_tag_cooc + tag_cooc_out) + "\n", encoding="utf-8")
-    ENTITY_COOC_FILE.write_text("\n".join(kept_entity_cooc + entity_cooc_out) + "\n", encoding="utf-8")
+    # Atomic (AUDIT-1 AUD-006): these are read-modify-rewrite streams —
+    # a torn write would lose the whole accumulated history, not a day.
+    from pipeline.utils.atomic import write_text_atomic
+    write_text_atomic(MENTIONS_FILE, "\n".join(kept_mentions + mentions_out) + "\n")
+    write_text_atomic(TAG_COOC_FILE, "\n".join(kept_tag_cooc + tag_cooc_out) + "\n")
+    write_text_atomic(ENTITY_COOC_FILE, "\n".join(kept_entity_cooc + entity_cooc_out) + "\n")
     # Y2: refresh the sidecar manifest so external consumers can pick up
     # the new counts / hashes and check schema_version at read time.
     from pipeline.aggregates_manifest import update_files as _update_manifest

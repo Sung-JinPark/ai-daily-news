@@ -131,21 +131,40 @@ def filter_fresh(items: list[dict], day_str: str, max_age_days: int = MAX_AGE_DA
 
 
 def load_continuity() -> dict:
+    """AUDIT-1 AUD-001: a MISSING file is a legitimate first run and
+    returns a fresh structure; a CORRUPT/unreadable file ABORTS the
+    run instead of silently returning empty — the old behavior let the
+    same run's save_continuity() overwrite the file, destroying every
+    frozen first_url_hash (all /story/s-* canonical URLs) with zero
+    signal. Recovery from a genuinely corrupt file is a human
+    decision: restore from git, then re-run.
+    """
     if not CONTINUITY_FILE.exists():
         return {"schema_version": 1, "version": 1, "next_id": 0, "entries": []}
     try:
         data = json.loads(CONTINUITY_FILE.read_text(encoding="utf-8"))
-    except Exception:
-        return {"schema_version": 1, "version": 1, "next_id": 0, "entries": []}
+    except Exception as exc:
+        log.error(
+            "cluster_continuity.json exists but is unreadable (%s) — aborting "
+            "instead of resetting %s. Restore it from git history, then re-run.",
+            exc, CONTINUITY_FILE,
+        )
+        raise SystemExit(2)
+    if not isinstance(data.get("entries"), list):
+        log.error(
+            "cluster_continuity.json parsed but has no 'entries' list — aborting "
+            "instead of resetting. Restore from git history, then re-run.",
+        )
+        raise SystemExit(2)
     data.setdefault("schema_version", 1)
     return data
 
 
 def save_continuity(data: dict) -> None:
-    CONTINUITY_FILE.parent.mkdir(parents=True, exist_ok=True)
-    CONTINUITY_FILE.write_text(
-        json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    # Atomic (AUD-006): a torn continuity write is the corruption that
+    # AUD-001's abort path exists to catch — never create one ourselves.
+    from pipeline.utils.atomic import write_text_atomic
+    write_text_atomic(CONTINUITY_FILE, json.dumps(data, ensure_ascii=False, indent=2))
 
 
 def prune_continuity(data: dict, days: int, today_str: str) -> dict:
@@ -205,6 +224,27 @@ def _maybe_update_first_key(entry: dict, today_key: tuple[str, str]) -> None:
         return  # frozen — never overwrite
     entry["first_published"] = tp
     entry["first_url_hash"] = th
+
+
+def _ensure_unique_hash(th: str, continuity: dict) -> str:
+    """AUDIT-1 AUD-003: two clusters must never freeze the same
+    first_url_hash — the /story/s-<hash> slug would collide and
+    getStaticPaths would emit duplicate routes. When the same article
+    seeds two clusters (observed twice in the archive), the later
+    freeze gets a deterministic ``-2``/``-3`` suffix.
+    """
+    taken = {
+        e.get("first_url_hash")
+        for e in continuity.get("entries", [])
+        if e.get("first_url_hash")
+    }
+    if th not in taken:
+        return th
+    n = 2
+    while f"{th}-{n}" in taken:
+        n += 1
+    log.warning("first_url_hash collision on %s — disambiguated to %s-%d", th, th, n)
+    return f"{th}-{n}"
 
 
 def _title_tokens(title: str) -> set[str]:
@@ -294,7 +334,10 @@ def find_stable_id(
         # X1: keep the deterministic first key (published, url_hash) in
         # sync so the stable slug reflects the true earliest article
         # ever observed for this cluster.
-        _maybe_update_first_key(e, today_first_key)
+        tp0, th0 = today_first_key
+        if th0 and not e.get("first_url_hash"):
+            th0 = _ensure_unique_hash(th0, continuity)
+        _maybe_update_first_key(e, (tp0, th0))
         return e["cluster_id"], True
     continuity["next_id"] = int(continuity.get("next_id", 0)) + 1
     new_id = f"k{continuity['next_id']:06d}"
@@ -307,7 +350,7 @@ def find_stable_id(
     }
     if th:
         entry["first_published"] = tp
-        entry["first_url_hash"] = th
+        entry["first_url_hash"] = _ensure_unique_hash(th, continuity)
     continuity["entries"].append(entry)
     return new_id, False
 
@@ -407,13 +450,10 @@ def _write_merge_events(day_str: str, events: list[dict]) -> None:
             if obj.get("day") == day_str:
                 continue
             kept.append(line)
-    with path.open("w", encoding="utf-8", newline="\n") as f:
-        for line in kept:
-            f.write(line)
-            f.write("\n")
-        for e in events:
-            f.write(json.dumps(e, ensure_ascii=False))
-            f.write("\n")
+    # Atomic (AUDIT-1 AUD-006): read-modify-rewrite stream.
+    from pipeline.utils.atomic import write_text_atomic
+    body = "\n".join(kept + [json.dumps(e, ensure_ascii=False) for e in events])
+    write_text_atomic(path, body + "\n" if body else "")
     # Y2: refresh sidecar meta after the rewrite. Import lazily to
     # avoid a hot dependency at module load.
     from pipeline.aggregates_manifest import update_files as _update_manifest
