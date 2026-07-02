@@ -28,6 +28,16 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Papers DB cold export (private) ===
+REM C4-2: consistent SQLite checkpoint copy into research_private\
+REM db_exports\ — gcs_sync walks that tree, so the nightly backup
+REM includes the export automatically. Non-fatal.
+python -m pipeline.research.export_papers_db
+if errorlevel 1 (
+    echo [WARN] Papers DB export reported errors, continuing anyway.
+)
+
+echo.
 echo === Paper trends (private, offline) ===
 REM Z2 join layer: paper velocity/topics/hot list from papers.db +
 REM article tags. Pure aggregation, no network. Non-fatal.
