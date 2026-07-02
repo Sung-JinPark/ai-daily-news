@@ -222,7 +222,7 @@ def main() -> int:
     elif args.day:
         days = [args.day]
     else:
-        today = date.today().isoformat()
+        today = datetime.now(timezone.utc).date().isoformat()
         days = [today]
 
     m, tc, ec = process(days)

@@ -144,7 +144,7 @@ def _load_articles_for_day(day: str) -> list[dict]:
 
 
 def _load_recent_articles(days: int) -> list[dict]:
-    today = date.today()
+    today = datetime.now(timezone.utc).date()
     out: list[dict] = []
     seen: set[str] = set()
     for i in range(days):
@@ -348,7 +348,7 @@ def resolve_predictions(
     fallback_k: int = 10,
 ) -> int:
     registry = _load_registry()
-    today = date.today()
+    today = datetime.now(timezone.utc).date()
     stale = [p for p in registry["predictions"] if _pending_needs_resolution(p, today)]
     log.info("resolve: %d predictions need review", len(stale))
     if not stale:

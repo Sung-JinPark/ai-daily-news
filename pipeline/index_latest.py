@@ -35,10 +35,14 @@ def main() -> int:
         latest_count = len(latest_articles)
     except Exception:  # noqa: BLE001
         latest_count = 0
-    try:
-        weekday = datetime.strptime(latest, "%Y-%m-%d").weekday()  # 0=Mon, 6=Sun
-    except ValueError:
-        weekday = 0
+    # AUDIT-1 AUD-011: the banner's audience is KST readers, but data
+    # day keys are UTC — deriving the weekday from the day string made
+    # KST Saturday mornings (data = Friday UTC) use the weekday floor.
+    # Decide by the KST calendar at generation time instead: the index
+    # runs right after collect, so "now KST" is the day readers see.
+    from datetime import timedelta
+    KST = timezone(timedelta(hours=9))
+    weekday = datetime.now(KST).weekday()  # 0=Mon, 6=Sun (KST)
     is_weekend = weekday >= 5
     low_volume_floor = WEEKEND_LOW_VOLUME_FLOOR if is_weekend else WEEKDAY_LOW_VOLUME_FLOOR
     payload = {

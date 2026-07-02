@@ -250,7 +250,7 @@ def rebuild_index() -> None:
     if not FACTS_JSONL.exists():
         log.info("no facts.jsonl, nothing to index")
         return
-    cutoff = (date.today() - timedelta(days=LOOKBACK_DAYS)).isoformat()
+    cutoff = (datetime.now(timezone.utc).date() - timedelta(days=LOOKBACK_DAYS)).isoformat()
     per_model: dict[str, dict] = {}
     for line in FACTS_JSONL.read_text(encoding="utf-8").splitlines():
         try:
