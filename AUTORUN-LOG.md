@@ -41,3 +41,30 @@ The first weekly brief reported **47 community moves** between 2026-06-30 → 20
 
 - **Enrichment: FAILED after 2 attempts** — attempt 1 (`--sleep 3`, all 466): every batch got HTTP 429 from export.arxiv.org; attempt 2 (`--sleep 6 --limit-enrich 100`): read timeouts. arXiv is rate-limiting or degraded right now; this is external, not a code defect. Per protocol, stopped after 2 failures. **Self-healing by design**: rows stay `enriched=0` and the scheduled `run-research.bat` (daily 20:00 KST, registered this session) retries automatically. `check-papers-db.mjs` still 12/12 PASS (papers 469 / mentions 469 / enriched 3).
 - **Notebook examples: DONE** — appended a paper_trends section (markdown + code cell) to notebook 01 via a programmatic ipynb edit (no hand-editing). Cells load `paper_velocity.parquet` / `paper_topics.parquet`, display the newest `hot_papers-*.json`, and rank the most-attached tags. `jupyter nbconvert --execute` exit 0 with the new cells.
+
+### Final summary
+
+**Started:** 2026-07-02T08:54 KST · **Ended:** 2026-07-02T09:20 KST · **Elapsed:** ~26 min (queue exhausted; STOP per protocol).
+
+**Commits on this branch** (`auto/research-20260702-0854`, base `main` @ `6defa0b`):
+
+| Commit | Task | Type |
+|---|---|---|
+| `9a10c9f` | init log + branch | scaffold |
+| `5c32cde` | Z1 — trust_flag backward-compat + retroactive backfill | **code** |
+| `bfb0e16` | Z2 — paper_trends join layer | **code** |
+| `8d31044` | Z1-follow-up — canonicalize pre-P2 community labels | **code (fix)** |
+| `18ab21c` | Z3 — weekly brief generator + bat wiring | **code** |
+| `faea4c9` | Z4 — notebook examples (enrichment deferred) | code (partial) |
+
+**Highlight — verification caught a real data-integrity bug**: the first weekly brief exposed 47 phantom community moves (pre-P2 vs post-P2 label numbering). Fixed by `backfill_community_labels.py` with a partition-signature safety check; brief now reports 0 moves. This is the concrete payoff of P2's determinism work.
+
+**Deviations from the approved plan** (both documented in commit messages):
+1. Z1 retro-backfill derives trust_flag from stored values instead of re-running snapshots (original recipe would have falsified history) — this was pre-approved in the plan.
+2. Z4 enrichment deferred after 2 external failures (arXiv 429/timeouts) — self-heals via the 20:00 KST scheduled task; not a code defect.
+
+**Leak gate**: `git ls-files data/papers_private/ data/research_private/` empty at every commit.
+
+**Human TODOs unchanged**: GCS activation (needs `GCS_BUCKET` + service-account JSON + `pip install google-cloud-storage`; then `gcs_sync --self-check` → real sync). D-1~3 (public visualizations / reader tier / persona rewriting) await your decision.
+
+**Handoff**: all five code commits touch only private-layer surfaces (`pipeline/research/`, notebooks, `run-research.bat`) — no public site or public data. Safe to merge or cherry-pick the branch wholesale after review; recommended order is simply chronological. Nothing pushed.
