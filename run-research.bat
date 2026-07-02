@@ -56,6 +56,15 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Lexicon candidates (1st of month only, self-gated) ===
+REM RDB-4: deterministic emergent-term candidates for the private
+REM lexicon. Script skips unless it's the 1st (KST). Non-fatal.
+python -m pipeline.research.lexicon_candidates
+if errorlevel 1 (
+    echo [WARN] Lexicon candidates step reported errors, continuing anyway.
+)
+
+echo.
 echo === GCS backup (no-op until credentials configured) ===
 REM D-4: mirrors data\research_private\ to gs://%%GCS_BUCKET%%. Reads
 REM GCS_BUCKET + GOOGLE_APPLICATION_CREDENTIALS from .env; prints a
