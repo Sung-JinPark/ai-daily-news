@@ -84,6 +84,15 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Local dashboard (private HTML) ===
+REM Stats view over papers.db + research.db — the private replacement
+REM for the removed public /research pages. Non-fatal.
+python -m pipeline.research.dashboard
+if errorlevel 1 (
+    echo [WARN] Dashboard step reported errors, continuing anyway.
+)
+
+echo.
 echo === GCS backup (no-op until credentials configured) ===
 REM D-4: mirrors data\research_private\ to gs://%%GCS_BUCKET%%. Reads
 REM GCS_BUCKET + GOOGLE_APPLICATION_CREDENTIALS from .env; prints a
