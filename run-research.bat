@@ -25,5 +25,23 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Paper trends (private, offline) ===
+REM Z2 join layer: paper velocity/topics/hot list from papers.db +
+REM article tags. Pure aggregation, no network. Non-fatal.
+python -m pipeline.research.paper_trends
+if errorlevel 1 (
+    echo [WARN] Paper trends step reported errors, continuing anyway.
+)
+
+echo.
+echo === Weekly brief (Mondays only, self-gated) ===
+REM Z3: aggregation-only Korean brief. The script itself skips unless
+REM it's Monday KST, so calling it unconditionally is safe. Non-fatal.
+python -m pipeline.research.weekly_brief
+if errorlevel 1 (
+    echo [WARN] Weekly brief step reported errors, continuing anyway.
+)
+
+echo.
 echo Done. Artifacts written under data\research_private\ and data\papers_private\
 endlocal
