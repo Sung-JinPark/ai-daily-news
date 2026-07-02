@@ -127,10 +127,35 @@ def _community_section(lines: list[str]) -> None:
     lines.append("")
 
 
+def _recent_refs_file_count(days: int = 7) -> tuple[int, int]:
+    """(ref rows, days with a refs file) across the last ``days``
+    calendar days of the archive — shows whether the C4-1 pipe is
+    actually producing data, independent of local consumption."""
+    from pipeline.arxiv_refs import load_refs_file
+
+    day_dirs = sorted(
+        p.name for p in Path("data").iterdir()
+        if p.is_dir() and len(p.name) == 10 and p.name[:2] == "20"
+    )
+    n_rows = 0
+    n_days = 0
+    for day in day_dirs[-days:]:
+        payload = load_refs_file(day)
+        if payload is None:
+            continue
+        n_days += 1
+        n_rows += len(payload["refs"])
+    return n_rows, n_days
+
+
 def _paper_db_status_line(lines: list[str]) -> None:
     """One-line papers.db health so enrichment stalls are visible in
-    the brief (C2): papers N · enriched E (pct) · reference mentions M."""
+    the brief (C2): papers N · enriched E (pct) · reference mentions M,
+    plus refs-file coverage (C4-3) so the CI persistence pipe's output
+    is visible too."""
     import sqlite3
+
+    from pipeline.arxiv_refs import REFS_COVERAGE_START
     db = paper_trends.PAPERS_DB
     if not db.exists():
         return
@@ -147,9 +172,11 @@ def _paper_db_status_line(lines: list[str]) -> None:
     finally:
         conn.close()
     pct = (n_enriched / n_papers * 100) if n_papers else 0.0
+    ref_rows, ref_days = _recent_refs_file_count(7)
     lines.append(
         f"논문 DB 상태: papers **{n_papers}** · enriched **{n_enriched}** ({pct:.0f}%) · "
-        f"reference 멘션 **{n_ref}** [^papers]"
+        f"reference 멘션 **{n_ref}** · 최근 7일 refs 파일 {ref_days}일/{ref_rows}건 "
+        f"(전 소스 커버 시작 {REFS_COVERAGE_START}) [^papers]"
     )
     lines.append("")
 
