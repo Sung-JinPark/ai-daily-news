@@ -185,6 +185,7 @@ def main() -> int:
 
     total = 0
     health_rows: list[dict] = []
+    all_items: list[dict] = []
     for source in sources:
         if not source.get("enabled", True):
             continue
@@ -202,6 +203,7 @@ def main() -> int:
         capped_items = items[:PER_SOURCE_CAP]
         log.info("source %s -> %d items", source["id"], len(capped_items))
         total += len(capped_items)
+        all_items.extend(capped_items)
         health_rows.append(
             {"day": day, "source_id": source["id"], "items": len(items), "capped": len(capped_items), "error": ""}
         )
@@ -214,6 +216,18 @@ def main() -> int:
     log.info("collect done: %d items across active sources", total)
     if not args.dry_run and health_rows:
         _append_health(day, health_rows)
+    # C4-1: persist arXiv reference candidates so the paper layer can
+    # build cross-source mentions for CI-collected days (raw/ itself is
+    # transient). Skipped on --only runs — a partial source set would
+    # overwrite the day's file with incomplete coverage. Non-fatal: a
+    # failure here must never block collection.
+    if not args.dry_run and only is None:
+        try:
+            from pipeline.arxiv_refs import write_refs_file
+            refs_path = write_refs_file(day, all_items)
+            log.info("arxiv refs -> %s", refs_path)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("arxiv refs persist failed (non-fatal): %s", exc)
     return 0
 
 

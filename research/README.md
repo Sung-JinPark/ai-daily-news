@@ -86,6 +86,13 @@ this contract:
 - When adding a new metric to a public page, compare it against this
   list first; if it resembles anything in the private-only list at
   *daily* granularity or with *smoothing*, keep it private.
+- **`data/<day>/arxiv_refs.json` (C4-1)** is public-allowed: the
+  (article → arXiv id) mapping is a trivial derivation of the public
+  RSS text the feeds already publish. The file carries only ids and
+  positions — `{article_id, arxiv_id, where, source_id}` — never
+  article text, so no source content is republished. Full-source
+  coverage begins 2026-07-02; earlier days exist only where a local
+  raw/ tree survived (2026-06-04, 2026-06-17, backfilled).
 
 ## What NOT to modify from this folder
 

@@ -44,6 +44,13 @@ from typing import Iterable
 
 import feedparser
 
+from pipeline.arxiv_refs import (
+    ARXIV_URL_RE,
+    ARXIV_VERSION_RE,
+    extract_arxiv_refs,
+    load_refs_file,
+    parse_arxiv_id,
+)
 from pipeline.state import url_hash
 from pipeline.utils.http import get_client, fetch
 
@@ -69,19 +76,9 @@ ARXIV_SOURCE_IDS = {
     "arxiv_cs_ro", "arxiv_stat_ml",
 }
 
-# Modern arXiv ids: YYMM.NNNNN(vN). Old ids: archive/YYMMNNN
-ARXIV_URL_RE = re.compile(
-    r"arxiv\.org/(?:abs|pdf)/(?P<id>[a-z\-]+(?:\.[A-Z]{2})?/\d{7}|\d{4}\.\d{4,5})(?:v\d+)?",
-    re.IGNORECASE,
-)
-# Textual citation form. Deliberately conservative: requires the
-# literal "arXiv:" prefix — bare numeric ids (e.g. "2606.23662" on its
-# own) are NOT matched because they collide with dates/amounts.
-ARXIV_TEXT_RE = re.compile(
-    r"arXiv:\s?(?P<id>[a-z\-]+(?:\.[A-Z]{2})?/\d{7}|\d{4}\.\d{4,5})(?:v\d+)?",
-    re.IGNORECASE,
-)
-ARXIV_VERSION_RE = re.compile(r"v\d+$", re.IGNORECASE)
+# Extraction patterns live in pipeline.arxiv_refs (C4-1) so CI's
+# collect step and this local consumer can never drift. Re-exported
+# names above keep existing call sites working.
 
 ARXIV_API = "https://export.arxiv.org/api/query"
 ARXIV_BATCH_SIZE = 25  # id_list per request — under the 100 policy cap
@@ -131,21 +128,8 @@ CREATE TABLE IF NOT EXISTS meta (
 
 
 # ---------- id parsing ----------
-
-
-def parse_arxiv_id(url: str) -> str | None:
-    """Return the version-stripped base arxiv id, or None.
-
-    Handles both modern ('2606.30626v1' -> '2606.30626') and legacy
-    ('cs/0501001v2' -> 'cs/0501001') ids.
-    """
-    if not url:
-        return None
-    m = ARXIV_URL_RE.search(url)
-    if not m:
-        return None
-    raw = m.group("id")
-    return ARXIV_VERSION_RE.sub("", raw)
+# parse_arxiv_id / extract_arxiv_refs are imported from
+# pipeline.arxiv_refs — single source of truth shared with CI.
 
 
 def is_arxiv_row(row: dict) -> bool:
@@ -327,10 +311,10 @@ def load_articles(day: str) -> list[dict]:
 #     summaries do not preserve source links.
 #   * raw/<day>/<source>.json RSS `summary` DOES carry references
 #     (~0.5% of items) and is therefore the extraction source.
-# Consequence: coverage is limited to days whose raw/ tree exists on
-# this machine (collect ran locally). Days collected only in CI have
-# no local raw/ and silently contribute zero references — that is a
-# known limitation, not an extraction bug.
+# C4-1 closed the coverage gap: pipeline.collect now persists the
+# candidates to data/<day>/arxiv_refs.json on every CI run (full
+# coverage from 2026-07-02). Source priority here is refs-file first,
+# live raw/ scan as the fallback for pre-persistence local days.
 
 
 def load_raw_items(day: str) -> list[dict]:
@@ -355,30 +339,50 @@ def load_raw_items(day: str) -> list[dict]:
     return items
 
 
-def extract_arxiv_refs(text: str) -> set[str]:
-    """All base arxiv ids found in ``text`` via the two conservative
-    patterns (URL form + literal 'arXiv:' prefix). Bare numeric ids
-    are deliberately not matched (date/amount false positives)."""
-    ids: set[str] = set()
-    for m in ARXIV_URL_RE.finditer(text):
-        ids.add(ARXIV_VERSION_RE.sub("", m.group("id")))
-    for m in ARXIV_TEXT_RE.finditer(text):
-        ids.add(ARXIV_VERSION_RE.sub("", m.group("id")))
-    return ids
+def _referring_dict(article_id: str, source_id: str | None,
+                    by_id: dict, title: str | None = None) -> dict:
+    """Build the pseudo-article dict the upsert path expects for a
+    reference mention. Attaches cluster/importance/tags when the
+    referring article survived dedupe into articles.json."""
+    known = by_id.get(article_id)
+    return {
+        "id": article_id,
+        "cluster_id": (known or {}).get("cluster_id"),
+        "source_id": source_id,
+        "importance_score": (known or {}).get("importance_score") or 0,
+        "tags": (known or {}).get("tags") or [],
+        "title_original": title or (known or {}).get("title_original"),
+    }
 
 
 def extract_referenced_papers(day: str, articles: list[dict]) -> list[tuple[str, dict]]:
     """Return [(arxiv_id, referring_article_dict), ...] for ``day``.
 
-    Scans raw/<day> RSS items whose own url is NOT arXiv (those are
-    primary mentions already) for arXiv references in title+summary.
-    The referring article's stable id is ``url_hash(item url)`` —
-    verified identical to the articles.json ``id`` scheme — so when
-    the item survived dedupe we can attach its cluster/importance/tags;
-    when it didn't, the mention still lands with sane defaults.
+    Source priority:
+      1. ``data/<day>/arxiv_refs.json`` — persisted by pipeline.collect
+         on every CI/local run since 2026-07-02. Authoritative when
+         present (even when its refs list is empty — that means
+         extraction ran and found nothing).
+      2. Live ``raw/<day>`` scan — fallback for pre-persistence days
+         that were collected on this machine.
+
+    Both paths share the extraction patterns in pipeline.arxiv_refs,
+    and both key the referring article as ``url_hash(url)`` (verified
+    identical to the articles.json ``id`` scheme).
     """
     by_id = {a.get("id"): a for a in articles}
     out: list[tuple[str, dict]] = []
+
+    payload = load_refs_file(day)
+    if payload is not None:
+        for ref in payload["refs"]:
+            aid = ref.get("arxiv_id")
+            article_id = ref.get("article_id")
+            if not aid or not article_id:
+                continue
+            out.append((aid, _referring_dict(article_id, ref.get("source_id"), by_id)))
+        return out
+
     for item in load_raw_items(day):
         item_url = item.get("url") or ""
         if "arxiv.org" in item_url:
@@ -388,15 +392,7 @@ def extract_referenced_papers(day: str, articles: list[dict]) -> list[tuple[str,
         if not refs:
             continue
         article_id = url_hash(item_url)
-        known = by_id.get(article_id)
-        referring = {
-            "id": article_id,
-            "cluster_id": (known or {}).get("cluster_id"),
-            "source_id": item.get("source_id"),
-            "importance_score": (known or {}).get("importance_score") or 0,
-            "tags": (known or {}).get("tags") or [],
-            "title_original": item.get("title"),
-        }
+        referring = _referring_dict(article_id, item.get("source_id"), by_id, title=item.get("title"))
         for aid in sorted(refs):
             out.append((aid, referring))
     return out
