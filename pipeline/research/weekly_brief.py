@@ -164,14 +164,28 @@ def _hot_papers_section(lines: list[str]) -> None:
     topics = paper_trends.paper_topics(mentions)
     titles = paper_trends.load_paper_titles()
     hot = paper_trends.hot_papers(velocity, topics, titles, top_n=TOP_K)
-    lines.append(f"기준일: **{hot['as_of']}** · 스코어 = 최근 7일 − 직전 7일 멘션 [^papers]")
+    lines.append(f"기준일: **{hot['as_of']}** · 스코어 = 최근 7일 − 직전 7일 멘션 · P=피드 원샷, R=본문 참조 [^papers]")
     lines.append("")
-    lines.append("| arXiv | 제목 | 스코어 | 최근 | 태그 |")
-    lines.append("|---|---|---:|---:|---|")
+    # Honesty note (C3): when every score is identical the ranking is
+    # just the arxiv_id tiebreak — say so instead of implying signal.
+    scores = {p["score"] for p in hot["papers"]}
+    if len(hot["papers"]) > 1 and len(scores) == 1:
+        lines.append(
+            "> ⚠ 이번 주 멘션 스코어는 전부 동일(차별화 불충분) — 아래 순위는 arxiv_id 순입니다."
+        )
+        lines.append("")
+    lines.append("| arXiv | 제목 | 스코어 | 최근 | P/R | 태그 |")
+    lines.append("|---|---|---:|---:|---:|---|")
     for p in hot["papers"]:
-        title = (p["title"][:52] + "…") if len(p["title"]) > 52 else p["title"]
+        # Placeholder rows (reference-discovered, not yet enriched)
+        # have no title — show the id explicitly rather than a blank.
+        title = p["title"] or f"arXiv:{p['arxiv_id']} (미보강)"
+        title = (title[:52] + "…") if len(title) > 52 else title
         tags = ", ".join(p["top_tags"]) if p["top_tags"] else "—"
-        lines.append(f"| {p['arxiv_id']} | {title} | {p['score']:+d} | {p['recent_mentions']} | {tags} |")
+        pr = f"{p.get('recent_primary', 0)}/{p.get('recent_reference', 0)}"
+        lines.append(
+            f"| {p['arxiv_id']} | {title} | {p['score']:+d} | {p['recent_mentions']} | {pr} | {tags} |"
+        )
     lines.append("")
 
 
