@@ -52,7 +52,10 @@ def main() -> int:
         "all_days": days,
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
-    (DATA_DIR / "latest.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    # Atomic (AUDIT-1 AUD-006): latest.json is read by nearly every page
+    # of the site build — never leave a torn file.
+    from pipeline.utils.atomic import write_text_atomic
+    write_text_atomic(DATA_DIR / "latest.json", json.dumps(payload, indent=2))
     log.info("latest.json -> %s (%d days, latest_count=%d, low_volume=%s)",
              latest, len(days), latest_count, payload["low_volume"])
     return 0
