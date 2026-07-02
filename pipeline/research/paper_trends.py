@@ -51,16 +51,23 @@ DEFAULT_TOP_N = 10
 
 def load_mentions(db_path: Path = PAPERS_DB) -> pd.DataFrame:
     """Return paper_mentions as a DataFrame
-    ``(arxiv_id, day, article_id, cluster_id, source_id, importance)``.
-    Empty frame when the DB is absent (machine without the private corpus).
-    """
-    cols = ["arxiv_id", "day", "article_id", "cluster_id", "source_id", "importance"]
+    ``(arxiv_id, day, article_id, cluster_id, source_id, importance,
+    mention_kind)``. Empty frame when the DB is absent (machine
+    without the private corpus). Pre-v2 DBs (no mention_kind column)
+    are read as all-primary."""
+    cols = ["arxiv_id", "day", "article_id", "cluster_id", "source_id",
+            "importance", "mention_kind"]
     if not db_path.exists():
         return pd.DataFrame(columns=cols)
     conn = sqlite3.connect(db_path)
     try:
+        have_kind = any(
+            row[1] == "mention_kind"
+            for row in conn.execute("PRAGMA table_info(paper_mentions)")
+        )
+        kind_expr = "mention_kind" if have_kind else "'primary' AS mention_kind"
         return pd.read_sql_query(
-            "SELECT arxiv_id, day, article_id, cluster_id, source_id, importance "
+            f"SELECT arxiv_id, day, article_id, cluster_id, source_id, importance, {kind_expr} "
             "FROM paper_mentions ORDER BY arxiv_id, day, article_id",
             conn,
         )
@@ -104,21 +111,40 @@ def load_article_tags(days: list[str]) -> dict[str, list[str]]:
 def paper_velocity(mentions: pd.DataFrame) -> pd.DataFrame:
     """Gap-aware per-paper daily mention counts + signed velocity.
 
-    Returns long-format ``(arxiv_id, day, count, velocity)`` where every
-    paper has one row per calendar day of the corpus range. First-day
-    velocity equals the count (baseline-from-zero, matching
-    ``trend_metrics.compute_velocity``).
+    Returns long-format ``(arxiv_id, day, count, velocity,
+    primary_count, reference_count)`` where every paper has one row per
+    calendar day of the corpus range. ``count`` and ``velocity`` keep
+    their v1 semantics (all mentions); the two kind columns are an
+    additive schema extension (C1) — count == primary + reference on
+    every row. First-day velocity equals the count (baseline-from-zero,
+    matching ``trend_metrics.compute_velocity``).
     """
+    out_cols = ["arxiv_id", "day", "count", "velocity", "primary_count", "reference_count"]
     if mentions.empty:
-        return pd.DataFrame(columns=["arxiv_id", "day", "count", "velocity"])
+        return pd.DataFrame(columns=out_cols)
     counts = (
         mentions.groupby(["arxiv_id", "day"]).size().rename("count").reset_index()
     )
+    kind_counts = (
+        mentions.groupby(["arxiv_id", "day", "mention_kind"]).size().rename("n").reset_index()
+        .pivot_table(index=["arxiv_id", "day"], columns="mention_kind", values="n", fill_value=0)
+        .reset_index()
+    )
+    for col in ("primary", "reference"):
+        if col not in kind_counts.columns:
+            kind_counts[col] = 0
+    counts = counts.merge(
+        kind_counts[["arxiv_id", "day", "primary", "reference"]],
+        on=["arxiv_id", "day"], how="left",
+    ).fillna({"primary": 0, "reference": 0})
     observed = pd.to_datetime(sorted(counts["day"].unique()))
     full_range = pd.date_range(observed.min(), observed.max(), freq="D")
     frames: list[pd.DataFrame] = []
     for aid, sub in counts.groupby("arxiv_id"):
-        series = sub.set_index(pd.to_datetime(sub["day"]))["count"].reindex(full_range, fill_value=0)
+        idx = pd.to_datetime(sub["day"])
+        series = sub.set_index(idx)["count"].reindex(full_range, fill_value=0)
+        prim = sub.set_index(idx)["primary"].reindex(full_range, fill_value=0)
+        ref = sub.set_index(idx)["reference"].reindex(full_range, fill_value=0)
         velocity = series.diff()
         velocity.iloc[0] = series.iloc[0]
         frames.append(pd.DataFrame({
@@ -126,6 +152,8 @@ def paper_velocity(mentions: pd.DataFrame) -> pd.DataFrame:
             "day": series.index.strftime("%Y-%m-%d"),
             "count": series.values.astype(int),
             "velocity": velocity.values.astype(float),
+            "primary_count": prim.values.astype(int),
+            "reference_count": ref.values.astype(int),
         }))
     out = pd.concat(frames, ignore_index=True)
     return out.sort_values(["arxiv_id", "day"]).reset_index(drop=True)
@@ -180,7 +208,12 @@ def hot_papers(
     )
     recent = velocity[recent_mask].groupby("arxiv_id")["count"].sum()
     prior = velocity[prior_mask].groupby("arxiv_id")["count"].sum()
-    merged = pd.DataFrame({"recent": recent, "prior": prior}).fillna(0).astype(int)
+    recent_primary = velocity[recent_mask].groupby("arxiv_id")["primary_count"].sum()
+    recent_reference = velocity[recent_mask].groupby("arxiv_id")["reference_count"].sum()
+    merged = pd.DataFrame({
+        "recent": recent, "prior": prior,
+        "recent_primary": recent_primary, "recent_reference": recent_reference,
+    }).fillna(0).astype(int)
     merged["score"] = merged["recent"] - merged["prior"]
     # Only papers that actually moved in the window.
     merged = merged[merged["recent"] > 0].reset_index().rename(columns={"index": "arxiv_id"})
@@ -202,6 +235,8 @@ def hot_papers(
             "score": int(row.score),
             "recent_mentions": int(row.recent),
             "prior_mentions": int(row.prior),
+            "recent_primary": int(row.recent_primary),
+            "recent_reference": int(row.recent_reference),
             "top_tags": top_tags.get(row.arxiv_id, []),
         })
     return {

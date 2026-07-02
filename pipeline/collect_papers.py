@@ -44,16 +44,22 @@ from typing import Iterable
 
 import feedparser
 
+from pipeline.state import url_hash
 from pipeline.utils.http import get_client, fetch
 
 log = logging.getLogger(__name__)
 
 DATA_DIR = Path("data")
+RAW_DIR = Path("raw")
 PRIVATE_ROOT = DATA_DIR / "papers_private"
 DB_FILE = PRIVATE_ROOT / "papers.db"
 PDF_DIR = PRIVATE_ROOT / "pdf"
 
-SCHEMA_VERSION = 1
+# v2: paper_mentions.mention_kind distinguishes 'primary' (the article
+# IS the paper — arXiv feed one-shots) from 'reference' (a non-arXiv
+# article whose text links/cites the paper). v1 DBs migrate in-place
+# in open_db(); all pre-existing rows are primary by construction.
+SCHEMA_VERSION = 2
 
 # arXiv source ids from pipeline/sources.yaml — used to short-circuit
 # non-arxiv rows before falling back to a URL regex. Keep in sync when
@@ -66,6 +72,13 @@ ARXIV_SOURCE_IDS = {
 # Modern arXiv ids: YYMM.NNNNN(vN). Old ids: archive/YYMMNNN
 ARXIV_URL_RE = re.compile(
     r"arxiv\.org/(?:abs|pdf)/(?P<id>[a-z\-]+(?:\.[A-Z]{2})?/\d{7}|\d{4}\.\d{4,5})(?:v\d+)?",
+    re.IGNORECASE,
+)
+# Textual citation form. Deliberately conservative: requires the
+# literal "arXiv:" prefix — bare numeric ids (e.g. "2606.23662" on its
+# own) are NOT matched because they collide with dates/amounts.
+ARXIV_TEXT_RE = re.compile(
+    r"arXiv:\s?(?P<id>[a-z\-]+(?:\.[A-Z]{2})?/\d{7}|\d{4}\.\d{4,5})(?:v\d+)?",
     re.IGNORECASE,
 )
 ARXIV_VERSION_RE = re.compile(r"v\d+$", re.IGNORECASE)
@@ -104,6 +117,7 @@ CREATE TABLE IF NOT EXISTS paper_mentions (
   cluster_id   TEXT,
   source_id    TEXT,
   importance   INTEGER,
+  mention_kind TEXT NOT NULL DEFAULT 'primary',
   PRIMARY KEY (arxiv_id, article_id)
 );
 CREATE INDEX IF NOT EXISTS idx_paper_mentions_day ON paper_mentions(day);
@@ -149,6 +163,16 @@ def open_db() -> sqlite3.Connection:
     PRIVATE_ROOT.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_FILE)
     conn.executescript(SCHEMA_SQL)
+    # v1 -> v2 in-place migration: add mention_kind to pre-existing DBs.
+    # Every v1 row was produced by the url-based primary path, so the
+    # column default 'primary' is the correct backfill. Idempotent —
+    # the column check makes re-runs no-ops.
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(paper_mentions)")}
+    if "mention_kind" not in cols:
+        conn.execute(
+            "ALTER TABLE paper_mentions ADD COLUMN mention_kind TEXT NOT NULL DEFAULT 'primary'"
+        )
+        log.info("[migrate] paper_mentions.mention_kind added (schema v1 -> v2)")
     conn.execute(
         "INSERT OR REPLACE INTO meta(key, value) VALUES ('schema_version', ?)",
         (str(SCHEMA_VERSION),),
@@ -175,8 +199,16 @@ def _merge_json_list(existing_json: str | None, incoming: list) -> str:
     return json.dumps(current, ensure_ascii=False)
 
 
-def upsert_paper(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: str) -> str:
+def upsert_paper(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: str,
+                 kind: str = "primary") -> str:
     """Insert or update the papers row for one article mention.
+
+    ``kind`` only affects the INSERT title seed: a primary mention's
+    article title IS the paper title; a reference mention's article
+    title is the *referring* article, so the placeholder row keeps
+    title NULL and lets the nightly enrich fill it from arXiv.
+    Update rules (seen_count, tags union, importance_max, first/last
+    day) are identical for both kinds.
 
     Returns 'insert' or 'update' so the caller can log real deltas.
     """
@@ -202,7 +234,7 @@ def upsert_paper(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: st
             """,
             (
                 arxiv_id,
-                article.get("title_original") or None,
+                (article.get("title_original") or None) if kind == "primary" else None,
                 abs_url,
                 pdf_url,
                 day,
@@ -234,15 +266,18 @@ def upsert_paper(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: st
     return "update"
 
 
-def upsert_mention(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: str) -> bool:
+def upsert_mention(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: str,
+                   kind: str = "primary") -> bool:
     """Insert (arxiv_id, article_id) mention row. Returns True on
-    new insert, False on already-present."""
+    new insert, False on already-present. The (arxiv_id, article_id)
+    PK dedupes across kinds — a pair that already exists as primary
+    is not double-counted as reference."""
     cur = conn.cursor()
     cur.execute(
         """
         INSERT OR IGNORE INTO paper_mentions (
-            arxiv_id, day, article_id, cluster_id, source_id, importance
-        ) VALUES (?, ?, ?, ?, ?, ?)
+            arxiv_id, day, article_id, cluster_id, source_id, importance, mention_kind
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
         (
             arxiv_id,
@@ -251,6 +286,7 @@ def upsert_mention(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: 
             article.get("cluster_id"),
             article.get("source_id"),
             int(article.get("importance_score") or 0),
+            kind,
         ),
     )
     return cur.rowcount > 0
@@ -278,6 +314,92 @@ def load_articles(day: str) -> list[dict]:
     if not path.exists():
         return []
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+# ---------- cross-source reference extraction (C1) ----------
+#
+# Text-source reality (investigated 2026-07-02):
+#   * data/corpus/*/bodies.jsonl does NOT exist — corpus persists only
+#     members/skipped (titles + urls). Article bodies live in the
+#     gitignored, transient raw/ tree.
+#   * articles.json LLM fields (summary_ko / insights_ko) carry ZERO
+#     arXiv references across 1,317 non-arXiv articles — the Korean
+#     summaries do not preserve source links.
+#   * raw/<day>/<source>.json RSS `summary` DOES carry references
+#     (~0.5% of items) and is therefore the extraction source.
+# Consequence: coverage is limited to days whose raw/ tree exists on
+# this machine (collect ran locally). Days collected only in CI have
+# no local raw/ and silently contribute zero references — that is a
+# known limitation, not an extraction bug.
+
+
+def load_raw_items(day: str) -> list[dict]:
+    """Return raw feed items for ``day`` — every ``raw/<day>/*.json``
+    that parses to a list of source-item dicts. Files like
+    clusters.json (dedupe state, not a source dump) are skipped by the
+    shape check."""
+    day_dir = RAW_DIR / day
+    if not day_dir.exists():
+        return []
+    items: list[dict] = []
+    for f in sorted(day_dir.glob("*.json")):
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        if not isinstance(data, list):
+            continue
+        for it in data:
+            if isinstance(it, dict) and it.get("url") and it.get("source_id"):
+                items.append(it)
+    return items
+
+
+def extract_arxiv_refs(text: str) -> set[str]:
+    """All base arxiv ids found in ``text`` via the two conservative
+    patterns (URL form + literal 'arXiv:' prefix). Bare numeric ids
+    are deliberately not matched (date/amount false positives)."""
+    ids: set[str] = set()
+    for m in ARXIV_URL_RE.finditer(text):
+        ids.add(ARXIV_VERSION_RE.sub("", m.group("id")))
+    for m in ARXIV_TEXT_RE.finditer(text):
+        ids.add(ARXIV_VERSION_RE.sub("", m.group("id")))
+    return ids
+
+
+def extract_referenced_papers(day: str, articles: list[dict]) -> list[tuple[str, dict]]:
+    """Return [(arxiv_id, referring_article_dict), ...] for ``day``.
+
+    Scans raw/<day> RSS items whose own url is NOT arXiv (those are
+    primary mentions already) for arXiv references in title+summary.
+    The referring article's stable id is ``url_hash(item url)`` —
+    verified identical to the articles.json ``id`` scheme — so when
+    the item survived dedupe we can attach its cluster/importance/tags;
+    when it didn't, the mention still lands with sane defaults.
+    """
+    by_id = {a.get("id"): a for a in articles}
+    out: list[tuple[str, dict]] = []
+    for item in load_raw_items(day):
+        item_url = item.get("url") or ""
+        if "arxiv.org" in item_url:
+            continue
+        blob = f"{item.get('title') or ''} {item.get('summary') or ''}"
+        refs = extract_arxiv_refs(blob)
+        if not refs:
+            continue
+        article_id = url_hash(item_url)
+        known = by_id.get(article_id)
+        referring = {
+            "id": article_id,
+            "cluster_id": (known or {}).get("cluster_id"),
+            "source_id": item.get("source_id"),
+            "importance_score": (known or {}).get("importance_score") or 0,
+            "tags": (known or {}).get("tags") or [],
+            "title_original": item.get("title"),
+        }
+        for aid in sorted(refs):
+            out.append((aid, referring))
+    return out
 
 
 # ---------- enrichment ----------
@@ -428,10 +550,14 @@ def download_pdfs(conn: sqlite3.Connection, sleep_sec: float) -> dict:
 # ---------- orchestrator ----------
 
 
-def collect(days: Iterable[str], conn: sqlite3.Connection, dry_run: bool) -> dict:
+def collect(days: Iterable[str], conn: sqlite3.Connection, dry_run: bool,
+            with_references: bool = True) -> dict:
     stats = {"scanned_articles": 0, "arxiv_rows": 0, "unmatched_urls": 0,
              "papers_inserted": 0, "papers_updated": 0,
-             "mentions_inserted": 0, "mentions_skipped": 0, "days": []}
+             "mentions_inserted": 0, "mentions_skipped": 0,
+             "refs_found": 0, "ref_papers_inserted": 0,
+             "ref_mentions_inserted": 0, "ref_mentions_skipped": 0,
+             "days": []}
     for day in days:
         articles = load_articles(day)
         day_scanned = 0
@@ -449,15 +575,31 @@ def collect(days: Iterable[str], conn: sqlite3.Connection, dry_run: bool) -> dic
             day_arxiv += 1
             if dry_run:
                 continue
-            action = upsert_paper(conn, aid, art, day)
+            action = upsert_paper(conn, aid, art, day, kind="primary")
             if action == "insert":
                 day_ins += 1
             else:
                 day_upd += 1
-            if upsert_mention(conn, aid, art, day):
+            if upsert_mention(conn, aid, art, day, kind="primary"):
                 day_ment_new += 1
             else:
                 day_ment_skip += 1
+
+        # C1: cross-source references from raw/ RSS summaries.
+        day_refs = 0
+        day_ref_ins = day_ref_ment_new = day_ref_ment_skip = 0
+        if with_references:
+            for aid, referring in extract_referenced_papers(day, articles):
+                day_refs += 1
+                if dry_run:
+                    continue
+                if upsert_paper(conn, aid, referring, day, kind="reference") == "insert":
+                    day_ref_ins += 1
+                if upsert_mention(conn, aid, referring, day, kind="reference"):
+                    day_ref_ment_new += 1
+                else:
+                    day_ref_ment_skip += 1
+
         if not dry_run:
             conn.commit()
         stats["scanned_articles"] += day_scanned
@@ -466,10 +608,15 @@ def collect(days: Iterable[str], conn: sqlite3.Connection, dry_run: bool) -> dic
         stats["papers_updated"] += day_upd
         stats["mentions_inserted"] += day_ment_new
         stats["mentions_skipped"] += day_ment_skip
+        stats["refs_found"] += day_refs
+        stats["ref_papers_inserted"] += day_ref_ins
+        stats["ref_mentions_inserted"] += day_ref_ment_new
+        stats["ref_mentions_skipped"] += day_ref_ment_skip
         stats["days"].append({
             "day": day, "articles": day_scanned, "arxiv": day_arxiv,
             "papers_inserted": day_ins, "papers_updated": day_upd,
             "mentions_new": day_ment_new, "mentions_skipped": day_ment_skip,
+            "refs_found": day_refs, "ref_mentions_new": day_ref_ment_new,
         })
     return stats
 
@@ -494,20 +641,23 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="parse only")
     parser.add_argument("--with-pdf", action="store_true", help="also download pdfs")
     parser.add_argument("--no-enrich", action="store_true", help="skip arXiv API")
+    parser.add_argument("--no-references", action="store_true",
+                        help="skip cross-source reference extraction (raw/ scan)")
     parser.add_argument("--sleep", type=float, default=3.0, help="arXiv request spacing (sec)")
     parser.add_argument("--limit-enrich", type=int, default=None, help="cap enrichment per run")
     args = parser.parse_args()
 
     days = iter_days(args.day, args.backfill)
-    log.info("[collect] days=%s dry_run=%s enrich=%s with_pdf=%s",
-             days, args.dry_run, not args.no_enrich, args.with_pdf)
+    log.info("[collect] days=%s dry_run=%s enrich=%s with_pdf=%s references=%s",
+             days, args.dry_run, not args.no_enrich, args.with_pdf, not args.no_references)
     if not days:
         log.info("[collect] no eligible data/<day>/articles.json - nothing to do")
         return
 
     conn = open_db()
     try:
-        collect_stats = collect(days, conn, dry_run=args.dry_run)
+        collect_stats = collect(days, conn, dry_run=args.dry_run,
+                                with_references=not args.no_references)
         log.info(
             "[collect] scanned=%d arxiv_rows=%d inserted=%d updated=%d "
             "mentions_new=%d mentions_skipped=%d unmatched=%d",
@@ -515,6 +665,11 @@ def main() -> None:
             collect_stats["papers_inserted"], collect_stats["papers_updated"],
             collect_stats["mentions_inserted"], collect_stats["mentions_skipped"],
             collect_stats["unmatched_urls"],
+        )
+        log.info(
+            "[collect] references: found=%d ref_papers_new=%d ref_mentions_new=%d ref_mentions_skipped=%d",
+            collect_stats["refs_found"], collect_stats["ref_papers_inserted"],
+            collect_stats["ref_mentions_inserted"], collect_stats["ref_mentions_skipped"],
         )
 
         enrich_stats = {"attempted": 0, "enriched": 0, "failed": 0, "skipped": True}

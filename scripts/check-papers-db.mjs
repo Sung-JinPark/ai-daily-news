@@ -96,6 +96,16 @@ try:
     orphan_meta = 0
     bad_arxiv = []
     missing_pdf = []
+    kind_counts = {}
+    has_kind_col = False
+    if "paper_mentions" in tables:
+        has_kind_col = any(
+            r[1] == "mention_kind"
+            for r in conn.execute("PRAGMA table_info(paper_mentions)")
+        )
+        if has_kind_col:
+            for k, n in conn.execute("SELECT mention_kind, COUNT(*) FROM paper_mentions GROUP BY mention_kind"):
+                kind_counts[k] = n
     if "papers" in tables:
         enriched = conn.execute("SELECT COUNT(*) FROM papers WHERE enriched=1").fetchone()[0]
         orphan_meta = conn.execute(
@@ -120,6 +130,8 @@ try:
         "orphan_enriched": orphan_meta,
         "bad_arxiv": bad_arxiv,
         "missing_pdf": missing_pdf,
+        "has_kind_col": has_kind_col,
+        "kind_counts": kind_counts,
     }))
 finally:
     conn.close()
@@ -149,9 +161,14 @@ function checkDb(state) {
     record(`db: table ${t}`, state.tables.includes(t));
   }
   record(
-    "db: schema_version=1",
-    String(state.schema_version) === "1",
+    "db: schema_version=2",
+    String(state.schema_version) === "2",
     `got ${state.schema_version}`,
+  );
+  record(
+    "db: paper_mentions.mention_kind column",
+    !!state.has_kind_col,
+    state.has_kind_col ? "" : "v1 DB - run `python -m pipeline.collect_papers` to migrate",
   );
   record(
     "db: meta.last_run present",
@@ -197,6 +214,9 @@ function printReport(state) {
     console.log("counts:");
     console.log(`  papers          ${state.counts.papers ?? 0}`);
     console.log(`  paper_mentions  ${state.counts.paper_mentions ?? 0}`);
+    for (const [k, n] of Object.entries(state.kind_counts ?? {})) {
+      console.log(`    kind=${k.padEnd(9)} ${n}`);
+    }
     console.log(`  enriched        ${state.enriched}`);
     console.log(`  pdf files       ${countPdfs()}`);
     if (state.last_run) {
