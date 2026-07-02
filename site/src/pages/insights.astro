@@ -1,13 +1,30 @@
 ---
 import Base from "~/layouts/Base.astro";
 import ThemeCard from "~/components/ThemeCard.astro";
-import { articleById, loadModelsIndex, loadPredictions, loadRollingThemes } from "~/lib/loadData";
+import { articleById, loadModelsIndex, loadPredictions, loadRollingThemes, loadTagsIndex } from "~/lib/loadData";
+import { PLAYERS, countsForPlayers } from "~/lib/loadPlayers";
 
 const rolling = loadRollingThemes();
 const predictions = loadPredictions();
 const models = loadModelsIndex();
 const lookup = articleById();
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Entities folded into the insights hub (nav consolidation): top
+// players + compact topic cloud, with /entities kept as the deep view.
+const playerCounts = countsForPlayers(30);
+const topPlayers = [...PLAYERS]
+  .map((p) => ({ player: p, count: playerCounts[p.id] ?? 0 }))
+  .filter((r) => r.count > 0)
+  .sort((a, b) => b.count - a.count)
+  .slice(0, 6);
+const tagsIdx = loadTagsIndex();
+const topTags = tagsIdx
+  ? Object.entries(tagsIdx.tags)
+      .sort((a, b) => b[1].count - a[1].count)
+      .slice(0, 16)
+      .map(([tag, info]) => ({ tag, count: info.count }))
+  : [];
 
 const themesPreview = rolling?.themes.slice(0, 3) ?? [];
 
@@ -21,8 +38,8 @@ const recentPending = predictions
   .slice(0, 3);
 
 const topModels = (models?.models ?? []).slice(0, 5);
-// Quarterly reports live under /research (single ownership) rather than
-// being duplicated here — the hub card below just points at the portal.
+// Quarterly reports live under /reports (single ownership) — the hub
+// card below just points there.
 
 const STATUS_LABEL: Record<string, string> = {
   pending: "대기",
@@ -149,12 +166,41 @@ const STATUS_COLOR: Record<string, string> = {
   </section>
 
   <section class="mt-14 pt-8 border-t border-ink/15">
-    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">더 깊이 · 데이터 · 리포트</h2>
-    <a href={`${base}/research`} class="block border border-ink/15 hover:border-accent p-5 group">
-      <div class="kicker text-accent mb-1">리서치 포털</div>
-      <h3 class="font-serif text-lg font-bold text-ink group-hover:text-accent mb-1">SQLite 아카이브 · 노트북 · 분기 리포트</h3>
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink flex items-baseline justify-between">
+      <span>엔티티 — 플레이어 & 토픽</span>
+      <a href={`${base}/entities`} class="text-[11px] text-ink/50 hover:text-accent normal-case tracking-normal font-normal">전체 보기 →</a>
+    </h2>
+    {topPlayers.length > 0 ? (
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+        {topPlayers.map(({ player, count }) => (
+          <a href={`${base}/players/${player.id}`} class="block border border-ink/15 hover:border-accent p-3 group">
+            <div class="kicker mb-1" style={`color:${player.color}`}>{player.name}</div>
+            <div class="font-serif text-2xl font-black text-ink group-hover:text-accent tabular-nums">{count}</div>
+            <div class="text-[10.5px] text-ink/50">최근 30일 기사</div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="text-ink/50 text-[13px] mb-6">아직 플레이어 활동 데이터가 없습니다.</p>
+    )}
+    {topTags.length > 0 && (
+      <div class="flex flex-wrap gap-x-3 gap-y-1.5 items-baseline">
+        {topTags.map(({ tag, count }) => (
+          <a href={`${base}/topic/${encodeURIComponent(tag)}`} class="text-ink/70 hover:text-accent text-[13px]">
+            #{tag} <span class="text-ink/40 text-[10.5px] tabular-nums">{count}</span>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <section class="mt-14 pt-8 border-t border-ink/15">
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">더 깊이 · 리포트</h2>
+    <a href={`${base}/reports`} class="block border border-ink/15 hover:border-accent p-5 group">
+      <div class="kicker text-accent mb-1">분기 리포트</div>
+      <h3 class="font-serif text-lg font-bold text-ink group-hover:text-accent mb-1">분기별 종합 리포트</h3>
       <p class="text-[13px] text-ink/65 leading-relaxed">
-        축적 상태 · archive.db.gz 다운로드 · JSONL 스트림 · 스타터 노트북 · 분기별 종합 리포트 링크 등 리서치 자원 전부를 한 페이지에 모았습니다.
+        분기마다 코퍼스 전체를 종합한 내러티브 리포트 — 주요 흐름·엔티티 변동·미결 예측을 한 번에.
       </p>
     </a>
   </section>
