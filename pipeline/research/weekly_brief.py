@@ -179,6 +179,36 @@ def _paper_db_status_line(lines: list[str]) -> None:
         f"(전 소스 커버 시작 {REFS_COVERAGE_START}) [^papers]"
     )
     lines.append("")
+    _research_db_status_line(lines)
+
+
+def _research_db_status_line(lines: list[str]) -> None:
+    """RDB-5: one-line research.db health — concept ledger growth and
+    lexicon version visible in the brief."""
+    import sqlite3
+
+    from pipeline.research.research_db import DB_FILE as RESEARCH_DB
+    if not RESEARCH_DB.exists():
+        return
+    conn = sqlite3.connect(RESEARCH_DB)
+    try:
+        ver = conn.execute("SELECT MAX(version) FROM lexicon_versions").fetchone()[0]
+        n_c = conn.execute("SELECT COUNT(*) FROM concepts WHERE status='active'").fetchone()[0]
+        by_src = dict(conn.execute(
+            "SELECT source_type, COUNT(*) FROM latest_mentions GROUP BY source_type").fetchall())
+        newest = conn.execute(
+            "SELECT concept_id, MIN(day) fs FROM latest_mentions GROUP BY concept_id "
+            "ORDER BY fs DESC, concept_id LIMIT 3").fetchall()
+    except sqlite3.Error:
+        return
+    finally:
+        conn.close()
+    newest_s = ", ".join(f"{c}({d})" for c, d in newest)
+    lines.append(
+        f"연구 DB 상태: concepts **{n_c}** (lexicon v{ver}) · mentions "
+        f"news {by_src.get('news', 0)} / paper {by_src.get('paper', 0)} · 최근 첫 등장: {newest_s} [^papers]"
+    )
+    lines.append("")
 
 
 def _hot_papers_section(lines: list[str]) -> None:
