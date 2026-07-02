@@ -68,7 +68,26 @@ python -m pipeline.research.snapshot
 - `notes/` — chronological research journal; each session adds one dated entry
 - `notebooks/` — starter analyses used to draft the paper's figures
 
+## Public/private boundary contract (D-1)
+
+The public `/research/*` pages and the private paper layer draw from the
+same corpus, so every addition to a public page must be checked against
+this contract:
+
+- **Public-allowed**: coarse aggregates recomputable at build time from
+  the git-tracked `data/aggregates/*.jsonl` streams — raw mention
+  counts, rolling 7-day-window count/weight diffs ("주간 변화"), typed
+  co-occurrence weights. Rationale: these are trivial rearrangements of
+  already-public data and reveal none of the paper's contributions.
+- **Private-only until publication**: EMA-smoothed daily velocity and
+  acceleration, Kleinberg burst z-scores, Louvain communities and their
+  evolution (hypothesis H3), and every paper-level trend derived from
+  the private `papers.db`.
+- When adding a new metric to a public page, compare it against this
+  list first; if it resembles anything in the private-only list at
+  *daily* granularity or with *smoothing*, keep it private.
+
 ## What NOT to modify from this folder
 
 - `data/aggregates/*` — raw streams owned by the daily pipeline; treat as read-only
-- `site/src/pages/research/*.astro` — public site views; deliberately kept coarser than paper analyses so nothing pre-publication leaks
+- `site/src/pages/research/*.astro` — public site views; deliberately kept coarser than paper analyses so nothing pre-publication leaks (see the boundary contract above)
