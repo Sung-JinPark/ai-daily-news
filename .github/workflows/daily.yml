@@ -76,6 +76,10 @@ jobs:
         run: python -m pipeline.aggregate_tags
 
       - name: Weekly digest (Sunday UTC, self-healing)
+        # AUD-008: enhancement layer — a third-party hiccup must not
+        # block the data commit + deploy. Failure still shows red in
+        # the run summary. Core steps (collect..rank) stay fatal.
+        continue-on-error: true
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -89,6 +93,8 @@ jobs:
           fi
 
       - name: Glossary update (Sunday UTC)
+        # AUD-008: enhancement layer - non-fatal (see Weekly digest note).
+        continue-on-error: true
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -110,14 +116,20 @@ jobs:
         run: python -m pipeline.entity_index
 
       - name: Embed summaries (Voyage-3, ZE1)
+        # AUD-008: enhancement layer - non-fatal (see Weekly digest note).
+        continue-on-error: true
         env:
           VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
         run: python -m pipeline.embed
 
       - name: Similarity precompute (top-K cosine, ZE2)
+        # AUD-008: enhancement layer - non-fatal (see Weekly digest note).
+        continue-on-error: true
         run: python -m pipeline.similarity
 
       - name: Themes (cross-day narratives)
+        # AUD-008: enhancement layer - non-fatal (see Weekly digest note).
+        continue-on-error: true
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -129,6 +141,8 @@ jobs:
           fi
 
       - name: Predictions (extract + resolve)
+        # AUD-008: enhancement layer - non-fatal (see Weekly digest note).
+        continue-on-error: true
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python -m pipeline.predict_extract
@@ -161,6 +175,8 @@ jobs:
           esac
 
       - name: Model facts (per-model comparison table)
+        # AUD-008: enhancement layer - non-fatal (see Weekly digest note).
+        continue-on-error: true
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python -m pipeline.model_facts
@@ -180,7 +196,8 @@ jobs:
           retention-days: 30
 
       - name: Publish research archive as GitHub Release (Mon UTC)
-        if: ${{ github.event_name == 'workflow_dispatch' || (env.DOW_FOR_RELEASE == '' && success()) }}
+        # AUD-008: enhancement layer - non-fatal (see Weekly digest note).
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

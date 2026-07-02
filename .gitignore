@@ -29,6 +29,10 @@ site/.astro/
 .DS_Store
 Thumbs.db
 
+# Atomic-write staging (AUD-016): a crash between tmp-write and rename
+# must never leave a file that `git add data/` would sweep into a commit.
+*.tmp
+
 # Claude Code local permissions
 .claude/settings.local.json
 
