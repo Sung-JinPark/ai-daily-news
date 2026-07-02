@@ -86,6 +86,14 @@ this contract:
 - When adding a new metric to a public page, compare it against this
   list first; if it resembles anything in the private-only list at
   *daily* granularity or with *smoothing*, keep it private.
+- **The method/concept lexicon and everything derived from it (RDB
+  series) is private-only until publication.** The lexicon *is* the
+  paper's methodology — concept definitions, alias patterns, and the
+  research.db mention ledger live under `data/research_private/`
+  (gitignored). Only the matching *mechanism* (code under
+  `pipeline/research/`, which CI never executes) is public, for
+  reproducibility. Do not commit lexicon content, candidate lists, or
+  research notes.
 - **`data/<day>/arxiv_refs.json` (C4-1)** is public-allowed: the
   (article → arXiv id) mapping is a trivial derivation of the public
   RSS text the feeds already publish. The file carries only ids and
