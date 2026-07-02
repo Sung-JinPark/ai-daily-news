@@ -1,6 +1,6 @@
 ---
 import Sparkline from "~/components/Sparkline.astro";
-import { CLUSTER_WINDOW_DAYS, loadCluster, type Theme } from "~/lib/loadData";
+import { CLUSTER_WINDOW_DAYS, clusterSlug, loadCluster, storyPageExists, type Theme } from "~/lib/loadData";
 interface Props {
   theme: Theme;
   compact?: boolean;
@@ -37,7 +37,12 @@ const stories = theme.cluster_ids
     <ul class="mt-3 space-y-1 text-[12px] text-ink/65">
       {stories.map((s) => (
         <li>
-          <a href={`${base}/story/${s.cluster_id}`} class="hover:text-accent">→ {s.title}</a>
+          {/* AUD-002/004: stable slug + eligibility guard */}
+          {storyPageExists(s.cluster_id) ? (
+            <a href={`${base}/story/${clusterSlug(s.cluster_id)}`} class="hover:text-accent">→ {s.title}</a>
+          ) : (
+            <span>→ {s.title}</span>
+          )}
         </li>
       ))}
     </ul>

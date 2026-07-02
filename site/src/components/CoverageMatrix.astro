@@ -1,5 +1,5 @@
 ---
-import { CATEGORIES, type CoverageMatrix } from "~/lib/loadData";
+import { CATEGORIES, clusterSlug, storyPageExists, type CoverageMatrix } from "~/lib/loadData";
 interface Props {
   matrix: CoverageMatrix;
   caption?: string;
@@ -35,14 +35,26 @@ function shortTitle(t: string, max = 42): string {
           <th scope="col" class="sticky left-0 bg-white z-[2] text-left kicker text-ink/50 pr-3 pb-3 align-bottom">매체 \ 스토리</th>
           {matrix.clusters.map((c) => (
             <th scope="col" class="align-bottom py-2 pr-1 whitespace-nowrap" style="min-width:1.8rem; height:9rem;">
-              <a
-                href={`${base}/story/${c.cluster_id}`}
-                class="inline-block text-ink/75 hover:text-accent text-[11px] font-medium leading-tight"
-                style="writing-mode: vertical-rl; transform: rotate(180deg); max-height: 8.5rem;"
-                title={c.title}
-              >
-                {shortTitle(c.title, 28)}
-              </a>
+              {/* AUD-002/004: stable slug via clusterSlug (not raw k-id),
+                  and plain text when the story page won't be built. */}
+              {storyPageExists(c.cluster_id) ? (
+                <a
+                  href={`${base}/story/${clusterSlug(c.cluster_id)}`}
+                  class="inline-block text-ink/75 hover:text-accent text-[11px] font-medium leading-tight"
+                  style="writing-mode: vertical-rl; transform: rotate(180deg); max-height: 8.5rem;"
+                  title={c.title}
+                >
+                  {shortTitle(c.title, 28)}
+                </a>
+              ) : (
+                <span
+                  class="inline-block text-ink/60 text-[11px] font-medium leading-tight"
+                  style="writing-mode: vertical-rl; transform: rotate(180deg); max-height: 8.5rem;"
+                  title={c.title}
+                >
+                  {shortTitle(c.title, 28)}
+                </span>
+              )}
             </th>
           ))}
         </tr>
@@ -60,14 +72,21 @@ function shortTitle(t: string, max = 42): string {
                 : `${outlet}는(은) "${shortTitle(c.title, 40)}"를 다루지 않음`;
               return (
                 <td class="py-2 pr-2 text-center align-middle">
-                  {imp ? (
+                  {imp && storyPageExists(c.cluster_id) ? (
                     <a
-                      href={`${base}/story/${c.cluster_id}`}
+                      href={`${base}/story/${clusterSlug(c.cluster_id)}`}
                       class="inline-block rounded-full hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-accent"
                       style={`width:${size}px;height:${size}px;background:${color}`}
                       title={`${outlet} · ${CATEGORIES[c.category] ?? c.category} · 중요도 ${imp}`}
                       aria-label={label}
                     ></a>
+                  ) : imp ? (
+                    <span
+                      class="inline-block rounded-full"
+                      style={`width:${size}px;height:${size}px;background:${color}`}
+                      title={`${outlet} · ${CATEGORIES[c.category] ?? c.category} · 중요도 ${imp}`}
+                      aria-label={label}
+                    ></span>
                   ) : (
                     <span class="inline-block w-1 h-1 bg-ink/10 rounded-full" aria-hidden="true"></span>
                   )}

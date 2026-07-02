@@ -1153,6 +1153,35 @@ function summarizeCluster(clusterId: string, articles: Article[]): ClusterSummar
  * OR spanning ≥2 days OR any single article covered by multiple outlets.
  * Used for /story/[cluster] getStaticPaths and for Related-Story lookups.
  */
+// AUDIT-1 AUD-004: link emitters must use the SAME eligibility rule as
+// /story/[cluster].astro's getStaticPaths, or they produce dangling
+// links to slugs whose page was never built (observed live on archive
+// and players pages). One cached set, one source of truth.
+let _storyPageIds: Set<string> | null = null;
+export function storyPageExists(clusterId: string | null | undefined): boolean {
+  if (!clusterId) return false;
+  if (!_storyPageIds) {
+    _storyPageIds = new Set(allClusters(CLUSTER_WINDOW_DAYS, 2).map((c) => c.cluster_id));
+  }
+  return _storyPageIds.has(clusterId);
+}
+
+// Same eligibility-mismatch class for /source/[id]: pages are built
+// from sources that have >=1 archived ARTICLE, while source_health
+// logs every source (including zero-article ones like a feed whose
+// items never survive dedupe). Link emitters must use this.
+let _sourcePageIds: Set<string> | null = null;
+export function sourcePageExists(sourceId: string | null | undefined): boolean {
+  if (!sourceId) return false;
+  if (!_sourcePageIds) {
+    _sourcePageIds = new Set<string>();
+    for (const day of allDays()) {
+      for (const a of loadDay(day).articles) _sourcePageIds.add(a.source_id);
+    }
+  }
+  return _sourcePageIds.has(sourceId);
+}
+
 export function allClusters(maxDays: number = CLUSTER_WINDOW_DAYS, minMembers: number = 2): ClusterSummary[] {
   const grouped = articlesByCluster(maxDays);
   const out: ClusterSummary[] = [];

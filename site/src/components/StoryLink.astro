@@ -1,13 +1,15 @@
 ---
-import { clusterSlug, type Article } from "~/lib/loadData";
+import { clusterSlug, storyPageExists, type Article } from "~/lib/loadData";
 interface Props {
   article: Article;
   size?: "sm" | "md";
 }
 const { article, size = "md" } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-// Only render if the story is worth exploring — multi-outlet OR obviously part of a persistent cluster (has cluster_id).
-const worth = (article.cluster_size ?? 1) > 1;
+// Only render if the story is worth exploring AND its page will
+// actually be built (AUD-004: same eligibility as getStaticPaths —
+// otherwise this emits dangling /story/s-* links).
+const worth = (article.cluster_size ?? 1) > 1 && storyPageExists(article.cluster_id);
 const tCls = size === "sm"
   ? "text-[10px]"
   : "text-[11px]";

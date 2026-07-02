@@ -7,6 +7,7 @@ import {
   loadDay,
   loadSkippedRows,
   loadSourceHealth,
+  sourcePageExists,
 } from "~/lib/loadData";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -178,7 +179,13 @@ const maxPhase = Math.max(1, ...phaseList.map(([, n]) => n));
               return (
                 <tr class:list={["border-b border-ink/5", danger && "bg-accent/[0.03]"]}>
                   <td class="py-1.5 pr-3">
-                    <a href={`${base}/source/${s.source_id}`} class="font-serif font-bold text-ink hover:text-accent">{s.source_id}</a>
+                    {/* AUD-004 class: /source pages exist only for sources
+                        with >=1 archived article; health logs all sources. */}
+                    {sourcePageExists(s.source_id) ? (
+                      <a href={`${base}/source/${s.source_id}`} class="font-serif font-bold text-ink hover:text-accent">{s.source_id}</a>
+                    ) : (
+                      <span class="font-serif font-bold text-ink/70">{s.source_id}</span>
+                    )}
                   </td>
                   <td class="py-1.5 pr-3 text-right tabular-nums">{s.total.toLocaleString()}</td>
                   <td class="py-1.5 pr-3 text-right tabular-nums">{s.days}</td>
