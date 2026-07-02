@@ -36,6 +36,13 @@ import hashlib
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+# .env is where GCS_BUCKET / GOOGLE_APPLICATION_CREDENTIALS live (see
+# .env.example). Loading here means the scheduled batch run picks the
+# credentials up without needing shell-level env configuration.
+load_dotenv()
+
 PRIVATE_ROOT = Path("data") / "research_private"
 DEFAULT_PREFIX = "ai-daily-news/research_private"
 

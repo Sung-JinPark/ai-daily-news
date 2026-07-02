@@ -46,5 +46,15 @@ if errorlevel 1 (
 )
 
 echo.
+echo === GCS backup (no-op until credentials configured) ===
+REM D-4: mirrors data\research_private\ to gs://%%GCS_BUCKET%%. Reads
+REM GCS_BUCKET + GOOGLE_APPLICATION_CREDENTIALS from .env; prints a
+REM skip notice and exits cleanly when they are absent. Non-fatal.
+python -m pipeline.research.gcs_sync
+if errorlevel 1 (
+    echo [WARN] GCS backup step reported errors, continuing anyway.
+)
+
+echo.
 echo Done. Artifacts written under data\research_private\ and data\papers_private\
 endlocal
