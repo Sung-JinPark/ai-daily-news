@@ -175,14 +175,22 @@ def main() -> int:
         log.info("embed: capping this run to %d articles (limit)", args.limit)
         pending = pending[: args.limit]
 
-    if args.dry_run or not os.environ.get("VOYAGE_API_KEY"):
-        if args.dry_run:
-            log.info("dry-run: skipping API calls")
-        else:
-            log.warning("VOYAGE_API_KEY not set — treating as dry-run")
+    if args.dry_run:
+        log.info("dry-run: skipping API calls")
         for p in pending[:10]:
             log.info("  would embed: [%s] %s — %s", p["day"], p["id"], p["title_original"][:60])
         return 0
+    if not os.environ.get("VOYAGE_API_KEY"):
+        # AUDIT-1 AUD-007: a missing key used to exit 0 — a green CI run
+        # that silently degraded semantic similarity to tag fallback with
+        # zero operator signal. Exit 1 makes the step show red; the
+        # daily.yml step is continue-on-error, so deploy still proceeds.
+        log.error(
+            "VOYAGE_API_KEY not set with %d articles pending — semantic "
+            "similarity will silently degrade to tag fallback. Failing loud.",
+            len(pending),
+        )
+        return 1
 
     try:
         import voyageai
