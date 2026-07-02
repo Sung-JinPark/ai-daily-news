@@ -65,6 +65,20 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Concept ledger + monthly insight (private) ===
+REM RDB-2/6: incremental concept extraction (idempotent upserts pick
+REM up new days and newly enriched abstracts) + monthly insight note
+REM (1st of month KST, self-gated). Non-fatal.
+python -m pipeline.research.concept_extract --backfill
+if errorlevel 1 (
+    echo [WARN] Concept extract step reported errors, continuing anyway.
+)
+python -m pipeline.research.monthly_insight
+if errorlevel 1 (
+    echo [WARN] Monthly insight step reported errors, continuing anyway.
+)
+
+echo.
 echo === GCS backup (no-op until credentials configured) ===
 REM D-4: mirrors data\research_private\ to gs://%%GCS_BUCKET%%. Reads
 REM GCS_BUCKET + GOOGLE_APPLICATION_CREDENTIALS from .env; prints a
