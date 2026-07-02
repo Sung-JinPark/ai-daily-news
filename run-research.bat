@@ -19,7 +19,10 @@ REM Auto-collect arXiv paper metadata from today's news into
 REM data\papers_private\papers.db. Non-fatal: a failed enrich (offline,
 REM arXiv 429, etc.) MUST NOT break the local session — the collect
 REM step itself is offline (reads articles.json) and always succeeds.
-python -m pipeline.collect_papers --sleep 3
+REM --limit-enrich 50: nightly cap so the backlog drains gently within
+REM arXiv's comfort zone (~470 pending clears in ~10 nightly runs);
+REM run manually without the cap to drain faster.
+python -m pipeline.collect_papers --sleep 3 --limit-enrich 50
 if errorlevel 1 (
     echo [WARN] Paper corpus step reported errors, continuing anyway.
 )

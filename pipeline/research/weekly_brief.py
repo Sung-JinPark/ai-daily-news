@@ -127,11 +127,39 @@ def _community_section(lines: list[str]) -> None:
     lines.append("")
 
 
+def _paper_db_status_line(lines: list[str]) -> None:
+    """One-line papers.db health so enrichment stalls are visible in
+    the brief (C2): papers N · enriched E (pct) · reference mentions M."""
+    import sqlite3
+    db = paper_trends.PAPERS_DB
+    if not db.exists():
+        return
+    conn = sqlite3.connect(db)
+    try:
+        n_papers = conn.execute("SELECT COUNT(*) FROM papers").fetchone()[0]
+        n_enriched = conn.execute("SELECT COUNT(*) FROM papers WHERE enriched=1").fetchone()[0]
+        cols = {r[1] for r in conn.execute("PRAGMA table_info(paper_mentions)")}
+        n_ref = 0
+        if "mention_kind" in cols:
+            n_ref = conn.execute(
+                "SELECT COUNT(*) FROM paper_mentions WHERE mention_kind='reference'"
+            ).fetchone()[0]
+    finally:
+        conn.close()
+    pct = (n_enriched / n_papers * 100) if n_papers else 0.0
+    lines.append(
+        f"논문 DB 상태: papers **{n_papers}** · enriched **{n_enriched}** ({pct:.0f}%) · "
+        f"reference 멘션 **{n_ref}** [^papers]"
+    )
+    lines.append("")
+
+
 def _hot_papers_section(lines: list[str]) -> None:
     mentions = paper_trends.load_mentions()
     if mentions.empty:
         lines.append("_papers.db 없음 또는 비어있음 — `python -m pipeline.collect_papers` 먼저._")
         return
+    _paper_db_status_line(lines)
     velocity = paper_trends.paper_velocity(mentions)
     topics = paper_trends.paper_topics(mentions)
     titles = paper_trends.load_paper_titles()

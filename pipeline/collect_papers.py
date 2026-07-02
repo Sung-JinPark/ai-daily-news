@@ -404,6 +404,31 @@ def extract_referenced_papers(day: str, articles: list[dict]) -> list[tuple[str,
 
 # ---------- enrichment ----------
 
+# arXiv API resilience (C2). Observed 2026-07-02: blanket 429s, then
+# read timeouts, with the generic project UA — arXiv's guidance asks
+# automated clients to identify themselves with contact info, and
+# anonymous UAs are first in line for throttling.
+ARXIV_UA = (
+    "ai-daily-news-research/1.0 "
+    "(paper metadata enrichment; contact: 91ssjj@gmail.com)"
+)
+BACKOFF_CAP_SEC = 60.0
+MAX_CONSECUTIVE_FAILURES = 2
+
+
+def _arxiv_client() -> "httpx.Client":
+    """Dedicated client for the arXiv API with an identifying UA.
+    Still routed through ``fetch`` so the per-host throttle applies."""
+    import httpx
+
+    from pipeline.utils.http import DEFAULT_TIMEOUT
+
+    return httpx.Client(
+        headers={"User-Agent": ARXIV_UA, "Accept": "*/*"},
+        timeout=DEFAULT_TIMEOUT,
+        follow_redirects=True,
+    )
+
 
 def _text(entry, key: str) -> str:
     val = entry.get(key)
@@ -412,16 +437,16 @@ def _text(entry, key: str) -> str:
     return (val or "") if isinstance(val, str) else ""
 
 
-def enrich_batch(ids: list[str], sleep_sec: float) -> dict[str, dict]:
+def enrich_batch(client, ids: list[str]) -> dict[str, dict]:
     """Call arXiv API for a batch of ids and parse Atom into a dict
-    keyed by base arxiv_id."""
+    keyed by base arxiv_id. No sleeping here — pacing and backoff are
+    the caller's job so failures can back off exponentially."""
     if not ids:
         return {}
     url = f"{ARXIV_API}?id_list={','.join(ids)}&max_results={len(ids)}"
     log.info("[enrich] fetching %d ids", len(ids))
-    with get_client() as client:
-        resp = fetch(url, client=client)
-        resp.raise_for_status()
+    resp = fetch(url, client=client)
+    resp.raise_for_status()
     parsed = feedparser.parse(resp.content)
     out: dict[str, dict] = {}
     for entry in parsed.entries:
@@ -449,66 +474,100 @@ def enrich_batch(ids: list[str], sleep_sec: float) -> dict[str, dict]:
             "abs_url": f"https://arxiv.org/abs/{arxiv_id}",
             "pdf_url": pdf_url or f"https://arxiv.org/pdf/{arxiv_id}",
         }
-    # arXiv ToS: cap request rate.
-    time.sleep(sleep_sec)
     return out
 
 
 def enrich_pending(conn: sqlite3.Connection, sleep_sec: float, limit: int | None) -> dict:
-    """Fill metadata for every paper with enriched=0. Returns stats."""
+    """Fill metadata for every paper with enriched=0. Returns stats.
+
+    Resilience (C2): on batch failure the inter-request sleep doubles
+    (capped at ``BACKOFF_CAP_SEC``); after ``MAX_CONSECUTIVE_FAILURES``
+    consecutive failures this run's enrichment aborts and the rest
+    defers to the next invocation. Aborting is always safe — the
+    collection upserts committed before enrichment started.
+    """
     cur = conn.cursor()
     cur.execute("SELECT arxiv_id FROM papers WHERE enriched = 0 ORDER BY last_seen_day DESC")
     pending = [row[0] for row in cur.fetchall()]
     if limit is not None:
         pending = pending[:limit]
-    stats = {"attempted": len(pending), "enriched": 0, "failed": 0}
+    stats = {"attempted": len(pending), "enriched": 0, "failed": 0, "aborted": False}
     if not pending:
         return stats
 
-    for i in range(0, len(pending), ARXIV_BATCH_SIZE):
-        batch = pending[i:i + ARXIV_BATCH_SIZE]
-        try:
-            fetched = enrich_batch(batch, sleep_sec)
-        except Exception as exc:
-            log.warning("[enrich] batch failed (%s) — will retry on next run", exc)
-            stats["failed"] += len(batch)
-            continue
-        for aid in batch:
-            meta = fetched.get(aid)
-            if not meta:
-                stats["failed"] += 1
+    consecutive_failures = 0
+    backoff = sleep_sec
+    client = _arxiv_client()
+    try:
+        for i in range(0, len(pending), ARXIV_BATCH_SIZE):
+            batch = pending[i:i + ARXIV_BATCH_SIZE]
+            try:
+                fetched = enrich_batch(client, batch)
+            except Exception as exc:
+                consecutive_failures += 1
+                stats["failed"] += len(batch)
+                if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                    deferred = len(pending) - i - len(batch)
+                    stats["aborted"] = True
+                    log.warning(
+                        "[enrich] batch failed (%s) - %d consecutive failures, "
+                        "aborting this run; %d ids defer to next run",
+                        exc, consecutive_failures, max(0, deferred),
+                    )
+                    break
+                log.warning(
+                    "[enrich] batch failed (%s) - backing off %.0fs before retrying",
+                    exc, backoff,
+                )
+                time.sleep(backoff)
+                backoff = min(backoff * 2, BACKOFF_CAP_SEC)
                 continue
-            cur.execute(
-                """
-                UPDATE papers SET
-                    title            = COALESCE(?, title),
-                    authors_json     = ?,
-                    abstract         = ?,
-                    primary_category = ?,
-                    categories_json  = ?,
-                    published        = ?,
-                    updated          = ?,
-                    abs_url          = ?,
-                    pdf_url          = ?,
-                    enriched         = 1
-                WHERE arxiv_id = ?
-                """,
-                (
-                    meta["title"],
-                    meta["authors_json"],
-                    meta["abstract"],
-                    meta["primary_category"],
-                    meta["categories_json"],
-                    meta["published"],
-                    meta["updated"],
-                    meta["abs_url"],
-                    meta["pdf_url"],
-                    aid,
-                ),
-            )
-            stats["enriched"] += 1
-        conn.commit()
+            consecutive_failures = 0
+            backoff = sleep_sec
+            _apply_enrich_batch(cur, batch, fetched, stats)
+            conn.commit()
+            # arXiv ToS: cap request rate between successful batches.
+            time.sleep(sleep_sec)
+    finally:
+        client.close()
     return stats
+
+
+def _apply_enrich_batch(cur, batch: list[str], fetched: dict[str, dict], stats: dict) -> None:
+    for aid in batch:
+        meta = fetched.get(aid)
+        if not meta:
+            stats["failed"] += 1
+            continue
+        cur.execute(
+            """
+            UPDATE papers SET
+                title            = COALESCE(?, title),
+                authors_json     = ?,
+                abstract         = ?,
+                primary_category = ?,
+                categories_json  = ?,
+                published        = ?,
+                updated          = ?,
+                abs_url          = ?,
+                pdf_url          = ?,
+                enriched         = 1
+            WHERE arxiv_id = ?
+            """,
+            (
+                meta["title"],
+                meta["authors_json"],
+                meta["abstract"],
+                meta["primary_category"],
+                meta["categories_json"],
+                meta["published"],
+                meta["updated"],
+                meta["abs_url"],
+                meta["pdf_url"],
+                aid,
+            ),
+        )
+        stats["enriched"] += 1
 
 
 # ---------- optional PDF ----------
