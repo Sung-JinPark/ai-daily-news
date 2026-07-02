@@ -2,6 +2,11 @@
 REM Local trigger for the private research snapshot pipeline.
 REM Never wire this into GitHub Actions — outputs are gitignored on
 REM purpose and must not leak into the public repository.
+REM
+REM Freshness (AUD-024): this script does NOT git pull — run it
+REM directly and it consumes whatever is in the local tree. The
+REM scheduled wrapper (run-research-scheduled.bat) pulls --ff-only
+REM first; prefer it, or pull manually before ad-hoc runs.
 
 setlocal
 cd /d "%~dp0"
