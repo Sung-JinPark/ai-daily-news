@@ -90,6 +90,13 @@ CREATE VIEW IF NOT EXISTS daily_concept_counts AS
   SELECT concept_id, source_type, day, COUNT(*) AS n
   FROM latest_mentions
   GROUP BY concept_id, source_type, day;
+
+-- F2 (instrument v3): the RESEARCH view — English source fields only.
+-- summary (KO, product-derived) rows stay in the ledger as auxiliary
+-- instrument history but are excluded from research measurement.
+CREATE VIEW IF NOT EXISTS latest_mentions_en AS
+  SELECT * FROM latest_mentions
+  WHERE field IN ('title', 'body_en', 'abstract');
 """
 
 
