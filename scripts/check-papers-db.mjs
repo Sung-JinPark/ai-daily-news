@@ -232,9 +232,91 @@ function printReport(state) {
   console.log("next: enrich more (--sleep 3), or run --with-pdf to snapshot PDFs, or move on to text extraction (next session).");
 }
 
+// E4 (AUD-019): research-artifact surface checks. Everything here is
+// local/private or day-file based — a missing artifact SKIPs (other
+// machines / CI won't have the private tree), a present-but-broken one
+// FAILs.
+function checkResearchArtifacts() {
+  // 1. arxiv_refs.json — newest day that has one: schema + deterministic sort
+  const dataDir = path.join(REPO_ROOT, "data");
+  const days = fs.readdirSync(dataDir).filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)).sort().reverse();
+  const refDay = days.find((d) => fs.existsSync(path.join(dataDir, d, "arxiv_refs.json")));
+  if (!refDay) {
+    console.log("  SKIP arxiv_refs (no day file yet)");
+  } else {
+    try {
+      const refs = JSON.parse(fs.readFileSync(path.join(dataDir, refDay, "arxiv_refs.json"), "utf-8"));
+      record("arxiv_refs schema", typeof refs.schema_version === "number" && Array.isArray(refs.refs),
+        `${refDay}: schema_version=${refs.schema_version} rows=${refs.refs?.length}`);
+      const keys = (refs.refs ?? []).map((r) => `${r.article_id} ${r.arxiv_id}`);
+      const sorted = [...keys].sort();
+      record("arxiv_refs deterministic sort", JSON.stringify(keys) === JSON.stringify(sorted),
+        `${refDay}: ${keys.length} rows`);
+    } catch (e) {
+      record("arxiv_refs schema", false, String(e));
+    }
+  }
+
+  // 2. db_exports — newest cold checkpoints: integrity + retention policy
+  const dbxDir = path.join(REPO_ROOT, "data", "research_private", "db_exports");
+  if (!fs.existsSync(dbxDir)) {
+    console.log("  SKIP db_exports (private tree absent on this machine)");
+  } else {
+    for (const prefix of ["papers", "research"]) {
+      const files = fs.readdirSync(dbxDir).filter((f) => f.startsWith(`${prefix}-`) && f.endsWith(".db")).sort();
+      if (files.length === 0) {
+        record(`db_exports ${prefix} checkpoint exists`, false, "none found");
+        continue;
+      }
+      const newest = path.join(dbxDir, files[files.length - 1]);
+      let ok = false;
+      try {
+        ok = execSync(`python -c "import sqlite3;print(sqlite3.connect(r'${newest.replace(/\\/g, "/")}').execute('PRAGMA integrity_check').fetchone()[0])"`,
+          { encoding: "utf-8" }).trim() === "ok";
+      } catch { /* fall through */ }
+      record(`db_exports ${prefix} integrity`, ok, files[files.length - 1]);
+      // retention: >7-day-old non-Monday files should have been pruned
+      const stale = files.filter((f) => {
+        const m = f.match(/-(\d{4}-\d{2}-\d{2})\.db$/);
+        if (!m) return false;
+        const d = new Date(m[1] + "T00:00:00Z");
+        const age = (Date.now() - d.getTime()) / 86400000;
+        return age > 8 && d.getUTCDay() !== 1;
+      });
+      record(`db_exports ${prefix} retention`, stale.length === 0,
+        stale.length ? `stale: ${stale.join(", ")}` : `${files.length} file(s), policy holds`);
+    }
+  }
+
+  // 3. weekly brief — newest one carries both DB status lines
+  const briefDir = path.join(REPO_ROOT, "data", "research_private", "briefs");
+  const briefs = fs.existsSync(briefDir) ? fs.readdirSync(briefDir).filter((f) => f.endsWith(".md")).sort() : [];
+  if (briefs.length === 0) {
+    console.log("  SKIP briefs (private tree absent or none written yet)");
+  } else {
+    const txt = fs.readFileSync(path.join(briefDir, briefs[briefs.length - 1]), "utf-8");
+    record("brief has paper-DB status line", txt.includes("논문 DB 상태"), briefs[briefs.length - 1]);
+    record("brief has research-DB status line", txt.includes("연구 DB 상태"), briefs[briefs.length - 1]);
+  }
+
+  // 4. dashboard.html — exists, has section markers, reasonably fresh
+  const dash = path.join(REPO_ROOT, "data", "research_private", "dashboard.html");
+  if (!fs.existsSync(dash)) {
+    console.log("  SKIP dashboard (private tree absent)");
+  } else {
+    const html = fs.readFileSync(dash, "utf-8");
+    record("dashboard section markers",
+      html.includes("논문 DB") && html.includes("개념 원장") && html.includes("백업"),
+      "papers/concepts/backups sections");
+    const ageH = (Date.now() - fs.statSync(dash).mtimeMs) / 3600000;
+    record("dashboard freshness (<48h)", ageH < 48, `${ageH.toFixed(1)}h old`);
+  }
+}
+
 checkGitLeak();
 const state = inspectDb();
 checkDb(state);
+checkResearchArtifacts();
 printReport(state);
 
 const failed = results.filter((r) => !r.ok);
