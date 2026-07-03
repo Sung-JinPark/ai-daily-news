@@ -33,5 +33,22 @@ if errorlevel 1 (
     exit /b 1
 )
 
+REM Publish the sanitized public stats so the site's /stats page
+REM refreshes nightly. Only this one file is committed; the push
+REM triggers deploy.yml (paths: data/**). Non-fatal: a rejected push
+REM (e.g. concurrent CI commit) self-heals tomorrow.
+git add data/research_stats.json >> "%LOGFILE%" 2>&1
+git diff --cached --quiet
+if errorlevel 1 (
+    git commit -m "data: nightly research stats [site refresh]" >> "%LOGFILE%" 2>&1
+    git pull --rebase --autostash >> "%LOGFILE%" 2>&1
+    git push >> "%LOGFILE%" 2>&1
+    if errorlevel 1 (
+        echo [WARN] stats push failed - will retry tomorrow. >> "%LOGFILE%"
+    )
+) else (
+    echo [INFO] research stats unchanged - no push. >> "%LOGFILE%"
+)
+
 echo ==== done %date% %time% ==== >> "%LOGFILE%"
 endlocal

@@ -1,0 +1,178 @@
+---
+import Base from "~/layouts/Base.astro";
+import Sparkline from "~/components/Sparkline.astro";
+import { loadResearchStats } from "~/lib/loadData";
+
+// 통계 — 논문 DB·개념 원장의 사니타이즈된 집계 뷰. 원장/렉시콘 내용은
+// 로컬 전용이며, 이 페이지는 export_public_stats.py가 야간에 내보내는
+// 집계 JSON만 렌더한다 (개념명 미포함 — 경계 계약 2026-07-03).
+const stats = loadResearchStats();
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const KIND_KO: Record<string, string> = {
+  method: "기법", architecture: "아키텍처", task: "과제", paradigm: "패러다임",
+};
+
+function toSpark(pts: Array<{ day: string; n: number }>) {
+  return pts.map((p) => ({ day: p.day, count: p.n }));
+}
+const paperSpark = stats?.papers ? toSpark(stats.papers.per_day_mentions) : [];
+const newsSpark = stats?.concepts
+  ? stats.concepts.per_day_mentions.map((p) => ({ day: p.day, count: p.news }))
+  : [];
+const paperConceptSpark = stats?.concepts
+  ? stats.concepts.per_day_mentions.map((p) => ({ day: p.day, count: p.paper }))
+  : [];
+const genDay = stats?.generated_at?.slice(0, 10) ?? "";
+---
+<Base
+  title="통계 — AI Daily News"
+  description="논문 수집 현황과 연구 코퍼스 집계를 표·추이로 정리한 통계 페이지."
+>
+  <header class="mb-8 pb-4 border-b border-ink/15">
+    <div class="kicker text-accent mb-2">Statistics</div>
+    <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">통계</h1>
+    <p class="mt-3 text-[13px] text-ink/60">
+      뉴스에서 관찰된 arXiv 논문 수집 현황과 연구 코퍼스의 집계 지표를 정리합니다.
+      집계 수치만 공개되며, 세부 원장은 비공개입니다.
+      {genDay && <span class="text-ink/45"> · 기준 {genDay}</span>}
+    </p>
+  </header>
+
+  {!stats && (
+    <p class="text-ink/60 text-[13px]">아직 통계 데이터가 없습니다. 첫 야간 집계 이후 채워집니다.</p>
+  )}
+
+  {stats?.papers && (
+    <section class="mb-14">
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">논문 수집 현황</h2>
+      <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+        <div>
+          <dt class="kicker text-ink/50 mb-1">수집 논문</dt>
+          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.papers.total.toLocaleString()}</dd>
+        </div>
+        <div>
+          <dt class="kicker text-ink/50 mb-1">메타데이터 보강</dt>
+          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.papers.enriched} <span class="text-base text-ink/50">({stats.papers.enriched_pct}%)</span></dd>
+        </div>
+        <div>
+          <dt class="kicker text-ink/50 mb-1">뉴스 내 언급</dt>
+          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{Object.values(stats.papers.mentions).reduce((a, b) => a + b, 0).toLocaleString()}</dd>
+        </div>
+        <div>
+          <dt class="kicker text-ink/50 mb-1">본문 인용 파이프 (7일)</dt>
+          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.papers.refs_pipe_7d.days_covered}<span class="text-base text-ink/50">일 / {stats.papers.refs_pipe_7d.rows}건</span></dd>
+        </div>
+      </dl>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8">
+        <div>
+          <h3 class="kicker text-ink/60 mb-2">일별 논문 언급 추이</h3>
+          <Sparkline data={paperSpark} height={44} ariaLabel="일별 논문 언급 수" />
+        </div>
+        <div>
+          <h3 class="kicker text-ink/60 mb-2">언급 유형</h3>
+          <table class="w-full text-[12.5px] border-collapse">
+            <thead>
+              <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
+                <th class="py-2 pr-3">유형</th>
+                <th class="py-2 text-right tabular-nums">건수</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-ink/5">
+                <td class="py-1.5 pr-3">피드 원샷 (논문 자체가 기사)</td>
+                <td class="py-1.5 text-right tabular-nums font-semibold">{(stats.papers.mentions.primary ?? 0).toLocaleString()}</td>
+              </tr>
+              <tr class="border-b border-ink/5">
+                <td class="py-1.5 pr-3">본문 인용 (기사가 논문을 참조)</td>
+                <td class="py-1.5 text-right tabular-nums font-semibold">{(stats.papers.mentions.reference ?? 0).toLocaleString()}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {stats.papers.top_categories.length > 0 && (
+        <div class="mt-8">
+          <h3 class="kicker text-ink/60 mb-2">보강된 논문의 arXiv 분류 (상위 10)</h3>
+          <table class="w-full text-[12.5px] border-collapse">
+            <thead>
+              <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
+                <th class="py-2 pr-3">분류</th>
+                <th class="py-2 text-right tabular-nums">논문 수</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stats.papers.top_categories.map((c) => (
+                <tr class="border-b border-ink/5">
+                  <td class="py-1.5 pr-3 font-mono text-[12px]">{c.category}</td>
+                  <td class="py-1.5 text-right tabular-nums font-semibold">{c.n}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="mt-2 text-[11px] text-ink/45">보강(메타데이터 확보)은 매일 밤 순차 진행 중 — 분포는 보강 완료분 기준.</p>
+        </div>
+      )}
+    </section>
+  )}
+
+  {stats?.concepts && (
+    <section class="mb-14">
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">연구 코퍼스 집계</h2>
+      <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+        <div>
+          <dt class="kicker text-ink/50 mb-1">추적 개념</dt>
+          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.concepts.active_concepts} <span class="text-base text-ink/50">(v{stats.concepts.lexicon_version})</span></dd>
+        </div>
+        <div>
+          <dt class="kicker text-ink/50 mb-1">개념 멘션</dt>
+          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{(stats.concepts.mentions.news + stats.concepts.mentions.paper).toLocaleString()}</dd>
+        </div>
+        <div>
+          <dt class="kicker text-ink/50 mb-1">공동 등장 쌍</dt>
+          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.concepts.cooccurrence_pairs.toLocaleString()}</dd>
+        </div>
+        <div>
+          <dt class="kicker text-ink/50 mb-1">양매체 관측 개념</dt>
+          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.concepts.media_lag_observed}</dd>
+        </div>
+      </dl>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8 mb-8">
+        <div>
+          <h3 class="kicker text-ink/60 mb-2">뉴스 코퍼스 개념 멘션 추이</h3>
+          <Sparkline data={newsSpark} height={44} ariaLabel="뉴스 개념 멘션 일별 추이" />
+          <p class="mt-1 text-[11px] text-ink/45 tabular-nums">총 {stats.concepts.mentions.news.toLocaleString()}건</p>
+        </div>
+        <div>
+          <h3 class="kicker text-ink/60 mb-2">논문 코퍼스 개념 멘션 추이</h3>
+          <Sparkline data={paperConceptSpark} height={44} color="#059669" ariaLabel="논문 개념 멘션 일별 추이" />
+          <p class="mt-1 text-[11px] text-ink/45 tabular-nums">총 {stats.concepts.mentions.paper.toLocaleString()}건 · 보강 진행에 따라 증가</p>
+        </div>
+      </div>
+
+      <h3 class="kicker text-ink/60 mb-2">개념 유형 분포</h3>
+      <table class="w-full max-w-md text-[12.5px] border-collapse">
+        <thead>
+          <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
+            <th class="py-2 pr-3">유형</th>
+            <th class="py-2 text-right tabular-nums">개념 수</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(stats.concepts.kind_distribution).sort((a, b) => b[1] - a[1]).map(([kind, n]) => (
+            <tr class="border-b border-ink/5">
+              <td class="py-1.5 pr-3">{KIND_KO[kind] ?? kind}</td>
+              <td class="py-1.5 text-right tabular-nums font-semibold">{n}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="mt-3 text-[11px] text-ink/45">
+        개념 사전(어떤 용어를 추적하는지)과 개념별 수치는 진행 중인 연구의 방법론에 해당해 발표 전까지 비공개입니다.
+      </p>
+    </section>
+  )}
+</Base>
