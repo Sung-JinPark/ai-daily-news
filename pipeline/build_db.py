@@ -364,6 +364,12 @@ def _load_corpus(cur: sqlite3.Cursor) -> tuple[int, int, int]:
         return 0, 0, 0
     for day_dir in sorted(p for p in corpus_root.iterdir() if p.is_dir()):
         day = day_dir.name
+        # DBQ-3 (2026-07-03): body_text is PRIVATE (third-party media
+        # copyright — bodies.jsonl is gitignored and must not be
+        # republished through this PUBLIC archive either). Metadata
+        # rows are kept for schema compatibility; body_text is NULL.
+        # In CI the gitignored file is absent anyway; this guard makes
+        # local archive builds equally safe.
         for row in _iter_jsonl(day_dir / "bodies.jsonl"):
             cur.execute(
                 """INSERT OR REPLACE INTO bodies(
@@ -374,7 +380,7 @@ def _load_corpus(cur: sqlite3.Cursor) -> tuple[int, int, int]:
                     row.get("url_hash"), day, row.get("url"), row.get("title"),
                     row.get("source_id"), row.get("source_name"),
                     row.get("published"), row.get("fetched_at"),
-                    row.get("body_chars"), row.get("body_text"),
+                    row.get("body_chars"), None,
                     row.get("extract_status"),
                 ),
             )

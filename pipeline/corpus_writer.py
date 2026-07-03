@@ -7,6 +7,13 @@ what was previously in-memory-only:
                        (post-trafilatura, capped at MAX_BODY_CHARS
                        by pipeline/extract.py). Enables re-analysis,
                        embedding, RAG, direct quotes.
+                       DBQ-3 (2026-07-03): this file is PRIVATE —
+                       gitignored (data/corpus/*/bodies.jsonl) because
+                       it holds third-party article full text we must
+                       not republish. It is still WRITTEN here every
+                       run and consumed locally (research en_corpus,
+                       summarize); only git tracking is dropped. The
+                       members/skipped/manifest siblings stay public.
 * ``members.jsonl`` — every article in every cluster (dedup output),
                        not just the LLM-summarized representative.
                        Enables outlet-level coverage analysis and
