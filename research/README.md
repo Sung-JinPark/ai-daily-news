@@ -94,6 +94,12 @@ this contract:
   `pipeline/research/`, which CI never executes) is public, for
   reproducibility. Do not commit lexicon content, candidate lists, or
   research notes.
+- **Article-corpus statistics (2026-07-03, two-track plan)** are
+  public-allowed: volume, source, category, story/cluster, importance,
+  and coverage aggregates are trivial recomputations of the git-tracked
+  public source (articles.json), computed at build time on the site.
+  They touch no research methodology (concept lexicon/ledger) and are
+  therefore outside the sanitize guard's scope.
 - **`data/research_stats.json` (2026-07-03)** is public-allowed:
   sanitized aggregates only (counts, per-day totals, generic kind
   taxonomy) exported nightly for the site's /stats page. Concept
