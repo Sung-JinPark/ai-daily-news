@@ -4,8 +4,7 @@ import HotFeature from "~/components/HotFeature.astro";
 import HotSide from "~/components/HotSide.astro";
 import NewsTile from "~/components/NewsTile.astro";
 import ArticleCard from "~/components/ArticleCard.astro";
-import ThemeCard from "~/components/ThemeCard.astro";
-import { hotnessScore, loadLatest, loadRecentDays, loadRollingThemes, type Article } from "~/lib/loadData";
+import { hotnessScore, loadLatest, loadRecentDays, type Article } from "~/lib/loadData";
 
 const latest = loadLatest();
 const pool: Article[] = loadRecentDays(7);
@@ -44,22 +43,9 @@ const feature = unique[0];
 const sideTop = unique.slice(1, 4);
 const grid = unique.slice(4, 9);
 const list = unique.slice(9, 14);
-const rolling = loadRollingThemes();
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <Base title="HOT — AI Daily News" updatedAt={latest?.updated_at}>
-  {rolling && rolling.themes.length > 0 && (
-    <section class="mb-12">
-      <div class="flex items-baseline justify-between mb-4 pb-3 border-b-2 border-ink">
-        <h2 class="kicker text-ink">이번 주 흐름</h2>
-        <a href={`${base}/themes`} class="kicker text-accent hover:underline">전체 테마 →</a>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8">
-        {rolling.themes.slice(0, 3).map((t) => <ThemeCard theme={t} compact />)}
-      </div>
-    </section>
-  )}
-
   <header class="mb-10 pb-4 border-b border-ink/15">
     <div class="kicker text-accent mb-2">Top Stories · 지난 7일</div>
     <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">Hot Ranking</h1>
