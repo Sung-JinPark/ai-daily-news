@@ -13,7 +13,10 @@ on:
         required: false
 
 permissions:
-  contents: read
+  # AUD-025b: the "Commit audit report" step pushes to main, which a
+  # read-only token cannot do — weekly report commits were silently
+  # failing. issues: write was already present (N5/X4 issues worked).
+  contents: write
   issues: write
 
 jobs:
