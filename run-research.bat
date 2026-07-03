@@ -74,6 +74,13 @@ echo === Concept ledger + monthly insight (private) ===
 REM RDB-2/6: incremental concept extraction (idempotent upserts pick
 REM up new days and newly enriched abstracts) + monthly insight note
 REM (1st of month KST, self-gated). Non-fatal.
+REM F1: EN corpus ledger from committed bodies.jsonl (+raw teaser days).
+python -m pipeline.research.en_corpus --backfill
+if errorlevel 1 (
+    echo [WARN] EN corpus step reported errors, continuing anyway.
+)
+REM Full backfill is idempotent and structurally covers F4's
+REM late-arriving-corpus window (superset of any N-day rescan).
 python -m pipeline.research.concept_extract --backfill
 if errorlevel 1 (
     echo [WARN] Concept extract step reported errors, continuing anyway.
