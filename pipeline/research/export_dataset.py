@@ -184,9 +184,44 @@ def export_corpus_descriptives() -> Path:
     return out
 
 
+def export_rates_and_frame() -> None:
+    """F5 (R-E): normalized daily rates + corpus frame.
+
+    corpus_frame.csv: day, articles, active_sources — the denominator
+    series. daily_concept_rates.parquet: per (concept, source_type,
+    day) mentions per 100 articles — the 06-04 backfill spike (E7a)
+    reads as ordinary volume once normalized.
+    """
+    import json
+
+    days = []
+    for d in sorted(Path("data").glob("2???-??-??")):
+        f = d / "articles.json"
+        if not f.exists():
+            continue
+        arts = json.loads(f.read_text(encoding="utf-8"))
+        days.append({"day": d.name, "articles": len(arts),
+                     "active_sources": len({a["source_id"] for a in arts})})
+    frame = pd.DataFrame(days)
+    EXPORT_DIR.mkdir(parents=True, exist_ok=True)
+    frame.to_csv(EXPORT_DIR / "corpus_frame.csv", index=False, encoding="utf-8")
+    conn = sqlite3.connect(DB_FILE)
+    try:
+        counts = pd.read_sql_query(
+            "SELECT concept_id, source_type, day, COUNT(*) AS n FROM latest_mentions_en "
+            "GROUP BY 1,2,3 ORDER BY 1,2,3", conn)
+    finally:
+        conn.close()
+    rates = counts.merge(frame[["day", "articles"]], on="day", how="left")
+    rates["per_100_articles"] = (rates["n"] / rates["articles"] * 100).round(2)
+    rates.to_parquet(EXPORT_DIR / "daily_concept_rates.parquet", index=False)
+    print(f"[export] corpus_frame {len(frame)} days · rates {len(rates)} rows (EN view)")
+
+
 def run(fmt_csv: bool = False) -> bool:
     export_tables(fmt_csv)
     export_corpus_descriptives()
+    export_rates_and_frame()
     return export_db_checkpoint() is not None
 
 
