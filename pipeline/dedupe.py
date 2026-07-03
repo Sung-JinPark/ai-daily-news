@@ -157,10 +157,41 @@ def load_continuity() -> dict:
         )
         raise SystemExit(2)
     data.setdefault("schema_version", 1)
+    global _LOADED_ENTRY_COUNT, _PRUNED_ENTRY_COUNT
+    _LOADED_ENTRY_COUNT = len(data["entries"])
+    _PRUNED_ENTRY_COUNT = 0
     return data
 
 
+# E5 shrink guard state: entry count observed at load time and how many
+# the 90-day prune legitimately removed this run. AUD-001's abort only
+# covers *reading* a corrupt file; this guard covers a logic bug that
+# silently drops a large share of entries between load and save.
+_LOADED_ENTRY_COUNT: int | None = None
+_PRUNED_ENTRY_COUNT = 0
+SHRINK_GUARD_RATIO = 0.30  # refuse to save if >30% vanish unexplained
+ALLOW_SHRINK = False       # set by --allow-shrink (deliberate override)
+
+
 def save_continuity(data: dict) -> None:
+    # E5: threshold shrink guard. Legitimate shrink = the prune's own
+    # removals (window expiry); anything beyond that at 30%+ of the
+    # loaded count means entries were lost by a bug, so refuse to
+    # persist. Corrupt-read is a different failure class and already
+    # aborted with exit 2 in load_continuity (that path never gets here).
+    if _LOADED_ENTRY_COUNT and not ALLOW_SHRINK:
+        expected_min = _LOADED_ENTRY_COUNT - _PRUNED_ENTRY_COUNT
+        lost = expected_min - len(data.get("entries", []))
+        if lost > 0 and lost >= expected_min * SHRINK_GUARD_RATIO:
+            log.error(
+                "continuity shrink guard: loaded %d entries, prune removed %d, "
+                "but only %d remain (%d lost beyond prune, >=%d%% threshold). "
+                "NOT saving. Check git history for the cause; if the shrink is "
+                "intended, re-run with --allow-shrink.",
+                _LOADED_ENTRY_COUNT, _PRUNED_ENTRY_COUNT,
+                len(data.get("entries", [])), lost, int(SHRINK_GUARD_RATIO * 100),
+            )
+            raise SystemExit(3)
     # Atomic (AUD-006): a torn continuity write is the corruption that
     # AUD-001's abort path exists to catch — never create one ourselves.
     from pipeline.utils.atomic import write_text_atomic
@@ -168,8 +199,11 @@ def save_continuity(data: dict) -> None:
 
 
 def prune_continuity(data: dict, days: int, today_str: str) -> dict:
+    global _PRUNED_ENTRY_COUNT
     cutoff = (date.fromisoformat(today_str) - timedelta(days=days)).isoformat()
+    before = len(data["entries"])
     data["entries"] = [e for e in data["entries"] if e.get("last_seen", "") >= cutoff]
+    _PRUNED_ENTRY_COUNT += before - len(data["entries"])
     return data
 
 
@@ -463,7 +497,11 @@ def _write_merge_events(day_str: str, events: list[dict]) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--day", default=today())
+    parser.add_argument("--allow-shrink", action="store_true",
+                        help="bypass the E5 continuity shrink guard (deliberate large shrink)")
     args = parser.parse_args()
+    global ALLOW_SHRINK
+    ALLOW_SHRINK = args.allow_shrink
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 
     day_dir = RAW_DIR / args.day
