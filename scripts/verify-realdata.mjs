@@ -42,11 +42,19 @@ const CHECKS = [
     markers: ["이번 주 흐름"],
     upstream: "pipeline.themes",
   },
+  // (removed 2026-07-03) homepage themes strip — the HOT front page now
+  // leads with the ranking itself; /themes and /insights keep the themes.
   {
-    data: "data/themes/rolling.json",
-    dist: "index.html",
-    markers: ["이번 주 흐름"],  // homepage strip lives on /
-    upstream: "pipeline.themes (homepage strip)",
+    data: "data/latest.json",
+    dist: "stats/index.html",
+    markers: ["기사 코퍼스", "상위 소스 5", "요일별 평균 볼륨", "매 배포 시 재계산"],
+    upstream: "build-time computeArticleStats (two-track T1/T2)",
+  },
+  {
+    data: "data/research_stats.json",
+    dist: "stats/index.html",
+    markers: ["논문 수집 현황", "연구 코퍼스 집계"],
+    upstream: "pipeline.research.export_public_stats (local nightly)",
   },
   {
     data: "data/predictions/registry.json",
