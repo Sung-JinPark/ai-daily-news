@@ -107,6 +107,38 @@ jobs:
             gh issue create --title "$TITLE" --body "$BODY" --label "source-health"
           fi
 
+      - name: CI health scan (repeated step-reds, E2)
+        id: cihealth
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p .audit
+          python -m pipeline.audit_ci_health --issue-body-out .audit/ci-health-issue.md \
+            > .audit/ci-health.json
+          N=$(python -c "import json; print(len(json.load(open('.audit/ci-health.json'))['flagged']))" 2>/dev/null || echo 0)
+          echo "n_flagged=$N" >> "$GITHUB_OUTPUT"
+          echo "flagged $N step(s)"
+
+      - name: Create or update ci-health issue (E2)
+        if: steps.cihealth.outputs.n_flagged != '0' || github.event.inputs.simulate_anomaly == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -f .audit/ci-health-issue.md ]; then
+            echo "no ci-health body produced (simulate without flags), skipping"
+            exit 0
+          fi
+          TITLE=$(head -n 1 .audit/ci-health-issue.md | sed 's/^# //')
+          BODY=$(tail -n +3 .audit/ci-health-issue.md)
+          EXISTING=$(gh issue list --state open --label "ci-health" --json number --jq '.[0].number' || echo "")
+          if [ -n "$EXISTING" ]; then
+            echo "commenting on existing ci-health issue #$EXISTING"
+            printf 'Weekly re-scan %s\n\n%s\n' "$(date -u +%Y-%m-%d)" "$BODY" \
+              | gh issue comment "$EXISTING" --body-file -
+          else
+            gh issue create --title "$TITLE" --body "$BODY" --label "ci-health"
+          fi
+
       - name: Commit audit report
         if: always()
         run: |
