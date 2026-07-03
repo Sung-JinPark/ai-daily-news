@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS papers (
   importance_max    INTEGER DEFAULT 0,
   pdf_path          TEXT,
   enriched          INTEGER DEFAULT 0,
+  enriched_at       TEXT,
   schema_version    INTEGER DEFAULT 1
 );
 CREATE INDEX IF NOT EXISTS idx_papers_last_seen ON papers(last_seen_day);
@@ -151,6 +152,12 @@ def open_db() -> sqlite3.Connection:
     # Every v1 row was produced by the url-based primary path, so the
     # column default 'primary' is the correct backfill. Idempotent —
     # the column check makes re-runs no-ops.
+    # F4 (DBQ-2, AUD/E1d): enriched_at on pre-existing DBs. Existing
+    # enriched rows keep NULL honestly (their enrich moment is unknown).
+    pcols = {row[1] for row in conn.execute("PRAGMA table_info(papers)")}
+    if "enriched_at" not in pcols:
+        conn.execute("ALTER TABLE papers ADD COLUMN enriched_at TEXT")
+        conn.commit()
     cols = {row[1] for row in conn.execute("PRAGMA table_info(paper_mentions)")}
     if "mention_kind" not in cols:
         conn.execute(
@@ -573,7 +580,8 @@ def _apply_enrich_batch(cur, batch: list[str], fetched: dict[str, dict], stats: 
                 updated          = ?,
                 abs_url          = ?,
                 pdf_url          = ?,
-                enriched         = 1
+                enriched         = 1,
+                enriched_at      = ?
             WHERE arxiv_id = ?
             """,
             (
@@ -586,6 +594,7 @@ def _apply_enrich_batch(cur, batch: list[str], fetched: dict[str, dict], stats: 
                 meta["updated"],
                 meta["abs_url"],
                 meta["pdf_url"],
+                datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 aid,
             ),
         )
