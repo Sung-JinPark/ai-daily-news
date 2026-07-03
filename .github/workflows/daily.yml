@@ -14,11 +14,18 @@ on:
         description: "Daily article cap (LLM safety)"
         default: "120"
         required: false
+      verify_issue_perm:
+        description: "Create+close a perm-check issue to verify issues:write (AUD-025)"
+        default: "false"
+        required: false
 
 permissions:
   contents: write
   pages: write
   id-token: write
+  # AUD-025: without this, the "Report failure as issue" step 403s —
+  # retro scan showed 3/3 pipeline failures went unreported.
+  issues: write
 
 concurrency:
   group: pages
@@ -52,6 +59,23 @@ jobs:
           key: seen-v1-${{ github.run_id }}
           restore-keys: |
             seen-v1-
+
+      - name: Verify issues permission (dispatch-only, AUD-025)
+        if: ${{ github.event.inputs.verify_issue_perm == 'true' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: issue } = await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo,
+              title: `perm-check ${new Date().toISOString()}`,
+              body: "issues:write verification (AUD-025) — auto-closed immediately.",
+              labels: ["perm-check"],
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: issue.number, state: "closed",
+            });
+            core.info(`perm-check issue #${issue.number} created and closed`);
 
       - name: Collect
         run: python -m pipeline.collect
