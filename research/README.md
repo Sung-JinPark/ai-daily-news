@@ -68,11 +68,15 @@ python -m pipeline.research.snapshot
 - `notes/` — chronological research journal; each session adds one dated entry
 - `notebooks/` — starter analyses used to draft the paper's figures
 
-## Public/private boundary contract (D-1)
+## Public/private boundary contract (D-1, current state 2026-07-03)
 
-The public `/research/*` pages and the private paper layer draw from the
-same corpus, so every addition to a public page must be checked against
-this contract:
+**Current state**: the public `/research/*` pages were REMOVED on
+2026-07-03 (user decision — external visitors don't need the research
+surface). The public site is the news site plus `/stats`, which carries
+only sanitized aggregates (three tracks: articles / papers / concepts).
+Research outputs live entirely in the local private trees (+ GCS backup
+once wired). Every addition to a public page must still be checked
+against this contract:
 
 - **Public-allowed**: coarse aggregates recomputable at build time from
   the git-tracked `data/aggregates/*.jsonl` streams — raw mention
@@ -117,4 +121,4 @@ this contract:
 ## What NOT to modify from this folder
 
 - `data/aggregates/*` — raw streams owned by the daily pipeline; treat as read-only
-- `site/src/pages/research/*.astro` — public site views; deliberately kept coarser than paper analyses so nothing pre-publication leaks (see the boundary contract above)
+- `site/src/pages/stats.astro` — the public stats view; deliberately kept coarser than paper analyses so nothing pre-publication leaks (see the boundary contract above; the former `/research/*` pages were removed 2026-07-03)

@@ -303,9 +303,13 @@ def build_brief() -> tuple[str, str]:
     lines.append("[^trust]: `data/research_private/snapshots/<day>/network_metrics.json` 의 `trust_flag`.")
     lines.append("")
 
-    # ISO week from the data anchor (falls back to today KST when empty).
+    # AUD-013: the week LABEL follows the Monday gate's clock — the ISO
+    # week that just completed (today KST minus one day = its Sunday) —
+    # not the data anchor. A stale anchor (collection outage) used to
+    # drift the label onto an old week and overwrite that week's brief;
+    # the anchor stays visible as 데이터 기준일 for honesty.
     anchor = as_of or datetime.now(KST).strftime("%Y-%m-%d")
-    iso = datetime.strptime(anchor, "%Y-%m-%d").isocalendar()
+    iso = (datetime.now(KST) - timedelta(days=1)).isocalendar()
     week = f"{iso.year}-W{iso.week:02d}"
     header = [
         f"# 주간 리서치 브리프 · {week}",
