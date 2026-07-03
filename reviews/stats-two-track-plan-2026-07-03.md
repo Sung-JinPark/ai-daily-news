@@ -32,7 +32,7 @@
 | A6 | 커버리지 | 수집 기간 · 요일별 평균 볼륨(주말 패턴) | day 키 | 안전 |
 
 - **필드 가용성(실측)**: `tags`/`subtitle_en`은 초기 일부 날짜(2026-06-04~06 등)에 부분 결여 → **v1 지표는 이 두 필드를 쓰지 않는다**(안전). 나머지 10개 필드(id, source_id, category, importance_score, cluster_id, cluster_size, also_covered_by, published, fetched_at, insights_ko)는 전 기간 균일.
-- v2 후보: 소스 다양성 지수(HHI), 태그 분포 추이, refs 상세 표, 다중 시리즈 오버레이 차트.
+- v2 후보 (2026-07-03 확정 순위, Q4): ① 다중 시리즈 오버레이 차트 ② TS/py 대조 하니스 상설화 ③ 소스 다양성 지수(HHI) ④ 태그 분포 추이(2026-06-07 이후 구간 한정 — 초기 날짜 tags 결여).
 
 ### [P 논문 트랙] — 현행 papers 블록 **변경 최소** (수집/보강/멘션 kind/일별 시계열/분류/refs_pipe 유지)
 
