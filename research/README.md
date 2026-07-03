@@ -94,6 +94,12 @@ this contract:
   `pipeline/research/`, which CI never executes) is public, for
   reproducibility. Do not commit lexicon content, candidate lists, or
   research notes.
+- **`data/research_stats.json` (2026-07-03)** is public-allowed:
+  sanitized aggregates only (counts, per-day totals, generic kind
+  taxonomy) exported nightly for the site's /stats page. Concept
+  names, per-concept numbers, alias patterns, and the ledger itself
+  remain private; the exporter carries a hard guard that aborts if
+  any lexicon term appears in the payload.
 - **`data/<day>/arxiv_refs.json` (C4-1)** is public-allowed: the
   (article → arXiv id) mapping is a trivial derivation of the public
   RSS text the feeds already publish. The file carries only ids and

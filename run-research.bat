@@ -84,6 +84,16 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Public stats export (sanitized aggregates) ===
+REM Writes data\research_stats.json (git-tracked) for the site's
+REM /stats page. Aggregates only - a hard guard aborts if any lexicon
+REM term leaks into the payload. Non-fatal.
+python -m pipeline.research.export_public_stats
+if errorlevel 1 (
+    echo [WARN] Public stats export reported errors, continuing anyway.
+)
+
+echo.
 echo === Local dashboard (private HTML) ===
 REM Stats view over papers.db + research.db — the private replacement
 REM for the removed public /research pages. Non-fatal.

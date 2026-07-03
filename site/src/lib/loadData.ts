@@ -765,6 +765,31 @@ export function entityTimeSeries(
   return { buckets, series: scored.slice(0, topN) };
 }
 
+// /stats: sanitized research aggregates exported nightly by the local
+// batch (pipeline/research/export_public_stats.py). Aggregates only —
+// no lexicon content — per the boundary decision of 2026-07-03.
+export type ResearchStats = {
+  schema_version: number;
+  generated_at: string;
+  papers: {
+    total: number; enriched: number; enriched_pct: number;
+    mentions: Record<string, number>;
+    per_day_mentions: Array<{ day: string; n: number }>;
+    top_categories: Array<{ category: string; n: number }>;
+    refs_pipe_7d: { days_covered: number; rows: number };
+  } | null;
+  concepts: {
+    lexicon_version: number; active_concepts: number; alias_count: number;
+    mentions: { news: number; paper: number };
+    kind_distribution: Record<string, number>;
+    per_day_mentions: Array<{ day: string; news: number; paper: number }>;
+    cooccurrence_pairs: number; revival_events: number; media_lag_observed: number;
+  } | null;
+};
+export function loadResearchStats(): ResearchStats | null {
+  return readJson<ResearchStats | null>(path.join(DATA_ROOT, "research_stats.json"), null);
+}
+
 /**
  * Compute the ISO week's (Monday, Sunday) range for a given YYYY-Www key.
  * Mirrors pipeline/weekly.py:44-52.
