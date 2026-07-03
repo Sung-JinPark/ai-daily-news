@@ -42,7 +42,7 @@ DORMANCY_MIN_DAYS = 21
 
 def _mentions(conn) -> pd.DataFrame:
     return pd.read_sql_query(
-        "SELECT concept_id, source_type, source_id, day FROM latest_mentions "
+        "SELECT concept_id, source_type, source_id, day, event_day FROM latest_mentions "
         "ORDER BY concept_id, day, source_type, source_id", conn)
 
 
@@ -136,16 +136,25 @@ def breadth_depth(pairs: pd.DataFrame) -> pd.DataFrame:
 
 
 def media_lag(m: pd.DataFrame) -> pd.DataFrame:
-    first = m.groupby(["concept_id", "source_type"])["day"].min().unstack()
+    # F3: lag is publication→coverage. Paper side uses event_day
+    # (arXiv published; falls back to observed day for unenriched
+    # rows — refined as enrich drains). News side stays collection day.
+    m = m.copy()
+    if "event_day" in m.columns:
+        m["basis"] = m.apply(
+            lambda r: (r["event_day"] or r["day"]) if r["source_type"] == "paper" else r["day"], axis=1)
+    else:
+        m["basis"] = m["day"]
+    first = m.groupby(["concept_id", "source_type"])["basis"].min().unstack()
     for col in ("news", "paper"):
         if col not in first.columns:
             first[col] = None
     out = first.reset_index()[["concept_id", "news", "paper"]]
-    out.columns = ["concept_id", "first_news_day", "first_paper_day"]
+    out.columns = ["concept_id", "first_news_day", "first_paper_published_day"]
     lag = []
     for _, r in out.iterrows():
-        if r["first_news_day"] and r["first_paper_day"]:
-            lag.append((pd.to_datetime(r["first_news_day"]) - pd.to_datetime(r["first_paper_day"])).days)
+        if r["first_news_day"] and r["first_paper_published_day"]:
+            lag.append((pd.to_datetime(r["first_news_day"]) - pd.to_datetime(r["first_paper_published_day"])).days)
         else:
             lag.append(None)
     out["news_minus_paper_days"] = lag

@@ -107,6 +107,22 @@ def run(source: str, day: str | None, version: int | None, dry_run: bool) -> dic
                 out["papers_without_abstract"] = c2.execute(
                     "SELECT COUNT(*) FROM papers WHERE enriched=0").fetchone()[0]
                 c2.close()
+        if not dry_run:
+            # F3: bulk event_day fill — deterministic and idempotent
+            # (recomputed every run; unenriched papers refine to
+            # published as the nightly enrich drains).
+            conn.execute("UPDATE concept_mentions SET event_day = day "
+                         "WHERE source_type='news' AND (event_day IS NULL OR event_day != day)")
+            from pipeline.research.research_db import PAPERS_DB as _PDB
+            if _PDB.exists():
+                conn.execute(f"ATTACH DATABASE '{_PDB.as_posix()}' AS pdb")
+                conn.execute(
+                    "UPDATE concept_mentions SET event_day = COALESCE("
+                    " (SELECT substr(p.published,1,10) FROM pdb.papers p"
+                    "  WHERE p.arxiv_id = concept_mentions.source_id), day) "
+                    "WHERE source_type='paper'")
+                conn.commit()
+                conn.execute("DETACH DATABASE pdb")
         for k, v in out.items():
             print(f"[extract] {k}: {v}")
         if not dry_run:

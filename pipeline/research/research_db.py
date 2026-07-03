@@ -79,6 +79,11 @@ CREATE TABLE IF NOT EXISTS concept_mentions (   -- the ledger (D1)
   PRIMARY KEY (concept_id, source_type, source_id, field, lexicon_version)
 );
 CREATE INDEX IF NOT EXISTS idx_cm_day ON concept_mentions(day);
+-- F3 (schema v2): event_day — when the mentioned thing HAPPENED.
+-- news: = day (collection day). paper: arXiv published date (fallback
+-- day for unenriched papers, refined as enrich drains). The original
+-- `day` column keeps its observed_day meaning (no rename — ledger
+-- immutability).
 CREATE INDEX IF NOT EXISTS idx_cm_concept ON concept_mentions(concept_id, source_type);
 CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT);
 
@@ -104,6 +109,11 @@ def open_db() -> sqlite3.Connection:
     PRIVATE_ROOT.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_FILE)
     conn.executescript(SCHEMA_SQL)
+    # F3 schema v2 migration (idempotent): event_day column.
+    cols = {r[1] for r in conn.execute("PRAGMA table_info(concept_mentions)")}
+    if "event_day" not in cols:
+        conn.execute("ALTER TABLE concept_mentions ADD COLUMN event_day TEXT")
+        conn.commit()
     conn.execute(
         "INSERT OR REPLACE INTO meta(key, value) VALUES ('schema_version', ?)",
         (str(SCHEMA_VERSION),),
