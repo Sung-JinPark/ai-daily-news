@@ -1,13 +1,19 @@
 ---
 import Base from "~/layouts/Base.astro";
 import Sparkline from "~/components/Sparkline.astro";
-import { loadResearchStats } from "~/lib/loadData";
+import { CATEGORIES, computeArticleStats, loadResearchStats } from "~/lib/loadData";
 
-// 통계 — 논문 DB·개념 원장의 사니타이즈된 집계 뷰. 원장/렉시콘 내용은
-// 로컬 전용이며, 이 페이지는 export_public_stats.py가 야간에 내보내는
-// 집계 JSON만 렌더한다 (개념명 미포함 — 경계 계약 2026-07-03).
+// 통계 — 3트랙: ① 기사 코퍼스(빌드 타임에 공개 원천에서 직접 집계,
+// two-track plan T1/T2) → ② 논문 수집 현황 → ③ 연구 코퍼스 집계(교차
+// 렌즈). ②③은 export_public_stats.py가 야간에 내보내는 사니타이즈
+// JSON(개념명 미포함 — 경계 계약), ①은 articles.json 재집계라 신선도가
+// 배포 주기를 따른다 — 트랙별 기준 시각을 헤더에 병기.
 const stats = loadResearchStats();
+const articles = computeArticleStats();
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const buildDay = new Date().toISOString().slice(0, 10);
+const dailyAvg = articles ? Math.round((articles.rowSum / articles.span.days) * 10) / 10 : 0;
+const articleSpark = articles ? articles.per_day.map((p) => ({ day: p.day, count: p.n })) : [];
 
 const KIND_KO: Record<string, string> = {
   method: "기법", architecture: "아키텍처", task: "과제", paradigm: "패러다임",
@@ -33,14 +39,129 @@ const genDay = stats?.generated_at?.slice(0, 10) ?? "";
     <div class="kicker text-accent mb-2">Statistics</div>
     <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none">통계</h1>
     <p class="mt-3 text-[13px] text-ink/60">
-      뉴스에서 관찰된 arXiv 논문 수집 현황과 연구 코퍼스의 집계 지표를 정리합니다.
+      기사 코퍼스·논문 수집 현황·연구 코퍼스의 집계 지표를 정리합니다.
       집계 수치만 공개되며, 세부 원장은 비공개입니다.
-      {genDay && <span class="text-ink/45"> · 기준 {genDay}</span>}
+      <span class="block mt-1 text-ink/45">기사: 매 배포 시 재계산 (빌드 {buildDay}){genDay && <> · 논문/연구: 야간 집계 {genDay}</>}</span>
     </p>
   </header>
 
+  <section class="mb-14">
+    <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">기사 코퍼스</h2>
+    {!articles && (
+      <p class="text-ink/60 text-[13px]">아직 수집 데이터가 없습니다.</p>
+    )}
+    {articles && (
+      <>
+        <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+          <div>
+            <dt class="kicker text-ink/50 mb-1">총 기사</dt>
+            <dd class="font-serif text-3xl font-black text-ink tabular-nums">{articles.total.toLocaleString()}</dd>
+          </div>
+          <div>
+            <dt class="kicker text-ink/50 mb-1">일평균 수집</dt>
+            <dd class="font-serif text-3xl font-black text-ink tabular-nums">{dailyAvg}<span class="text-base text-ink/50">건 / {articles.span.days}일</span></dd>
+          </div>
+          <div>
+            <dt class="kicker text-ink/50 mb-1">활성 소스</dt>
+            <dd class="font-serif text-3xl font-black text-ink tabular-nums">{articles.sources.active}</dd>
+          </div>
+          <div>
+            <dt class="kicker text-ink/50 mb-1">스토리 (클러스터)</dt>
+            <dd class="font-serif text-3xl font-black text-ink tabular-nums">{articles.clusters.total.toLocaleString()} <span class="text-base text-ink/50">멀티소스 {articles.clusters.multi_pct}%</span></dd>
+          </div>
+        </dl>
+
+        <div class="mb-8">
+          <h3 class="kicker text-ink/60 mb-2">일별 수집 볼륨 · {articles.span.first} ~ {articles.span.last}</h3>
+          <Sparkline data={articleSpark} height={44} ariaLabel="일별 기사 수집 볼륨" />
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-10 gap-y-8 mb-8">
+          <div>
+            <h3 class="kicker text-ink/60 mb-2">카테고리 분포</h3>
+            <table class="w-full text-[12.5px] border-collapse">
+              <thead>
+                <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
+                  <th class="py-2 pr-3">분류</th>
+                  <th class="py-2 text-right tabular-nums">기사</th>
+                </tr>
+              </thead>
+              <tbody>
+                {articles.categories.map((c) => (
+                  <tr class="border-b border-ink/5">
+                    <td class="py-1.5 pr-3">{CATEGORIES[c.category] ?? c.category ?? "기타"}</td>
+                    <td class="py-1.5 text-right tabular-nums font-semibold">{c.n.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3 class="kicker text-ink/60 mb-2">상위 소스 5</h3>
+            <table class="w-full text-[12.5px] border-collapse">
+              <thead>
+                <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
+                  <th class="py-2 pr-3">소스</th>
+                  <th class="py-2 text-right tabular-nums">기사</th>
+                </tr>
+              </thead>
+              <tbody>
+                {articles.sources.top5.map((s) => (
+                  <tr class="border-b border-ink/5">
+                    <td class="py-1.5 pr-3 font-mono text-[12px]"><a href={`${base}/source/${s.source_id}`} class="hover:text-accent">{s.source_id}</a></td>
+                    <td class="py-1.5 text-right tabular-nums font-semibold">{s.n.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3 class="kicker text-ink/60 mb-2">중요도 분포 (1~5)</h3>
+            <table class="w-full text-[12.5px] border-collapse">
+              <thead>
+                <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
+                  <th class="py-2 pr-3">점수</th>
+                  <th class="py-2 text-right tabular-nums">기사</th>
+                </tr>
+              </thead>
+              <tbody>
+                {["5", "4", "3", "2", "1"].map((k) => (
+                  <tr class="border-b border-ink/5">
+                    <td class="py-1.5 pr-3">{k}점</td>
+                    <td class="py-1.5 text-right tabular-nums font-semibold">{(articles.importance_hist[k] ?? 0).toLocaleString()}</td>
+                  </tr>
+                ))}
+                {(articles.importance_hist.missing ?? 0) > 0 && (
+                  <tr class="border-b border-ink/5">
+                    <td class="py-1.5 pr-3 text-ink/50">결측</td>
+                    <td class="py-1.5 text-right tabular-nums text-ink/50">{articles.importance_hist.missing}</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h3 class="kicker text-ink/60 mb-2">요일별 평균 볼륨</h3>
+        <table class="w-full max-w-md text-[12.5px] border-collapse">
+          <thead>
+            <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
+              {articles.weekday_avg.map((w) => <th class="py-2 text-center">{w.weekday}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {articles.weekday_avg.map((w) => <td class="py-1.5 text-center tabular-nums font-semibold">{w.avg}</td>)}
+            </tr>
+          </tbody>
+        </table>
+        <p class="mt-3 text-[11px] text-ink/45">기사→논문 인용(arXiv 참조) 지표는 ③ 연구 코퍼스 집계를 참조.</p>
+      </>
+    )}
+  </section>
+
   {!stats && (
-    <p class="text-ink/60 text-[13px]">아직 통계 데이터가 없습니다. 첫 야간 집계 이후 채워집니다.</p>
+    <p class="text-ink/60 text-[13px]">논문/연구 통계가 아직 없습니다. 첫 야간 집계 이후 채워집니다.</p>
   )}
 
   {stats?.papers && (
@@ -120,7 +241,7 @@ const genDay = stats?.generated_at?.slice(0, 10) ?? "";
 
   {stats?.concepts && (
     <section class="mb-14">
-      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">연구 코퍼스 집계</h2>
+      <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">연구 코퍼스 집계 <span class="text-ink/45 normal-case tracking-normal">— 교차 렌즈</span></h2>
       <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
         <div>
           <dt class="kicker text-ink/50 mb-1">추적 개념</dt>

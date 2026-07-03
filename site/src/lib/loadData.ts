@@ -790,6 +790,106 @@ export function loadResearchStats(): ResearchStats | null {
   return readJson<ResearchStats | null>(path.join(DATA_ROOT, "research_stats.json"), null);
 }
 
+// Article-corpus track for /stats (two-track plan, T1). Definitions are
+// pinned (D1~D7) and shared verbatim with the private corpus_descriptives
+// export — change the plan doc first, then both implementations.
+export type ArticleStats = {
+  total: number;                 // D1: distinct article ids over all days
+  rowSum: number;                // sum of day-file rows (differs from total only on anomalies)
+  per_day: Array<{ day: string; n: number }>;   // D3: rows per day file (collection volume)
+  sources: { active: number; top5: Array<{ source_id: string; n: number }> };
+  categories: Array<{ category: string; n: number }>;
+  clusters: { total: number; multi_pct: number; avg_size: number };
+  importance_hist: Record<string, number>;      // D6: "1".."5" + "missing"
+  weekday_avg: Array<{ weekday: string; avg: number }>;  // D4: Mon..Sun from day string
+  span: { first: string; last: string; days: number };
+};
+
+let _articleStats: ArticleStats | null | undefined;
+export function computeArticleStats(): ArticleStats | null {
+  if (_articleStats !== undefined) return _articleStats;
+  const days = allDays();
+  if (days.length === 0) return (_articleStats = null);
+
+  const ids = new Set<string>();
+  const perDay: Array<{ day: string; n: number }> = [];
+  const bySource = new Map<string, number>();
+  const byCategory = new Map<string, number>();
+  // D2: stories are re-grouped from scratch by cluster_id across the
+  // whole corpus. The per-article cluster_size / also_covered_by fields
+  // are fetch-time snapshots and MUST NOT be aggregated.
+  const clusterArticles = new Map<string, number>();
+  const clusterSources = new Map<string, Set<string>>();
+  const hist: Record<string, number> = { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, missing: 0 };
+  const weekdayTotals = new Map<number, { sum: number; days: number }>();
+  let rowSum = 0;
+
+  for (const day of [...days].sort()) {
+    const arts = loadDay(day).articles;
+    rowSum += arts.length;
+    perDay.push({ day, n: arts.length });
+    // D4: weekday from the day string's own calendar — no tz conversion.
+    const dow = new Date(day + "T00:00:00Z").getUTCDay(); // 0=Sun
+    const w = weekdayTotals.get(dow) ?? { sum: 0, days: 0 };
+    w.sum += arts.length;
+    w.days += 1;
+    weekdayTotals.set(dow, w);
+    for (const a of arts) {
+      ids.add(a.id);
+      bySource.set(a.source_id, (bySource.get(a.source_id) ?? 0) + 1);
+      byCategory.set(a.category ?? "", (byCategory.get(a.category ?? "") ?? 0) + 1);
+      const imp = a.importance_score;
+      if (imp == null || !(imp >= 1 && imp <= 5)) hist.missing += 1;
+      else hist[String(Math.round(imp))] += 1;
+      const cid = a.cluster_id;
+      if (cid) {
+        clusterArticles.set(cid, (clusterArticles.get(cid) ?? 0) + 1);
+        if (!clusterSources.has(cid)) clusterSources.set(cid, new Set());
+        clusterSources.get(cid)!.add(a.source_id);
+      }
+    }
+  }
+
+  // D1: if distinct-id total differs from the row sum, log it — it is a
+  // data observation (cross-day republication), not an error.
+  if (ids.size !== rowSum) {
+    console.log(`[article-stats] distinct ids ${ids.size} != row sum ${rowSum} (cross-day duplicates: ${rowSum - ids.size})`);
+  }
+
+  const totalClusters = clusterArticles.size;
+  const multi = [...clusterSources.values()].filter((s) => s.size >= 2).length;
+  const sizeSum = [...clusterArticles.values()].reduce((a, b) => a + b, 0);
+  // D5: ties broken by source_id ascending for determinism.
+  const top5 = [...bySource.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, 5)
+    .map(([source_id, n]) => ({ source_id, n }));
+  const WEEKDAY_KO = ["일", "월", "화", "수", "목", "금", "토"];
+  const weekday_avg = [1, 2, 3, 4, 5, 6, 0].map((dow) => {
+    const w = weekdayTotals.get(dow);
+    return { weekday: WEEKDAY_KO[dow], avg: w ? Math.round((w.sum / w.days) * 10) / 10 : 0 };
+  });
+  const sortedDays = [...days].sort();
+
+  return (_articleStats = {
+    total: ids.size,
+    rowSum,
+    per_day: perDay,
+    sources: { active: bySource.size, top5 },
+    categories: [...byCategory.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([category, n]) => ({ category, n })),
+    clusters: {
+      total: totalClusters,
+      multi_pct: totalClusters ? Math.round((multi / totalClusters) * 1000) / 10 : 0,
+      avg_size: totalClusters ? Math.round((sizeSum / totalClusters) * 10) / 10 : 0,
+    },
+    importance_hist: hist,
+    weekday_avg,
+    span: { first: sortedDays[0], last: sortedDays[sortedDays.length - 1], days: days.length },
+  });
+}
+
 /**
  * Compute the ISO week's (Monday, Sunday) range for a given YYYY-Www key.
  * Mirrors pipeline/weekly.py:44-52.
