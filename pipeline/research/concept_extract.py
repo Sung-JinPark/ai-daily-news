@@ -92,6 +92,10 @@ def run(source: str, day: str | None, version: int | None, dry_run: bool) -> dic
         out = {"lexicon_version": version}
         if source in ("news", "all"):
             out["news"] = scan(iter_news_texts(), "news", patterns, version, conn, dry_run, day)
+            # F2 (instrument v3): English body corpus (private ledger built
+            # by en_corpus.py from the committed bodies.jsonl) — field=body_en.
+            from pipeline.research.en_corpus import iter_en_texts
+            out["news_body_en"] = scan(iter_en_texts(), "news", patterns, version, conn, dry_run, day)
         if source in ("paper", "all"):
             out["paper"] = scan(iter_paper_texts(enriched_only=True), "paper", patterns,
                                 version, conn, dry_run, day)
