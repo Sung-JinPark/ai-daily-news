@@ -191,8 +191,13 @@ def upsert_paper(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: st
     article title IS the paper title; a reference mention's article
     title is the *referring* article, so the placeholder row keeps
     title NULL and lets the nightly enrich fill it from arXiv.
-    Update rules (seen_count, tags union, importance_max, first/last
-    day) are identical for both kinds.
+    Update rules (tags union, importance_max, first/last day) are
+    identical for both kinds.
+
+    seen_count is NOT touched here (AUD-005): it used to be a
+    per-run counter that inflated on every rerun/backfill. It is now
+    DERIVED — recomputed in bulk at the end of each collect as
+    COUNT(DISTINCT day) of the paper's mentions (idempotent).
 
     Returns 'insert' or 'update' so the caller can log real deltas.
     """
@@ -240,7 +245,6 @@ def upsert_paper(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: st
         UPDATE papers SET
             last_seen_day  = MAX(COALESCE(last_seen_day, ?), ?),
             first_seen_day = MIN(COALESCE(first_seen_day, ?), ?),
-            seen_count     = seen_count + 1,
             tags_json      = ?,
             importance_max = ?
         WHERE arxiv_id = ?
@@ -248,6 +252,28 @@ def upsert_paper(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: st
         (day, day, day, day, merged_tags, new_importance_max, arxiv_id),
     )
     return "update"
+
+
+def recompute_seen_counts(conn: sqlite3.Connection) -> int:
+    """AUD-005: seen_count = COUNT(DISTINCT mention day) — derived,
+    idempotent, immune to rerun/backfill inflation. Runs at the end of
+    every collect; the first run doubles as the one-time migration
+    that corrects historically inflated values. Returns how many rows
+    changed."""
+    cur = conn.execute(
+        """
+        UPDATE papers SET seen_count = (
+            SELECT COUNT(DISTINCT day) FROM paper_mentions
+            WHERE paper_mentions.arxiv_id = papers.arxiv_id
+        )
+        WHERE seen_count != (
+            SELECT COUNT(DISTINCT day) FROM paper_mentions
+            WHERE paper_mentions.arxiv_id = papers.arxiv_id
+        )
+        """
+    )
+    conn.commit()
+    return cur.rowcount
 
 
 def upsert_mention(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: str,
@@ -726,6 +752,10 @@ def main() -> None:
             collect_stats["refs_found"], collect_stats["ref_papers_inserted"],
             collect_stats["ref_mentions_inserted"], collect_stats["ref_mentions_skipped"],
         )
+
+        if not args.dry_run:
+            changed = recompute_seen_counts(conn)
+            log.info("[collect] seen_count recomputed (distinct days): %d rows corrected", changed)
 
         enrich_stats = {"attempted": 0, "enriched": 0, "failed": 0, "skipped": True}
         if not args.dry_run and not args.no_enrich:
