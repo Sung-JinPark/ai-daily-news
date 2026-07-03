@@ -104,6 +104,18 @@ against this contract:
   public source (articles.json), computed at build time on the site.
   They touch no research methodology (concept lexicon/ledger) and are
   therefore outside the sanitize guard's scope.
+- **Article body full text is PRIVATE (2026-07-03, history-purged)**:
+  `data/corpus/*/bodies.jsonl` holds third-party media full text
+  (post-trafilatura, ≤6000 chars) and is **gitignored — never
+  committed or republished**. It is written every run and consumed
+  only locally (research `en_corpus`, `summarize`). The single commit
+  that had previously tracked it was purged from all git history via
+  `git filter-repo` and force-pushed. The PUBLIC `archive.db` build
+  (`pipeline/build_db.py`) NULLs `body_text`, so no republication path
+  remains. Rationale: third-party article copyright. (Caveat: the
+  rollback branch `backup/pre-bodies-purge-2026-07-03` retains the old
+  history until its scheduled deletion; GitHub may also cache the
+  orphaned commit until garbage collection.)
 - **`data/research_stats.json` (2026-07-03)** is public-allowed:
   sanitized aggregates only (counts, per-day totals, generic kind
   taxonomy) exported nightly for the site's /stats page. Concept
