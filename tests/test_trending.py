@@ -1,28 +1,38 @@
-from pipeline.trending import strip_particles, tokenize
+"""trending.py switched to English-only tokenization (Korean particle
+stripping was removed). These tests exercise the current tokenizer."""
+from pipeline.trending import tokenize
 
 
-def test_strip_particles_collapses_inflections():
-    assert strip_particles("성능을") == "성능"
-    assert strip_particles("모델은") == "모델"
-    assert strip_particles("데이터의") == "데이터"
-    assert strip_particles("학습에서") == "학습"
+def test_tokenize_keeps_english_terms_over_two_chars():
+    tokens = tokenize("Transformer architecture improves reasoning benchmarks")
+    assert "transformer" in tokens
+    assert "architecture" in tokens
+    assert "reasoning" in tokens
+    assert "benchmarks" in tokens
 
 
-def test_strip_particles_leaves_english_untouched():
-    assert strip_particles("Google") == "Google"
-    assert strip_particles("GPT-5") == "GPT-5"
+def test_tokenize_drops_stopwords_and_generic_fillers():
+    tokens = tokenize("The new AI model shows strong results")
+    # stopwords / generic fillers removed
+    assert "the" not in tokens
+    assert "new" not in tokens
+    assert "ai" not in tokens
+    assert "model" not in tokens
+    assert "shows" not in tokens
+    # content words kept
+    assert "strong" in tokens
+    assert "results" in tokens
 
 
-def test_strip_particles_does_not_destroy_short_tokens():
-    # "을" alone is shorter than 2, should be untouched (returned as-is)
-    assert strip_particles("을") == "을"
+def test_tokenize_is_english_only_and_lowercases_hyphenated():
+    tokens = tokenize("한국어 텍스트 GPT-5 Mixture-of-Experts")
+    # Korean tokens are dropped (no ASCII-letter start); hyphenated names survive
+    assert tokens == ["gpt-5", "mixture-of-experts"]
 
 
-def test_tokenize_drops_stopwords_and_strips_particles():
-    text = "새로운 모델을 통해 성능이 향상되었습니다."
-    tokens = tokenize(text)
-    assert "모델" in tokens
-    assert "성능" in tokens
-    # stopwords
-    assert "새로운" not in tokens
-    assert "통해" not in tokens
+def test_tokenize_short_and_numeric_only_tokens_dropped():
+    # a bare "AI" is 2 chars (below min 3) and also a filler; digits alone never match
+    tokens = tokenize("AI is 42 ok GPU")
+    assert "ai" not in tokens
+    assert "42" not in tokens
+    assert "gpu" in tokens
