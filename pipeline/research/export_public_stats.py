@@ -7,8 +7,10 @@ distributions — NEVER concept names, alias patterns, or any lexicon
 content (the paper's methodology stays unpublished).
 
 A hard sanitization guard enforces that: after building the payload,
-the serialized JSON is scanned for every active concept_id and
-canonical_name from research.db — any hit aborts the export.
+the serialized JSON is scanned for every concept_id and canonical_name
+from research.db (all states) — any hit aborts the export. Matching is
+word-boundary aware for ASCII terms (SG-1, 2026-07-04) so a short
+concept token no longer false-positives inside an unrelated word.
 
 Updated nightly by run-research.bat; the scheduled wrapper commits
 and pushes it, which triggers the Pages deploy (site auto-refresh).
@@ -18,6 +20,7 @@ Usage: python -m pipeline.research.export_public_stats
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
@@ -114,8 +117,40 @@ def concepts_block() -> dict | None:
     }
 
 
+def _is_ascii(s: str) -> bool:
+    return all(ord(c) < 128 for c in s)
+
+
+def _make_probe(term: str):
+    r"""Return callable(payload_lower) -> bool detecting ``term``.
+
+    SG-1 (2026-07-04): ASCII terms match on **word boundaries**
+    (phrase-aware — internal whitespace tolerates any run) so a short
+    concept token no longer false-positives as a substring of an
+    unrelated English word (e.g. a token inside "education"). Non-ASCII
+    terms (e.g. Korean) fall back to literal containment because ``\b``
+    is ill-defined there — keeping detection so a real leak is never
+    under-matched. Mirrors site/src/lib/glossaryLinker.ts.
+    """
+    t = term.strip().lower()
+    if not t:
+        return lambda _p: False
+    if _is_ascii(t):
+        pat = r"\b" + r"\s+".join(re.escape(w) for w in t.split()) + r"\b"
+        rx = re.compile(pat)
+        return lambda p: rx.search(p) is not None
+    return lambda p: t in p
+
+
 def _sanitize_check(serialized: str) -> None:
-    """Abort if any lexicon content leaked into the public payload."""
+    """Abort if any lexicon content leaked into the public payload.
+
+    Scans the serialized payload for every concept_id / canonical_name in
+    research.db (ALL states, not just active). Any hit raises SystemExit
+    *before* the atomic write, so nothing is written. The error message
+    deliberately omits the offending term — logs / stack traces may be a
+    public surface.
+    """
     if not RESEARCH_DB.exists():
         return
     c = sqlite3.connect(RESEARCH_DB)
@@ -129,10 +164,10 @@ def _sanitize_check(serialized: str) -> None:
     low = serialized.lower()
     for cid, cname in names:
         for token in (cid, cname):
-            if token and len(str(token)) >= 3 and str(token).lower() in low:
+            if token and len(str(token)) >= 3 and _make_probe(str(token))(low):
                 raise SystemExit(
-                    f"SANITIZATION FAILURE: lexicon term {token!r} found in public "
-                    f"stats payload — export aborted, nothing written."
+                    "sanitize guard: a concept term leaked into "
+                    "research_stats.json payload; export aborted"
                 )
 
 
