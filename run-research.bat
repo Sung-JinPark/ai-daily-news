@@ -11,6 +11,13 @@ REM first; prefer it, or pull manually before ad-hoc runs.
 setlocal
 cd /d "%~dp0"
 
+echo === Health check (pre-run staleness, AUTO-1) ===
+REM Non-fatal report of how far the private ledger has drifted from the
+REM public frontier BEFORE this run. exit 1 here only means it was stale
+REM (a missed run) — this run is about to remedy it (backfill is idempotent).
+python -m pipeline.research.health_check
+
+echo.
 echo === Research snapshot (private) ===
 python -m pipeline.research.snapshot %*
 if errorlevel 1 (
@@ -118,6 +125,12 @@ python -m pipeline.research.gcs_sync
 if errorlevel 1 (
     echo [WARN] GCS backup step reported errors, continuing anyway.
 )
+
+echo.
+echo === Heartbeat (AUTO-1) ===
+REM Stamp the full-run heartbeat so the staleness guard knows the run
+REM reached completion (data\research_private\health\last_success.json).
+python -m pipeline.research.health_check --stamp-success
 
 echo.
 echo Done. Artifacts written under data\research_private\ and data\papers_private\

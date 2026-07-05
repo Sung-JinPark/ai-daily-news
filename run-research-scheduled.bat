@@ -11,6 +11,22 @@ REM next successful pull+run self-heals).
 REM
 REM Never wire this into GitHub Actions — outputs are gitignored on
 REM purpose and must not leak into the public repository.
+REM
+REM AUTO-1 — this run is the ONLY thing that grows the private ledger.
+REM If the scheduled task stops firing, the ledger freezes silently.
+REM
+REM Verify the task is registered and firing (PowerShell / cmd):
+REM   schtasks /query /fo LIST /v | findstr /i "run-research"
+REM   schtasks /query /tn "ai-daily-research" /v /fo LIST   (if named so)
+REM Register (daily 20:00 KST), if missing:
+REM   schtasks /create /tn "ai-daily-research" /sc daily /st 20:00 ^
+REM     /tr "C:\workspace\ai-daily-news\run-research-scheduled.bat"
+REM
+REM Optional independent monitor (separate lightweight task, e.g. hourly)
+REM that alerts if the full run stopped — health_check exits 1 when stale:
+REM   python -m pipeline.research.health_check || <your alert command>
+REM run-research.bat itself reports staleness at start and stamps a
+REM heartbeat (data\research_private\health\last_success.json) at the end.
 
 setlocal
 cd /d "%~dp0"
