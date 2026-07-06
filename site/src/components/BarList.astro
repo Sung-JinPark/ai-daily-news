@@ -1,0 +1,28 @@
+---
+// VIZ-1: server-rendered horizontal magnitude bars (zero runtime JS).
+// One hue per list (magnitude, not identity) — the numeric value is always
+// shown in an ink token, so colour is never the sole encoding (CVD-safe).
+interface Item { label: string; value: number; href?: string; mono?: boolean }
+interface Props {
+  items: Item[];
+  color?: string;
+  unit?: string;
+  labelWidth?: string; // tailwind width utility for the label column
+}
+const { items, color = "#be1622", unit = "", labelWidth = "w-24" } = Astro.props;
+const max = Math.max(1, ...items.map((i) => i.value));
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<ul class="space-y-1.5">
+  {items.map((i) => (
+    <li class="flex items-center gap-2.5 text-[12px]">
+      <span class={`${labelWidth} shrink-0 truncate text-ink/70 ${i.mono ? "font-mono text-[11px]" : ""}`}>
+        {i.href ? <a href={`${base}${i.href}`} class="hover:text-accent">{i.label}</a> : i.label}
+      </span>
+      <span class="flex-1 h-3 bg-ink/8 rounded-sm overflow-hidden" role="img" aria-label={`${i.label}: ${i.value}${unit}`}>
+        <span class="block h-full rounded-sm" style={`width:${Math.max(2, (i.value / max) * 100)}%;background:${color}`}></span>
+      </span>
+      <span class="w-14 text-right tabular-nums font-semibold text-ink/70">{i.value.toLocaleString()}{unit}</span>
+    </li>
+  ))}
+</ul>

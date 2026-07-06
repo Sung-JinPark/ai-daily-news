@@ -1,0 +1,20 @@
+---
+// VIZ-1: a single figure with a one-line meaning caption. Used to expose the
+// research aggregates (connections / lag / revival / instrument) WITH what
+// they mean — the concept names stay private, so the reader needs the shape
+// explained.
+interface Props {
+  value: string | number;
+  label: string;
+  note: string;
+  accent?: boolean;
+}
+const { value, label, note, accent = false } = Astro.props;
+---
+<div class="border-l-2 border-ink/15 pl-3">
+  <div class="kicker text-ink/50 mb-0.5">{label}</div>
+  <div class={`font-serif text-2xl font-black tabular-nums leading-none ${accent ? "text-accent" : "text-ink"}`}>
+    {typeof value === "number" ? value.toLocaleString() : value}
+  </div>
+  <p class="mt-1.5 text-[11px] text-ink/55 leading-snug">{note}</p>
+</div>

@@ -1,0 +1,26 @@
+---
+// VIZ-1: single-value progress meter (zero runtime JS). For "X of Y" headline
+// magnitudes like enrichment coverage.
+interface Props {
+  value: number;
+  total: number;
+  label?: string;
+  color?: string;
+  note?: string;
+}
+const { value, total, label = "", color = "#059669", note = "" } = Astro.props;
+const pct = total ? Math.round((value / total) * 1000) / 10 : 0;
+---
+<div>
+  <div class="flex items-baseline justify-between mb-1.5 gap-3">
+    <span class="kicker text-ink/60">{label}</span>
+    <span class="text-[12px] tabular-nums text-ink/60">
+      <span class="font-serif font-black text-ink text-lg">{value.toLocaleString()}</span>
+      <span class="text-ink/45"> / {total.toLocaleString()}</span> · {pct}%
+    </span>
+  </div>
+  <div class="h-3.5 bg-ink/8 rounded-sm overflow-hidden" role="img" aria-label={`${label} ${value} of ${total} (${pct}%)`}>
+    <span class="block h-full rounded-sm" style={`width:${pct}%;background:${color}`}></span>
+  </div>
+  {note && <p class="mt-1.5 text-[11px] text-ink/45">{note}</p>}
+</div>

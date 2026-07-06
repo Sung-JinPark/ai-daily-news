@@ -1,7 +1,13 @@
 ---
 import Base from "~/layouts/Base.astro";
 import Sparkline from "~/components/Sparkline.astro";
+import BarList from "~/components/BarList.astro";
+import ProgressBar from "~/components/ProgressBar.astro";
+import StatCaption from "~/components/StatCaption.astro";
 import { CATEGORIES, computeArticleStats, loadResearchStats } from "~/lib/loadData";
+
+const ACCENT = "#be1622"; // news / general magnitude
+const PAPER = "#059669";  // paper series
 
 // 통계 — 3트랙: ① 기사 코퍼스(빌드 타임에 공개 원천에서 직접 집계,
 // two-track plan T1/T2) → ② 논문 수집 현황 → ③ 연구 코퍼스 집계(교차
@@ -10,7 +16,6 @@ import { CATEGORIES, computeArticleStats, loadResearchStats } from "~/lib/loadDa
 // 배포 주기를 따른다 — 트랙별 기준 시각을 헤더에 병기.
 const stats = loadResearchStats();
 const articles = computeArticleStats();
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const buildDay = new Date().toISOString().slice(0, 10);
 const dailyAvg = articles ? Math.round((articles.rowSum / articles.span.days) * 10) / 10 : 0;
 const articleSpark = articles ? articles.per_day.map((p) => ({ day: p.day, count: p.n })) : [];
@@ -30,6 +35,42 @@ const paperConceptSpark = stats?.concepts
   ? stats.concepts.per_day_mentions.map((p) => ({ day: p.day, count: p.paper }))
   : [];
 const genDay = stats?.generated_at?.slice(0, 10) ?? "";
+
+// ---- bar-list data (distributions rendered as magnitude bars) ----
+const categoryBars = articles
+  ? articles.categories.map((c) => ({ label: CATEGORIES[c.category] ?? c.category ?? "기타", value: c.n }))
+  : [];
+const sourceBars = articles
+  ? articles.sources.top5.map((s) => ({ label: s.source_id, value: s.n, href: `/source/${s.source_id}`, mono: true }))
+  : [];
+const importanceBars = articles
+  ? [
+      ...["5", "4", "3", "2", "1"].map((k) => ({ label: `${k}점`, value: articles.importance_hist[k] ?? 0 })),
+      ...((articles.importance_hist.missing ?? 0) > 0 ? [{ label: "결측", value: articles.importance_hist.missing }] : []),
+    ]
+  : [];
+const weekdayBars = articles ? articles.weekday_avg.map((w) => ({ label: w.weekday, value: w.avg })) : [];
+
+const enriched = stats?.papers?.enriched ?? 0;
+const paperTotal = stats?.papers?.total ?? 0;
+const pendingEnrich = Math.max(0, paperTotal - enriched);
+const arxivBars = stats?.papers
+  ? stats.papers.top_categories.map((c) => ({ label: c.category, value: c.n, mono: true }))
+  : [];
+const mentionTypeBars = stats?.papers
+  ? [
+      { label: "피드 원샷", value: stats.papers.mentions.primary ?? 0 },
+      { label: "본문 인용", value: stats.papers.mentions.reference ?? 0 },
+    ]
+  : [];
+const kindBars = stats?.concepts
+  ? Object.entries(stats.concepts.kind_distribution)
+      .sort((a, b) => b[1] - a[1])
+      .map(([kind, n]) => ({ label: KIND_KO[kind] ?? kind, value: n }))
+  : [];
+const totalConceptMentions = stats?.concepts
+  ? stats.concepts.mentions.news + stats.concepts.mentions.paper
+  : 0;
 ---
 <Base
   title="통계 — AI Daily News"
@@ -78,83 +119,23 @@ const genDay = stats?.generated_at?.slice(0, 10) ?? "";
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-10 gap-y-8 mb-8">
           <div>
-            <h3 class="kicker text-ink/60 mb-2">카테고리 분포</h3>
-            <table class="w-full text-[12.5px] border-collapse">
-              <thead>
-                <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
-                  <th class="py-2 pr-3">분류</th>
-                  <th class="py-2 text-right tabular-nums">기사</th>
-                </tr>
-              </thead>
-              <tbody>
-                {articles.categories.map((c) => (
-                  <tr class="border-b border-ink/5">
-                    <td class="py-1.5 pr-3">{CATEGORIES[c.category] ?? c.category ?? "기타"}</td>
-                    <td class="py-1.5 text-right tabular-nums font-semibold">{c.n.toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <h3 class="kicker text-ink/60 mb-3">카테고리 분포</h3>
+            <BarList items={categoryBars} color={ACCENT} unit="건" labelWidth="w-24" />
           </div>
           <div>
-            <h3 class="kicker text-ink/60 mb-2">상위 소스 5</h3>
-            <table class="w-full text-[12.5px] border-collapse">
-              <thead>
-                <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
-                  <th class="py-2 pr-3">소스</th>
-                  <th class="py-2 text-right tabular-nums">기사</th>
-                </tr>
-              </thead>
-              <tbody>
-                {articles.sources.top5.map((s) => (
-                  <tr class="border-b border-ink/5">
-                    <td class="py-1.5 pr-3 font-mono text-[12px]"><a href={`${base}/source/${s.source_id}`} class="hover:text-accent">{s.source_id}</a></td>
-                    <td class="py-1.5 text-right tabular-nums font-semibold">{s.n.toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <h3 class="kicker text-ink/60 mb-3">상위 소스 5</h3>
+            <BarList items={sourceBars} color={ACCENT} unit="건" labelWidth="w-32" />
           </div>
           <div>
-            <h3 class="kicker text-ink/60 mb-2">중요도 분포 (1~5)</h3>
-            <table class="w-full text-[12.5px] border-collapse">
-              <thead>
-                <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
-                  <th class="py-2 pr-3">점수</th>
-                  <th class="py-2 text-right tabular-nums">기사</th>
-                </tr>
-              </thead>
-              <tbody>
-                {["5", "4", "3", "2", "1"].map((k) => (
-                  <tr class="border-b border-ink/5">
-                    <td class="py-1.5 pr-3">{k}점</td>
-                    <td class="py-1.5 text-right tabular-nums font-semibold">{(articles.importance_hist[k] ?? 0).toLocaleString()}</td>
-                  </tr>
-                ))}
-                {(articles.importance_hist.missing ?? 0) > 0 && (
-                  <tr class="border-b border-ink/5">
-                    <td class="py-1.5 pr-3 text-ink/50">결측</td>
-                    <td class="py-1.5 text-right tabular-nums text-ink/50">{articles.importance_hist.missing}</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+            <h3 class="kicker text-ink/60 mb-3">중요도 분포 (1~5)</h3>
+            <BarList items={importanceBars} color={ACCENT} unit="건" labelWidth="w-10" />
           </div>
         </div>
 
-        <h3 class="kicker text-ink/60 mb-2">요일별 평균 볼륨</h3>
-        <table class="w-full max-w-md text-[12.5px] border-collapse">
-          <thead>
-            <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
-              {articles.weekday_avg.map((w) => <th class="py-2 text-center">{w.weekday}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              {articles.weekday_avg.map((w) => <td class="py-1.5 text-center tabular-nums font-semibold">{w.avg}</td>)}
-            </tr>
-          </tbody>
-        </table>
+        <h3 class="kicker text-ink/60 mb-3">요일별 평균 볼륨</h3>
+        <div class="max-w-md">
+          <BarList items={weekdayBars} color={ACCENT} labelWidth="w-8" />
+        </div>
         <p class="mt-3 text-[11px] text-ink/45">기사→논문 인용(arXiv 참조) 지표는 ③ 연구 코퍼스 집계를 참조.</p>
       </>
     )}
@@ -167,14 +148,10 @@ const genDay = stats?.generated_at?.slice(0, 10) ?? "";
   {stats?.papers && (
     <section class="mb-14">
       <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">논문 수집 현황</h2>
-      <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+      <dl class="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8">
         <div>
           <dt class="kicker text-ink/50 mb-1">수집 논문</dt>
           <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.papers.total.toLocaleString()}</dd>
-        </div>
-        <div>
-          <dt class="kicker text-ink/50 mb-1">메타데이터 보강</dt>
-          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.papers.enriched} <span class="text-base text-ink/50">({stats.papers.enriched_pct}%)</span></dd>
         </div>
         <div>
           <dt class="kicker text-ink/50 mb-1">뉴스 내 언급</dt>
@@ -186,53 +163,33 @@ const genDay = stats?.generated_at?.slice(0, 10) ?? "";
         </div>
       </dl>
 
+      <div class="mb-8 max-w-xl">
+        <ProgressBar
+          value={enriched}
+          total={paperTotal}
+          color={PAPER}
+          label="메타데이터 보강 진행"
+          note={pendingEnrich > 0
+            ? `${pendingEnrich.toLocaleString()}편 대기 · 매일 밤 arXiv에서 순차 보강 (published 확보 → 논문↔언론 시차 측정)`
+            : "전 논문 보강 완료 · 발표일(published) 전량 확보"}
+        />
+      </div>
+
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8">
         <div>
-          <h3 class="kicker text-ink/60 mb-2">일별 논문 언급 추이</h3>
-          <Sparkline data={paperSpark} height={44} ariaLabel="일별 논문 언급 수" />
+          <h3 class="kicker text-ink/60 mb-3">일별 논문 언급 추이</h3>
+          <Sparkline data={paperSpark} height={44} color={PAPER} ariaLabel="일별 논문 언급 수" />
         </div>
         <div>
-          <h3 class="kicker text-ink/60 mb-2">언급 유형</h3>
-          <table class="w-full text-[12.5px] border-collapse">
-            <thead>
-              <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
-                <th class="py-2 pr-3">유형</th>
-                <th class="py-2 text-right tabular-nums">건수</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b border-ink/5">
-                <td class="py-1.5 pr-3">피드 원샷 (논문 자체가 기사)</td>
-                <td class="py-1.5 text-right tabular-nums font-semibold">{(stats.papers.mentions.primary ?? 0).toLocaleString()}</td>
-              </tr>
-              <tr class="border-b border-ink/5">
-                <td class="py-1.5 pr-3">본문 인용 (기사가 논문을 참조)</td>
-                <td class="py-1.5 text-right tabular-nums font-semibold">{(stats.papers.mentions.reference ?? 0).toLocaleString()}</td>
-              </tr>
-            </tbody>
-          </table>
+          <h3 class="kicker text-ink/60 mb-3">언급 유형</h3>
+          <BarList items={mentionTypeBars} color={PAPER} unit="건" labelWidth="w-20" />
         </div>
       </div>
 
       {stats.papers.top_categories.length > 0 && (
-        <div class="mt-8">
-          <h3 class="kicker text-ink/60 mb-2">보강된 논문의 arXiv 분류 (상위 10)</h3>
-          <table class="w-full text-[12.5px] border-collapse">
-            <thead>
-              <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
-                <th class="py-2 pr-3">분류</th>
-                <th class="py-2 text-right tabular-nums">논문 수</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stats.papers.top_categories.map((c) => (
-                <tr class="border-b border-ink/5">
-                  <td class="py-1.5 pr-3 font-mono text-[12px]">{c.category}</td>
-                  <td class="py-1.5 text-right tabular-nums font-semibold">{c.n}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div class="mt-8 max-w-xl">
+          <h3 class="kicker text-ink/60 mb-3">보강된 논문의 arXiv 분류 (상위 10)</h3>
+          <BarList items={arxivBars} color={PAPER} unit="편" labelWidth="w-24" />
           <p class="mt-2 text-[11px] text-ink/45">보강(메타데이터 확보)은 매일 밤 순차 진행 중 — 분포는 보강 완료분 기준.</p>
         </div>
       )}
@@ -242,24 +199,40 @@ const genDay = stats?.generated_at?.slice(0, 10) ?? "";
   {stats?.concepts && (
     <section class="mb-14">
       <h2 class="kicker text-ink mb-5 pb-3 border-b-2 border-ink">연구 코퍼스 집계 <span class="text-ink/45 normal-case tracking-normal">— 교차 렌즈</span></h2>
-      <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
-        <div>
-          <dt class="kicker text-ink/50 mb-1">추적 개념</dt>
-          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.concepts.active_concepts} <span class="text-base text-ink/50">(v{stats.concepts.lexicon_version})</span></dd>
-        </div>
-        <div>
-          <dt class="kicker text-ink/50 mb-1">개념 멘션</dt>
-          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{(stats.concepts.mentions.news + stats.concepts.mentions.paper).toLocaleString()}</dd>
-        </div>
-        <div>
-          <dt class="kicker text-ink/50 mb-1">공동 등장 쌍</dt>
-          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.concepts.cooccurrence_pairs.toLocaleString()}</dd>
-        </div>
-        <div>
-          <dt class="kicker text-ink/50 mb-1">양매체 관측 개념</dt>
-          <dd class="font-serif text-3xl font-black text-ink tabular-nums">{stats.concepts.media_lag_observed}</dd>
-        </div>
-      </dl>
+      <p class="text-[13px] text-ink/70 leading-relaxed mb-7 max-w-2xl">
+        여기서는 개념의 <em class="text-ink not-italic font-semibold">이름</em>이 아니라
+        AI 담론의 <em class="text-accent not-italic font-semibold">형태</em>(분포·추세·연결·시차)를 봅니다.
+        개념 사전은 진행 중인 연구의 방법론이라 비공개이며, 집계 수치만 공개됩니다.
+      </p>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-7 mb-7">
+        <StatCaption
+          value={totalConceptMentions}
+          label="개념 멘션"
+          note={`v3 계측이 뉴스·논문 코퍼스에서 잡은 개념 언급 총계 (뉴스 ${stats.concepts.mentions.news.toLocaleString()} · 논문 ${stats.concepts.mentions.paper.toLocaleString()}).`}
+        />
+        <StatCaption
+          value={stats.concepts.cooccurrence_pairs}
+          label="개념 동시언급 연결"
+          note="같은 기사에서 함께 언급된 개념 쌍 — 담론의 연결 구조."
+        />
+        <StatCaption
+          value={stats.concepts.media_lag_observed}
+          label="논문↔언론 시차 관측"
+          note="논문 발표와 언론 보도 사이 시차를 측정한 개념 수 (보강 진행에 따라 증가)."
+        />
+        <StatCaption
+          value={stats.concepts.revival_events}
+          label="부활 이벤트"
+          note="휴면 후 재부상한 개념 — 코퍼스가 3개월+ 쌓이면 나타남 (설계상 아직 공집합)."
+        />
+      </div>
+
+      <p class="text-[11px] text-ink/50 mb-9 tabular-nums">
+        계측 도구: 렉시콘 <span class="text-ink/75 font-semibold">v{stats.concepts.lexicon_version}</span>
+        · 추적 개념 <span class="text-ink/75 font-semibold">{stats.concepts.active_concepts}</span>
+        · 별칭 패턴 <span class="text-ink/75 font-semibold">{stats.concepts.alias_count}</span>
+      </p>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8 mb-8">
         <div>
@@ -274,23 +247,10 @@ const genDay = stats?.generated_at?.slice(0, 10) ?? "";
         </div>
       </div>
 
-      <h3 class="kicker text-ink/60 mb-2">개념 유형 분포</h3>
-      <table class="w-full max-w-md text-[12.5px] border-collapse">
-        <thead>
-          <tr class="text-left text-[10.5px] tracking-kicker uppercase font-semibold text-ink/50 border-b border-ink/10">
-            <th class="py-2 pr-3">유형</th>
-            <th class="py-2 text-right tabular-nums">개념 수</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(stats.concepts.kind_distribution).sort((a, b) => b[1] - a[1]).map(([kind, n]) => (
-            <tr class="border-b border-ink/5">
-              <td class="py-1.5 pr-3">{KIND_KO[kind] ?? kind}</td>
-              <td class="py-1.5 text-right tabular-nums font-semibold">{n}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <h3 class="kicker text-ink/60 mb-3">개념 유형 분포 <span class="text-ink/40 normal-case tracking-normal">— 개념 공간의 형태</span></h3>
+      <div class="max-w-md">
+        <BarList items={kindBars} color={ACCENT} unit="개" labelWidth="w-20" />
+      </div>
       <p class="mt-3 text-[11px] text-ink/45">
         개념 사전(어떤 용어를 추적하는지)과 개념별 수치는 진행 중인 연구의 방법론에 해당해 발표 전까지 비공개입니다.
       </p>
