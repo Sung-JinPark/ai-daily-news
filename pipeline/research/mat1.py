@@ -16,7 +16,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from pipeline.research import changepoint, events, h2_lag, h3_network
+from pipeline.research import changepoint, events, h2_lag, h3_network, velocity_tv
 
 MANIFEST = Path("data") / "research_private" / "analysis" / "mat1_manifest.json"
 
@@ -25,6 +25,7 @@ def run_all() -> dict:
     out = {}
     out["events"] = events.build_events()
     out["H1_takeoff"] = changepoint.run()
+    out["H1_velocity_tv"] = velocity_tv.run()
     out["H2_lag"] = h2_lag.run()
     out["H3_network"] = h3_network.run()
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
