@@ -77,6 +77,20 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Body re-extraction (COV-1: EN coverage for new days) ===
+REM COV-1: re-extract the newest day's article bodies LOCALLY so body_en
+REM covers every day. New CI days otherwise arrive title-only (~35% recall)
+REM because bodies.jsonl is gitignored (DBQ-3) and only written where the
+REM summarizer ran locally. Running this before en_corpus closes that gap
+REM nightly, keeping the concept time series coverage-homogeneous. Idempotent
+REM (skips articles that already have a body), non-fatal, NO LLM. Historical
+REM link-rot gaps need a manual `backfill_bodies --backfill` (AUTO-1 catch-up).
+python -m pipeline.research.backfill_bodies
+if errorlevel 1 (
+    echo [WARN] Body re-extraction reported errors, continuing anyway.
+)
+
+echo.
 echo === Concept ledger + monthly insight (private) ===
 REM RDB-2/6: incremental concept extraction (idempotent upserts pick
 REM up new days and newly enriched abstracts) + monthly insight note
