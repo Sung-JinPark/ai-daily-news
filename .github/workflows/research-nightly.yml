@@ -61,6 +61,7 @@ jobs:
           pip install -e .
 
       - name: Restore private state (Actions cache — lightweight ledger only)
+        id: restore
         if: steps.guard.outputs.skip != 'true'
         uses: actions/cache/restore@v4
         with:
@@ -79,7 +80,7 @@ jobs:
           LEXICON_SEED_B64: ${{ secrets.LEXICON_SEED_B64 }}
         run: python -m pipeline.research.lexicon_seed --import-b64
 
-      - name: Run research pipeline (INCREMENTAL --day; concept output → private log)
+      - name: Run research pipeline (incremental --day on cache hit / --backfill on miss; concept output → private log)
         if: steps.guard.outputs.skip != 'true'
         run: |
           mkdir -p data/research_private/logs
@@ -89,16 +90,25 @@ jobs:
           DAY="$(ls -d data/2???-??-?? 2>/dev/null | sort | tail -1 | xargs -r basename)"
           echo "target day: $DAY" | tee -a "$LOG"
           step() { name="$1"; shift; echo "::group::$name"; ("$@") >> "$LOG" 2>&1 && echo "$name: ok" || echo "$name: reported errors (non-fatal)"; echo "::endgroup::"; }
+          # concept_extract mode: cache HIT -> incremental --day; cache MISS (cold
+          # start / eviction) -> --backfill to rebuild the FULL news ledger from
+          # committed public data. --backfill is LIGHT here — CI's papers.db is
+          # news-driven only (the 268MB all-arXiv corpus is never in CI), so there
+          # is no heavy 136k re-scan.
+          if [ "${{ steps.restore.outputs.cache-hit }}" = "true" ]; then
+            EXTRACT="--day $DAY"; echo "cache hit — concept_extract $EXTRACT (incremental)" | tee -a "$LOG"
+          else
+            EXTRACT="--backfill"; echo "cache MISS — concept_extract --backfill (full news rebuild; no all-arXiv in CI)" | tee -a "$LOG"
+          fi
           step health_check   python -m pipeline.research.health_check
           step snapshot       python -m pipeline.research.snapshot
-          # ★INCREMENTAL: --day only. NEVER --backfill in CI (all-arXiv 136k re-scan
-          # is a local/self-hosted job). papers.db rebuilds today-only from news.
+          # papers.db rebuilds today-only from news (not cached); --day always.
           step collect_papers python -m pipeline.collect_papers --day "$DAY" --sleep 3 --limit-enrich 50
           step weekly_brief   python -m pipeline.research.weekly_brief
           step lexicon_cands  python -m pipeline.research.lexicon_candidates
           step backfill_bodies python -m pipeline.research.backfill_bodies
           step en_corpus      python -m pipeline.research.en_corpus --backfill
-          step concept_extract python -m pipeline.research.concept_extract --day "$DAY"
+          step concept_extract python -m pipeline.research.concept_extract $EXTRACT
           step monthly_insight python -m pipeline.research.monthly_insight
           step export_stats   python -m pipeline.research.export_public_stats
           step dashboard      python -m pipeline.research.dashboard
