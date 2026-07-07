@@ -53,9 +53,10 @@ def _get(url, t=50):
     return httpx.get(url, headers=UA, timeout=t, follow_redirects=True)
 
 
-def _snapshots(feed: str, cap: int) -> list[str]:
+def _snapshots(feed: str, cap: int, lo: str, hi: str) -> list[str]:
     cdx = (f"https://web.archive.org/cdx/search/cdx?url={quote_plus(feed)}"
-           f"&from=20260101&to=20260603&output=json&fl=timestamp&collapse=timestamp:8&limit=500")
+           f"&from={lo.replace('-', '')}&to={hi.replace('-', '')}"
+           f"&output=json&fl=timestamp&collapse=timestamp:8&limit=800")
     try:
         rows = json.loads(_get(cdx).text)
     except Exception:  # noqa: BLE001
@@ -64,7 +65,7 @@ def _snapshots(feed: str, cap: int) -> list[str]:
     return ts[:cap]
 
 
-def _articles(feed: str, snaps: list[str]) -> dict:
+def _articles(feed: str, snaps: list[str], lo: str, hi: str) -> dict:
     """url -> {day,title,body} for items published in-window, deduped across snapshots."""
     out = {}
     for ts in snaps:
@@ -77,7 +78,7 @@ def _articles(feed: str, snaps: list[str]) -> dict:
             if not pp:
                 continue
             day = time.strftime("%Y-%m-%d", pp)
-            if not (WINDOW_LO <= day <= WINDOW_HI):
+            if not (lo <= day <= hi):
                 continue
             link = e.get("link") or ""
             if not link or link in out:
@@ -89,18 +90,18 @@ def _articles(feed: str, snaps: list[str]) -> dict:
     return out
 
 
-def run(max_snapshots: int = 80) -> dict:
+def run(max_snapshots: int = 80, window_lo: str = WINDOW_LO, window_hi: str = WINDOW_HI) -> dict:
     conn = open_db()
     ver = conn.execute("SELECT MAX(version) FROM lexicon_versions").fetchone()[0]
     pats = [(cid, compile_alias(p)) for cid, p in conn.execute(
         "SELECT concept_id, pattern FROM aliases WHERE added_version <= ?", (ver,)).fetchall()]
     STAGE_DIR.mkdir(parents=True, exist_ok=True)
-    fbody = BODIES.open("w", encoding="utf-8")
+    fbody = BODIES.open("a", encoding="utf-8")   # append: multiple windows accumulate
     cur = conn.cursor()
     cov, tot_art, tot_ment = {}, 0, 0
     for sid, feed in SOURCES.items():
-        snaps = _snapshots(feed, max_snapshots)
-        arts = _articles(feed, snaps) if snaps else {}
+        snaps = _snapshots(feed, max_snapshots, window_lo, window_hi)
+        arts = _articles(feed, snaps, window_lo, window_hi) if snaps else {}
         s_ment = 0
         days = set()
         for url, a in arts.items():
@@ -128,17 +129,20 @@ def run(max_snapshots: int = 80) -> dict:
         print(f"  {sid:<14} snaps={len(snaps)} articles={len(arts)} days={len(days)} mentions={s_ment}")
     fbody.close()
     conn.close()
-    COVERAGE.write_text(json.dumps({"lexicon_version": ver, "window": [WINDOW_LO, WINDOW_HI],
+    COVERAGE.write_text(json.dumps({"lexicon_version": ver, "window": [window_lo, window_hi],
                                     "sources": cov, "total_articles": tot_art, "total_mentions": tot_ment},
                                    ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[news-wayback] v{ver} · articles={tot_art} · new_mentions={tot_ment}")
+    print(f"[news-wayback] v{ver} · {window_lo}..{window_hi} · articles={tot_art} · new_mentions={tot_ment}")
     return {"total_articles": tot_art, "total_mentions": tot_ment, "sources": cov}
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--max-snapshots", type=int, default=80)
-    run(ap.parse_args().max_snapshots)
+    ap.add_argument("--window-lo", default=WINDOW_LO)
+    ap.add_argument("--window-hi", default=WINDOW_HI)
+    a = ap.parse_args()
+    run(a.max_snapshots, a.window_lo, a.window_hi)
 
 
 if __name__ == "__main__":

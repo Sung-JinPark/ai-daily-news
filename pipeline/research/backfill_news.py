@@ -47,11 +47,11 @@ def _v6_patterns(conn):
         "SELECT concept_id, pattern FROM aliases WHERE added_version <= ?", (ver,)).fetchall()]
 
 
-def run() -> dict:
+def run(window_lo: str = WINDOW_LO, window_hi: str = WINDOW_HI) -> dict:
     conn = open_db()
     ver, pats = _v6_patterns(conn)
     STAGE.parent.mkdir(parents=True, exist_ok=True)
-    fout = STAGE.open("w", encoding="utf-8")
+    fout = STAGE.open("a", encoding="utf-8")   # append: multiple windows accumulate
     st = {"sources": {}, "articles": 0, "mentions_new": 0, "lexicon_version": ver}
     cur = conn.cursor()
     for sid, url in SOURCES.items():
@@ -67,7 +67,7 @@ def run() -> dict:
             if not pp:
                 continue
             day = time.strftime("%Y-%m-%d", pp)
-            if not (WINDOW_LO <= day <= WINDOW_HI):
+            if not (window_lo <= day <= window_hi):
                 continue
             title = (e.get("title") or "").strip()
             link = e.get("link") or ""
@@ -98,4 +98,9 @@ def run() -> dict:
 
 
 if __name__ == "__main__":
-    run()
+    import argparse
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--window-lo", default=WINDOW_LO)
+    ap.add_argument("--window-hi", default=WINDOW_HI)
+    a = ap.parse_args()
+    run(a.window_lo, a.window_hi)
