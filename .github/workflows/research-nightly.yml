@@ -1,12 +1,15 @@
 name: Research Nightly (private)
 
-# Automates the private research ledger (run-research.bat equivalent) on CI.
-# SAFETY (this is a PUBLIC repo): the private tree is NEVER committed — it is
-# persisted to GCS only. Only the sanitized data/research_stats.json is committed.
-# Concept-level stdout is redirected to a gitignored private log so no concept
-# names/bodies land in the PUBLIC Actions console. A hard leak gate fails the run
-# if any private file is tracked. The whole job is INERT until the GCS secrets are
-# set (guard step), so merging this file changes nothing until you opt in.
+# Automates the private research ledger (run-research.bat equivalent) on CI,
+# GitHub-only (no external store). State persistence = Actions cache; the
+# irreplaceable hand-curated lexicon is bootstrapped from a Secret on a cold
+# start / cache eviction, then mentions rebuild from the committed public data.
+#
+# SAFETY (this is a PUBLIC repo): the private tree is NEVER committed — only the
+# sanitized data/research_stats.json is. Concept-level stdout goes to a gitignored
+# private log so no concept names/bodies land in the PUBLIC Actions console. A hard
+# leak gate fails the run if any private file is tracked. The job is INERT until the
+# LEXICON_SEED_B64 secret is set (guard), so merging this file changes nothing.
 
 on:
   schedule:
@@ -15,23 +18,26 @@ on:
 
 concurrency:
   group: research-nightly
-  cancel-in-progress: false   # never interrupt a stateful run mid-flight
+  cancel-in-progress: false
 
 permissions:
   contents: write   # ONLY to commit the sanitized research_stats.json
   issues: write     # failure alert
 
+env:
+  CACHE_PREFIX: research-state-
+
 jobs:
   research:
     runs-on: ubuntu-latest
     steps:
-      - name: Guard — inert unless GCS is configured
+      - name: Guard — inert unless the lexicon seed is configured
         id: guard
         env:
-          GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+          LEXICON_SEED_B64: ${{ secrets.LEXICON_SEED_B64 }}
         run: |
-          if [ -z "$GCS_BUCKET" ]; then
-            echo "GCS_BUCKET not set — research nightly is inert (no state store). Skipping."
+          if [ -z "$LEXICON_SEED_B64" ]; then
+            echo "LEXICON_SEED_B64 not set — research nightly is inert. Skipping."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
@@ -53,21 +59,23 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .
-          pip install google-cloud-storage
 
-      - name: GCS auth (service-account JSON from secret)
+      - name: Restore private state (Actions cache)
+        if: steps.guard.outputs.skip != 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/research_private
+            data/papers_private/papers.db
+          key: ${{ env.CACHE_PREFIX }}${{ github.run_id }}
+          restore-keys: |
+            ${{ env.CACHE_PREFIX }}
+
+      - name: Bootstrap lexicon if cache empty (from Secret)
         if: steps.guard.outputs.skip != 'true'
         env:
-          GCS_SA_KEY: ${{ secrets.GCS_SA_KEY }}
-        run: |
-          printf '%s' "$GCS_SA_KEY" > "$RUNNER_TEMP/gcs-sa.json"
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/gcs-sa.json" >> "$GITHUB_ENV"
-
-      - name: Restore private state from GCS
-        if: steps.guard.outputs.skip != 'true'
-        env:
-          GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
-        run: python -m pipeline.research.gcs_sync --restore
+          LEXICON_SEED_B64: ${{ secrets.LEXICON_SEED_B64 }}
+        run: python -m pipeline.research.lexicon_seed --import-b64
 
       - name: Run research pipeline (concept-level output → private log only)
         if: steps.guard.outputs.skip != 'true'
@@ -75,8 +83,6 @@ jobs:
           mkdir -p data/research_private/logs
           LOG="data/research_private/logs/ci-$(date -u +%Y%m%dT%H%M%SZ).log"
           echo "run-research (CI) $(date -u)" > "$LOG"
-          # Each step is non-fatal (matches run-research.bat). stdout/stderr go to
-          # the PRIVATE log (gitignored + GCS-synced), never the public console.
           step() { name="$1"; shift; echo "::group::$name"; ("$@") >> "$LOG" 2>&1 && echo "$name: ok" || echo "$name: reported errors (non-fatal)"; echo "::endgroup::"; }
           step health_check   python -m pipeline.research.health_check
           step snapshot       python -m pipeline.research.snapshot
@@ -97,9 +103,7 @@ jobs:
         run: |
           tracked="$(git ls-files data/research_private data/papers_private)"
           if [ -n "$tracked" ]; then
-            echo "::error::LEAK GATE FAILED — private files are tracked:"
-            echo "$tracked"
-            exit 1
+            echo "::error::LEAK GATE FAILED — private files are tracked:"; echo "$tracked"; exit 1
           fi
           echo "leak gate ok — no private files tracked"
 
@@ -111,8 +115,7 @@ jobs:
           git add data/research_stats.json
           staged="$(git diff --cached --name-only)"
           if [ -n "$staged" ] && [ "$staged" != "data/research_stats.json" ]; then
-            echo "::error::unexpected staged files (aborting): $staged"
-            exit 1
+            echo "::error::unexpected staged files (aborting): $staged"; exit 1
           fi
           if git diff --cached --quiet; then
             echo "research stats unchanged — no commit"
@@ -124,11 +127,21 @@ jobs:
             done
           fi
 
-      - name: Persist private state to GCS
+      - name: Trim one-off artifacts before caching (keep cache lean)
         if: steps.guard.outputs.skip != 'true'
-        env:
-          GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
-        run: python -m pipeline.research.gcs_sync --include-papers
+        run: |
+          rm -f data/research_private/back1_staging/*.jsonl 2>/dev/null || true
+          rm -f data/papers_private/*.snapshot* data/research_private/*.snapshot* 2>/dev/null || true
+          find data/research_private/logs -type f -mtime +14 -delete 2>/dev/null || true
+
+      - name: Save private state (Actions cache)
+        if: steps.guard.outputs.skip != 'true' && success()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/research_private
+            data/papers_private/papers.db
+          key: ${{ env.CACHE_PREFIX }}${{ github.run_id }}
 
       - name: Heartbeat (AUTO-1)
         if: steps.guard.outputs.skip != 'true'
