@@ -47,6 +47,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 PRIVATE_ROOT = Path("data") / "research_private"
+PAPERS_DB = Path("data") / "papers_private" / "papers.db"
+# CI stores the live papers.db under this synthetic sub-prefix so restore
+# can place it back under data/papers_private/ (it lives outside PRIVATE_ROOT).
+PAPERS_REMOTE = "_papers_private/papers.db"
 DEFAULT_PREFIX = "ai-daily-news/research_private"
 
 # papers.db / research.db backup: handled — export_papers_db.py and
@@ -96,10 +100,20 @@ def _iter_files(root: Path):
             yield p
 
 
-def sync(dry_run: bool = False) -> dict:
-    """Upload every file under ``data/research_private/`` to GCS.
+def _upload_targets(include_papers: bool):
+    """(local_path, remote_rel) pairs. research_private/ mirrors 1:1; the live
+    papers.db (outside that tree) rides under the _papers_private/ sub-prefix
+    so CI can persist it too — safe because CI runs sequentially (no torn copy)."""
+    for local in _iter_files(PRIVATE_ROOT):
+        yield local, local.relative_to(PRIVATE_ROOT).as_posix()
+    if include_papers and PAPERS_DB.exists():
+        yield PAPERS_DB, PAPERS_REMOTE
 
-    Returns a stats dict: {uploaded, skipped, missing_credentials}.
+
+def sync(dry_run: bool = False, include_papers: bool = False) -> dict:
+    """Upload the private research tree (and, in CI, papers.db) to GCS.
+
+    Returns {uploaded, skipped, missing_credentials}.
     """
     if not PRIVATE_ROOT.exists():
         print(f"[gcs] {PRIVATE_ROOT} does not exist - nothing to upload.")
@@ -110,18 +124,13 @@ def sync(dry_run: bool = False) -> dict:
     if bucket is None:
         return {"uploaded": 0, "skipped": 0, "missing_credentials": True}
 
-    uploaded = 0
-    skipped = 0
-    for local in _iter_files(PRIVATE_ROOT):
-        rel = local.relative_to(PRIVATE_ROOT).as_posix()
-        remote_path = f"{prefix}/{rel}"
-        blob = bucket.blob(remote_path)
+    uploaded = skipped = 0
+    for local, rel in _upload_targets(include_papers):
+        blob = bucket.blob(f"{prefix}/{rel}")
         local_sha = _sha256_file(local)
-        # Reuse the local sha stored in blob metadata to avoid re-uploading.
         if blob.exists():
             blob.reload()
-            existing_sha = (blob.metadata or {}).get("sha256")
-            if existing_sha == local_sha:
+            if (blob.metadata or {}).get("sha256") == local_sha:
                 skipped += 1
                 continue
         if dry_run:
@@ -135,6 +144,38 @@ def sync(dry_run: bool = False) -> dict:
 
     print(f"[gcs] done - uploaded={uploaded} skipped={skipped}")
     return {"uploaded": uploaded, "skipped": skipped, "missing_credentials": False}
+
+
+def restore() -> dict:
+    """Download the private tree (and papers.db) from GCS into the local tree.
+
+    The inverse of ``sync`` — used by CI at the start of a run to rehydrate the
+    stateful private ledger before the incremental pipeline appends to it.
+    Idempotent: skips files whose local sha already matches the blob metadata.
+    """
+    prefix = os.environ.get("GCS_PREFIX", DEFAULT_PREFIX).strip("/")
+    bucket = _load_client()
+    if bucket is None:
+        return {"downloaded": 0, "skipped": 0, "missing_credentials": True}
+    downloaded = skipped = 0
+    for blob in bucket.list_blobs(prefix=f"{prefix}/"):
+        rel = blob.name[len(prefix) + 1:]
+        if not rel:
+            continue
+        if rel == PAPERS_REMOTE:
+            local = PAPERS_DB
+        else:
+            local = PRIVATE_ROOT / rel
+        if local.exists():
+            blob.reload()
+            if (blob.metadata or {}).get("sha256") == _sha256_file(local):
+                skipped += 1
+                continue
+        local.parent.mkdir(parents=True, exist_ok=True)
+        blob.download_to_filename(str(local))
+        downloaded += 1
+    print(f"[gcs] restore done - downloaded={downloaded} skipped={skipped}")
+    return {"downloaded": downloaded, "skipped": skipped, "missing_credentials": False}
 
 
 def self_check() -> dict:
@@ -182,11 +223,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dry-run", action="store_true", help="log only, no uploads (requires credentials)")
     parser.add_argument("--self-check", action="store_true", help="offline audit - no credentials needed")
+    parser.add_argument("--restore", action="store_true", help="download private tree + papers.db from GCS (CI rehydrate)")
+    parser.add_argument("--include-papers", action="store_true", help="also sync the live papers.db (CI: sequential, safe)")
     args = parser.parse_args()
     if args.self_check:
         self_check()
+    elif args.restore:
+        restore()
     else:
-        sync(dry_run=args.dry_run)
+        sync(dry_run=args.dry_run, include_papers=args.include_papers)
 
 
 if __name__ == "__main__":

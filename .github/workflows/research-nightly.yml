@@ -1,0 +1,147 @@
+name: Research Nightly (private)
+
+# Automates the private research ledger (run-research.bat equivalent) on CI.
+# SAFETY (this is a PUBLIC repo): the private tree is NEVER committed — it is
+# persisted to GCS only. Only the sanitized data/research_stats.json is committed.
+# Concept-level stdout is redirected to a gitignored private log so no concept
+# names/bodies land in the PUBLIC Actions console. A hard leak gate fails the run
+# if any private file is tracked. The whole job is INERT until the GCS secrets are
+# set (guard step), so merging this file changes nothing until you opt in.
+
+on:
+  schedule:
+    - cron: "0 11 * * *"   # UTC 11:00 == KST 20:00 (after the news CI settles)
+  workflow_dispatch:
+
+concurrency:
+  group: research-nightly
+  cancel-in-progress: false   # never interrupt a stateful run mid-flight
+
+permissions:
+  contents: write   # ONLY to commit the sanitized research_stats.json
+  issues: write     # failure alert
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Guard — inert unless GCS is configured
+        id: guard
+        env:
+          GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+        run: |
+          if [ -z "$GCS_BUCKET" ]; then
+            echo "GCS_BUCKET not set — research nightly is inert (no state store). Skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        if: steps.guard.outputs.skip != 'true'
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        if: steps.guard.outputs.skip != 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install deps
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install google-cloud-storage
+
+      - name: GCS auth (service-account JSON from secret)
+        if: steps.guard.outputs.skip != 'true'
+        env:
+          GCS_SA_KEY: ${{ secrets.GCS_SA_KEY }}
+        run: |
+          printf '%s' "$GCS_SA_KEY" > "$RUNNER_TEMP/gcs-sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/gcs-sa.json" >> "$GITHUB_ENV"
+
+      - name: Restore private state from GCS
+        if: steps.guard.outputs.skip != 'true'
+        env:
+          GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+        run: python -m pipeline.research.gcs_sync --restore
+
+      - name: Run research pipeline (concept-level output → private log only)
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          mkdir -p data/research_private/logs
+          LOG="data/research_private/logs/ci-$(date -u +%Y%m%dT%H%M%SZ).log"
+          echo "run-research (CI) $(date -u)" > "$LOG"
+          # Each step is non-fatal (matches run-research.bat). stdout/stderr go to
+          # the PRIVATE log (gitignored + GCS-synced), never the public console.
+          step() { name="$1"; shift; echo "::group::$name"; ("$@") >> "$LOG" 2>&1 && echo "$name: ok" || echo "$name: reported errors (non-fatal)"; echo "::endgroup::"; }
+          step health_check   python -m pipeline.research.health_check
+          step snapshot       python -m pipeline.research.snapshot
+          step collect_papers python -m pipeline.collect_papers --sleep 3 --limit-enrich 50
+          step export_papers  python -m pipeline.research.export_papers_db
+          step paper_trends   python -m pipeline.research.paper_trends
+          step weekly_brief   python -m pipeline.research.weekly_brief
+          step lexicon_cands  python -m pipeline.research.lexicon_candidates
+          step backfill_bodies python -m pipeline.research.backfill_bodies
+          step en_corpus      python -m pipeline.research.en_corpus --backfill
+          step concept_extract python -m pipeline.research.concept_extract --backfill
+          step monthly_insight python -m pipeline.research.monthly_insight
+          step export_stats   python -m pipeline.research.export_public_stats
+          step dashboard      python -m pipeline.research.dashboard
+
+      - name: "★ Leak gate — fail if any private file is tracked"
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          tracked="$(git ls-files data/research_private data/papers_private)"
+          if [ -n "$tracked" ]; then
+            echo "::error::LEAK GATE FAILED — private files are tracked:"
+            echo "$tracked"
+            exit 1
+          fi
+          echo "leak gate ok — no private files tracked"
+
+      - name: Commit ONLY the sanitized research_stats.json
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/research_stats.json
+          staged="$(git diff --cached --name-only)"
+          if [ -n "$staged" ] && [ "$staged" != "data/research_stats.json" ]; then
+            echo "::error::unexpected staged files (aborting): $staged"
+            exit 1
+          fi
+          if git diff --cached --quiet; then
+            echo "research stats unchanged — no commit"
+          else
+            git commit -m "data: nightly research stats [site refresh] [skip ci]"
+            for a in 1 2 3; do
+              if git push; then break; fi
+              echo "push rejected, rebasing (attempt $a)"; git pull --rebase --autostash origin main || true
+            done
+          fi
+
+      - name: Persist private state to GCS
+        if: steps.guard.outputs.skip != 'true'
+        env:
+          GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+        run: python -m pipeline.research.gcs_sync --include-papers
+
+      - name: Heartbeat (AUTO-1)
+        if: steps.guard.outputs.skip != 'true'
+        run: python -m pipeline.research.health_check --stamp-success >> data/research_private/logs/ci-heartbeat.log 2>&1 || true
+
+      - name: Report failure as issue
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo,
+              title: `Research nightly failed: ${new Date().toISOString()}`,
+              body: `Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              labels: ['research-nightly-failure'],
+            });
