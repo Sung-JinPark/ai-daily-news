@@ -46,3 +46,12 @@ def test_trend_flat_is_nan():
 def test_largest_community_fraction():
     assert largest_community_fraction([{1, 2, 3}, {4}], 4) == 0.75
     assert largest_community_fraction([], 5) == 0.0
+
+
+def test_merge_and_split_are_detectable():
+    # NEWS-2 robustness: real-data merge/split=0 must be data, not a blind detector.
+    from pipeline.research.h3_network import track_communities
+    merge = track_communities([{"a", "b"}, {"c", "d"}], [{"a", "b", "c", "d"}])
+    split = track_communities([{"a", "b", "c", "d"}], [{"a", "b"}, {"c", "d"}])
+    assert any(e["type"] == "merge" for e in merge)
+    assert any(e["type"] == "split" for e in split)
