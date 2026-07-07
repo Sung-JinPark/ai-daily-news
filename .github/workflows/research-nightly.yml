@@ -25,7 +25,7 @@ permissions:
   issues: write     # failure alert
 
 env:
-  CACHE_PREFIX: research-state-
+  CACHE_PREFIX: research-state-v1-
 
 jobs:
   research:
@@ -60,13 +60,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .
 
-      - name: Restore private state (Actions cache)
+      - name: Restore private state (Actions cache — lightweight ledger only)
         if: steps.guard.outputs.skip != 'true'
         uses: actions/cache/restore@v4
         with:
-          path: |
-            data/research_private
-            data/papers_private/papers.db
+          # research.db (news-driven ledger) + audits/labels + en_corpus + notes.
+          # papers.db is deliberately NOT cached: the 268MB all-arXiv corpus is a
+          # separate local research artifact; CI's papers.db is rebuilt today-only
+          # from committed news (collect_papers --day).
+          path: data/research_private
           key: ${{ env.CACHE_PREFIX }}${{ github.run_id }}
           restore-keys: |
             ${{ env.CACHE_PREFIX }}
@@ -77,23 +79,26 @@ jobs:
           LEXICON_SEED_B64: ${{ secrets.LEXICON_SEED_B64 }}
         run: python -m pipeline.research.lexicon_seed --import-b64
 
-      - name: Run research pipeline (concept-level output → private log only)
+      - name: Run research pipeline (INCREMENTAL --day; concept output → private log)
         if: steps.guard.outputs.skip != 'true'
         run: |
           mkdir -p data/research_private/logs
           LOG="data/research_private/logs/ci-$(date -u +%Y%m%dT%H%M%SZ).log"
           echo "run-research (CI) $(date -u)" > "$LOG"
+          # newest committed data/<day>/ — the day the news CI just produced.
+          DAY="$(ls -d data/2???-??-?? 2>/dev/null | sort | tail -1 | xargs -r basename)"
+          echo "target day: $DAY" | tee -a "$LOG"
           step() { name="$1"; shift; echo "::group::$name"; ("$@") >> "$LOG" 2>&1 && echo "$name: ok" || echo "$name: reported errors (non-fatal)"; echo "::endgroup::"; }
           step health_check   python -m pipeline.research.health_check
           step snapshot       python -m pipeline.research.snapshot
-          step collect_papers python -m pipeline.collect_papers --sleep 3 --limit-enrich 50
-          step export_papers  python -m pipeline.research.export_papers_db
-          step paper_trends   python -m pipeline.research.paper_trends
+          # ★INCREMENTAL: --day only. NEVER --backfill in CI (all-arXiv 136k re-scan
+          # is a local/self-hosted job). papers.db rebuilds today-only from news.
+          step collect_papers python -m pipeline.collect_papers --day "$DAY" --sleep 3 --limit-enrich 50
           step weekly_brief   python -m pipeline.research.weekly_brief
           step lexicon_cands  python -m pipeline.research.lexicon_candidates
           step backfill_bodies python -m pipeline.research.backfill_bodies
           step en_corpus      python -m pipeline.research.en_corpus --backfill
-          step concept_extract python -m pipeline.research.concept_extract --backfill
+          step concept_extract python -m pipeline.research.concept_extract --day "$DAY"
           step monthly_insight python -m pipeline.research.monthly_insight
           step export_stats   python -m pipeline.research.export_public_stats
           step dashboard      python -m pipeline.research.dashboard
@@ -138,9 +143,7 @@ jobs:
         if: steps.guard.outputs.skip != 'true' && success()
         uses: actions/cache/save@v4
         with:
-          path: |
-            data/research_private
-            data/papers_private/papers.db
+          path: data/research_private
           key: ${{ env.CACHE_PREFIX }}${{ github.run_id }}
 
       - name: Heartbeat (AUTO-1)
