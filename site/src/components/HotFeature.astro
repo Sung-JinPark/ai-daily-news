@@ -52,6 +52,12 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
       </a>
       <span class="text-ink/30">·</span>
       <a href={`${base}/source/${article.source_id}`} class="hover:text-ink truncate">{article.source_name}</a>
+      {publishedLabel && (
+        <>
+          <span class="text-ink/30">·</span>
+          <span class="normal-case tracking-normal font-normal text-ink/50">{publishedLabel}</span>
+        </>
+      )}
     </div>
 
     <h2 class="font-serif text-2xl sm:text-3xl font-black leading-[1.15] text-ink break-words">
@@ -71,8 +77,7 @@ const summaryHtml = linkifyGlossary(article.summary_ko, glossary);
            set:html={summaryHtml}></div>
     </div>
 
-    <div class="text-[11px] tracking-kicker uppercase font-semibold text-ink/60 mt-auto pt-3 flex items-center gap-3 flex-wrap">
-      <span>{publishedLabel}</span>
+    <div class="text-[11px] tracking-kicker uppercase font-semibold text-ink/60 mt-auto pt-3 flex items-center gap-3 flex-wrap empty:hidden">
       <StoryLink article={article} />
     </div>
   </div>
