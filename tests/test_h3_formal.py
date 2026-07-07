@@ -55,3 +55,19 @@ def test_merge_and_split_are_detectable():
     split = track_communities([{"a", "b", "c", "d"}], [{"a", "b"}, {"c", "d"}])
     assert any(e["type"] == "merge" for e in merge)
     assert any(e["type"] == "split" for e in split)
+
+
+def test_overlap_coef_and_unequal_merge_split():
+    # H3-ROBUST: overlap-coefficient matching catches UNEQUAL merges/splits that
+    # Jaccard-0.5 misses (a small community absorbed into a much larger one).
+    from pipeline.research.h3_network import overlap_coef, track_communities, jaccard
+    assert overlap_coef({"a", "b"}, {"a", "b", "c", "d", "e", "f"}) == 1.0   # fully contained
+    assert jaccard({"a", "b"}, {"a", "b", "c", "d", "e", "f"}) < 0.5          # Jaccard would miss it
+    big = {"a", "b", "c", "d", "e", "f"}
+    merge = track_communities([{"a", "b"}, {"c", "d", "e", "f"}], [big])       # unequal merge
+    split = track_communities([big], [{"a", "b"}, {"c", "d", "e", "f"}])       # unequal split
+    assert any(e["type"] == "merge" for e in merge)
+    assert any(e["type"] == "split" for e in split)
+    # a clean continuation must NOT be flagged as merge/split
+    cont = track_communities([{"a", "b", "c"}], [{"a", "b", "c"}])
+    assert not any(e["type"] in ("merge", "split") for e in cont)

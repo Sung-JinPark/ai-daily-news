@@ -73,6 +73,19 @@ def largest_community_fraction(comms: list, n_nodes: int) -> float:
     return max(len(c) for c in comms) / n_nodes
 
 
+def fixed_density_modularity(g: nx.Graph, k: int) -> float | None:
+    """Modularity on the top-k strongest edges — a constant-density control for the
+    trend (removes the 'more papers -> denser graph -> lower modularity' confound)."""
+    if k < 3 or g.number_of_edges() < 3:
+        return None
+    top = sorted(g.edges(data="weight"), key=lambda e: -(e[2] or 1))[:k]
+    h = nx.Graph()
+    h.add_weighted_edges_from((a, b, (w or 1)) for a, b, w in top)
+    if h.number_of_edges() < 3:
+        return None
+    return nx.community.modularity(h, [set(c) for c in communities(h)], weight="weight")
+
+
 # ---------- run ----------
 
 def _snapshots(conn) -> list[dict]:
@@ -92,7 +105,7 @@ def run(out_dir: Path = OUT_DIR, n_perm: int = N_PERM) -> dict:
     conn = sqlite3.connect(DB_FILE)
     snaps = _snapshots(conn)
     conn.close()
-    per_snap, mod_series, ncomm_series, sig_count = [], [], [], 0
+    per_snap, mod_series, z_series, ncomm_series, graphs, sig_count = [], [], [], [], [], 0
     for i, s in enumerate(snaps):
         sig = modularity_significance(s["graph"], n_perm, seed=i)
         frac = largest_community_fraction(s["communities"], s["graph"].number_of_nodes())
@@ -101,9 +114,14 @@ def run(out_dir: Path = OUT_DIR, n_perm: int = N_PERM) -> dict:
                "largest_frac": round(frac, 3), "modularity": sig}
         per_snap.append(rec)
         if sig:
-            mod_series.append(sig["Q"]); ncomm_series.append(sig["n_comm"])
+            mod_series.append(sig["Q"]); z_series.append(sig["z"])
+            ncomm_series.append(sig["n_comm"]); graphs.append(s["graph"])
             if sig["p"] < 0.05:
                 sig_count += 1
+    # density controls for the trend: (a) null-relative excess modularity z (the
+    # rewire null matches each snapshot's density); (b) top-K-edge fixed density.
+    K = min((g.number_of_edges() for g in graphs), default=0)
+    fixed_Q = [q for g in graphs if (q := fixed_density_modularity(g, K)) is not None]
     transitions = []
     for t in range(1, len(snaps)):
         ev = track_communities(snaps[t - 1]["communities"], snaps[t]["communities"])
@@ -111,18 +129,24 @@ def run(out_dir: Path = OUT_DIR, n_perm: int = N_PERM) -> dict:
     life = {k: sum(tr[k] for tr in transitions) for k in ("birth", "death", "merge", "split")}
     report = {"as_of": "2026-07-07", "n_snapshots": len(snaps), "window_days": WINDOW_DAYS,
               "snapshots_with_significant_community_structure": f"{sig_count}/{len(mod_series)}",
-              "modularity_trend": trend_test(mod_series),
+              "modularity_trend_raw": trend_test(mod_series),
+              "modularity_trend_null_relative": trend_test(z_series),
+              "modularity_trend_fixed_density": trend_test(fixed_Q),
+              "fixed_density_edges_K": K,
               "community_count_trend": trend_test([float(x) for x in ncomm_series]),
               "life_events_total": life, "n_perm": n_perm,
-              "note": "coverage-robust co-occurrence; permutation null = degree-preserving rewire."}
+              "note": "coverage-robust co-occurrence; permutation null = degree-preserving rewire. "
+                      "null_relative (z) and fixed_density (top-K edges) trends control for graph density."}
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "h3_formal.json").write_text(
         json.dumps({"report": report, "per_snapshot": per_snap, "transitions": transitions},
                    ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[h3-formal] {len(snaps)} snapshots · significant community structure "
+    print(f"[h3-formal] {len(snaps)} snapshots · sig-structure "
           f"{report['snapshots_with_significant_community_structure']} · "
-          f"modularity trend rho={report['modularity_trend']['spearman_rho']:.2f} "
-          f"p={report['modularity_trend']['p']:.3f} · life-events {life}")
+          f"raw-trend rho={report['modularity_trend_raw']['spearman_rho']:.2f} p={report['modularity_trend_raw']['p']:.3f} · "
+          f"null-rel(z) rho={report['modularity_trend_null_relative']['spearman_rho']:.2f} p={report['modularity_trend_null_relative']['p']:.3f} · "
+          f"fixedK rho={report['modularity_trend_fixed_density']['spearman_rho']:.2f} p={report['modularity_trend_fixed_density']['p']:.3f} · "
+          f"life {life}")
     return report
 
 

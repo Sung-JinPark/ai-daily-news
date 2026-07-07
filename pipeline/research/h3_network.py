@@ -36,21 +36,31 @@ def jaccard(a, b) -> float:
     return len(a & b) / len(u) if u else 0.0
 
 
-def track_communities(prev: list, curr: list, thr: float = 0.5) -> list:
-    """Match communities across two snapshots by Jaccard → birth/death/merge/split.
+def overlap_coef(a, b) -> float:
+    """Max-containment: |a∩b| / min(|a|,|b|). Unlike Jaccard, it is NOT diluted
+    when one community is much larger — so an unequal merge (a small community
+    absorbed into a big one) still scores high. Needed for merge/split detection."""
+    a, b = set(a), set(b)
+    inter = len(a & b)
+    return inter / min(len(a), len(b)) if a and b else 0.0
 
-    prev, curr: lists of iterables of node ids. Returns event dicts."""
+
+def track_communities(prev: list, curr: list, thr: float = 0.5) -> list:
+    """Match communities across two snapshots → birth/death/merge/split.
+
+    Uses the overlap coefficient (max-containment), so unequal merges/splits are
+    detected (Jaccard misses them — H3-ROBUST). prev, curr: lists of iterables."""
     prev = [set(c) for c in prev]
     curr = [set(c) for c in curr]
     events = []
     for pc in prev:  # deaths & splits
-        tgt = [j for j, cc in enumerate(curr) if jaccard(pc, cc) >= thr]
+        tgt = [j for j, cc in enumerate(curr) if overlap_coef(pc, cc) >= thr]
         if not tgt:
             events.append({"type": "death", "members": sorted(pc)})
         elif len(tgt) > 1:
             events.append({"type": "split", "members": sorted(pc), "into": len(tgt)})
     for cc in curr:   # births & merges
-        src = [i for i, pc in enumerate(prev) if jaccard(pc, cc) >= thr]
+        src = [i for i, pc in enumerate(prev) if overlap_coef(pc, cc) >= thr]
         if not src:
             events.append({"type": "birth", "members": sorted(cc)})
         elif len(src) > 1:
