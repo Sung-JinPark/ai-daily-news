@@ -90,25 +90,25 @@ jobs:
           DAY="$(ls -d data/2???-??-?? 2>/dev/null | sort | tail -1 | xargs -r basename)"
           echo "target day: $DAY" | tee -a "$LOG"
           step() { name="$1"; shift; echo "::group::$name"; ("$@") >> "$LOG" 2>&1 && echo "$name: ok" || echo "$name: reported errors (non-fatal)"; echo "::endgroup::"; }
-          # concept_extract mode: cache HIT -> incremental --day; cache MISS (cold
-          # start / eviction) -> --backfill to rebuild the FULL news ledger from
-          # committed public data. --backfill is LIGHT here — CI's papers.db is
-          # news-driven only (the 268MB all-arXiv corpus is never in CI), so there
-          # is no heavy 136k re-scan.
+          # MODE: cache HIT -> incremental --day; cache MISS (cold start / eviction)
+          # -> --backfill to rebuild the FULL daily-parallel corpus (news + the arXiv
+          # papers the news referenced) from committed public data. --backfill is
+          # LIGHT here — CI collects only news-referenced papers (~hundreds), never
+          # the 268MB all-arXiv corpus (that is a frozen local research artifact).
           if [ "${{ steps.restore.outputs.cache-hit }}" = "true" ]; then
-            EXTRACT="--day $DAY"; echo "cache hit — concept_extract $EXTRACT (incremental)" | tee -a "$LOG"
+            MODE="--day $DAY"; echo "cache hit — incremental $MODE" | tee -a "$LOG"
           else
-            EXTRACT="--backfill"; echo "cache MISS — concept_extract --backfill (full news rebuild; no all-arXiv in CI)" | tee -a "$LOG"
+            MODE="--backfill"; echo "cache MISS — --backfill (full daily-parallel rebuild; no all-arXiv)" | tee -a "$LOG"
           fi
           step health_check   python -m pipeline.research.health_check
           step snapshot       python -m pipeline.research.snapshot
-          # papers.db rebuilds today-only from news (not cached); --day always.
-          step collect_papers python -m pipeline.collect_papers --day "$DAY" --sleep 3 --limit-enrich 50
+          # news-referenced papers only (--sleep/--limit-enrich = gentle arXiv drain).
+          step collect_papers python -m pipeline.collect_papers $MODE --sleep 3 --limit-enrich 50
           step weekly_brief   python -m pipeline.research.weekly_brief
           step lexicon_cands  python -m pipeline.research.lexicon_candidates
           step backfill_bodies python -m pipeline.research.backfill_bodies
           step en_corpus      python -m pipeline.research.en_corpus --backfill
-          step concept_extract python -m pipeline.research.concept_extract $EXTRACT
+          step concept_extract python -m pipeline.research.concept_extract $MODE
           step monthly_insight python -m pipeline.research.monthly_insight
           step export_stats   python -m pipeline.research.export_public_stats
           step dashboard      python -m pipeline.research.dashboard
