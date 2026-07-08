@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-08T11:14:43.079177+00:00",
+  "generated_at": "2026-07-08T16:43:28.463186+00:00",
   "window_start": "2026-07-02",
   "window_end": "2026-07-08",
   "themes": [
     {
-      "slug": "export-control-safety-realignment",
-      "name": "수출통제와 안전 협력의 재설정",
-      "thesis_ko": "트럼프 행정부가 Anthropic의 Fable 5·Mythos 5 모델에 대한 수출 규제를 해제하면서, 단순한 기술 금지에서 안전 기준 공동 개발로의 정책 전환이 나타났습니다. Amazon의 탈옥 취약점 발견 이후 Anthropic이 강화된 보안 분류기와 위협 모니터링 체계를 도입하고, Amazon·Microsoft·Google과 함께 업계 표준 jailbreak 심각도 평가 프레임워크를 제안하는 등 규제 회피가 아닌 협력적 거버넌스 구조가 확립되고 있습니다.",
+      "slug": "export-control-safety-cooperation",
+      "name": "수출통제와 안전성 협력",
+      "thesis_ko": "트럼프 행정부가 Anthropic의 Claude Fable·Mythos 모델에 대한 수출통제를 해제하면서 글로벌 AI 규제 체계가 재편되고 있습니다. 안전성 문제가 수출통제의 직접적 근거가 되자, 기업들은 정부와의 안전 기준 공동 개발, 자동 폴백 메커니즘 같은 기술적 보증 장치를 갖춰야 하는 상황이 됐습니다. Amazon·Microsoft·Google 등 클라우드 기업들도 업계 표준 잘못된 입력 심각도 평가 프레임워크에 참여하며, AI 안전이 국가 경쟁력 관리의 핵심 요소로 자리 잡았습니다.",
       "cluster_ids": [
         "k001221",
         "k001154",
@@ -33,73 +33,94 @@
       ]
     },
     {
-      "slug": "frontier-model-economization-agent-expansion",
-      "name": "프론티어 모델의 경제화와 에이전트 확산",
-      "thesis_ko": "Claude Sonnet 5와 Fable 5의 출시·재출시가 성능을 유지하면서 가격을 대폭 인하하고, AWS·Square 등 클라우드·결제 플랫폼과의 통합으로 에이전트 배포의 진입장벽을 낮추고 있습니다. Morgan Stanley의 FIXR, Inscribe의 문서 위조 적발, Claude Science 등 실제 업무 자동화 사례들이 증가하면서, 더 이상 모델 성능만이 아닌 '비용당 에이전트 신뢰성'이 경쟁의 핵심이 되고 있습니다.",
+      "slug": "agent-practical-deployment-reality",
+      "name": "에이전트 실무 배포의 현실",
+      "thesis_ko": "금융·의료·식품 등 실제 산업에 에이전트가 빠르게 배포되면서 자동화의 효과와 한계가 동시에 드러나고 있습니다. Morgan Stanley의 FIXR는 완전 자동화보다 인간 루프의 긴밀한 통합으로 성공했고, 개발자 생산성 측정에서는 주관적 체감과 객관적 성과 사이의 괴리가 20% 수준으로 벌어졌습니다. Square·Inscribe·PAR Technology 같은 사례들은 에이전트가 특정 업무(주문 자동화, 위조 탐지, 다중테넌트 데이터 격리)에선 급진적 효율 개선을 이루지만, 거버넌스와 검증 오버헤드가 새로운 병목이 됨을 보여줍니다.",
       "cluster_ids": [
-        "k001454",
-        "k001145",
         "k001119",
-        "k001155",
-        "k001120",
-        "k001146",
+        "k001213",
         "k001200",
-        "k001204",
+        "k001115",
+        "k001118",
+        "k001121",
         "k001117"
       ],
       "daily_counts": [
         {
+          "day": "2026-06-29",
+          "count": 1
+        },
+        {
           "day": "2026-06-30",
-          "count": 4
+          "count": 1
         },
         {
           "day": "2026-07-01",
-          "count": 3
+          "count": 4
         },
         {
           "day": "2026-07-02",
-          "count": 1
-        },
-        {
-          "day": "2026-07-06",
-          "count": 1
-        },
-        {
-          "day": "2026-07-07",
           "count": 1
         }
       ]
     },
     {
-      "slug": "ai-governance-measurement-gap",
-      "name": "AI 거버넌스와 생산성 측정의 현실 괴리",
-      "thesis_ko": "조직들이 AI 포트폴이오를 빠르게 확대하면서도 소유권·통제·모니터링 인프라가 뒤처져 있고, 동시에 개발자들이 AI로 속도가 20% 빨라졌다고 느끼지만 실제 배포 효율은 19% 느려지는 역설이 드러났습니다. FLARE-AI 플랫폼 출범과 같은 크라우드소싱 안전 신고 체계, 그리고 코딩 벤치마크 신뢰성 문제(일관된 재현율 11~411개 변동)들은 AI 시스템의 급속 확산을 쫓아가지 못하는 평가·거버넌스 인프라의 취약성을 강조합니다.",
+      "slug": "price-compression-performance-parity",
+      "name": "가격 경쟁과 성능 압축",
+      "thesis_ko": "Anthropic의 Claude Sonnet 5가 Opus 수준의 성능을 중간 가격대에 제공하면서, 프론티어 모델 간 성능 차이가 급속히 압축되고 있습니다. 동시에 Venice AI의 프라이버시 중심 플랫폼이나 오픈소스 32B 모델(AutoMem 적용 시)이 프론티어 모델과 경쟁 가능한 수준에 도달하면서, 가격이 아닌 특화된 기능·안전성·규제 준수 능력이 차별화 요소가 되고 있습니다. Meta와 같은 기업이 과잉 컴퓨팅 용량 판매 사업에 진출하는 것도 이 같은 경쟁 심화의 결과입니다.",
       "cluster_ids": [
-        "k001115",
+        "k001226",
+        "k001233",
+        "k001155",
+        "k001120",
+        "k001204",
+        "k001229"
+      ],
+      "daily_counts": [
+        {
+          "day": "2026-06-30",
+          "count": 3
+        },
+        {
+          "day": "2026-07-01",
+          "count": 2
+        },
+        {
+          "day": "2026-07-02",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "slug": "ai-reliability-evaluation-standardization",
+      "name": "AI 신뢰성 평가의 표준화",
+      "thesis_ko": "AGC-Bench, Theoria, AutoMem 같은 연구들이 AI 창의성·추론·메모리 등 다양한 차원의 정량적 평가 프레임워크를 제시하면서, '벤치마크 신뢰성 자체'가 중대한 이슈로 부상했습니다. SWE-Perf 같은 기존 성능 최적화 벤치마크가 실제 에이전트 진전을 측정하지 못하는 사례가 드러나면서, 표준 평가 방식의 타당성을 재검토하는 논문들이 연쇄 발표되고 있습니다. FLARE-AI 크라우드소싱 플랫폼과 NIST 데이터베이스화 움직임도 AI 해악의 체계적 추적 인프라 구축으로 이어지고 있습니다.",
+      "cluster_ids": [
+        "k001152",
+        "k001148",
+        "k001129",
         "k001126",
         "k001218",
-        "k001121",
-        "k001132"
+        "k001132",
+        "k001149"
       ],
       "daily_counts": [
         {
           "day": "2026-07-01",
-          "count": 4
-        },
-        {
-          "day": "2026-07-02",
-          "count": 1
+          "count": 7
         }
       ]
     },
     {
-      "slug": "cloud-platform-ai-compute-competition",
-      "name": "클라우드 플랫폼의 AI 컴퓨팅 경쟁 심화",
-      "thesis_ko": "Meta와 SpaceX가 과잉 컴퓨팅 용량을 판매하고, AWS는 Hugging Face·Anthropic·NVIDIA와의 깊은 통합으로 모델 발견부터 배포까지의 마찰을 제거하며, 정부용 GovCloud 기반 AI 지원을 확대하고 있습니다. 원시 컴퓨팅 파워의 상품화와 AI 워크플로의 플랫폼 내 통합이 동시에 진행되면서, AI 경쟁의 승자는 최고의 모델 제공자가 아닌 인프라와 생태계 통합력을 갖춘 플랫폼이 될 가능성을 시사합니다.",
+      "slug": "multimodal-agent-infra-integration",
+      "name": "멀티모달·에이전트 통합 인프라",
+      "thesis_ko": "AWS·Google·Anthropic이 클라우드 플랫폼에 에이전트·비디오·이미지 처리를 원스텝 통합하는 인프라를 경쟁적으로 구축 중입니다. Hugging Face-SageMaker 원클릭 연동, Nova-Claude 문서 처리 파이프라인, Gemini 3.5 Flash의 컴퓨터 사용 기능 등이 개발자 마찰을 줄이고 엔터프라이즈 도입을 가속화하고 있습니다. 동시에 GovCloud 규제 준수 배포, 행 수준 보안 같은 엔터프라이즈 요구사항이 인프라 설계에 기본으로 포함되는 추세입니다.",
       "cluster_ids": [
         "k001454",
+        "k001135",
+        "k001138",
         "k001196",
-        "k001229",
+        "k001204",
         "k001212"
       ],
       "daily_counts": [
@@ -108,8 +129,12 @@
           "count": 1
         },
         {
+          "day": "2026-06-30",
+          "count": 1
+        },
+        {
           "day": "2026-07-01",
-          "count": 2
+          "count": 3
         },
         {
           "day": "2026-07-06",
@@ -118,23 +143,6 @@
         {
           "day": "2026-07-07",
           "count": 1
-        }
-      ]
-    },
-    {
-      "slug": "open-weight-efficiency-reevaluation",
-      "name": "오픈웨이트 모델의 효율성 재평가",
-      "thesis_ko": "AGC-Bench, AutoMem, QuasiMoTTo 등의 연구들이 32B 오픈웨이트 모델이 Claude Opus·Gemini 같은 프론티어 모델과 경쟁 가능하며, 강화학습 과정에서 단일 레이어 학습만으로 전체 파라미터 학습과 동등한 개선을 달성할 수 있음을 보여주고 있습니다. 이는 모델 스케일보다는 학습 효율성과 메모리 관리 최적화가 성능 격차를 좁힐 수 있다는 새로운 가능성을 제시하며, 오픈소스 진영의 가성비 경쟁력을 실질적으로 높이고 있습니다.",
-      "cluster_ids": [
-        "k001152",
-        "k001148",
-        "k001128",
-        "k001149"
-      ],
-      "daily_counts": [
-        {
-          "day": "2026-07-01",
-          "count": 4
         }
       ]
     }
