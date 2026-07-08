@@ -139,7 +139,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "research stats unchanged — no commit"
           else
-            git commit -m "data: nightly research stats [site refresh] [skip ci]"
+            git commit -m "data: nightly research stats [site refresh]"
             for a in 1 2 3; do
               if git push; then break; fi
               echo "push rejected, rebasing (attempt $a)"; git pull --rebase --autostash origin main || true
