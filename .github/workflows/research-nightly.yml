@@ -109,6 +109,10 @@ jobs:
           step backfill_bodies python -m pipeline.research.backfill_bodies
           step en_corpus      python -m pipeline.research.en_corpus --backfill
           step concept_extract python -m pipeline.research.concept_extract $MODE
+          # concept_lifecycle builds concept_pairs / media_lag / revival_events —
+          # tables that export_public_stats.concepts_block() reads. Without it the
+          # concepts block errors out to null (light on the news corpus).
+          step concept_lifecycle python -m pipeline.research.concept_lifecycle
           step monthly_insight python -m pipeline.research.monthly_insight
           step export_stats   python -m pipeline.research.export_public_stats
           step dashboard      python -m pipeline.research.dashboard

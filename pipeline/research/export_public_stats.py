@@ -95,11 +95,17 @@ def concepts_block() -> dict | None:
                 "SUM(CASE WHEN source_type='paper' THEN 1 END) "
                 "FROM latest_mentions GROUP BY day ORDER BY day")
         ]
-        pairs = c.execute("SELECT COUNT(*) FROM concept_pairs").fetchone()[0]
-        revivals = c.execute("SELECT COUNT(*) FROM revival_events").fetchone()[0]
-        both = c.execute(
-            "SELECT COUNT(*) FROM media_lag WHERE news_minus_paper_days IS NOT NULL"
-        ).fetchone()[0]
+        # Optional analysis tables (built by concept_lifecycle). Guard each so a
+        # cold start / a skipped lifecycle step degrades to 0 instead of nulling
+        # the whole concepts block (the core mentions above are the headline).
+        def _count(sql: str) -> int:
+            try:
+                return c.execute(sql).fetchone()[0]
+            except sqlite3.Error:
+                return 0
+        pairs = _count("SELECT COUNT(*) FROM concept_pairs")
+        revivals = _count("SELECT COUNT(*) FROM revival_events")
+        both = _count("SELECT COUNT(*) FROM media_lag WHERE news_minus_paper_days IS NOT NULL")
     except sqlite3.Error:
         return None
     finally:
