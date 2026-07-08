@@ -1,4 +1,12 @@
-"""Optional Google Cloud Storage backup for the private research corpus.
+"""DEPRECATED (2026-07-08) — NOT used by any workflow.
+
+The research nightly (research-nightly.yml) persists state via GitHub Actions cache
++ a lexicon Secret seed (GitHub-only, no external store) — see CI_CACHE_SEED.md.
+This GCS backup module is retained only as an optional off-repo backup path a user
+may wire up manually; it is not part of the automated pipeline and receives no
+maintenance. Do not add it back to CI without a fresh review.
+
+Optional Google Cloud Storage backup for the private research corpus.
 
 This module is a skeleton -it activates only when the user has
 provided GCP credentials via env vars. Without credentials it logs a

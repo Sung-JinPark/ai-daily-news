@@ -98,14 +98,16 @@ def concepts_block() -> dict | None:
         # Optional analysis tables (built by concept_lifecycle). Guard each so a
         # cold start / a skipped lifecycle step degrades to 0 instead of nulling
         # the whole concepts block (the core mentions above are the headline).
-        def _count(sql: str) -> int:
+        def _count(sql: str, what: str) -> int:
             try:
                 return c.execute(sql).fetchone()[0]
             except sqlite3.Error:
+                # table name only (never a concept name) — safe for the private log.
+                print(f"[stats] {what} unavailable — degraded to 0 (run concept_lifecycle)")
                 return 0
-        pairs = _count("SELECT COUNT(*) FROM concept_pairs")
-        revivals = _count("SELECT COUNT(*) FROM revival_events")
-        both = _count("SELECT COUNT(*) FROM media_lag WHERE news_minus_paper_days IS NOT NULL")
+        pairs = _count("SELECT COUNT(*) FROM concept_pairs", "concept_pairs")
+        revivals = _count("SELECT COUNT(*) FROM revival_events", "revival_events")
+        both = _count("SELECT COUNT(*) FROM media_lag WHERE news_minus_paper_days IS NOT NULL", "media_lag")
     except sqlite3.Error:
         return None
     finally:
