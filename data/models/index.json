@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-09T12:11:57.933952+00:00",
+  "generated_at": "2026-07-09T17:50:42.202139+00:00",
   "lookback_days": 60,
   "models": [
     {
@@ -96,8 +96,8 @@
       "top_benchmarks": [],
       "pricing": [],
       "strengths_ko": [
-        "멀티모달 처리",
         "컴퓨터 사용 기능",
+        "멀티모달 처리",
         "google 생태계 통합"
       ],
       "weaknesses_ko": [
@@ -119,10 +119,28 @@
           "url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-apps-gateway-for-aws/"
         },
         {
+          "id": "016a0f72b52b9096",
+          "day": "2026-07-09",
+          "title": "Say hello to Claude Wrapped",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/963105/anthropic-claude-wrapped-reflection-ai-usage"
+        },
+        {
+          "id": "30e870106f056953",
+          "day": "2026-07-09",
+          "title": "Anthropic’s new Claude feature is quietly selling you on AI",
+          "url": "https://techcrunch.com/2026/07/09/anthropics-new-claude-feature-is-quietly-selling-you-on-ai/"
+        },
+        {
           "id": "f2a88ed8a71182b8",
           "day": "2026-07-09",
           "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
           "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
+        },
+        {
+          "id": "9cf9c4c94b41cfdc",
+          "day": "2026-07-09",
+          "title": "OpenAI rolls out GPT-5.6 after government green light — and announces ‘ChatGPT Work’",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work"
         },
         {
           "id": "3d6e846281ffa14f",
@@ -349,7 +367,7 @@
       ],
       "top_benchmarks": [
         {
-          "name": "Android Bench 정확도",
+          "name": "Android Bench",
           "score": "84.5%",
           "article_id": "3d6e846281ffa14f"
         }
@@ -381,7 +399,7 @@
         "코드 수정을 통한 제한 우회",
         "탈옥 취약점"
       ],
-      "article_count": 39
+      "article_count": 42
     },
     {
       "model": "Qwen",
@@ -493,20 +511,20 @@
     },
     {
       "model": "Llama",
-      "latest_version": "Llama3-8B",
+      "latest_version": "LLaMA-2-7B",
       "latest_seen": "2026-07-09",
       "articles": [
-        {
-          "id": "965618c0123d8a71",
-          "day": "2026-07-09",
-          "title": "The Key to Going Linear: Analysis-Driven Transformer Linearization",
-          "url": "https://arxiv.org/abs/2607.07706v1"
-        },
         {
           "id": "cb2a6ad32917a08e",
           "day": "2026-07-09",
           "title": "PALS: Percentile-Aware Layerwise Sparsity for LLM Pruning",
           "url": "https://arxiv.org/abs/2607.07557v1"
+        },
+        {
+          "id": "965618c0123d8a71",
+          "day": "2026-07-09",
+          "title": "The Key to Going Linear: Analysis-Driven Transformer Linearization",
+          "url": "https://arxiv.org/abs/2607.07706v1"
         },
         {
           "id": "d36a96539b184b32",
@@ -535,41 +553,60 @@
       ],
       "top_benchmarks": [
         {
-          "name": "MMLU",
-          "score": "기존 선형화 기법보다 우수",
-          "article_id": "965618c0123d8a71"
-        },
-        {
           "name": "Perplexity (50% sparsity)",
           "score": "10.96",
           "article_id": "cb2a6ad32917a08e"
+        },
+        {
+          "name": "MMLU",
+          "score": "우수",
+          "article_id": "965618c0123d8a71"
         }
       ],
       "pricing": [],
       "strengths_ko": [
-        "장문맥 검색 성능"
+        "선형화된 복잡도",
+        "장문맥 검색"
       ],
       "weaknesses_ko": [
-        "아키텍처별 효과 미미"
+        "프루닝 효과 미미"
       ],
       "article_count": 6
     },
     {
       "model": "GPT-5",
-      "latest_version": "GPT 5.4",
+      "latest_version": "GPT-5.6",
       "latest_seen": "2026-07-09",
       "articles": [
         {
-          "id": "3d6e846281ffa14f",
+          "id": "e19fbb75eb44457e",
           "day": "2026-07-09",
-          "title": "Google updates Android Bench with new LLMs, but Gemini still lags behind",
-          "url": "https://arstechnica.com/google/2026/07/google-revamps-android-ai-dev-benchmark-adds-fable-5-and-other-agents/"
+          "title": "GPT-5.6: Frontier intelligence that scales with your ambition",
+          "url": "https://openai.com/index/gpt-5-6"
         },
         {
           "id": "3fb14968493dc682",
           "day": "2026-07-09",
           "title": "Introducing GPT-Live",
           "url": "https://openai.com/index/introducing-gpt-live"
+        },
+        {
+          "id": "f2a88ed8a71182b8",
+          "day": "2026-07-09",
+          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
+          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
+        },
+        {
+          "id": "9cf9c4c94b41cfdc",
+          "day": "2026-07-09",
+          "title": "OpenAI rolls out GPT-5.6 after government green light — and announces ‘ChatGPT Work’",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work"
+        },
+        {
+          "id": "3d6e846281ffa14f",
+          "day": "2026-07-09",
+          "title": "Google updates Android Bench with new LLMs, but Gemini still lags behind",
+          "url": "https://arstechnica.com/google/2026/07/google-revamps-android-ai-dev-benchmark-adds-fable-5-and-other-agents/"
         },
         {
           "id": "3509861ced217170",
@@ -581,30 +618,32 @@
       "top_benchmarks": [],
       "pricing": [],
       "strengths_ko": [
-        "자연스러운 음성 상호작용"
+        "토큰당 지능 향상",
+        "비용 효율성 개선",
+        "온디맨드 성능 개선"
       ],
       "weaknesses_ko": [
         "추론 토큰 클러스터링",
         "복잡한 작업 성능 저하"
       ],
-      "article_count": 3
+      "article_count": 6
     },
     {
       "model": "Grok",
-      "latest_version": "Grok 4.5",
+      "latest_version": null,
       "latest_seen": "2026-07-09",
       "articles": [
-        {
-          "id": "f2a88ed8a71182b8",
-          "day": "2026-07-09",
-          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
-          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
-        },
         {
           "id": "47a8b29856e6213b",
           "day": "2026-07-09",
           "title": "Lawsuit: Man used Grok to make 7K sex images of stepdaughter, then shot himself",
           "url": "https://arstechnica.com/tech-policy/2026/07/lawsuit-grok-user-made-7k-child-sex-images-xai-only-reported-one-gang-rape-prompt/"
+        },
+        {
+          "id": "f2a88ed8a71182b8",
+          "day": "2026-07-09",
+          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
+          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
         },
         {
           "id": "7bef597cf4bc9576",
@@ -628,13 +667,13 @@
       ],
       "strengths_ko": [
         "토큰 효율성 2배 우수",
-        "경쟁 모델 대비 가격 경쟁력",
+        "경쟁력 있는 가격",
         "코딩 특화"
       ],
       "weaknesses_ko": [
-        "업계 최고 성능 미달",
         "아동 성적 학대 이미지 생성 차단 실패",
-        "강간 프롬프트 차단 실패"
+        "강간 프롬프트 차단 실패",
+        "csam 신고 후 수사 협력 거부"
       ],
       "article_count": 3
     },
@@ -658,12 +697,9 @@
       ],
       "top_benchmarks": [],
       "pricing": [],
-      "strengths_ko": [
-        "mcp 표준 통합",
-        "다중 ai 클라이언트 연결"
-      ],
+      "strengths_ko": [],
       "weaknesses_ko": [
-        "아키텍처별 효과 미미"
+        "프루닝 효과 미미"
       ],
       "article_count": 2
     },
