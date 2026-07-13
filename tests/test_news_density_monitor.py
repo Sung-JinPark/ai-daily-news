@@ -7,7 +7,10 @@ from pipeline.research.news_density_monitor import (
     compute_weekly,
     trailing_dense_streak,
     evaluate_readiness,
+    update_r5_state,
     _week_key,
+    GATES,
+    R5_GATE,
 )
 
 
@@ -62,3 +65,54 @@ def test_evaluate_readiness_red_then_green():
     gates["g"]["weeks_required"] = 26
     r2 = evaluate_readiness(weeks, gates)
     assert r2["g"]["status"] == "RED" and r2["g"]["weeks_remaining"] == 23
+
+
+# ---------- R5 arm: gate + transition state + unattended-analysis guard ----------
+
+def test_r5_gate_lower_than_others():
+    assert R5_GATE in GATES and GATES[R5_GATE]["weeks_required"] == 12   # < 26
+    weeks_ready = _weeks([200] * 12, [30] * 12)
+    r = evaluate_readiness(weeks_ready, {R5_GATE: GATES[R5_GATE]})
+    assert r[R5_GATE]["status"] == "GREEN"
+    weeks_short = _weeks([200] * 11, [30] * 11)
+    r2 = evaluate_readiness(weeks_short, {R5_GATE: GATES[R5_GATE]})
+    assert r2[R5_GATE]["status"] == "RED" and r2[R5_GATE]["weeks_remaining"] == 1
+
+
+def test_r5_state_first_green_arms_alert():
+    s = update_r5_state(None, "GREEN", "2026-09-01T00:00:00Z")
+    assert s["status"] == "GREEN"
+    assert s["first_ready_at"] == "2026-09-01T00:00:00Z"
+    assert s["alert_pending"] is True
+    assert s["transitions"][-1]["to"] == "GREEN"
+
+
+def test_r5_state_red_no_alert():
+    s = update_r5_state(None, "RED", "2026-07-13T00:00:00Z")
+    assert s["status"] == "RED" and s["first_ready_at"] is None
+    assert s["alert_pending"] is False
+
+
+def test_r5_state_green_persists_and_dedups():
+    s1 = update_r5_state(None, "GREEN", "2026-09-01T00:00:00Z")
+    s2 = update_r5_state(s1, "GREEN", "2026-09-08T00:00:00Z")
+    assert s2["first_ready_at"] == "2026-09-01T00:00:00Z"          # immutable
+    assert len(s2["transitions"]) == len(s1["transitions"])        # no dup transition
+    assert s2["alert_pending"] is True                             # still pending
+    s2["alert_issued"] = True                                      # alerter dedups
+    s3 = update_r5_state(s2, "GREEN", "2026-09-15T00:00:00Z")
+    assert s3["alert_pending"] is False
+
+
+def test_monitor_never_imports_analysis_modules():
+    """★Unattended-analysis guard: the monitor must not IMPORT any analysis module —
+    it records state and alerts, nothing more. (Comments may name them to document the
+    guard; only real import statements are prohibited.)"""
+    import pipeline.research.news_density_monitor as m
+    banned = ("h3_decide", "h3_formal", "h3_network", "changepoint", "paper_findings",
+              "reannounce_preflight", "trend_model", "concept_lifecycle", "velocity_tv")
+    for line in open(m.__file__, encoding="utf-8"):
+        s = line.strip()
+        if s.startswith("import ") or s.startswith("from "):
+            for b in banned:
+                assert b not in line, f"monitor must not import analysis module: {b}"

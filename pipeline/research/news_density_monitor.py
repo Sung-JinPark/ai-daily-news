@@ -43,6 +43,12 @@ OUT_FILE = REPO / "data" / "research_private" / "notes" / "news_density.json"
 # set ~25% of the first-run recent-window median so a normal collection week clears them
 # while thin-backfill/gap weeks do not). weeks_required = 26 ≈ a 6-month dense span.
 GATES = {
+    # R5 has the LOWEST gate — it exploits dual-language data we already have, so it
+    # needs only a modest dense window (12 weeks ≈ 3 months) rather than 26. (When armed,
+    # refine dense_mentions_min to a body_en-coverage floor — placeholder for now.)
+    "R5_cross_lingual": {
+        "desc": "R5 cross-language spread (priority; lowest gate)",
+        "dense_mentions_min": 150, "dense_cooc_min": 0, "weeks_required": 12},
     "R4_news_keyword": {
         "desc": "R4 news keyword / vocabulary expansion",
         "dense_mentions_min": 150, "dense_cooc_min": 0, "weeks_required": 26},
@@ -50,6 +56,14 @@ GATES = {
         "desc": "R1 news co-occurrence network + R2 paper-vs-news contrast",
         "dense_mentions_min": 0, "dense_cooc_min": 25, "weeks_required": 26},
 }
+
+# ★UNATTENDED-ANALYSIS GUARD. This module tracks density and records READINESS state
+# ONLY. It NEVER imports or invokes an analysis module (h3_decide, changepoint,
+# paper_findings, …) and NEVER triggers R5 (or any) analysis. A GREEN transition
+# produces an *alert* (a pending flag + a loud log line; a GitHub issue via an
+# approval-gated workflow) — a human then reviews and manually runs
+# prompts/R5_cross_lingual.md. Findings require human review; auto-run is prohibited.
+R5_GATE = "R5_cross_lingual"
 
 
 # ---------- pure aggregation (unit-tested with synthetic mentions) ----------
@@ -122,6 +136,29 @@ def _recent_median(weeks: list, key: str, n: int = 8) -> int:
     return int(statistics.median(present)) if present else 0
 
 
+def update_r5_state(prev: dict | None, status: str, now_iso: str) -> dict:
+    """Pure state transition for the R5 arm. Tracks status, the immutable first-GREEN
+    timestamp, a transitions log, and an ``alert_pending`` flag (set once R5 first goes
+    GREEN, cleared only when a downstream alerter sets ``alert_issued`` — dedup). This
+    function records state; it triggers NOTHING (no analysis, no I/O)."""
+    prev = prev or {}
+    prev_status = prev.get("status")
+    transitions = list(prev.get("transitions", []))
+    if status != prev_status:
+        transitions.append({"at": now_iso, "from": prev_status, "to": status})
+    first_ready_at = prev.get("first_ready_at")
+    if status == "GREEN" and not first_ready_at:
+        first_ready_at = now_iso
+    alert_issued = bool(prev.get("alert_issued", False))
+    return {"status": status,
+            "first_ready_at": first_ready_at,
+            "alert_issued": alert_issued,
+            # a human/alerter workflow should act while this is true, then set
+            # alert_issued=true to dedup. Auto-analysis is NOT an allowed action.
+            "alert_pending": bool(first_ready_at) and not alert_issued,
+            "transitions": transitions[-20:]}
+
+
 # ---------- DB layer ----------
 
 def load_news_mentions(research_db: Path):
@@ -167,10 +204,13 @@ def run(research_db: Path, out_file: Path, now_iso: str | None = None) -> dict:
                    "streaks": {k: v["streak_weeks"] for k, v in readiness.items()}}
     runs = (prev.get("runs") or [])[-49:] + [run_summary]
 
+    # R5 arm: record READINESS transition state (records only — triggers nothing).
+    r5 = update_r5_state(prev.get("r5"), readiness[R5_GATE]["status"], stamp)
+
     result = {"study": "news_density_monitor (tracking, not analysis)",
               "gates": GATES, "baseline": baseline, "span": span,
               "recent_window_median": recent, "readiness": readiness,
-              "runs": runs, "weekly_series": weeks}
+              "r5": r5, "runs": runs, "weekly_series": weeks}
     out_file.parent.mkdir(parents=True, exist_ok=True)
     out_file.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     return result
@@ -187,6 +227,12 @@ def _print(r: dict) -> None:
         log.info("  %-18s %-5s  streak=%d/%d  (%d weeks remaining)  — %s",
                  name, g["status"], g["streak_weeks"], g["weeks_required"],
                  g["weeks_remaining"], g["desc"])
+    r5 = r.get("r5", {})
+    if r5.get("status") == "GREEN" and r5.get("alert_pending"):
+        log.info("-" * 60)
+        log.info("★ R5 READY (first GREEN %s) — MANUAL ACTION: review + run "
+                 "prompts/R5_cross_lingual.md. NO auto-analysis; findings need human review.",
+                 r5.get("first_ready_at"))
     log.info("=" * 60)
 
 
