@@ -11,6 +11,8 @@ from pipeline.research.abstract_undercount import (
     hamilton_allocate,
     wilson_ci,
     _rate_block,
+    _percentile,
+    paper_level_bootstrap,
 )
 
 
@@ -112,3 +114,40 @@ def test_rate_block_empty_group():
     b = _rate_block([], set())
     assert b["fulltext_memberships"] == 0
     assert b["undercount_rate"] == 0.0
+
+
+def test_percentile_known_values():
+    xs = [0.0, 0.25, 0.5, 0.75, 1.0]
+    assert _percentile(xs, 0.0) == 0.0
+    assert _percentile(xs, 1.0) == 1.0
+    assert abs(_percentile(xs, 0.5) - 0.5) < 1e-9
+    assert abs(_percentile(xs, 0.25) - 0.25) < 1e-9  # interpolates on the grid
+
+
+def _synthetic_papers():
+    # kinds: zzM/zzM2 = method, zzP = paradigm. abstract concepts seen; body-only missed.
+    return [
+        {"abstract_concepts": ["zzM"], "body_only_concepts": ["zzM2", "zzP"]},
+        {"abstract_concepts": ["zzM"], "body_only_concepts": ["zzP"]},
+        {"abstract_concepts": ["zzM", "zzP"], "body_only_concepts": ["zzM2"]},
+        {"abstract_concepts": [], "body_only_concepts": ["zzM2"]},
+    ]
+
+
+def test_bootstrap_point_estimate_and_ci_order():
+    kinds = {"zzM": "method", "zzM2": "method", "zzP": "paradigm"}
+    b = paper_level_bootstrap(_synthetic_papers(), kinds, B=500, seed=1)
+    # memberships: seen = zzM,zzM,(zzM,zzP)=4 seen ; missed = zzM2,zzP,zzP,zzM2 = 4? recount:
+    # p1: seen{zzM}, missed{zzM2,zzP}; p2: seen{zzM}, missed{zzP}; p3: seen{zzM,zzP}, missed{zzM2};
+    # p4: seen{}, missed{zzM2}. total=9, missed=5 -> 0.5556
+    assert b["overall"]["undercount"] == round(5 / 9, 4)
+    lo, hi = b["overall"]["ci95_bootstrap"]
+    assert 0.0 <= lo <= b["overall"]["undercount"] <= hi <= 1.0
+    assert set(b["by_concept_kind"]) == {"method", "paradigm"}
+
+
+def test_bootstrap_deterministic():
+    kinds = {"zzM": "method", "zzM2": "method", "zzP": "paradigm"}
+    a = paper_level_bootstrap(_synthetic_papers(), kinds, B=300, seed=7)
+    c = paper_level_bootstrap(_synthetic_papers(), kinds, B=300, seed=7)
+    assert a == c  # same seed -> identical CI

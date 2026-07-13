@@ -10,7 +10,7 @@ Design (deterministic, reproducible):
   * FRAME  = the frozen all-arXiv analysis panel (papers.db master, the exact
     corpus the H1/H2/H3 findings were computed on: published in
     [2025-07, 2026-07]). Sampling from this frame — NOT the 587 news-linked
-    papers — is what makes the findings-defense valid.
+    papers — is what keeps the findings valid.
   * SAMPLE = N papers, stratified by ``published`` month (Hamilton
     largest-remainder allocation), seed-fixed selection within each month.
   * INSTRUMENT = the v6 lexicon, replicated exactly: aliases compiled with
@@ -233,6 +233,74 @@ def _rate_block(fulltext_pairs: list, abstract_pairs: set) -> dict:
     }
 
 
+# ---------- clustered (paper-level) bootstrap CI ----------
+
+def _percentile(sorted_vals: list, q: float) -> float:
+    if not sorted_vals:
+        return float("nan")
+    k = (len(sorted_vals) - 1) * q
+    f, c = math.floor(k), math.ceil(k)
+    if f == c:
+        return sorted_vals[int(k)]
+    return sorted_vals[f] * (c - k) + sorted_vals[c] * (k - f)
+
+
+def paper_level_bootstrap(papers: list, kinds_by_concept: dict, B: int = 2000,
+                          seed: int = 20260713) -> dict:
+    """Resample the *paper* (the cluster) with replacement B times → percentile CI
+    for the under-count, accounting for within-paper membership correlation that a
+    Wilson CI (independent memberships) ignores.
+
+    ``papers`` = [{"abstract_concepts":[cid,...], "body_only_concepts":[cid,...]}, ...]
+    (only successfully-processed papers). A membership is (kind, missed): concepts in
+    abstract_concepts are seen (missed=False); body_only_concepts are missed=True.
+    """
+    recs = []
+    for p in papers:
+        mem = [(kinds_by_concept.get(c, "unknown"), False) for c in p.get("abstract_concepts", [])]
+        mem += [(kinds_by_concept.get(c, "unknown"), True) for c in p.get("body_only_concepts", [])]
+        recs.append(mem)
+    kinds = sorted({k for m in recs for k, _ in m})
+    n = len(recs)
+    rng = random.Random(seed)
+
+    overall_s, kind_s = [], {k: [] for k in kinds}
+    for _ in range(B):
+        idx = [rng.randrange(n) for _ in range(n)]
+        tot = missed = 0
+        ktot = {k: 0 for k in kinds}
+        kmiss = {k: 0 for k in kinds}
+        for i in idx:
+            for k, ms in recs[i]:
+                tot += 1
+                ktot[k] += 1
+                if ms:
+                    missed += 1
+                    kmiss[k] += 1
+        overall_s.append(missed / tot if tot else 0.0)
+        for k in kinds:
+            kind_s[k].append(kmiss[k] / ktot[k] if ktot[k] else float("nan"))
+
+    def ci(samples: list) -> list:
+        s = sorted(v for v in samples if v == v)  # drop NaN
+        return [round(_percentile(s, 0.025), 4), round(_percentile(s, 0.975), 4)]
+
+    def point(kind: str | None = None) -> float | None:
+        tot = miss = 0
+        for m in recs:
+            for k, ms in m:
+                if kind and k != kind:
+                    continue
+                tot += 1
+                miss += 1 if ms else 0
+        return round(miss / tot, 4) if tot else None
+
+    return {"B": B, "seed": seed, "n_papers": n,
+            "overall": {"undercount": point(), "ci95_bootstrap": ci(overall_s)},
+            "by_concept_kind": {k: {"undercount": point(k), "ci95_bootstrap": ci(kind_s[k])}
+                                for k in kinds}}
+
+
 # ---------- orchestrator ----------
 
 def run(n: int, seed: int, sleep_sec: float, dry_run: bool,
@@ -388,9 +456,30 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=20260713)
     ap.add_argument("--sleep", type=float, default=3.0, help="arXiv politeness (sec/req)")
     ap.add_argument("--dry-run", action="store_true", help="sample+abstract match only, no download")
+    ap.add_argument("--bootstrap", action="store_true",
+                    help="paper-level (clustered) bootstrap CI from the saved per-paper detail")
+    ap.add_argument("--bootstrap-b", type=int, default=2000, help="bootstrap resamples")
     ap.add_argument("--research-db", default=str(FROZEN_RESEARCH_DB))
     ap.add_argument("--papers-db", default=str(MASTER_PAPERS_DB))
     args = ap.parse_args()
+
+    if args.bootstrap:
+        detail = json.loads((OUT_DIR / "undercount_per_paper.private.json").read_text(encoding="utf-8"))
+        # only papers whose body was actually processed contribute memberships
+        papers = [p for p in detail["per_paper"] if p.get("status") in ("ok", "cached")]
+        _, kinds = load_lexicon(Path(args.research_db), LEXICON_VERSION)
+        boot = paper_level_bootstrap(papers, kinds, B=args.bootstrap_b, seed=args.seed)
+        (OUT_DIR / "undercount_bootstrap.json").write_text(
+            json.dumps(boot, ensure_ascii=False, indent=2), encoding="utf-8")
+        o = boot["overall"]
+        log.info("[bootstrap] B=%d papers=%d — OVERALL undercount=%.1f%% clustered-CI95=[%.1f,%.1f]",
+                 boot["B"], boot["n_papers"], 100 * o["undercount"],
+                 100 * o["ci95_bootstrap"][0], 100 * o["ci95_bootstrap"][1])
+        for k, b in boot["by_concept_kind"].items():
+            log.info("  %-13s %.1f%% clustered-CI95=[%.1f,%.1f]", k, 100 * b["undercount"],
+                     100 * b["ci95_bootstrap"][0], 100 * b["ci95_bootstrap"][1])
+        return
+
     r = run(args.n, args.seed, args.sleep, args.dry_run,
             Path(args.research_db), Path(args.papers_db))
     _print_report(r)
