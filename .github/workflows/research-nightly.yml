@@ -123,10 +123,12 @@ jobs:
       - name: R5 readiness check + alert decision (SURFACING ONLY — no analysis)
         id: r5
         if: steps.guard.outputs.skip != 'true'
-        run: python -m pipeline.research.r5_alert --github-output
+        continue-on-error: true   # ★alerts are an add-on — a failure here must NEVER block
+        run: python -m pipeline.research.r5_alert --github-output   #   the collection body (leak gate + stats commit)
 
       - name: Create R5-READY issue (one-time; alert only, dedup — NO analysis)
         if: steps.guard.outputs.skip != 'true' && steps.r5.outputs.emit == 'true'
+        continue-on-error: true   # ★alert failure must not fail the nightly collection body
         uses: actions/github-script@v7
         env:
           R5_TITLE: ${{ steps.r5.outputs.title }}
