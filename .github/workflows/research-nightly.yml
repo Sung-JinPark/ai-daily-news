@@ -116,6 +116,34 @@ jobs:
           step monthly_insight python -m pipeline.research.monthly_insight
           step export_stats   python -m pipeline.research.export_public_stats
           step dashboard      python -m pipeline.research.dashboard
+          # Expansion news-density monitor — TRACKING ONLY (no analysis). Updates the
+          # private notes/news_density.json (rides this cache; never committed).
+          step density_monitor python -m pipeline.research.news_density_monitor
+
+      - name: R5 readiness check + alert decision (SURFACING ONLY — no analysis)
+        id: r5
+        if: steps.guard.outputs.skip != 'true'
+        run: python -m pipeline.research.r5_alert --github-output
+
+      - name: Create R5-READY issue (one-time; alert only, dedup — NO analysis)
+        if: steps.guard.outputs.skip != 'true' && steps.r5.outputs.emit == 'true'
+        uses: actions/github-script@v7
+        env:
+          R5_TITLE: ${{ steps.r5.outputs.title }}
+          R5_BODY: ${{ steps.r5.outputs.body }}
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo,
+              title: process.env.R5_TITLE, body: process.env.R5_BODY,
+              labels: ['expansion-ready'],
+            });
+            // dedup: mark issued in the PRIVATE json (rides the cache; never committed).
+            const fs = require('fs');
+            const p = 'data/research_private/notes/news_density.json';
+            const d = JSON.parse(fs.readFileSync(p, 'utf8'));
+            d.r5 = d.r5 || {}; d.r5.alert_issued = true;
+            fs.writeFileSync(p, JSON.stringify(d, null, 2));
 
       - name: "★ Leak gate — fail if any private file is tracked"
         if: steps.guard.outputs.skip != 'true'
