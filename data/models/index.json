@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-14T11:13:23.138645+00:00",
+  "generated_at": "2026-07-14T16:22:00.125824+00:00",
   "lookback_days": 60,
   "models": [
     {
@@ -138,248 +138,34 @@
       "article_count": 19
     },
     {
-      "model": "Llama",
-      "latest_version": "Llama-3.1-8B",
-      "latest_seen": "2026-07-14",
-      "articles": [
-        {
-          "id": "7ed805404bb138bb",
-          "day": "2026-07-14",
-          "title": "Production and Perception in LLMs: A Token Probability Approach",
-          "url": "https://arxiv.org/abs/2607.11703v1"
-        },
-        {
-          "id": "22c05f221ee32a6f",
-          "day": "2026-07-13",
-          "title": "Self-Guided Test-Time Training for Long-Context LLMs",
-          "url": "https://arxiv.org/abs/2607.09415v1"
-        },
-        {
-          "id": "cb2a6ad32917a08e",
-          "day": "2026-07-09",
-          "title": "PALS: Percentile-Aware Layerwise Sparsity for LLM Pruning",
-          "url": "https://arxiv.org/abs/2607.07557v1"
-        },
-        {
-          "id": "965618c0123d8a71",
-          "day": "2026-07-09",
-          "title": "The Key to Going Linear: Analysis-Driven Transformer Linearization",
-          "url": "https://arxiv.org/abs/2607.07706v1"
-        },
-        {
-          "id": "d36a96539b184b32",
-          "day": "2026-07-08",
-          "title": "Doomed from the Start: Early Abort of LLM Agent Episodes via a Recall-Controlled Probe Cascade",
-          "url": "https://arxiv.org/abs/2607.06503v1"
-        },
-        {
-          "id": "ddca28235bd25f8a",
-          "day": "2026-07-03",
-          "title": "ReContext: Recursive Evidence Replay as LLM Harness for Long-Context Reasoning",
-          "url": "https://arxiv.org/abs/2607.02509v1"
-        },
-        {
-          "id": "6fcb01f9e95e7d01",
-          "day": "2026-07-02",
-          "title": "Meta, like SpaceX, looks to turn excess AI compute into cash",
-          "url": "https://techcrunch.com/2026/07/01/meta-like-spacex-looks-to-turn-excess-ai-compute-into-cash/"
-        },
-        {
-          "id": "bd1bd59784866649",
-          "day": "2026-07-02",
-          "title": "Pair Nova 2 Lite with Claude for cost-optimized document processing",
-          "url": "https://aws.amazon.com/blogs/machine-learning/pair-nova-2-lite-with-claude-for-cost-optimized-document-processing/"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "Perplexity (50% sparsity)",
-          "score": "10.96",
-          "article_id": "cb2a6ad32917a08e"
-        },
-        {
-          "name": "MMLU",
-          "score": "우수",
-          "article_id": "965618c0123d8a71"
-        },
-        {
-          "name": "LongBench-v2",
-          "score": "최대 15% 상대 성능 향상",
-          "article_id": "22c05f221ee32a6f"
-        }
-      ],
-      "pricing": [],
-      "strengths_ko": [
-        "선형화된 복잡도",
-        "장문맥 검색"
-      ],
-      "weaknesses_ko": [
-        "프루닝 효과 미미",
-        "생성-지각 비대칭성"
-      ],
-      "article_count": 8
-    },
-    {
-      "model": "GPT-5",
-      "latest_version": "GPT-5.6 Sol",
-      "latest_seen": "2026-07-14",
-      "articles": [
-        {
-          "id": "b1648634e46181df",
-          "day": "2026-07-14",
-          "title": "OpenAI GPT-5.6 Sol, Terra, and Luna are now generally available on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/openai-gpt-5-6-sol-terra-and-luna-are-now-generally-available-on-amazon-bedrock/"
-        },
-        {
-          "id": "6340c21e25cd51fb",
-          "day": "2026-07-13",
-          "title": "Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper",
-          "url": "https://ploy.ai/blog/migrating-a-production-ai-agent-to-gpt-5-6"
-        },
-        {
-          "id": "b47d984e1b1c5747",
-          "day": "2026-07-11",
-          "title": "OpenAI introduces ChatGPT Work, a cloud-based AI agent that manages tasks across email, Slack and calendars",
-          "url": "https://venturebeat.com/technology/openai-introduces-chatgpt-work-a-cloud-based-ai-agent-that-manages-tasks-across-email-slack-and-calendars"
-        },
-        {
-          "id": "07aa5a8a45a2217e",
-          "day": "2026-07-10",
-          "title": "GPT-5.5 Bio Bug Bounty",
-          "url": "https://openai.com/index/bio-bug-bounty"
-        },
-        {
-          "id": "b98a594ec40e8f26",
-          "day": "2026-07-10",
-          "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
-          "url": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot"
-        },
-        {
-          "id": "40c4cf9177d51c76",
-          "day": "2026-07-10",
-          "title": "OpenAI launches its new family of models with GPT-5.6",
-          "url": "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6/"
-        },
-        {
-          "id": "5390181be54fda4b",
-          "day": "2026-07-10",
-          "title": "OpenAI says GPT 5.6 is the ‘preferred model’ for Microsoft Copilot 365 amid breakup chatter",
-          "url": "https://techcrunch.com/2026/07/09/openai-says-gpt-5-6-is-the-preferred-model-for-microsoft-copilot-amid-breakup-chatter/"
-        },
-        {
-          "id": "7c72cfe98840606a",
-          "day": "2026-07-10",
-          "title": "The Download: Claude’s inner workings and OpenAI’s “super app”",
-          "url": "https://www.technologyreview.com/2026/07/10/1140316/the-download-anthropic-claude-hidden-space-openai-super-app/"
-        },
-        {
-          "id": "e19fbb75eb44457e",
-          "day": "2026-07-09",
-          "title": "GPT-5.6: Frontier intelligence that scales with your ambition",
-          "url": "https://openai.com/index/gpt-5-6"
-        },
-        {
-          "id": "3fb14968493dc682",
-          "day": "2026-07-09",
-          "title": "Introducing GPT-Live",
-          "url": "https://openai.com/index/introducing-gpt-live"
-        },
-        {
-          "id": "f2a88ed8a71182b8",
-          "day": "2026-07-09",
-          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
-          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
-        },
-        {
-          "id": "9cf9c4c94b41cfdc",
-          "day": "2026-07-09",
-          "title": "OpenAI rolls out GPT-5.6 after government green light — and announces ‘ChatGPT Work’",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work"
-        },
-        {
-          "id": "3d6e846281ffa14f",
-          "day": "2026-07-09",
-          "title": "Google updates Android Bench with new LLMs, but Gemini still lags behind",
-          "url": "https://arstechnica.com/google/2026/07/google-revamps-android-ai-dev-benchmark-adds-fable-5-and-other-agents/"
-        },
-        {
-          "id": "3509861ced217170",
-          "day": "2026-07-06",
-          "title": "GPT-5.5 Codex reasoning-token clustering may be leading to degraded performance",
-          "url": "https://github.com/openai/codex/issues/30364"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "Artificial Analysis Coding Agent Index",
-          "score": "Fable보다 2.8포인트 높음",
-          "article_id": "40c4cf9177d51c76"
-        }
-      ],
-      "pricing": [
-        {
-          "unit": "input",
-          "value": "$1~$5",
-          "article_id": "40c4cf9177d51c76"
-        },
-        {
-          "unit": "output",
-          "value": "$6~$30",
-          "article_id": "40c4cf9177d51c76"
-        }
-      ],
-      "strengths_ko": [
-        "토큰당 지능 향상",
-        "비용 효율성 개선",
-        "온디맨드 성능 개선"
-      ],
-      "weaknesses_ko": [
-        "추론 토큰 클러스터링",
-        "복잡한 작업 성능 저하",
-        "생물학적 해악 정보 생성 위험"
-      ],
-      "article_count": 14
-    },
-    {
-      "model": "Whisper",
-      "latest_version": "Whisper-tiny",
-      "latest_seen": "2026-07-14",
-      "articles": [
-        {
-          "id": "32d1397d1c211745",
-          "day": "2026-07-14",
-          "title": "Casting Everything to Online API Services? A Survey of Integrating Localized Speech Recognition Models in Robotic Systems",
-          "url": "https://arxiv.org/abs/2607.11792v1"
-        },
-        {
-          "id": "288ba38ae1c997c8",
-          "day": "2026-07-07",
-          "title": "REDDIT: Correcting Model-Generated Timestamp Drift in ASR without Forgetting via Replay-Based Distribution Editing",
-          "url": "https://arxiv.org/abs/2607.05364v1"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "긴 무음 구간 정렬 정확도",
-          "score": "38.7% → 95.0%",
-          "article_id": "288ba38ae1c997c8"
-        }
-      ],
-      "pricing": [],
-      "strengths_ko": [
-        "로봇 시스템 로컬 배포",
-        "api 의존성 감소"
-      ],
-      "weaknesses_ko": [
-        "타임스탐프 표류"
-      ],
-      "article_count": 2
-    },
-    {
       "model": "Claude",
       "latest_version": "Claude Opus",
-      "latest_seen": "2026-07-13",
+      "latest_seen": "2026-07-14",
       "articles": [
+        {
+          "id": "0221b1d0649ec5f2",
+          "day": "2026-07-14",
+          "title": "Jul 14, 2026AnnouncementsAnthropic commits $10 million to Canadian AI research",
+          "url": "https://www.anthropic.com/news/canadian-ai-research"
+        },
+        {
+          "id": "ce791ec1c8b78d8b",
+          "day": "2026-07-14",
+          "title": "The Download: Claude’s inner workings, and the future of world models",
+          "url": "https://www.technologyreview.com/2026/07/14/1140391/the-download-anthropic-claude-internal-thoughts-world-models/"
+        },
+        {
+          "id": "ad504bbdb221cc44",
+          "day": "2026-07-14",
+          "title": "Jul 14, 2026ProductIntroducing Claude for Teachers",
+          "url": "https://www.anthropic.com/news/claude-for-teachers"
+        },
+        {
+          "id": "2d062ff1a86a8f35",
+          "day": "2026-07-14",
+          "title": "Superhuman’s new auto-draft feature almost makes me like AI replies",
+          "url": "https://techcrunch.com/2026/07/14/superhumans-new-auto-draft-feature-almost-makes-me-like-ai-replies/"
+        },
         {
           "id": "6340c21e25cd51fb",
           "day": "2026-07-13",
@@ -733,7 +519,317 @@
         "코드 수정을 통한 제한 우회",
         "탈옥 취약점"
       ],
-      "article_count": 53
+      "article_count": 57
+    },
+    {
+      "model": "Llama",
+      "latest_version": "Llama-3.1-8B",
+      "latest_seen": "2026-07-14",
+      "articles": [
+        {
+          "id": "7ed805404bb138bb",
+          "day": "2026-07-14",
+          "title": "Production and Perception in LLMs: A Token Probability Approach",
+          "url": "https://arxiv.org/abs/2607.11703v1"
+        },
+        {
+          "id": "22c05f221ee32a6f",
+          "day": "2026-07-13",
+          "title": "Self-Guided Test-Time Training for Long-Context LLMs",
+          "url": "https://arxiv.org/abs/2607.09415v1"
+        },
+        {
+          "id": "cb2a6ad32917a08e",
+          "day": "2026-07-09",
+          "title": "PALS: Percentile-Aware Layerwise Sparsity for LLM Pruning",
+          "url": "https://arxiv.org/abs/2607.07557v1"
+        },
+        {
+          "id": "965618c0123d8a71",
+          "day": "2026-07-09",
+          "title": "The Key to Going Linear: Analysis-Driven Transformer Linearization",
+          "url": "https://arxiv.org/abs/2607.07706v1"
+        },
+        {
+          "id": "d36a96539b184b32",
+          "day": "2026-07-08",
+          "title": "Doomed from the Start: Early Abort of LLM Agent Episodes via a Recall-Controlled Probe Cascade",
+          "url": "https://arxiv.org/abs/2607.06503v1"
+        },
+        {
+          "id": "ddca28235bd25f8a",
+          "day": "2026-07-03",
+          "title": "ReContext: Recursive Evidence Replay as LLM Harness for Long-Context Reasoning",
+          "url": "https://arxiv.org/abs/2607.02509v1"
+        },
+        {
+          "id": "6fcb01f9e95e7d01",
+          "day": "2026-07-02",
+          "title": "Meta, like SpaceX, looks to turn excess AI compute into cash",
+          "url": "https://techcrunch.com/2026/07/01/meta-like-spacex-looks-to-turn-excess-ai-compute-into-cash/"
+        },
+        {
+          "id": "bd1bd59784866649",
+          "day": "2026-07-02",
+          "title": "Pair Nova 2 Lite with Claude for cost-optimized document processing",
+          "url": "https://aws.amazon.com/blogs/machine-learning/pair-nova-2-lite-with-claude-for-cost-optimized-document-processing/"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "Perplexity (50% sparsity)",
+          "score": "10.96",
+          "article_id": "cb2a6ad32917a08e"
+        },
+        {
+          "name": "MMLU",
+          "score": "우수",
+          "article_id": "965618c0123d8a71"
+        },
+        {
+          "name": "LongBench-v2",
+          "score": "최대 15% 상대 성능 향상",
+          "article_id": "22c05f221ee32a6f"
+        }
+      ],
+      "pricing": [],
+      "strengths_ko": [
+        "선형화된 복잡도",
+        "장문맥 검색"
+      ],
+      "weaknesses_ko": [
+        "프루닝 효과 미미"
+      ],
+      "article_count": 8
+    },
+    {
+      "model": "GPT-4",
+      "latest_version": "GPT-4o",
+      "latest_seen": "2026-07-14",
+      "articles": [
+        {
+          "id": "2d062ff1a86a8f35",
+          "day": "2026-07-14",
+          "title": "Superhuman’s new auto-draft feature almost makes me like AI replies",
+          "url": "https://techcrunch.com/2026/07/14/superhumans-new-auto-draft-feature-almost-makes-me-like-ai-replies/"
+        },
+        {
+          "id": "e7b5eb2203b44b8c",
+          "day": "2026-07-10",
+          "title": "I think I have LLM burnout",
+          "url": "https://www.alecscollon.com/blog/llm-burnout/"
+        },
+        {
+          "id": "0874d917e2c203d7",
+          "day": "2026-07-08",
+          "title": "Manage AI applications on Mac with Jamf’s AI Governance and Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/manage-ai-applications-on-mac-with-jamf-ai-governance-and-amazon-bedrock/"
+        },
+        {
+          "id": "b3b0e8e75e583bce",
+          "day": "2026-07-08",
+          "title": "Industry Classification of GitHub Repositories Using the North American Industry Classification System (NAICS)",
+          "url": "https://arxiv.org/abs/2607.06505v1"
+        },
+        {
+          "id": "3e45bfd23848eed3",
+          "day": "2026-07-07",
+          "title": "The AI Superforecasters Are Here",
+          "url": "https://www.astralcodexten.com/p/the-ai-superforecasters-are-here"
+        },
+        {
+          "id": "402d2b6a6b6cbc52",
+          "day": "2026-07-03",
+          "title": "Distributed Attacks in Persistent-State AI Control",
+          "url": "https://arxiv.org/abs/2607.02514v1"
+        },
+        {
+          "id": "1f01612ab0593820",
+          "day": "2026-07-03",
+          "title": "The Download: a startup has a solution for AI’s groupthink problem",
+          "url": "https://www.technologyreview.com/2026/07/02/1140027/the-download-ai-groupthink-llms/"
+        },
+        {
+          "id": "f8a707d9ac993687",
+          "day": "2026-07-03",
+          "title": "Claude-real-video － any LLM can watch a video",
+          "url": "https://github.com/HUANGCHIHHUNGLeo/claude-real-video"
+        },
+        {
+          "id": "6af31c8dd9460df8",
+          "day": "2026-07-02",
+          "title": "Restaurants can now accept orders placed directly from ChatGPT and Claude thanks to Square's new, low-fee, no setup integration",
+          "url": "https://venturebeat.com/technology/restaurants-can-now-accept-orders-placed-directly-from-chatgpt-and-claude-thanks-to-squares-new-low-fee-no-setup-integration"
+        }
+      ],
+      "top_benchmarks": [],
+      "pricing": [],
+      "strengths_ko": [
+        "예측시장 수익 창출",
+        "멀티에이전트 리서치"
+      ],
+      "weaknesses_ko": [
+        "분산 공격 방어 제한",
+        "낮은 창의성",
+        "높은 예측 가능성"
+      ],
+      "article_count": 9
+    },
+    {
+      "model": "GPT-5",
+      "latest_version": "GPT-5.6 Sol",
+      "latest_seen": "2026-07-14",
+      "articles": [
+        {
+          "id": "b1648634e46181df",
+          "day": "2026-07-14",
+          "title": "OpenAI GPT-5.6 Sol, Terra, and Luna are now generally available on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/openai-gpt-5-6-sol-terra-and-luna-are-now-generally-available-on-amazon-bedrock/"
+        },
+        {
+          "id": "6340c21e25cd51fb",
+          "day": "2026-07-13",
+          "title": "Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper",
+          "url": "https://ploy.ai/blog/migrating-a-production-ai-agent-to-gpt-5-6"
+        },
+        {
+          "id": "b47d984e1b1c5747",
+          "day": "2026-07-11",
+          "title": "OpenAI introduces ChatGPT Work, a cloud-based AI agent that manages tasks across email, Slack and calendars",
+          "url": "https://venturebeat.com/technology/openai-introduces-chatgpt-work-a-cloud-based-ai-agent-that-manages-tasks-across-email-slack-and-calendars"
+        },
+        {
+          "id": "07aa5a8a45a2217e",
+          "day": "2026-07-10",
+          "title": "GPT-5.5 Bio Bug Bounty",
+          "url": "https://openai.com/index/bio-bug-bounty"
+        },
+        {
+          "id": "b98a594ec40e8f26",
+          "day": "2026-07-10",
+          "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
+          "url": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot"
+        },
+        {
+          "id": "40c4cf9177d51c76",
+          "day": "2026-07-10",
+          "title": "OpenAI launches its new family of models with GPT-5.6",
+          "url": "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6/"
+        },
+        {
+          "id": "5390181be54fda4b",
+          "day": "2026-07-10",
+          "title": "OpenAI says GPT 5.6 is the ‘preferred model’ for Microsoft Copilot 365 amid breakup chatter",
+          "url": "https://techcrunch.com/2026/07/09/openai-says-gpt-5-6-is-the-preferred-model-for-microsoft-copilot-amid-breakup-chatter/"
+        },
+        {
+          "id": "7c72cfe98840606a",
+          "day": "2026-07-10",
+          "title": "The Download: Claude’s inner workings and OpenAI’s “super app”",
+          "url": "https://www.technologyreview.com/2026/07/10/1140316/the-download-anthropic-claude-hidden-space-openai-super-app/"
+        },
+        {
+          "id": "e19fbb75eb44457e",
+          "day": "2026-07-09",
+          "title": "GPT-5.6: Frontier intelligence that scales with your ambition",
+          "url": "https://openai.com/index/gpt-5-6"
+        },
+        {
+          "id": "3fb14968493dc682",
+          "day": "2026-07-09",
+          "title": "Introducing GPT-Live",
+          "url": "https://openai.com/index/introducing-gpt-live"
+        },
+        {
+          "id": "f2a88ed8a71182b8",
+          "day": "2026-07-09",
+          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
+          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
+        },
+        {
+          "id": "9cf9c4c94b41cfdc",
+          "day": "2026-07-09",
+          "title": "OpenAI rolls out GPT-5.6 after government green light — and announces ‘ChatGPT Work’",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work"
+        },
+        {
+          "id": "3d6e846281ffa14f",
+          "day": "2026-07-09",
+          "title": "Google updates Android Bench with new LLMs, but Gemini still lags behind",
+          "url": "https://arstechnica.com/google/2026/07/google-revamps-android-ai-dev-benchmark-adds-fable-5-and-other-agents/"
+        },
+        {
+          "id": "3509861ced217170",
+          "day": "2026-07-06",
+          "title": "GPT-5.5 Codex reasoning-token clustering may be leading to degraded performance",
+          "url": "https://github.com/openai/codex/issues/30364"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "Artificial Analysis Coding Agent Index",
+          "score": "Fable보다 2.8포인트 높음",
+          "article_id": "40c4cf9177d51c76"
+        }
+      ],
+      "pricing": [
+        {
+          "unit": "input",
+          "value": "$1~$5",
+          "article_id": "40c4cf9177d51c76"
+        },
+        {
+          "unit": "output",
+          "value": "$6~$30",
+          "article_id": "40c4cf9177d51c76"
+        }
+      ],
+      "strengths_ko": [
+        "토큰당 지능 향상",
+        "비용 효율성 개선",
+        "온디맨드 성능 개선"
+      ],
+      "weaknesses_ko": [
+        "추론 토큰 클러스터링",
+        "복잡한 작업 성능 저하",
+        "생물학적 해악 정보 생성 위험"
+      ],
+      "article_count": 14
+    },
+    {
+      "model": "Whisper",
+      "latest_version": "Whisper-tiny",
+      "latest_seen": "2026-07-14",
+      "articles": [
+        {
+          "id": "32d1397d1c211745",
+          "day": "2026-07-14",
+          "title": "Casting Everything to Online API Services? A Survey of Integrating Localized Speech Recognition Models in Robotic Systems",
+          "url": "https://arxiv.org/abs/2607.11792v1"
+        },
+        {
+          "id": "288ba38ae1c997c8",
+          "day": "2026-07-07",
+          "title": "REDDIT: Correcting Model-Generated Timestamp Drift in ASR without Forgetting via Replay-Based Distribution Editing",
+          "url": "https://arxiv.org/abs/2607.05364v1"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "긴 무음 구간 정렬 정확도",
+          "score": "38.7% → 95.0%",
+          "article_id": "288ba38ae1c997c8"
+        }
+      ],
+      "pricing": [],
+      "strengths_ko": [
+        "로컬라이즈된 배포",
+        "오픈소스"
+      ],
+      "weaknesses_ko": [
+        "타임스탐프 표류"
+      ],
+      "article_count": 2
     },
     {
       "model": "Qwen",
@@ -918,73 +1014,6 @@
         "토큰 효율성 문제"
       ],
       "article_count": 5
-    },
-    {
-      "model": "GPT-4",
-      "latest_version": "GPT-4o",
-      "latest_seen": "2026-07-10",
-      "articles": [
-        {
-          "id": "e7b5eb2203b44b8c",
-          "day": "2026-07-10",
-          "title": "I think I have LLM burnout",
-          "url": "https://www.alecscollon.com/blog/llm-burnout/"
-        },
-        {
-          "id": "0874d917e2c203d7",
-          "day": "2026-07-08",
-          "title": "Manage AI applications on Mac with Jamf’s AI Governance and Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/manage-ai-applications-on-mac-with-jamf-ai-governance-and-amazon-bedrock/"
-        },
-        {
-          "id": "b3b0e8e75e583bce",
-          "day": "2026-07-08",
-          "title": "Industry Classification of GitHub Repositories Using the North American Industry Classification System (NAICS)",
-          "url": "https://arxiv.org/abs/2607.06505v1"
-        },
-        {
-          "id": "3e45bfd23848eed3",
-          "day": "2026-07-07",
-          "title": "The AI Superforecasters Are Here",
-          "url": "https://www.astralcodexten.com/p/the-ai-superforecasters-are-here"
-        },
-        {
-          "id": "402d2b6a6b6cbc52",
-          "day": "2026-07-03",
-          "title": "Distributed Attacks in Persistent-State AI Control",
-          "url": "https://arxiv.org/abs/2607.02514v1"
-        },
-        {
-          "id": "1f01612ab0593820",
-          "day": "2026-07-03",
-          "title": "The Download: a startup has a solution for AI’s groupthink problem",
-          "url": "https://www.technologyreview.com/2026/07/02/1140027/the-download-ai-groupthink-llms/"
-        },
-        {
-          "id": "f8a707d9ac993687",
-          "day": "2026-07-03",
-          "title": "Claude-real-video － any LLM can watch a video",
-          "url": "https://github.com/HUANGCHIHHUNGLeo/claude-real-video"
-        },
-        {
-          "id": "6af31c8dd9460df8",
-          "day": "2026-07-02",
-          "title": "Restaurants can now accept orders placed directly from ChatGPT and Claude thanks to Square's new, low-fee, no setup integration",
-          "url": "https://venturebeat.com/technology/restaurants-can-now-accept-orders-placed-directly-from-chatgpt-and-claude-thanks-to-squares-new-low-fee-no-setup-integration"
-        }
-      ],
-      "top_benchmarks": [],
-      "pricing": [],
-      "strengths_ko": [
-        "예측시장 수익 창출",
-        "멀티에이전트 리서치"
-      ],
-      "weaknesses_ko": [
-        "분산 공격 방어 제한",
-        "낮은 창의성",
-        "높은 예측 가능성"
-      ],
-      "article_count": 8
     },
     {
       "model": "Stable Diffusion",
