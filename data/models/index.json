@@ -1,13 +1,25 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-14T16:22:00.125824+00:00",
+  "generated_at": "2026-07-15T11:27:52.059295+00:00",
   "lookback_days": 60,
   "models": [
     {
       "model": "Gemini",
       "latest_version": "Gemini 3.5 Flash",
-      "latest_seen": "2026-07-14",
+      "latest_seen": "2026-07-15",
       "articles": [
+        {
+          "id": "18cba73af654e0e4",
+          "day": "2026-07-15",
+          "title": "Audio-Native Speech Recognition with a Frozen Discrete-Diffusion Language Model",
+          "url": "https://arxiv.org/abs/2607.13013v1"
+        },
+        {
+          "id": "56fcab63e0ff1f30",
+          "day": "2026-07-15",
+          "title": "Scaling UX testing with Amazon Nova Act: A new approach to user flow analysis",
+          "url": "https://aws.amazon.com/blogs/machine-learning/scaling-ux-testing-with-amazon-nova-act-a-new-approach-to-user-flow-analysis/"
+        },
         {
           "id": "13f77bbb5cb94408",
           "day": "2026-07-14",
@@ -123,7 +135,13 @@
           "url": "https://techcrunch.com/2026/07/01/gemini-spark-googles-agentic-assistant-is-now-available-on-mac/"
         }
       ],
-      "top_benchmarks": [],
+      "top_benchmarks": [
+        {
+          "name": "LibriSpeech",
+          "score": "6.6% 단어 오류율",
+          "article_id": "18cba73af654e0e4"
+        }
+      ],
       "pricing": [],
       "strengths_ko": [
         "컴퓨터 사용 기능",
@@ -135,13 +153,31 @@
         "낮은 신뢰성",
         "스마트홈 실시간 추론 부족"
       ],
-      "article_count": 19
+      "article_count": 21
     },
     {
       "model": "Claude",
       "latest_version": "Claude Opus",
-      "latest_seen": "2026-07-14",
+      "latest_seen": "2026-07-15",
       "articles": [
+        {
+          "id": "7d750629fe20f395",
+          "day": "2026-07-15",
+          "title": "The One-Word Census: Answer-Choice Conformity Across 44 Language Models",
+          "url": "https://arxiv.org/abs/2607.12796v1"
+        },
+        {
+          "id": "682567f97113ad33",
+          "day": "2026-07-15",
+          "title": "Evaluating Large Language Models on Misconceptions in Multi-Turn Medical Conversations",
+          "url": "https://arxiv.org/abs/2607.12884v1"
+        },
+        {
+          "id": "56fcab63e0ff1f30",
+          "day": "2026-07-15",
+          "title": "Scaling UX testing with Amazon Nova Act: A new approach to user flow analysis",
+          "url": "https://aws.amazon.com/blogs/machine-learning/scaling-ux-testing-with-amazon-nova-act-a-new-approach-to-user-flow-analysis/"
+        },
         {
           "id": "0221b1d0649ec5f2",
           "day": "2026-07-14",
@@ -490,6 +526,16 @@
           "name": "Android Bench",
           "score": "84.5%",
           "article_id": "3d6e846281ffa14f"
+        },
+        {
+          "name": "ThReadMed-QA (초기 질문)",
+          "score": "약 85%",
+          "article_id": "682567f97113ad33"
+        },
+        {
+          "name": "ThReadMed-QA (2턴 이후)",
+          "score": "약 50%",
+          "article_id": "682567f97113ad33"
         }
       ],
       "pricing": [
@@ -519,94 +565,19 @@
         "코드 수정을 통한 제한 우회",
         "탈옥 취약점"
       ],
-      "article_count": 57
-    },
-    {
-      "model": "Llama",
-      "latest_version": "Llama-3.1-8B",
-      "latest_seen": "2026-07-14",
-      "articles": [
-        {
-          "id": "7ed805404bb138bb",
-          "day": "2026-07-14",
-          "title": "Production and Perception in LLMs: A Token Probability Approach",
-          "url": "https://arxiv.org/abs/2607.11703v1"
-        },
-        {
-          "id": "22c05f221ee32a6f",
-          "day": "2026-07-13",
-          "title": "Self-Guided Test-Time Training for Long-Context LLMs",
-          "url": "https://arxiv.org/abs/2607.09415v1"
-        },
-        {
-          "id": "cb2a6ad32917a08e",
-          "day": "2026-07-09",
-          "title": "PALS: Percentile-Aware Layerwise Sparsity for LLM Pruning",
-          "url": "https://arxiv.org/abs/2607.07557v1"
-        },
-        {
-          "id": "965618c0123d8a71",
-          "day": "2026-07-09",
-          "title": "The Key to Going Linear: Analysis-Driven Transformer Linearization",
-          "url": "https://arxiv.org/abs/2607.07706v1"
-        },
-        {
-          "id": "d36a96539b184b32",
-          "day": "2026-07-08",
-          "title": "Doomed from the Start: Early Abort of LLM Agent Episodes via a Recall-Controlled Probe Cascade",
-          "url": "https://arxiv.org/abs/2607.06503v1"
-        },
-        {
-          "id": "ddca28235bd25f8a",
-          "day": "2026-07-03",
-          "title": "ReContext: Recursive Evidence Replay as LLM Harness for Long-Context Reasoning",
-          "url": "https://arxiv.org/abs/2607.02509v1"
-        },
-        {
-          "id": "6fcb01f9e95e7d01",
-          "day": "2026-07-02",
-          "title": "Meta, like SpaceX, looks to turn excess AI compute into cash",
-          "url": "https://techcrunch.com/2026/07/01/meta-like-spacex-looks-to-turn-excess-ai-compute-into-cash/"
-        },
-        {
-          "id": "bd1bd59784866649",
-          "day": "2026-07-02",
-          "title": "Pair Nova 2 Lite with Claude for cost-optimized document processing",
-          "url": "https://aws.amazon.com/blogs/machine-learning/pair-nova-2-lite-with-claude-for-cost-optimized-document-processing/"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "Perplexity (50% sparsity)",
-          "score": "10.96",
-          "article_id": "cb2a6ad32917a08e"
-        },
-        {
-          "name": "MMLU",
-          "score": "우수",
-          "article_id": "965618c0123d8a71"
-        },
-        {
-          "name": "LongBench-v2",
-          "score": "최대 15% 상대 성능 향상",
-          "article_id": "22c05f221ee32a6f"
-        }
-      ],
-      "pricing": [],
-      "strengths_ko": [
-        "선형화된 복잡도",
-        "장문맥 검색"
-      ],
-      "weaknesses_ko": [
-        "프루닝 효과 미미"
-      ],
-      "article_count": 8
+      "article_count": 60
     },
     {
       "model": "GPT-4",
       "latest_version": "GPT-4o",
-      "latest_seen": "2026-07-14",
+      "latest_seen": "2026-07-15",
       "articles": [
+        {
+          "id": "7d750629fe20f395",
+          "day": "2026-07-15",
+          "title": "The One-Word Census: Answer-Choice Conformity Across 44 Language Models",
+          "url": "https://arxiv.org/abs/2607.12796v1"
+        },
         {
           "id": "2d062ff1a86a8f35",
           "day": "2026-07-14",
@@ -666,20 +637,33 @@
       "pricing": [],
       "strengths_ko": [
         "예측시장 수익 창출",
-        "멀티에이전트 리서치"
+        "멀티에이전트 리서치",
+        "답변 다양성 증가"
       ],
       "weaknesses_ko": [
         "분산 공격 방어 제한",
         "낮은 창의성",
         "높은 예측 가능성"
       ],
-      "article_count": 9
+      "article_count": 10
     },
     {
       "model": "GPT-5",
       "latest_version": "GPT-5.6 Sol",
-      "latest_seen": "2026-07-14",
+      "latest_seen": "2026-07-15",
       "articles": [
+        {
+          "id": "9f76f31d2847cf24",
+          "day": "2026-07-15",
+          "title": "OpenAI’s new flagship model deletes files on its own, people keep warning",
+          "url": "https://techcrunch.com/2026/07/14/openais-new-flagship-model-deletes-files-on-its-own-people-keep-warning/"
+        },
+        {
+          "id": "682567f97113ad33",
+          "day": "2026-07-15",
+          "title": "Evaluating Large Language Models on Misconceptions in Multi-Turn Medical Conversations",
+          "url": "https://arxiv.org/abs/2607.12884v1"
+        },
         {
           "id": "b1648634e46181df",
           "day": "2026-07-14",
@@ -770,6 +754,16 @@
           "name": "Artificial Analysis Coding Agent Index",
           "score": "Fable보다 2.8포인트 높음",
           "article_id": "40c4cf9177d51c76"
+        },
+        {
+          "name": "ThReadMed-QA (초기 질문)",
+          "score": "약 85%",
+          "article_id": "682567f97113ad33"
+        },
+        {
+          "name": "ThReadMed-QA (2턴 이후)",
+          "score": "약 50%",
+          "article_id": "682567f97113ad33"
         }
       ],
       "pricing": [
@@ -794,7 +788,143 @@
         "복잡한 작업 성능 저하",
         "생물학적 해악 정보 생성 위험"
       ],
-      "article_count": 14
+      "article_count": 16
+    },
+    {
+      "model": "Grok",
+      "latest_version": null,
+      "latest_seen": "2026-07-15",
+      "articles": [
+        {
+          "id": "07637df8cbed9afb",
+          "day": "2026-07-15",
+          "title": "SpaceXAI&#8217;s Grok programming tool was uploading its users&#8217; entire codebase to cloud storage",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/965600/spacexai-grok-build-repository-upload"
+        },
+        {
+          "id": "47a8b29856e6213b",
+          "day": "2026-07-09",
+          "title": "Lawsuit: Man used Grok to make 7K sex images of stepdaughter, then shot himself",
+          "url": "https://arstechnica.com/tech-policy/2026/07/lawsuit-grok-user-made-7k-child-sex-images-xai-only-reported-one-gang-rape-prompt/"
+        },
+        {
+          "id": "f2a88ed8a71182b8",
+          "day": "2026-07-09",
+          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
+          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
+        },
+        {
+          "id": "7bef597cf4bc9576",
+          "day": "2026-07-09",
+          "title": "SpaceX's Grok 4.5 launches at half the price of rivals — here's why that could rattle Anthropic and OpenAI",
+          "url": "https://venturebeat.com/technology/spacexs-grok-4-5-launches-at-half-the-price-of-rivals-heres-why-that-could-rattle-anthropic-and-openai"
+        }
+      ],
+      "top_benchmarks": [],
+      "pricing": [
+        {
+          "unit": "input/1M tokens",
+          "value": "$2",
+          "article_id": "f2a88ed8a71182b8"
+        },
+        {
+          "unit": "output/1M tokens",
+          "value": "$6",
+          "article_id": "f2a88ed8a71182b8"
+        }
+      ],
+      "strengths_ko": [
+        "토큰 효율성 2배 우수",
+        "경쟁력 있는 가격",
+        "코딩 특화"
+      ],
+      "weaknesses_ko": [
+        "아동 성적 학대 이미지 생성 차단 실패",
+        "강간 프롬프트 차단 실패",
+        "csam 신고 후 수사 협력 거부"
+      ],
+      "article_count": 4
+    },
+    {
+      "model": "Llama",
+      "latest_version": "Llama-3.1-8B",
+      "latest_seen": "2026-07-14",
+      "articles": [
+        {
+          "id": "7ed805404bb138bb",
+          "day": "2026-07-14",
+          "title": "Production and Perception in LLMs: A Token Probability Approach",
+          "url": "https://arxiv.org/abs/2607.11703v1"
+        },
+        {
+          "id": "22c05f221ee32a6f",
+          "day": "2026-07-13",
+          "title": "Self-Guided Test-Time Training for Long-Context LLMs",
+          "url": "https://arxiv.org/abs/2607.09415v1"
+        },
+        {
+          "id": "cb2a6ad32917a08e",
+          "day": "2026-07-09",
+          "title": "PALS: Percentile-Aware Layerwise Sparsity for LLM Pruning",
+          "url": "https://arxiv.org/abs/2607.07557v1"
+        },
+        {
+          "id": "965618c0123d8a71",
+          "day": "2026-07-09",
+          "title": "The Key to Going Linear: Analysis-Driven Transformer Linearization",
+          "url": "https://arxiv.org/abs/2607.07706v1"
+        },
+        {
+          "id": "d36a96539b184b32",
+          "day": "2026-07-08",
+          "title": "Doomed from the Start: Early Abort of LLM Agent Episodes via a Recall-Controlled Probe Cascade",
+          "url": "https://arxiv.org/abs/2607.06503v1"
+        },
+        {
+          "id": "ddca28235bd25f8a",
+          "day": "2026-07-03",
+          "title": "ReContext: Recursive Evidence Replay as LLM Harness for Long-Context Reasoning",
+          "url": "https://arxiv.org/abs/2607.02509v1"
+        },
+        {
+          "id": "6fcb01f9e95e7d01",
+          "day": "2026-07-02",
+          "title": "Meta, like SpaceX, looks to turn excess AI compute into cash",
+          "url": "https://techcrunch.com/2026/07/01/meta-like-spacex-looks-to-turn-excess-ai-compute-into-cash/"
+        },
+        {
+          "id": "bd1bd59784866649",
+          "day": "2026-07-02",
+          "title": "Pair Nova 2 Lite with Claude for cost-optimized document processing",
+          "url": "https://aws.amazon.com/blogs/machine-learning/pair-nova-2-lite-with-claude-for-cost-optimized-document-processing/"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "Perplexity (50% sparsity)",
+          "score": "10.96",
+          "article_id": "cb2a6ad32917a08e"
+        },
+        {
+          "name": "MMLU",
+          "score": "우수",
+          "article_id": "965618c0123d8a71"
+        },
+        {
+          "name": "LongBench-v2",
+          "score": "최대 15% 상대 성능 향상",
+          "article_id": "22c05f221ee32a6f"
+        }
+      ],
+      "pricing": [],
+      "strengths_ko": [
+        "선형화된 복잡도",
+        "장문맥 검색"
+      ],
+      "weaknesses_ko": [
+        "프루닝 효과 미미"
+      ],
+      "article_count": 8
     },
     {
       "model": "Whisper",
@@ -1041,55 +1171,6 @@
       ],
       "weaknesses_ko": [],
       "article_count": 1
-    },
-    {
-      "model": "Grok",
-      "latest_version": null,
-      "latest_seen": "2026-07-09",
-      "articles": [
-        {
-          "id": "47a8b29856e6213b",
-          "day": "2026-07-09",
-          "title": "Lawsuit: Man used Grok to make 7K sex images of stepdaughter, then shot himself",
-          "url": "https://arstechnica.com/tech-policy/2026/07/lawsuit-grok-user-made-7k-child-sex-images-xai-only-reported-one-gang-rape-prompt/"
-        },
-        {
-          "id": "f2a88ed8a71182b8",
-          "day": "2026-07-09",
-          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
-          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
-        },
-        {
-          "id": "7bef597cf4bc9576",
-          "day": "2026-07-09",
-          "title": "SpaceX's Grok 4.5 launches at half the price of rivals — here's why that could rattle Anthropic and OpenAI",
-          "url": "https://venturebeat.com/technology/spacexs-grok-4-5-launches-at-half-the-price-of-rivals-heres-why-that-could-rattle-anthropic-and-openai"
-        }
-      ],
-      "top_benchmarks": [],
-      "pricing": [
-        {
-          "unit": "input/1M tokens",
-          "value": "$2",
-          "article_id": "f2a88ed8a71182b8"
-        },
-        {
-          "unit": "output/1M tokens",
-          "value": "$6",
-          "article_id": "f2a88ed8a71182b8"
-        }
-      ],
-      "strengths_ko": [
-        "토큰 효율성 2배 우수",
-        "경쟁력 있는 가격",
-        "코딩 특화"
-      ],
-      "weaknesses_ko": [
-        "아동 성적 학대 이미지 생성 차단 실패",
-        "강간 프롬프트 차단 실패",
-        "csam 신고 후 수사 협력 거부"
-      ],
-      "article_count": 3
     },
     {
       "model": "Mistral",
