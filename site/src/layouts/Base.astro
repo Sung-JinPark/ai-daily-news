@@ -111,6 +111,29 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
       /* Hide horizontal scrollbar on the nav while keeping touch/scroll behavior */
       .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
       .no-scrollbar::-webkit-scrollbar { display: none; }
+      /* Low-volume notice: transient top-center toast that pops in then auto-dismisses */
+      #low-volume-toast {
+        position: fixed;
+        z-index: 60;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 92vw;
+        animation: lv-toast-in 0.35s ease-out;
+      }
+      #low-volume-toast.lv-hide {
+        opacity: 0;
+        transform: translate(-50%, -0.5rem);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      @keyframes lv-toast-in {
+        from { opacity: 0; transform: translate(-50%, -0.75rem); }
+        to   { opacity: 1; transform: translate(-50%, 0); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #low-volume-toast { animation: none; }
+        #low-volume-toast.lv-hide { transition: opacity 0.3s ease; transform: translateX(-50%); }
+      }
     </style>
   </head>
   <body class="min-h-screen bg-white text-ink antialiased selection:bg-accent/20">
@@ -169,13 +192,13 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
         </div>
       </nav>
     </header>
+    {showLowVolume && (
+      <div id="low-volume-toast" role="status" aria-live="polite" class="border border-accent/40 bg-white shadow-lg px-4 py-2.5 text-[12.5px] text-ink/80 flex flex-wrap items-center gap-2">
+        <span class="kicker text-accent">저조 수집</span>
+        <span>오늘 수집된 기사가 평소보다 적습니다 ({_latestForBanner?.latest_count ?? 0}건 · 임계값 {_latestForBanner?.low_volume_floor ?? 25}). 소스 상태를 확인 중입니다.</span>
+      </div>
+    )}
     <main id="main" class="max-w-6xl mx-auto px-4 py-10">
-      {showLowVolume && (
-        <div class="mb-6 border border-accent/40 bg-accent/[0.04] px-4 py-2 text-[12.5px] text-ink/75 flex flex-wrap items-center gap-2">
-          <span class="kicker text-accent">저조 수집</span>
-          <span>오늘 수집된 기사가 평소보다 적습니다 ({_latestForBanner?.latest_count ?? 0}건 · 임계값 {_latestForBanner?.low_volume_floor ?? 25}). 소스 상태를 확인 중입니다.</span>
-        </div>
-      )}
       <slot />
     </main>
     <script is:inline>
@@ -218,6 +241,17 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
           if (el) hide();
         });
         document.addEventListener("scroll", hide, { passive: true });
+      })();
+    </script>
+    <script is:inline>
+      (function () {
+        var toast = document.getElementById("low-volume-toast");
+        if (!toast) return;
+        // Show briefly on load, then fade out and remove — no persistent banner.
+        setTimeout(function () {
+          toast.classList.add("lv-hide");
+          setTimeout(function () { toast.remove(); }, 600);
+        }, 5000);
       })();
     </script>
     <footer class="border-t-2 border-ink mt-20">
