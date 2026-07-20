@@ -111,7 +111,8 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
       /* Hide horizontal scrollbar on the nav while keeping touch/scroll behavior */
       .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
       .no-scrollbar::-webkit-scrollbar { display: none; }
-      /* Low-volume notice: transient top-center toast that pops in then auto-dismisses */
+      /* Low-volume notice: transient top-center toast, shown once per session */
+      #low-volume-toast.lv-init { display: none; }
       #low-volume-toast {
         position: fixed;
         z-index: 60;
@@ -193,10 +194,31 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
       </nav>
     </header>
     {showLowVolume && (
-      <div id="low-volume-toast" role="status" aria-live="polite" class="border border-accent/40 bg-white shadow-lg px-4 py-2.5 text-[12.5px] text-ink/80 flex flex-wrap items-center gap-2">
-        <span class="kicker text-accent">저조 수집</span>
-        <span>오늘 수집된 기사가 평소보다 적습니다 ({_latestForBanner?.latest_count ?? 0}건 · 임계값 {_latestForBanner?.low_volume_floor ?? 25}). 소스 상태를 확인 중입니다.</span>
-      </div>
+      <Fragment>
+        <div id="low-volume-toast" role="status" aria-live="polite" class="lv-init border border-accent/40 bg-white shadow-lg px-4 py-2.5 text-[12.5px] text-ink/80 flex flex-wrap items-center gap-2">
+          <span class="kicker text-accent">저조 수집</span>
+          <span>오늘 수집된 기사가 평소보다 적습니다 ({_latestForBanner?.latest_count ?? 0}건 · 임계값 {_latestForBanner?.low_volume_floor ?? 25}). 소스 상태를 확인 중입니다.</span>
+        </div>
+        <script is:inline>
+          (function () {
+            var t = document.getElementById("low-volume-toast");
+            if (!t) return;
+            // 이번 세션에서 이미 봤으면 재노출하지 않음 (메뉴/페이지 이동 시 반복 방지).
+            // 초기 lv-init(display:none) 상태이므로 여기서 제거해도 깜빡임(flash) 없음.
+            var KEY = "lv-toast-seen", seen = false;
+            try {
+              seen = !!sessionStorage.getItem(KEY);
+              if (!seen) sessionStorage.setItem(KEY, "1");
+            } catch (e) { /* sessionStorage 불가 환경에선 그대로 1회 노출 */ }
+            if (seen) { t.remove(); return; }
+            t.classList.remove("lv-init"); // 최초 노출 — 표시 + 등장 애니메이션
+            setTimeout(function () {
+              t.classList.add("lv-hide");
+              setTimeout(function () { t.remove(); }, 600);
+            }, 5000);
+          })();
+        </script>
+      </Fragment>
     )}
     <main id="main" class="max-w-6xl mx-auto px-4 py-10">
       <slot />
@@ -241,17 +263,6 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
           if (el) hide();
         });
         document.addEventListener("scroll", hide, { passive: true });
-      })();
-    </script>
-    <script is:inline>
-      (function () {
-        var toast = document.getElementById("low-volume-toast");
-        if (!toast) return;
-        // Show briefly on load, then fade out and remove — no persistent banner.
-        setTimeout(function () {
-          toast.classList.add("lv-hide");
-          setTimeout(function () { toast.remove(); }, 600);
-        }, 5000);
       })();
     </script>
     <footer class="border-t-2 border-ink mt-20">
