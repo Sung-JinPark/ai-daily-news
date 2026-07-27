@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-27T12:37:09.798387+00:00",
+  "generated_at": "2026-07-27T17:04:04.199875+00:00",
   "lookback_days": 60,
   "models": [
     {
@@ -338,52 +338,22 @@
       "article_count": 47
     },
     {
-      "model": "Whisper",
-      "latest_version": "Whisper-tiny",
+      "model": "Claude",
+      "latest_version": "Claude Opus 5",
       "latest_seen": "2026-07-27",
       "articles": [
         {
-          "id": "7adac284fab47960",
+          "id": "7b68f4f0be7a0fcc",
           "day": "2026-07-27",
-          "title": "MEUSLI: a Multilingual Projector for LLM-based ASR and Beyond",
-          "url": "https://arxiv.org/abs/2607.22100v1"
+          "title": "Jul 27, 2026AnnouncementsCognizant and Anthropic expand their partnership to bring Claude to enterprise clients",
+          "url": "https://www.anthropic.com/news/cognizant-anthropic"
         },
         {
-          "id": "32d1397d1c211745",
-          "day": "2026-07-14",
-          "title": "Casting Everything to Online API Services? A Survey of Integrating Localized Speech Recognition Models in Robotic Systems",
-          "url": "https://arxiv.org/abs/2607.11792v1"
+          "id": "dc6139a81d32bc07",
+          "day": "2026-07-27",
+          "title": "Uh-oh: Some Claude shared conversations and Artifacts appear to be indexed and publicly accessible on Google Search",
+          "url": "https://venturebeat.com/technology/uh-oh-some-claude-shared-conversations-and-artifacts-appear-to-be-indexed-and-publicly-accessible-on-google-search"
         },
-        {
-          "id": "288ba38ae1c997c8",
-          "day": "2026-07-07",
-          "title": "REDDIT: Correcting Model-Generated Timestamp Drift in ASR without Forgetting via Replay-Based Distribution Editing",
-          "url": "https://arxiv.org/abs/2607.05364v1"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "긴 무음 구간 정렬 정확도",
-          "score": "38.7% → 95.0%",
-          "article_id": "288ba38ae1c997c8"
-        }
-      ],
-      "pricing": [],
-      "strengths_ko": [
-        "로컬라이즈된 배포",
-        "오픈소스",
-        "다국어 음성 인코딩"
-      ],
-      "weaknesses_ko": [
-        "타임스탐프 표류"
-      ],
-      "article_count": 3
-    },
-    {
-      "model": "Claude",
-      "latest_version": "Claude Opus 5",
-      "latest_seen": "2026-07-25",
-      "articles": [
         {
           "id": "c34a327604b5be4a",
           "day": "2026-07-25",
@@ -957,7 +927,49 @@
         "코드 수정을 통한 제한 우회",
         "탈옥 취약점"
       ],
-      "article_count": 88
+      "article_count": 90
+    },
+    {
+      "model": "Whisper",
+      "latest_version": "Whisper-tiny",
+      "latest_seen": "2026-07-27",
+      "articles": [
+        {
+          "id": "7adac284fab47960",
+          "day": "2026-07-27",
+          "title": "MEUSLI: a Multilingual Projector for LLM-based ASR and Beyond",
+          "url": "https://arxiv.org/abs/2607.22100v1"
+        },
+        {
+          "id": "32d1397d1c211745",
+          "day": "2026-07-14",
+          "title": "Casting Everything to Online API Services? A Survey of Integrating Localized Speech Recognition Models in Robotic Systems",
+          "url": "https://arxiv.org/abs/2607.11792v1"
+        },
+        {
+          "id": "288ba38ae1c997c8",
+          "day": "2026-07-07",
+          "title": "REDDIT: Correcting Model-Generated Timestamp Drift in ASR without Forgetting via Replay-Based Distribution Editing",
+          "url": "https://arxiv.org/abs/2607.05364v1"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "긴 무음 구간 정렬 정확도",
+          "score": "38.7% → 95.0%",
+          "article_id": "288ba38ae1c997c8"
+        }
+      ],
+      "pricing": [],
+      "strengths_ko": [
+        "로컬라이즈된 배포",
+        "오픈소스",
+        "다국어 음성 인코딩"
+      ],
+      "weaknesses_ko": [
+        "타임스탐프 표류"
+      ],
+      "article_count": 3
     },
     {
       "model": "GPT-4",
