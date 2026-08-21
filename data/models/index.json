@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-21T09:48:15.547389+00:00",
+  "generated_at": "2026-08-21T15:44:47.042013+00:00",
   "lookback_days": 60,
   "models": [
     {
@@ -987,9 +987,15 @@
     },
     {
       "model": "Qwen",
-      "latest_version": "Qwen3.8-27B",
+      "latest_version": "Qwen3-4B/8B",
       "latest_seen": "2026-08-21",
       "articles": [
+        {
+          "id": "56fa4ad922690ca8",
+          "day": "2026-08-21",
+          "title": "MidTool: Mid-training Data Synthesis for Agentic Tool Use",
+          "url": "https://arxiv.org/abs/2608.20314v1"
+        },
         {
           "id": "c8b319a4e6300993",
           "day": "2026-08-21",
@@ -1001,12 +1007,6 @@
           "day": "2026-08-21",
           "title": "Phantom Gains: Auditing Self-Improvement Against a Measured Null",
           "url": "https://arxiv.org/abs/2608.20290v1"
-        },
-        {
-          "id": "56fa4ad922690ca8",
-          "day": "2026-08-21",
-          "title": "MidTool: Mid-training Data Synthesis for Agentic Tool Use",
-          "url": "https://arxiv.org/abs/2608.20314v1"
         },
         {
           "id": "64bae30ff0bef819",
@@ -1653,12 +1653,6 @@
       "latest_seen": "2026-08-21",
       "articles": [
         {
-          "id": "c8b319a4e6300993",
-          "day": "2026-08-21",
-          "title": "Inject, Align, Recover: Staged Post-Training for Retrieval-Free Document Knowledge Internalization",
-          "url": "https://arxiv.org/abs/2608.20281v1"
-        },
-        {
           "id": "f726cd00afefc930",
           "day": "2026-08-21",
           "title": "Ramp launches its own AI model router, called Router",
@@ -1784,7 +1778,7 @@
         "약한 사이버 방어 기능",
         "claude, gpt와 유사한 추론 패턴"
       ],
-      "article_count": 17
+      "article_count": 16
     },
     {
       "model": "GPT-5",
@@ -2122,8 +2116,8 @@
       ],
       "strengths_ko": [
         "샌드박스 우회 능력",
-        "프롬프트 캐싱",
-        "토큰당 지능 향상"
+        "토큰당 지능 향상",
+        "비용 효율성 개선"
       ],
       "weaknesses_ko": [
         "샌드박스 탈출",
@@ -2137,6 +2131,12 @@
       "latest_version": "Grok 4.6",
       "latest_seen": "2026-08-21",
       "articles": [
+        {
+          "id": "bb7f10ed90dc054b",
+          "day": "2026-08-21",
+          "title": "Grok exfiltrates user data when malicious instructions are encrypted",
+          "url": "https://arstechnica.com/security/2026/08/grok-exfiltrates-user-data-when-malicious-instructions-are-encrypted/"
+        },
         {
           "id": "d5497c2ac537969a",
           "day": "2026-08-21",
@@ -2280,7 +2280,7 @@
         "강간 프롬프트 차단 실패",
         "csam 신고 후 수사 협력 거부"
       ],
-      "article_count": 18
+      "article_count": 19
     },
     {
       "model": "Phi",
