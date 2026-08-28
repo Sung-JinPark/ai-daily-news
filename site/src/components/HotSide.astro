@@ -55,12 +55,12 @@ const publishedLabel = article.published
         </>
       )}
     </div>
-    <div class="relative">
+    <div class="group/tip relative">
       <a
         href={article.url}
         target="_blank"
         rel="noopener noreferrer"
-        class="peer block group/title"
+        class="block group/title"
         aria-label={article.title_original}
       >
         <h3 class="font-serif text-[15px] font-bold leading-snug text-ink break-words group-hover/title:text-accent transition-colors">
@@ -70,7 +70,12 @@ const publishedLabel = article.published
       {article.summary_ko && (
         <div
           role="tooltip"
-          class="pointer-events-none invisible opacity-0 peer-hover:visible peer-hover:opacity-100 absolute z-30 top-full left-0 right-0 mt-2 p-3 bg-white border border-ink shadow-[4px_4px_0_0_rgba(10,10,10,0.08)] text-[12.5px] font-normal normal-case tracking-normal text-ink/85 leading-relaxed transition-opacity duration-150"
+          class="invisible opacity-0 group-hover/tip:visible group-hover/tip:opacity-100
+                 absolute z-[200] top-full left-0 right-0 mt-2 p-3 bg-white border border-ink
+                 shadow-[4px_4px_0_0_rgba(10,10,10,0.08)] text-[12.5px] font-normal normal-case
+                 tracking-normal text-ink/85 leading-relaxed transition-opacity duration-150
+                 select-text cursor-text
+                 before:content-[''] before:absolute before:-top-2 before:left-0 before:right-0 before:h-2"
         >
           {article.summary_ko}
         </div>
