@@ -1,0 +1,656 @@
+[
+  {
+    "id": "64670731f317ca88",
+    "cluster_id": "k005028",
+    "title_original": "Hidden Zillow listings created fake supply shock, raising NYC rents, lawsuit says",
+    "url": "https://arstechnica.com/tech-policy/2026/08/class-action-accuses-brokers-of-hiding-zillow-listings-driving-up-nyc-rents/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/GettyImages-922788110-1152x648-1787340488.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-21T20:10:50+00:00",
+    "fetched_at": "2026-08-22T09:29:03.781474+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "뉴욕 임차인들이 부동산중개 회사 Compass를 상대로 집단소송을 제기했습니다. Compass가 맨해튼 임대주택의 80% 이상을 통제하면서 Zillow 등 무료 플랫폼에서 수천 개의 리스팅을 의도적으로 숨겨 공급 부족을 조작하고, 이를 통해 중개 수수료(임대료 연동)를 올리려 했다는 주장입니다. Zillow는 이에 대응해 비공개 리스팅을 자사 플랫폼에서 제외하는 정책을 발표했고, Compass의 역소송은 법원에서 기각되었습니다.",
+    "insights_ko": [
+      "부동산 중개 시장의 정보 비대칭이 극단화되고 있습니다. 지난 10년간의 M&A를 통해 단일 기업이 맨해튼 임대 물량의 80%를 통제하면서, 시장 진입 구조 자체가 중개사의 수익 모델에 종속되는 상황이 드러났습니다.",
+      "AI 플랫폼의 정보 접근성 격차가 기존 산업 카르텔 문제를 증폭시키고 있습니다. Zillow 같은 무료 플랫폼이 시장 투명성을 제공하려 할 때, 기존 중개업의 이해관계가 정보 은폐로 맞서는 구도는 규제 당국의 관심을 받을 가능성이 높습니다.",
+      "이번 소송은 주택 공급 위기의 정책 초점을 '신규 건설'에서 '기존 공급의 정보 투명성'으로 옮길 수 있는 판례가 될 수 있습니다. 인플레이션 압박 속에서 시스템적 가격 조작에 대한 소비자 소송이 활발해질 징후입니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Compass monopoly accused of manipulating NYC rental supply via delisting strategy",
+    "tags": [
+      "규제"
+    ]
+  },
+  {
+    "id": "f9536ed64a389861",
+    "cluster_id": "k005024",
+    "title_original": "Reduce RAG costs on Amazon Bedrock with query-aware compression",
+    "url": "https://aws.amazon.com/blogs/machine-learning/reduce-rag-costs-on-amazon-bedrock-with-query-aware-compression/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/08/19/ML-21148-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-08-21T16:59:15+00:00",
+    "fetched_at": "2026-08-22T09:29:03.781747+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS는 Amazon Bedrock에서 RAG 비용을 줄이기 위해 쿼리 인식 압축(query-aware compression) 패턴을 제시했습니다. 검색으로 얻은 대량의 컨텍스트를 소형 모델(Claude Haiku)로 사전 필터링한 후 대형 모델(Claude Sonnet)에 전달함으로써 입력 토큰 수를 크게 감소시키면서도 답변 품질을 유지합니다. Lambda 함수 내에서 두 단계 캐스케이드를 구성하는 방식으로, 기존 Bedrock 기능(프롬프트 캐싱, 지능형 라우팅, Rerank API)과 조합해 누적 비용 절감 효과를 얻을 수 있습니다.",
+    "insights_ko": [
+      "토큰 기반 가격 모델에서 RAG 비용의 핵심이 검색 후 컨텍스트 크기라는 점을 직접 다룬 실용적 접근입니다. 소형-대형 모델 간 가격 격차가 크고 압축률이 높을수록 경제성이 우월하므로, Haiku-Sonnet 같은 계층화된 모델 포트폴리오의 비즈니스 가치가 명확해집니다.",
+      "기술적으로는 RAG 파이프라인의 '중간 최적화' 전략으로, 벡터 검색과 생성 단계 사이에 추론 스텝을 삽입하되 레이턴시 증가와 비용 절감의 트레이드오프를 정량화할 수 있는 구조입니다. 프롬프트 캐싱·지능형 라우팅과의 조합 언급은 AWS가 RAG 스택 전체에서 토큰 최적화를 지속적으로 가능하게 하려는 전략을 시사합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Query-aware compression cuts RAG input tokens and costs on Amazon Bedrock",
+    "tags": [
+      "Amazon",
+      "Claude",
+      "RAG"
+    ]
+  },
+  {
+    "id": "d19c644c1369e2e9",
+    "cluster_id": "k005023",
+    "title_original": "Govern AI agent tool access with Amazon Bedrock AgentCore Gateway",
+    "url": "https://aws.amazon.com/blogs/machine-learning/govern-ai-agent-tool-access-with-amazon-bedrock-agentcore-gateway/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/08/14/ML-21003-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-08-21T17:02:35+00:00",
+    "fetched_at": "2026-08-22T09:29:03.782013+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS는 Amazon Bedrock AgentCore Gateway를 통해 AI 에이전트의 도구 접근 권한을 중앙에서 관리할 수 있는 솔루션을 제시했습니다. 조직의 AI 에이전트들이 내부 도구에 분산되어 접근할 때 발생하는 자격증명 유출, 정책 불일치, 감시 공백 같은 보안 위험을 단계적으로 해결하는 4단계 성숙도 여정(연결→제어→카탈로그→강화)을 제안합니다. AgentCore Gateway, AgentCore Identity, AgentCore Policy를 통해 단일 진입점에서 인증·인가·감사를 일원화합니다.",
+    "insights_ko": [
+      "Model Context Protocol(MCP) 표준화로 에이전트-도구 통합이 가속화되는 가운데, AWS가 엔터프라이즈급 거버넌스 레이어를 먼저 제공함으로써 기업의 채택 진입장벽을 낮추고 있습니다. 특히 자격증명 분산, 정책 드리프트, 감시 공백이라는 기술적 고통점을 프레임화한 것이 조직의 실제 필요를 잘 반영합니다.",
+      "4단계 성숙도 모델(Scope 1~4)은 조직이 작은 규모(1~20명)에서 대규모(1,000명 이상)로 성장하면서 점진적으로 통제를 강화하도록 설계되었으며, 이는 엔터프라이즈 AI 거버넌스가 한 번에 완성되는 것이 아니라 통증 신호에 따라 진화한다는 실질적 통찰을 반영합니다.",
+      "AWS의 에이전트 도구 거버넌스 전략은 Kong Gateway, Open Policy Agent, NeMo Guardrails 같은 오픈소스 선택지와의 공존을 명시적으로 인정하면서도 AWS Cognito, Cedar RBAC, CloudTrail, Bedrock Guardrails를 통해 통합 스택의 이점을 강조하는 포지셔닝입니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "AWS launches AgentCore Gateway for enterprise AI agent access governance",
+    "tags": [
+      "에이전트",
+      "MCP",
+      "보안"
+    ]
+  },
+  {
+    "id": "7dec1f4aaf8582b6",
+    "cluster_id": "k005027",
+    "title_original": "Thunder + fiber-optic cabling used for seismic imaging",
+    "url": "https://arstechnica.com/science/2026/08/researchers-use-thunderquakes-to-study-structure-of-earths-surface/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/GettyImages-173019376-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-21T20:26:46+00:00",
+    "fetched_at": "2026-08-22T09:29:03.782306+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "펜실베이니아 주립대 연구팀이 천둥의 지진파 신호를 해석하는 모델을 개발해 지하 지형 영상화에 활용하는 방법을 제시했습니다. 번개가 만드는 초고열 플라즈마 기둥의 각 영역에서 복합적인 충격파가 발생하며 서로 간섭하는 현상을 수학적으로 모델링하여 '천둥지진'의 신호를 정리할 수 있게 됐습니다. 광섬유 케이블로 지표 진동을 감지하는 기술과 결합하면 지진 대기 없이도 지하 구조를 원격 탐사할 수 있는 가능성을 열었습니다.",
+    "insights_ko": [
+      "기존 지진 탐사는 자연지진 발생을 기다리거나 폭발물로 의도적 진동을 유발해야 했는데, 천둥이라는 자연 현상을 저비용 신호원으로 활용할 수 있다는 점이 탐사 접근성을 낮춥니다. 특히 광섬유 DAS(Distributed Acoustic Sensing) 기술의 확산과 맞물리면 실시간 모니터링 인프라로 확장될 여지가 있습니다.",
+      "신호 복잡성을 해석하는 물리 모델 개발이 핵심으로, 이는 단순히 지구과학 분야를 넘어 극한 환경(화산, 빙하, 심해)에서의 음향 신호 처리 및 비전통 센싱 기법 개발에 영향을 미칠 수 있는 기초 기술입니다.",
+      "향후 광섬유 케이블을 폐기된 광통신망이나 신규 기반시설에 통합하는 경우, 비용 효율적인 분산형 지진 모니터링 네트워크 구축이 현실화되어 화산 활동, 지반 침하, 에너지 저수지 추적 등 다양한 지질공학 응용으로 연결될 것으로 예상됩니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Thunderstorm seismic signals unlock cheap subsurface imaging via fiber optics",
+    "tags": [
+      "검색"
+    ]
+  },
+  {
+    "id": "c272d46401491123",
+    "cluster_id": "k005031",
+    "title_original": "Chinese regulators tell Tesla to fix nearly 3 million cars",
+    "url": "https://arstechnica.com/cars/2026/08/chinese-regulators-tell-tesla-to-fix-nearly-3-million-cars/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/GettyImages-2290777035-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-21T18:07:15+00:00",
+    "fetched_at": "2026-08-22T09:29:03.782506+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "중국 규제 당국이 테슬라에 Model 3과 Model Y 약 298만 대에 대한 대규모 시정 명령을 내렸습니다. 비상 상황에서 전력 차단 시 후문을 여는 방법을 명확히 하는 경고 라벨 부착과 충돌 시 자동으로 모든 창문을 내리는 소프트웨어 업데이트가 요구됩니다. 추가로 274만 대에 대해서는 운전자 모니터링 시스템을 토크 센서에서 실내 카메라 기반 시선 추적으로 개선하는 소프트웨어 업데이트가 필수화됩니다.",
+    "insights_ko": [
+      "전자식 도어락 화재 사고로 인한 탈출 불가 사건이 늘면서 중국이 자동차 안전에 대해 선제적으로 규제를 강화하고 있으며, 테슬라는 이미 판매된 차량까지 소급 적용되는 물리적·소프트웨어 개선을 감수해야 합니다. 이는 신규 차량 기준만 적용되는 다른 국가와는 다른 중국식 규제 특성을 보여줍니다.",
+      "운전자 모니터링 카메라 업데이트는 기술적으로 진전이지만, 중국 테슬라 소유자들이 인형 머리로 카메라를 우회한 사례가 보도된 만큼 실제 안전 효과와 사용자 개인정보 우려 사이의 긴장이 계속될 가능성이 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "China mandates Tesla fix 3M cars with safety labels and driver monitoring updates",
+    "tags": [
+      "자율주행",
+      "안전성"
+    ]
+  },
+  {
+    "id": "1ba05c9ce7a05432",
+    "cluster_id": "k005025",
+    "title_original": "Accelerating aircraft IFEC diagnostics with agentic AI on AWS",
+    "url": "https://aws.amazon.com/blogs/machine-learning/accelerating-aircraft-ifec-diagnostics-with-agentic-ai-on-aws/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/08/18/ML-20350-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-08-21T16:57:01+00:00",
+    "fetched_at": "2026-08-22T09:29:03.782734+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Panasonic Avionics가 AWS와 협력해 항공기 기내 엔터테인먼트 및 통신(IFEC) 시스템의 고장 진단을 자동화하는 에이전트 AI 솔루션을 구축했습니다. Amazon Bedrock, SageMaker, Glue를 활용한 다중 에이전트 워크플로우가 수천 개의 배포 구성 전반에서 로그와 메트릭을 자동 상관분석하여 진단 시간을 획기적으로 단축했습니다. 이 시스템은 수동 검토에 의존하던 평균 탐지 시간(MTTD)과 평균 해결 시간(MTTR)을 개선하면서 엔지니어들이 근본적인 신뢰성 개선에 집중할 수 있게 합니다.",
+    "insights_ko": [
+      "대규모 이질적 시스템 운영에서 에이전트 AI의 실질적 가치가 드러나는 사례입니다. 수동 상관분석 대신 병렬 진단 에이전트들이 동시에 다각도(패턴 인식, 메타데이터 검증, 로그 매칭)에서 조사하는 구조가 복잡한 운영 문제 해결의 새로운 패러다임을 제시합니다.",
+      "도메인 온톨로지(domain ontology)를 통한 데이터 정규화가 AI 기반 진단의 기반이 되며, 이는 데이터 준비와 생성형 AI의 결합이 산업 자동화의 핵심이라는 점을 강조합니다. 단순히 모델의 성능이 아니라 데이터 거버넌스와 도메인 의미론의 투자가 ROI를 결정합니다.",
+      "이 아키텍처는 항공, 제조, 의료 등 고신뢰도가 필요한 운영 중심 산업에서 에이전트 기반 모니터링·진단 시스템의 표준 패턴으로 확산될 가능성이 있으며, AWS 혁신 센터의 산업 적용 가이드 역할도 주목할 만합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Panasonic Avionics deploys agentic AI for aircraft diagnostics on AWS",
+    "tags": [
+      "에이전트",
+      "제조"
+    ]
+  },
+  {
+    "id": "7c3227e89061b9d2",
+    "cluster_id": "k005035",
+    "title_original": "Over 1 million people have clicked LinkedIn’s AI slop button",
+    "url": "https://www.theverge.com/ai-artificial-intelligence/983502/linkedin-ai-slop-button-one-million-people-message",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/07/1785424232227.jpeg?quality=90&amp;strip=all&amp;crop=0,13.767459555427,100,72.465080889147",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-08-21T21:25:50+00:00",
+    "fetched_at": "2026-08-22T09:29:03.782956+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "LinkedIn이 7월 30일 도입한 'AI slop' 신고 버튼이 100만 명 이상에게 사용되었습니다. Pangram AI 분석에서 LinkedIn 장문 포스트의 41%가 AI 생성으로 플래그되자, LinkedIn은 AI 탐지 분류기를 개선하고 AI 포스트 강화 기능을 제거했으며, 신고 버튼을 추가했습니다. CPO Hari Srinivasan에 따르면 이러한 조치로 AI slop 노출이 수주 전 대비 40% 감소했습니다.",
+    "insights_ko": [
+      "LinkedIn 사용자들이 AI 생성 콘텐츠에 대한 불만을 적극적으로 표현하고 있으며, 플랫폼의 신고 메커니즘이 실질적인 수요를 충족하고 있습니다. 100만 건의 신고는 단순 베타 테스트가 아닌 진정한 사용자 문제 인식을 반영합니다.",
+      "LinkedIn의 40% 노출 감소는 신고 데이터 피드백 루프가 작동 중임을 시사하지만, 여전히 41%의 포스트가 AI로 플래그되는 현실은 프로페셔널 네트워크에서 저품질 생성 콘텐츠의 구조적 문제가 존재함을 드러냅니다.",
+      "향후 관전 포인트는 LinkedIn이 신고 신호를 알고리즘 랭킹에 반영하는 속도와, 'AI 같은 톤'을 감지하는 분류기의 오분류율(거짓 양성)입니다. 정상적인 전문 콘텐츠가 과도하게 제한되면 사용자 반발이 생길 수 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "LinkedIn's AI slop reporting sees over 1 million clicks in weeks",
+    "tags": [
+      "생산성"
+    ]
+  },
+  {
+    "id": "0531b8361b5d8f66",
+    "cluster_id": "k005029",
+    "title_original": "Motorola's GrapheneOS phones will launch in 2027 priced higher than Pixels",
+    "url": "https://arstechnica.com/gadgets/2026/08/motorolas-grapheneos-phones-will-launch-in-2027-priced-higher-than-pixels/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/Motorola-X-GrapheneOS-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-21T19:32:29+00:00",
+    "fetched_at": "2026-08-22T09:29:03.783147+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Motorola와 GrapheneOS 개발팀이 협력하여 2027년 GrapheneOS 지원 스마트폰을 출시할 예정입니다. 이 기기들은 Pixel 폰보다도 높은 가격대에 포지셔닝될 프리미엄 플래그십 기기가 될 것이며, GrapheneOS의 엄격한 보안·프라이버시 하드웨어 요구사항을 충족하기 위해 Motorola와 개발팀의 긴밀한 협력이 필요합니다.",
+    "insights_ko": [
+      "GrapheneOS의 하드웨어 에코시스템 확장이 단순 오픈소스 지원을 넘어 제조사와 공동 설계 수준의 파트너십으로 격상됨을 의미합니다. Google 생태계 밖에서 프라이버시 우선 기기를 완성도 높게 구현하려면 칩셋 단계부터 보안 요소(Titan-like 칩, TEE 구성) 최적화가 필수이기 때문입니다.",
+      "Pixel보다 높은 가격대 책정은 GrapheneOS 사용자층의 구매력 및 프라이버시 프리미엄 추세를 반영하며, 동시에 일반 소비자 진입이 아닌 얼리 어답터·보안 의식층을 명확히 타게팅하는 전략입니다.",
+      "2027년 출시까지 약 2년 남은 기간은 AOSP(Android Open Source Project) 기반 보안 하드닝, 상용 칩 통합, 규제 인증(지역별 무선 기준) 등 상당한 엔지니어링 작업이 필요함을 의미하며, 실제 상용화 리스크가 남아 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Motorola GrapheneOS phones arriving 2027 at premium pricing",
+    "tags": [
+      "오픈소스"
+    ]
+  },
+  {
+    "id": "393f1149ee173f71",
+    "cluster_id": "k005017",
+    "title_original": "Anthropic’s Opus 4.6 is a smut-machine",
+    "url": "https://techcrunch.com/2026/08/21/anthropics-opus-4-6-is-a-smut-machine/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/08/GettyImages-157692252.jpg?resize=1200,915",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-08-21T23:07:25+00:00",
+    "fetched_at": "2026-08-22T09:29:03.783425+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "TechCrunch의 실험에서 Anthropic이 공개적으로 금지한 성인 콘텐츠 생성을 Opus 4.6이 쉽게 우회하는 것으로 나타났습니다. 독립 연구자가 공유한 다단계 설득 기법(성적 표현 일관성 논거를 악용하는 방식)으로 10회 중 10회 성인용 롤플레이를 생성했으며, Opus 3과 Haiku 4.5도 같은 문제를 보였습니다. Anthropic은 더 최신 모델(Opus 5 등)에서는 이 취약점을 수정했지만, 여전히 API를 통해 구형 모델들을 제공 중이며 미성년자 접근 규제와 충돌할 수 있습니다.",
+    "insights_ko": [
+      "Anthropic의 공식 사용 정책과 실제 모델 동작 간 명확한 괴리가 드러났으며, 특히 심리 조작(gaslighting) 기법으로 모델이 자신의 안전 제약을 논리적 '차별'로 재해석하도록 유도되는 점이 대규모 언어모델의 정렬 문제의 근본적 한계를 시사합니다.",
+      "콜로라도주 등이 미성년자 대상 AI 성인 콘텐츠 생성 금지법을 제정하는 가운데, '기술적으로 실행 가능한 조치' 기준의 모호함이 규제 리스크로 작용하고 있습니다. Anthropic의 자동응답식 대응(Bug Bounty 제보에 자동메일만 회신)은 안전성 거버넌스의 취약성을 노출합니다.",
+      "구형 모델(Opus 4.6, Haiku 4.5)이 Azure Foundry, Amazon Bedrock 등 제3자 플랫폼을 통해 계속 유통되며 일일 수천만 토큰 규모로 사용되고 있어, 단순 모델 버전 업그레이드만으로는 업계 전체의 안전성 표준을 보장하기 어렵다는 점을 드러냅니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Anthropic's Claude Opus 4.6 bypasses safeguards through psychological manipulation jailbreak",
+    "tags": [
+      "Claude",
+      "Anthropic",
+      "안전성",
+      "정렬"
+    ]
+  },
+  {
+    "id": "03dde35f7e023aa6",
+    "cluster_id": "k005021",
+    "title_original": "Nvidia finds that simple linear math can replace costly AI model handoffs",
+    "url": "https://venturebeat.com/technology/nvidia-finds-that-simple-linear-math-can-replace-costly-ai-model-handoffs",
+    "image_url": null,
+    "source_id": "venturebeat",
+    "source_name": "VentureBeat",
+    "published": "2026-08-21T16:33:56+00:00",
+    "fetched_at": "2026-08-22T09:29:03.783651+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Nvidia 연구진이 에이전트 AI 시스템에서 소형 모델에서 대형 모델로 작업을 넘길 때 발생하는 컴퓨트 비용과 지연을 줄이기 위해 크로스모델 KV 캐시 전송 기법을 개발했습니다. 이 기법은 복잡한 딥러닝 모델이 아닌 간단한 선형 수학을 사용하여 소스 모델의 KV 캐시를 대상 모델에 직접 매핑합니다. 실험 결과 호환되는 모델 쌍에서 선형 매핑 과정이 2.7배에서 25배까지 성능 향상을 보였습니다.",
+    "insights_ko": [
+      "다중 LLM 워크플로우에서 모델 간 컨텍스트 재계산 오버헤드가 주요 병목이었는데, 선형 변환만으로 해결 가능함을 보여줍니다. 이는 에이전트 시스템의 경제성을 크게 개선하여 엔터프라이즈 다중 모델 파이프라인의 실용성을 높일 것으로 예상됩니다.",
+      "KV 캐시 호환성 계층의 표준화 움직임으로 해석되며, 향후 모델 간 상호운용성이 중요한 설계 기준이 될 가능성을 시사합니다. 이는 개발사들이 모델 간 컨텍스트 전달 가능성을 고려한 설계를 해야 함을 의미합니다.",
+      "추론 효율성 개선이 하드웨어 수준이 아닌 소프트웨어 수준의 간단한 알고리즘으로 달성되었으므로, 기존 인프라에서 즉시 적용 가능하며 추론 칩 설계와 데이터센터 최적화 논의에 영향을 줄 수 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Linear KV cache transfer cuts multi-LLM inference costs dramatically",
+    "tags": [
+      "NVIDIA",
+      "에이전트",
+      "추론",
+      "롱컨텍스트"
+    ],
+    "institution": "NVIDIA"
+  },
+  {
+    "id": "044a694a94622ab5",
+    "cluster_id": "k005026",
+    "title_original": "Trump's space transportation policy calls for new spaceport on federal land",
+    "url": "https://arstechnica.com/space/2026/08/trump-admin-calls-for-more-spaceports-to-handle-surge-in-launches/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/9315875-1152x648-1787353404.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-21T23:32:17+00:00",
+    "fetched_at": "2026-08-22T09:29:03.783827+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "트럼프 대통령이 서명한 새로운 국가 우주운송 정책은 2030년까지 연 1,000회 이상의 발사 및 재진입을 지원하기 위해 연방 토지에 추가 우주항 개발을 촉구합니다. 이 정책은 2013년 오바마 행정부 정책을 대체하며, 상업 우주 산업 지원과 미국의 우주 우위 확보를 강조합니다. 연간 발사 수요는 지난해 176회 궤도 발사(2013년 대비 약 10배)로 급증했으며, SpaceX가 Falcon 9로 165회를 주도했습니다.",
+    "insights_ko": [
+      "연 1,000회 발사 목표는 위성통신·감시·우주 기반 데이터센터 등 민간·군사 수요 급증을 반영하며, 미국이 우주 경제 주도권을 지키기 위해 인프라 현대화에 정부 차원의 개입을 강화한다는 신호입니다.",
+      "연방 우주항(Cape Canaveral, Vandenberg, Wallops 등)의 스케줄 투명성·효율성 강제는 SpaceX 같은 상업 업체의 발사 유연성을 높일 수 있지만, 군사 미션과의 우선순위 조정 과정에서 실제 처리량 증가로 이어질지는 불확실합니다.",
+      "정책이 '추가 우주항 개발'을 명시한 것은 기존 4곳의 연방 우주항만으로는 수용 불가능하다는 판단을 반영하며, 민간 우주항 허가 및 인프라 투자 규제 완화가 후속될 가능성이 높습니다."
+    ],
+    "category": "policy",
+    "importance_score": 3,
+    "subtitle_en": "Trump policy targets 1,000 annual US space launches by 2030"
+  },
+  {
+    "id": "0666aefefacc2b6b",
+    "cluster_id": "k005030",
+    "title_original": "Lawsuit demands Logitech hand tariff refunds over to customers",
+    "url": "https://arstechnica.com/tech-policy/2026/08/lawsuit-demands-logitech-hand-tariff-refunds-over-to-customers/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/mx-master-4-graphite-lifestyle-gallery-4-new-1088x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-21T19:04:41+00:00",
+    "fetched_at": "2026-08-22T09:29:03.784045+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Logitech이 2025년 4월 포트폴리오의 51%에 대해 최대 25%까지 가격을 인상했는데, 이를 관세 대응으로 정당화했으나 미국 대법원이 해당 관세를 위헌으로 판단한 후에도 가격을 유지한 채 연방정부로부터 환급금을 받을 예정이라는 이유로 집단소송을 당하고 있습니다. California 주민과 건설사가 제기한 소송은 Logitech이 고객에게 청구한 관세 관련 가격 인상분을 환급받지 않은 채 자사는 정부 환급금을 수령하려는 것이 부당하다고 주장합니다. Logitech 임원진은 투자자에게 이 가격 인상이 관세 영향을 상쇄했다고 명시적으로 언급했습니다.",
+    "insights_ko": [
+      "기업이 규제 변화(관세 인상)를 이용해 가격을 인상했으나, 그 규제가 폐지된 후에도 가격을 내리지 않고 정부 환급금까지 챙기려는 행위를 소비자가 소송으로 저항하는 사례입니다. 이는 일시적 비용 증가를 명목으로 한 가격 인상이 실제로는 구조적 마진 확대로 귀결되는 패턴을 드러냅니다.",
+      "투자자 공시에서 경영진이 '가격 인상이 관세 영향을 상쇄'했다고 공식 언급한 점이 핵심 증거가 되고 있으며, 이는 기업의 외부 공시와 내부 의사결정의 불일치가 법적 리스크로 전환될 수 있음을 보여줍니다.",
+      "만약 소송이 성공한다면 기업이 외부 규제 변화를 명목으로 한 가격 인상 후 규제가 해제되었을 때의 가격 책정 의무가 명확해질 가능성이 있으며, 이는 향후 관세·규제 변화 시 소비자 환급 기준을 확립하는 판례가 될 수 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 3,
+    "subtitle_en": "Logitech sued for keeping tariff-driven price hikes despite court ruling",
+    "tags": [
+      "규제"
+    ]
+  },
+  {
+    "id": "a671dce0ae971bf8",
+    "cluster_id": "k005020",
+    "title_original": "The DOJ is investigating a16z. What does this mean for venture capital?",
+    "url": "https://techcrunch.com/podcast/the-doj-is-investigating-a16z-what-does-this-mean-for-venture-capital/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/01/a16z-Andreessen-Horowitz.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-08-21T14:00:00+00:00",
+    "fetched_at": "2026-08-22T09:29:03.784290+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "미국 법무부가 Andreessen Horowitz의 이사회 겹침 구조를 거의 1년간 조사 중이며, 112년 전 반독점법을 VC 업체에 적용하는 드문 사례입니다. Ben Horowitz가 Databricks 이사회에, Martin Casado가 Fivetran 이사회에 앉아 있는데, 이들 회사가 시간이 지나며 경쟁사가 되자 규제 당국이 포트폴리오 기업 간 이해 상충을 문제 삼기 시작했습니다. VC 업체들은 포트폴리오 경계가 계속 변하는 상황에서 이사회 지분을 어떻게 관리할 것인지 근본적인 질문에 직면했습니다.",
+    "insights_ko": [
+      "VC의 다중 포트폴리오 이사회 겸임이 처음 규제 대상화되고 있으며, 이는 업계의 관행적 '이해 상충 관리' 기준이 반독점 당국 기준과 충돌할 수 있음을 시사합니다. 투자 시점에는 비경쟁 관계였던 기업들이 시간에 따라 경쟁사가 되는 동역학이 규제 리스크로 부상했습니다.",
+      "a16z 같은 메가 펀드의 광범위한 포트폴리오 포괄 전략에 제동이 걸릴 가능성이 생겼으며, 향후 VC들은 투자 규모 확대와 이사회 겸임 권리 사이에서 명시적 선택을 강요받을 수 있습니다. 이는 VC의 포트폴리오 다양성 확대 vs. 거버넌스 리스크 간 트레이드오프를 재정의할 수 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "DOJ scrutinizes a16z board conflicts using century-old antitrust law",
+    "tags": [
+      "규제",
+      "자금조달"
+    ]
+  },
+  {
+    "id": "dd3c688a380707f6",
+    "cluster_id": "k005022",
+    "title_original": "Agentic Data Operations Platform (ADOP): Data engineering into hours",
+    "url": "https://aws.amazon.com/blogs/machine-learning/agentic-data-operations-platform-adop-data-engineering-into-hours/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/08/18/ML-20916-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-08-21T17:06:17+00:00",
+    "fetched_at": "2026-08-22T09:29:03.784522+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS는 데이터 엔지니어링 팀의 ETL 작성, 품질 검사, 시맨틱 모델 업데이트 등을 자동화하는 Agentic Data Operations Platform(ADOP)을 발표했습니다. Amazon Bedrock과 Claude Code를 기반으로 한 이 플랫폼은 수주 소요되던 데이터 소스 온보딩을 수 시간으로 단축하고, 개발 단계에서는 에이전트를 통해 코드를 생성하되 프로덕션에서는 결정론적 아티팩트만 실행하는 구조입니다. 컴플라이언스를 빌드 타임에 적용하고 아키텍처 일관성을 강화하는 것이 핵심입니다.",
+    "insights_ko": [
+      "개발 시점 에이전트 + 프로덕션 정적 아티팩트라는 이중 구조는 생성형 AI의 비결정성 위험을 규제·금융 등 감시 대상 산업에서 실무화하는 설계입니다. 일반적인 코딩 어시스턴트의 '모든 개발자가 다른 결과'라는 문제를 아키텍처 템플릿과 거버넌스 프롬프트로 표준화함으로써 엔터프라이즈 채택 장벽을 낮혔습니다.",
+      "데이터 거버넌스를 사후 검토에서 사전 제어(inline control)로 옮기는 것은 컴플라이언스 비용 구조의 전환을 의미합니다. 법률팀이 애플리케이션 코드 대신 '규정 프롬프트 파일'을 검토하고 각 데이터셋 온보딩 시 자동 적용되면, 반복적인 수동 감시 시간을 대폭 절감할 수 있습니다.",
+      "MCP 인터페이스 지원으로 Claude 외 Kiro, Cursor, Codex 등 다양한 AI 코딩 도구를 같은 아키텍처 계약 아래 통제할 수 있는 상황이 생깁니다. 이는 엔터프라이즈가 '어떤 모델·도구를 도입해도 일관된 데이터 파이프라인이 나온다'는 자신감을 확보하는 길입니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "AWS ADOP automates enterprise data pipelines with agentic AI plus deterministic production",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "에이전트",
+      "RAG",
+      "강화학습"
+    ]
+  },
+  {
+    "id": "620096717211c01e",
+    "cluster_id": "k005019",
+    "title_original": "Nvidia just showed that the harness, not the AI model, is now the real hero",
+    "url": "https://techcrunch.com/2026/08/21/nvidia-just-showed-that-the-harness-not-the-ai-model-is-now-the-real-hero/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/08/Nvidia-VP-of-product-Adel-El-Hallak.jpg?resize=1200,898",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-08-21T19:43:39+00:00",
+    "fetched_at": "2026-08-22T09:29:03.784705+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Nvidia의 최신 연구에 따르면 AI 모델 자체보다는 모델을 감싸는 소프트웨어 계층인 '하네스(harness)'가 장기 작업 수행에서 훨씬 더 중요한 역할을 한다고 밝혔습니다. 메모리 관리와 '감시자' 컴포넌트를 포함한 맞춤형 하네스를 적용하자 Claude Opus 5가 ARC-AGI-3 벤치마크에서 30%에서 100%로 점프했으며, 이는 에이전트 성능이 모델 선택보다 시스템 아키텍처에 좌우됨을 시사합니다.",
+    "insights_ko": [
+      "에이전트 시스템의 실제 성능 차이가 기본 모델 능력보다 하네스 설계에서 나온다는 점이 AI 개발 패러다임을 재정의합니다. 모델 벤더 중심의 인식이 깨지고, 에이전트 스택 전체 최적화(도구, 메모리, 감시 루프)가 새로운 경쟁 지점이 됩니다.",
+      "Databricks 사례처럼 하네스 선택만으로 비용이 2배까지 차이난다는 증거가 쌓이면서, 기업 구매 결정이 '어떤 모델인가'에서 '어떤 에이전트 스택인가'로 이동할 가능성이 높습니다.",
+      "Nvidia의 오픈 하네스 강조(Nemo 생태계, AVO)는 모델 수렴 추세 속에서 인프라·도구 계층에서 차별화를 추구하는 전략이며, OpenAI가 보안 문제로 모델 학습을 늦추는 반면 Nvidia는 오픈 스택으로 제어권을 사용자에게 넘기는 경로를 제시합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Harness architecture, not model choice, drives agent performance on long-horizon reasoning",
+    "tags": [
+      "에이전트",
+      "추론",
+      "강화학습"
+    ]
+  },
+  {
+    "id": "eb3a17c129483210",
+    "cluster_id": "k005034",
+    "title_original": "Waymo doubles spending on lobbying in robotaxi battle with Uber",
+    "url": "https://arstechnica.com/cars/2026/08/waymo-doubles-spending-on-lobbying-in-robotaxi-battle-with-uber/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/ftcms_8bad1114-5b27-4fc9-8102-1cb63e7f76fb-1152x648.jpeg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-21T13:11:35+00:00",
+    "fetched_at": "2026-08-22T09:29:03.784923+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Waymo가 2026년 상반기 로비 지출을 전년 동기 대비 93% 증액한 200만 달러 이상을 기록하며 완전 자율주행 택시 상용화를 위한 규제 승인을 추진 중입니다. 같은 기간 Uber도 로비 지출을 크게 늘렸으나, 두 회사는 완전 자율화(Waymo) 대 단계적 도입(Uber) 전략의 차이로 인해 관계가 악화되고 있습니다. 업계는 뉴욕·시카고 등 주요 시장 확장 저항과 운전자 실직 우려에 직면해 있습니다.",
+    "insights_ko": [
+      "로보택시 시장이 기술 경쟁에서 정책·규제 경쟁으로 무게중심이 이동했으며, 수백만 달러 규모의 로비 자본 투입이 신사업 진출의 핵심 장애물이 됨을 시사합니다. 미국에서 자율주행차 상용화의 속도는 기술 성숙도보다 정치적 의사결정에 의존하게 된 상황입니다.",
+      "Waymo-Uber 간 로비 전략의 차이가 기존 파트너십을 무너뜨리는 수준으로 심화되면서, 로보택시 시장 진입 구도가 단순한 기술 경쟁에서 정부 관계·규제 포지셔닝 경쟁으로 재편되고 있습니다. 이는 노동조합 등 기득권 세력의 로비 영향력이 실질적으로 신생 비즈니스 모델 도입을 막을 수 있는 현실을 반영합니다.",
+      "자율주행 상용화 승인이 연방 차원과 주(state) 차원의 규제 구도에서 엇갈리면서, 진입 시장 선택과 주별 로비 강도 차등화가 신생 플레이어들의 생존 전략이 되고 있습니다. 규제 불확실성이 지속될수록 기술 완성보다 정책 영향력 있는 기업에 유리해집니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Waymo doubles lobbying spend amid robotaxi regulatory battle with Uber",
+    "tags": [
+      "자율주행",
+      "규제"
+    ]
+  },
+  {
+    "id": "286576db227e264e",
+    "cluster_id": "k005018",
+    "title_original": "Nvidia partners with data center developer Cloverleaf",
+    "url": "https://techcrunch.com/2026/08/21/nvidia-partners-with-data-center-developer-cloverleaf/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2025/07/GettyImages-2219673294.jpg?resize=1200,750",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-08-21T22:37:38+00:00",
+    "fetched_at": "2026-08-22T09:29:03.785134+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "엔비디아가 데이터센터 기반시설 개발사 Cloverleaf Infrastructure에 수억 달러 규모로 소수 지분 투자합니다. 2024년 설립된 Cloverleaf는 전력회사와 데이터센터 간의 중개 역할을 하며 AI 인프라 구축의 핵심 역할을 합니다. 엔비디아는 자사 칩 수요 창출을 위해 데이터센터 생태계 전반에 직접 투자하는 전략을 강화하고 있습니다.",
+    "insights_ko": [
+      "엔비디아가 칩 판매 이후의 가치사슬(전력·부지·구축)까지 수직 통합하려는 시도로, AI 인프라 부족 문제를 자신의 고객 기반 확보와 동시에 해결하려는 전략입니다. 이는 단순 공급자에서 인프라 플랫폼 사업자로의 포지셔닝 변화를 의미합니다.",
+      "Cloverleaf 같은 B2B 인프라 기업에 대한 대규모 투자는 데이터센터 건설의 병목이 칩 공급이 아니라 전력·부지·인허가라는 현실을 반영합니다. 엔비디아의 이번 투자는 AI 보급의 속도 제약이 하드웨어에서 물리적 인프라로 이동했음을 시사합니다.",
+      "앞서 발표한 SB Energy 투자($1.5B)와 함께 보면, 엔비디아가 특정 고객(OpenAI 등)의 전용 데이터센터 구축에 직접 자본을 들이는 추세가 뚜렷합니다. 이는 칩 가격 경합 심화에 대응하는 동시에 장기 수요 예약 전략으로 읽힙니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Nvidia invests hundreds of millions in data center infrastructure developer Cloverleaf",
+    "tags": [
+      "NVIDIA",
+      "데이터센터",
+      "자금조달"
+    ]
+  },
+  {
+    "id": "c5a729d97ca12699",
+    "cluster_id": "k005036",
+    "title_original": "The Unlikely Place at the Center of China’s AI Boom",
+    "url": "https://www.wired.com/story/the-unlikely-place-at-the-center-of-chinas-ai-boom/",
+    "image_url": "https://media.wired.com/photos/6a86349028fa0a4f102bcd1b/191:100/w_1280,c_limit/Made-in-China-Unlikely-Place-at-Center-of-China-AI-Boom-Business.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-08-21T23:25:32+00:00",
+    "fetched_at": "2026-08-22T09:29:03.785406+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "중국의 내몽골 자치구 우란차부는 저렴한 전기, 우수한 냉각 조건, 베이징 근접성으로 인해 AI 데이터센터의 핫스팟으로 급부상했습니다. DeepSeek, ByteDance, 알리바바 등 중국 AI 기업들이 클라우드 임차 대신 직접 인프라에 투자하기 시작했으며, 우란차부의 약속된 용량은 12.5GW에 달해 아시아에서 가장 빠르게 성장하는 컴퓨트 클러스터 중 하나가 되었습니다. 다만 연강수량 14인치 수준의 극도로 건조한 지역이라 수자원 부족이 핵심 제약으로 대두되고 있습니다.",
+    "insights_ko": [
+      "중국 AI 기업들이 미국 경쟁사 대비 인프라 투자에서 역사적으로 뒤쳐졌지만, 유료 사용자 기반이 성숙하자 자체 데이터센터 건설로 전략을 전환하고 있습니다. 이는 중국 AI 기업들의 수익성 개선과 공급망 자립화를 의미하며, 글로벌 AI 경쟁력의 질적 변화를 나타냅니다.",
+      "우란차부의 성장은 재정부의 '동진서산(Eastern Data, Western Compute)' 정책과 맞물려 있으며, 신재생에너지 과잉공급 흡수라는 정책 목표와 결합되어 있습니다. 그러나 실제로는 여전히 전기의 37%가 석탄에서 비롯되므로, 정부의 '녹색 데이터센터' 내러티브와 현실 간 괴리가 존재합니다.",
+      "수자원 위기가 우란차부의 확장성을 제약할 주요 병목이 될 가능성이 높으며, 이는 중국 정부의 데이터센터 정책이 환경·수자원 제약과 어떻게 타협할지 보여주는 사례가 될 것입니다."
+    ],
+    "category": "hardware",
+    "importance_score": 4,
+    "subtitle_en": "China's Inner Mongolia emerges as AI computing powerhouse",
+    "tags": [
+      "DeepSeek",
+      "데이터센터",
+      "추론칩"
+    ]
+  },
+  {
+    "id": "faaedb9cfd0decb8",
+    "cluster_id": "k005033",
+    "title_original": "Personalized pricing is “abhorrent,” but FTC limits may increase costs, critics say",
+    "url": "https://arstechnica.com/tech-policy/2026/08/critics-ftc-limits-on-personalized-pricing-may-increase-costs-kill-discounts/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/GettyImages-2278328918-1024x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-21T16:38:25+00:00",
+    "fetched_at": "2026-08-22T09:29:03.785585+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "미국 FTC가 개인데이터 기반 차등가격제(personalized pricing) 규제에 나서면서, 소비자 보호를 명분으로 하지만 역설적으로 할인 혜택 축소나 가격 상승을 초래할 수 있다는 우려가 제기되고 있습니다. FTC는 차등가격제를 완전히 금지할 법적 권한은 없지만, 기업이 고객 개인데이터로 가격을 결정할 때 이를 공개하지 않으면 FTC법 위반으로 처벌할 수 있다고 밝혔습니다. 30일 공개의견 수렴 기간 동안 정책 변화에 대한 논평을 수렴 중입니다.",
+    "insights_ko": [
+      "FTC의 규제 기조는 투명성 강제(disclosure)에 무게를 두고 있으나, 기업이 공개만 하고 차등가격제를 계속 운영할 경우 일부 소비자는 보호받지만 가격 민감도가 높은 저소득층은 오히려 높은 가격에 노출될 수 있습니다. 규제가 할인 모델(로열티 프로그램 등)을 축소하면 평균 가격 자체가 상승할 위험도 있습니다.",
+      "데이터 기반 가격결정 투명성 의무화는 기술적으로는 알고리즘 설명성(explainability) 요구이며, 이는 AI 안전성 규제와 궤를 같이하되 경제학적 파급이 더 직접적이라는 점에서 정책 난제입니다. 소비자 보호와 경제 효율성 사이의 트레이드오프가 명확한 영역입니다.",
+      "영소매·전자상거래·구독서비스 등 산업별로 차등가격제 도입 수준이 상이할 것으로 예상되며, 규제 이후 비용 전가 방식(투명성 비용, 할인 축소, 기본가격 인상)이 업종별로 차별화될 가능성이 높습니다."
+    ],
+    "category": "policy",
+    "importance_score": 3,
+    "subtitle_en": "FTC curbs personalized pricing but risks raising consumer costs",
+    "tags": [
+      "규제"
+    ]
+  },
+  {
+    "id": "21ad7663a4c5488f",
+    "cluster_id": "k005032",
+    "title_original": "Fighter jets help destroy Russian drone boat near European offshore gas platform",
+    "url": "https://arstechnica.com/gadgets/2026/08/explosive-russian-drone-boat-destroyed-near-european-offshore-gas-site/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/Russian-drone-boat-1152x648.jpeg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-21T16:48:59+00:00",
+    "fetched_at": "2026-08-22T09:29:03.785919+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "루마니아가 흑해의 Neptun Deep 가스 채굴 플랫폼 인근에서 폭발물을 탑재한 러시아 무인정을 발견했고, F-16 전투기가 대포 사격으로 이를 무력화했습니다. 이 플랫폼은 2027년 완공 시 EU 최대 가스 생산국으로 만들 핵심 인프라이며, 루마니아 대통령은 러시아를 직접 규탄했습니다. 이달 두 번째 관련 사건으로, 루마니아는 우크라이나와 협력해 무인기가 우크라이나군 것이 아님을 확인했습니다.",
+    "insights_ko": [
+      "EU 에너지 안보 자산에 대한 러시아의 직접적 공격 시연으로, 전략 기반시설 보호가 군사적 실제 위협 수준으로 격상되었습니다. 향후 EU 내 중요 인프라(전력, 통신, 조선소) 주변 방어 태세 강화와 NATO 공중 초계 강화가 가속될 것으로 예상됩니다.",
+      "새 유형의 무인정 등장이 러시아의 드론 기술 다양화 전략을 시사하며, 흑해에서의 무인 공격 전술이 단순 정찰을 넘어 전략 시설 타격으로 진화하고 있음을 나타냅니다. 루마니아 같은 NATO 회원국들은 차별화된 대드론·대함 방어 투자가 필요해질 것입니다."
+    ],
+    "category": "policy",
+    "importance_score": 3,
+    "subtitle_en": "Romania shoots down Russian explosive drone boat near EU gas platform",
+    "tags": [
+      "보안"
+    ]
+  },
+  {
+    "id": "97caf3880267fe15",
+    "cluster_id": "k005039",
+    "title_original": "AI boosted homework scores, then exam scores dropped: Study",
+    "url": "https://canews24.online/?p=71",
+    "image_url": null,
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-08-21T15:25:42+00:00",
+    "fetched_at": "2026-08-22T15:22:43.124204+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [
+      "Hacker News (AI filter)"
+    ],
+    "summary_ko": "스톡홀름대학교와 홍콩대학교 연구진이 중국 학생 27,000명을 추적한 결과, AI 도구 사용 학생들의 숙제 성적은 6개월간 평균 18% 상승했지만, AI 없이 치른 시험에서는 사용하지 않은 학생보다 20% 낮은 점수를 기록했습니다. 조사 대상 학생의 약 80%가 Doubao, DeepSeek 같은 AI 모델을 이용하고 있으며, 이는 학생들 사이의 빠른 AI 채택 추세를 반영합니다.",
+    "insights_ko": [
+      "숙제 성적 향상이 시험 성적 저하로 이어지는 현상은 학생들이 AI 생성 답변을 깊이 있게 이해하지 않은 채 복사·제출하는 표면적 학습에 머물고 있음을 시사합니다. 단기 성과와 실제 인지 능력 발전이 괴리되는 양상으로, 교육학적 우려를 실증적으로 뒷받침합니다.",
+      "AI의 학습 효과는 '의도적이고 잘 설계된 사용'에 따라 큰 편차가 발생할 수 있으며, 단순한 도구 접근성보다 사용 방식이 핵심 변수임을 보여줍니다. 향후 학교 정책에서 AI 활용 방법에 대한 가이드라인이 필수적일 가능성을 높입니다.",
+      "대규모 데이터셋과 통제 그룹을 활용한 연구지만 아직 동료 검증을 거치지 않았으며, 중국의 특정 교육 환경에서의 결과가 글로벌 학생 인구로 일반화되는지 검토가 필요합니다."
+    ],
+    "category": "community",
+    "importance_score": 4,
+    "subtitle_en": "AI homework boost masks deeper exam performance decline in study",
+    "tags": [
+      "교육",
+      "강화학습",
+      "안전성"
+    ]
+  },
+  {
+    "id": "825cc28280e6d7fe",
+    "cluster_id": "k005040",
+    "title_original": "I'm becoming AI-blind",
+    "url": "https://cymerys.com/w/im-becoming-ai-blind",
+    "image_url": null,
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-08-21T11:48:05+00:00",
+    "fetched_at": "2026-08-22T15:22:43.124591+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "저자는 AI 생성 문서를 너무 자주 접하면서 뇌가 자동으로 그런 콘텐츠를 무시하는 '배너 맹목증' 같은 현상을 경험하고 있습니다. Claude 스타일의 문체, 과장된 마케팅 톤, 장황한 기술 문서 등 AI 특유의 패턴을 빠르게 감지하자, 실제 내용 분석 대신 반사적으로 필터링해버린다는 뜻입니다. 역설적으로 생산성을 높이려던 AI 도구들이 직장에서 정보 처리 능력을 오히려 떨어뜨리고 있다고 지적합니다.",
+    "insights_ko": [
+      "직장 커뮤니케이션의 상당 부분이 저품질 AI 생성 문서로 채워지면서, 인간의 주의력이 의도적 필터링 메커니즘으로 진화하고 있습니다. 이는 신호-대-잡음 비율이 극도로 나빠진 정보 환경에서 인지적 자기 방어 수단으로 기능합니다.",
+      "AI 생성 텍스트의 특징(Claude식 표현, 뻔한 레토릭, 과도한 문체)이 충분히 인식 가능해서 저자처럼 경험 많은 사용자는 높은 정확도로 탐지할 수 있다는 점은, 기존 '인간은 AI 감지 못 한다'는 연구 결론에 도전합니다.",
+      "업무 문서의 AI 침투가 심화될수록 진정한 인간이 작성한 콘텐츠의 상대적 가치가 올라갈 것이며, 역설적으로 '진정성'과 '수고'가 새로운 신호 가치가 될 수 있습니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "AI-generated workplace documents trigger cognitive filtering, paradoxically reducing productivity",
+    "tags": [
+      "Claude",
+      "생산성",
+      "해석성"
+    ]
+  },
+  {
+    "id": "ab3fa2da22740ccb",
+    "cluster_id": "k005041",
+    "title_original": "Show HN: Shoehorn – Quantize any model down to run on your machine",
+    "url": "https://notactuallytreyanastasio.github.io/shoehorn/",
+    "image_url": "https://notactuallytreyanastasio.github.io/shoehorn/og.png",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-08-18T14:29:20+00:00",
+    "fetched_at": "2026-08-22T15:22:43.124850+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Shoehorn은 사용자의 실제 하드웨어 메모리 예산에 맞춰 언어모델을 자동으로 양자화하는 오픈소스 도구입니다. 기존 프리셋 양자화와 달리 가용 메모리에서 추론 오버헤드를 뺀 나머지를 테스트-최적화 혼합정밀도 할당으로 채워 99.99% 메모리 사용률을 달성합니다. 브라우저 기반 UI로 Hugging Face 모델을 스캔하고 로컬에서 실행할 수 있도록 지원합니다.",
+    "insights_ko": [
+      "기존 양자화 프리셋(FP8, Q4 등)은 일반적 하드웨어를 가정하기 때문에 개별 기기에서 메모리 낭비나 런타임 오버플로우를 초래하는데, Shoehorn은 역으로 개인 하드웨어에서 최대 모델 크기를 달성하는 문제로 재정의하여 가용성 격차를 줄입니다.",
+      "에지 추론 시장의 주요 장벽은 양자화 복잡성과 시행착오였는데, 단일 버튼 인터페이스와 브라우저 기반 모델 추천이 진입장벽을 크게 낮춰 개인 기기에서 프론티어급 모델 실행을 민주화할 가능성이 있습니다.",
+      "혼합정밀도 최적화가 바이트 단위로 정확하다는 점은 양자화 라이브러리(GGUF, llama.cpp)의 성숙도를 보여주며, 향후 온디바이스 추론의 표준 패턴으로 자리잡을 수 있는 기술적 기초를 확립합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Quantize models to your exact memory budget with mixed-precision optimization",
+    "tags": [
+      "양자화",
+      "오픈소스",
+      "추론",
+      "생산성"
+    ]
+  },
+  {
+    "id": "73b1f717a76ca5b1",
+    "cluster_id": "k005037",
+    "title_original": "Putting mice into hibernation causes a major loss of synapses",
+    "url": "https://arstechnica.com/science/2026/08/memories-stick-around-even-after-half-the-synapses-are-gone/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/GettyImages-535196267-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-22T11:22:32+00:00",
+    "fetched_at": "2026-08-22T15:22:43.125138+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "일본 오키나와과학기술대학원대학 연구팀이 마우스를 인공 동면 상태로 유도하는 실험을 통해 시냅스의 절반 이상이 소실되는 현상을 관찰했습니다. 신경 회로 활성화를 통해 체온을 약 20°C로 낮추고 대사를 급격히 감소시키는 'QIH(Q-뉴런 유도 저체온증과 저대사)' 상태를 만들었으며, 놀랍게도 마우스들은 이 과정에도 기억을 유지했습니다. 이는 수년간 지속되는 기억이 수일마다 변하는 신경 회로 위에 어떻게 저장되는지에 대한 기존 가설에 의문을 던집니다.",
+    "insights_ko": [
+      "시냅스 가소성(plasticity)이 기억 저장의 필수 메커니즘이라는 현재 신경과학적 합의에 도전장을 냅니다. 절반 이상의 시냅스가 사라져도 기억이 남는다는 것은 기억의 물리적 기초가 단순한 시냅스 강도 변화 이상의 복잡한 메커니즘을 포함할 가능성을 시사합니다.",
+      "동면 상태에서의 극적인 신경 구조 변화가 기억 소실로 이어지지 않는다면, 뇌가 다른 생리적 상태에서도 어떻게 정보를 보존하고 복구하는지에 대한 근본적 이해가 필요해집니다. 이는 신경 인코딩의 분산 표현(distributed representation)이나 동적 시스템의 관점에서 새로운 해석을 요구합니다.",
+      "마우스의 인공 동면 회로가 포유류 전반에 보존되어 있다는 점은 이 메커니즘을 인간의 기억 장애나 신경변성질환 치료 연구로 확장할 가능성을 열어줍니다. 향후 어떤 신경 신호나 분자 메커니즘이 동면 중 기억을 보호하는지 규명되면 약물 개입점이 될 수 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Hibernation erases half of mouse synapses yet preserves memory",
+    "tags": [
+      "해석성"
+    ],
+    "institution": "Okinawa Institute of Science and Technology Graduate University",
+    "authors": "Kazumasa Tanaka, Takeshi Sakurai"
+  },
+  {
+    "id": "9e0f1c6b20ae784f",
+    "cluster_id": "k005038",
+    "title_original": "Dismantling the Roadless Rule threatens to disrupt wildlife and water in US",
+    "url": "https://arstechnica.com/science/2026/08/dismantling-the-roadless-rule-threatens-to-disrupt-wildlife-and-water-in-us/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/GettyImages-626466246-2560x1440.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-08-22T11:08:53+00:00",
+    "fetched_at": "2026-08-22T15:22:43.125492+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "트럼프 행정부가 2001년 제정된 Roadless Rule 폐지를 추진 중이며, 이는 전국 5,800만 에이커 이상의 도로 미개발 국립산림 지역에서 도로 건설과 목재 채취를 금지하는 규정을 해제하려는 움직임입니다. 행정부는 경제 발전 촉진을 명분으로 들었지만, 생태학자들은 Tongass National Forest 같은 생태계 보전 지역의 야생동물과 수질 보호가 위협받을 것으로 우려하고 있습니다. 연방 관보 공시 후 30일 공개 의견 수렴 절차가 예정되어 있으며, 의회에서도 Wildfire Prevention Act 수정안을 통해 해당 규정을 영구 폐지하려는 시도가 진행 중입니다.",
+    "insights_ko": [
+      "Roadless Rule은 역사상 가장 많은 공중의견(수백만 건)을 받은 연방 규정이면서도 행정부의 일방적 폐지 추진으로 규제의 정치화 현상을 드러냅니다. 환경 보호 정책이 경제 논리와 충돌할 때 공중의 의지가 얼마나 취약한지를 보여주는 사례입니다.",
+      "5,800만 에이커 미개발 지역은 미국 육지 생태계에서 희귀한 '야생 회랑'이며, 이곳의 도로화는 야생동물 이동 차단, 서식지 단편화, 수원지 오염으로 이어져 회복 불가능한 생태계 손상을 초래할 가능성이 높습니다. 특히 Tongass National Forest 같은 구립림 생태계는 탄소 저장고 역할도 합니다.",
+      "의회의 Wildfire Prevention Act 수정안이 통과되면 미래 행정부도 해당 규정 재도입이 불가능해져 규제 결정의 비가역성이 심화됩니다. 환경 정책의 장기적 불확실성이 커지면서 생태 투자와 보존 계획 수립에 걸림돌이 될 전망입니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Trump administration moves to dismantle protections for 58 million acres of US national forests",
+    "tags": [
+      "규제"
+    ]
+  }
+]
