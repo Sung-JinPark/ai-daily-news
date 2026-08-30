@@ -1,12 +1,14 @@
 ---
 import Base from "~/layouts/Base.astro";
 import ArticleCard from "~/components/ArticleCard.astro";
-import { CATEGORIES, loadDay, loadLatest } from "~/lib/loadData";
+import { CATEGORIES, dedupeArticles, loadLatest, loadRecentDays } from "~/lib/loadData";
 
 const latest = loadLatest();
-const day = latest?.latest_day ?? "";
-const { articles } = day ? loadDay(day) : { articles: [] };
-const filtered = articles
+// Pool matches the Hot Ranking window (index.astro's loadRecentDays(7)) so
+// an article still ranking hot from a prior day doesn't fall out of its
+// own category page just because it isn't in "today"'s single-day file.
+const pool = dedupeArticles(loadRecentDays(7));
+const filtered = pool
   .filter((a) => a.category === "product" || a.category === "hardware")
   .sort((a, b) => {
     if (b.importance_score !== a.importance_score) return b.importance_score - a.importance_score;
@@ -19,10 +21,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <Base title="제품·인프라 — AI Daily News" updatedAt={latest?.updated_at}>
   <header class="mb-10 pb-4 border-b border-ink/15">
-    <div class="kicker text-accent mb-2">Category · 합본</div>
+    <div class="kicker text-accent mb-2">Category · 합본 · 지난 7일</div>
     <h1 class="font-serif text-[1.8rem] sm:text-[2.4rem] font-black text-ink leading-none mb-3">제품 · 인프라</h1>
     <p class="kicker text-ink/55 tabular-nums">
-      {day} · {String(filtered.length).padStart(2, "0")}건
+      {String(filtered.length).padStart(2, "0")}건
       <span class="text-ink/30 mx-2">·</span>
       <a href={`${base}/category/product`} class="hover:text-accent">{CATEGORIES.product} {productCount}</a>
       <span class="text-ink/30 mx-1">/</span>
@@ -35,6 +37,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   </div>
 
   {filtered.length === 0 && (
-    <p class="text-ink/50">이 카테고리에 해당하는 오늘 기사가 없습니다.</p>
+    <p class="text-ink/50">이 카테고리에 해당하는 최근 기사가 없습니다.</p>
   )}
 </Base>

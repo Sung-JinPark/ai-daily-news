@@ -388,6 +388,41 @@ export function loadRecentDays(maxDays: number = 7): Article[] {
   return out;
 }
 
+// Normalize titles so re-published / re-indexed articles with the same
+// headline but different URLs (e.g. /2026/06/15/slug vs /2026/06/16/slug)
+// are collapsed to one entry.
+function titleKey(t: string): string {
+  return t
+    .toLowerCase()
+    .replace(/&#?\w+;/g, " ")          // strip HTML entities
+    .replace(/[^\p{L}\p{N}]+/gu, " ")  // strip punctuation
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Dedupe a list of articles by id (URL hash), cluster_id, AND normalized
+ * title, keeping the first occurrence (caller controls ordering by
+ * pre-sorting, e.g. by hotness or importance, before calling this).
+ */
+export function dedupeArticles(articles: Article[]): Article[] {
+  const seenIds = new Set<string>();
+  const seenClusters = new Set<string>();
+  const seenTitles = new Set<string>();
+  const unique: Article[] = [];
+  for (const a of articles) {
+    if (seenIds.has(a.id)) continue;
+    if (a.cluster_id && seenClusters.has(a.cluster_id)) continue;
+    const tk = titleKey(a.title_original || "");
+    if (tk && seenTitles.has(tk)) continue;
+    seenIds.add(a.id);
+    if (a.cluster_id) seenClusters.add(a.cluster_id);
+    if (tk) seenTitles.add(tk);
+    unique.push(a);
+  }
+  return unique;
+}
+
 // ---------- ZE3 semantic similarity loader ----------
 
 export type SimilarNeighbor = { article_id: string; score: number };
