@@ -56,3 +56,8 @@ data/corpus/*/bodies.jsonl
 
 # 미발표 연구 방법론 스킬 — 논문 전까지 비공개
 .claude/skills/
+
+# 사용자 개인 참고 자료 — 프로젝트 코드 아님. Stop 훅(.claude/settings.json)이
+# 매 턴 git status를 돌리는데, 이 한글 폴더명이 quotepath 이스케이프(\NNN 옥텍)로
+# 나와서 훅 로그가 깨져 보이는 원인이었음 — 추적 대상에서 제외해 원천 차단.
+내가 볼 자료/
