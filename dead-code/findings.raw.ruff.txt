@@ -1,0 +1,379 @@
+F841 Local variable `error` is assigned to but never used
+   --> pipeline\collect.py:196:13
+    |
+194 |         try:
+195 |             items = fetch_source(source)
+196 |             error = ""
+    |             ^^^^^
+197 |         except Exception as exc:  # noqa: BLE001 - one failing source must not stop pipeline
+198 |             log.warning("source %s failed: %s", source["id"], exc)
+    |
+help: Remove assignment to unused variable `error`
+
+F841 Local variable `new_first_seen` is assigned to but never used
+   --> pipeline\collect_papers.py:248:5
+    |
+246 |     merged_tags = _merge_json_list(old_tags_json, tags)
+247 |     new_importance_max = max(int(old_importance_max or 0), importance)
+248 |     new_first_seen = min(old_first_seen, day) if old_first_seen else day
+    |     ^^^^^^^^^^^^^^
+249 |     new_last_seen = max(day, old_first_seen or day)
+250 |     cur.execute(
+    |
+help: Remove assignment to unused variable `new_first_seen`
+
+F841 Local variable `new_last_seen` is assigned to but never used
+   --> pipeline\collect_papers.py:249:5
+    |
+247 |     new_importance_max = max(int(old_importance_max or 0), importance)
+248 |     new_first_seen = min(old_first_seen, day) if old_first_seen else day
+249 |     new_last_seen = max(day, old_first_seen or day)
+    |     ^^^^^^^^^^^^^
+250 |     cur.execute(
+251 |         """
+    |
+help: Remove assignment to unused variable `new_last_seen`
+
+F401 [*] `pathlib.Path` imported but unused
+  --> pipeline\digest.py:13:21
+   |
+11 | import logging
+12 | import re
+13 | from pathlib import Path
+   |                     ^^^^
+14 | from typing import Any
+   |
+help: Remove unused import: `pathlib.Path`
+   |
+12 | import re
+   - from pathlib import Path
+13 | from typing import Any
+   |
+
+F401 [*] `datetime.date` imported but unused
+  --> pipeline\embed.py:34:22
+   |
+32 | import logging
+33 | import os
+34 | from datetime import date, datetime, timezone
+   |                      ^^^^
+35 | from pathlib import Path
+36 | from typing import Any
+   |
+help: Remove unused import: `datetime.date`
+   |
+33 | import os
+   - from datetime import date, datetime, timezone
+34 + from datetime import datetime, timezone
+35 | from pathlib import Path
+   |
+
+F401 [*] `typing.Any` imported but unused
+  --> pipeline\embed.py:36:20
+   |
+34 | from datetime import date, datetime, timezone
+35 | from pathlib import Path
+36 | from typing import Any
+   |                    ^^^
+37 |
+38 | log = logging.getLogger(__name__)
+   |
+help: Remove unused import: `typing.Any`
+   |
+35 | from pathlib import Path
+   - from typing import Any
+36 |
+   |
+
+F401 [*] `collections.defaultdict` imported but unused
+  --> pipeline\entity_index.py:29:25
+   |
+27 | import json
+28 | import logging
+29 | from collections import defaultdict
+   |                         ^^^^^^^^^^^
+30 | from datetime import date, datetime, timezone
+31 | from itertools import combinations
+   |
+help: Remove unused import: `collections.defaultdict`
+   |
+28 | import logging
+   - from collections import defaultdict
+29 | from datetime import date, datetime, timezone
+   |
+
+F401 [*] `datetime.date` imported but unused
+  --> pipeline\entity_index.py:30:22
+   |
+28 | import logging
+29 | from collections import defaultdict
+30 | from datetime import date, datetime, timezone
+   |                      ^^^^
+31 | from itertools import combinations
+32 | from pathlib import Path
+   |
+help: Remove unused import: `datetime.date`
+   |
+29 | from collections import defaultdict
+   - from datetime import date, datetime, timezone
+30 + from datetime import datetime, timezone
+31 | from itertools import combinations
+   |
+
+F401 [*] `datetime.date` imported but unused
+  --> pipeline\glossary.py:14:22
+   |
+12 | import logging
+13 | import re
+14 | from datetime import date, datetime, timezone
+   |                      ^^^^
+15 | from pathlib import Path
+16 | from typing import Any
+   |
+help: Remove unused import: `datetime.date`
+   |
+13 | import re
+   - from datetime import date, datetime, timezone
+14 + from datetime import datetime, timezone
+15 | from pathlib import Path
+   |
+
+F401 [*] `pathlib.Path` imported but unused
+  --> pipeline\glossary.py:15:21
+   |
+13 | import re
+14 | from datetime import date, datetime, timezone
+15 | from pathlib import Path
+   |                     ^^^^
+16 | from typing import Any
+   |
+help: Remove unused import: `pathlib.Path`
+   |
+14 | from datetime import date, datetime, timezone
+   - from pathlib import Path
+15 | from typing import Any
+   |
+
+F401 [*] `pathlib.Path` imported but unused
+ --> pipeline\index_latest.py:7:21
+  |
+5 | import logging
+6 | from datetime import datetime, timezone
+7 | from pathlib import Path
+  |                     ^^^^
+8 |
+9 | from pipeline.summarize import DATA_DIR
+  |
+help: Remove unused import: `pathlib.Path`
+  |
+6 | from datetime import datetime, timezone
+  - from pathlib import Path
+7 |
+  |
+
+F401 [*] `datetime.date` imported but unused
+  --> pipeline\model_facts.py:22:22
+   |
+20 | import re
+21 | from collections import Counter
+22 | from datetime import date, datetime, timedelta, timezone
+   |                      ^^^^
+23 | from pathlib import Path
+24 | from typing import Any
+   |
+help: Remove unused import: `datetime.date`
+   |
+21 | from collections import Counter
+   - from datetime import date, datetime, timedelta, timezone
+22 + from datetime import datetime, timedelta, timezone
+23 | from pathlib import Path
+   |
+
+F401 [*] `pathlib.Path` imported but unused
+  --> pipeline\model_facts.py:23:21
+   |
+21 | from collections import Counter
+22 | from datetime import date, datetime, timedelta, timezone
+23 | from pathlib import Path
+   |                     ^^^^
+24 | from typing import Any
+   |
+help: Remove unused import: `pathlib.Path`
+   |
+22 | from datetime import date, datetime, timedelta, timezone
+   - from pathlib import Path
+23 | from typing import Any
+   |
+
+F401 [*] `time` imported but unused
+  --> pipeline\predict_extract.py:21:8
+   |
+19 | import logging
+20 | import re
+21 | import time
+   |        ^^^^
+22 | from datetime import date, datetime, timedelta, timezone
+23 | from pathlib import Path
+   |
+help: Remove unused import: `time`
+   |
+20 | import re
+   - import time
+21 | from datetime import date, datetime, timedelta, timezone
+   |
+
+F401 [*] `pathlib.Path` imported but unused
+  --> pipeline\predict_extract.py:23:21
+   |
+21 | import time
+22 | from datetime import date, datetime, timedelta, timezone
+23 | from pathlib import Path
+   |                     ^^^^
+24 | from typing import Any
+   |
+help: Remove unused import: `pathlib.Path`
+   |
+22 | from datetime import date, datetime, timedelta, timezone
+   - from pathlib import Path
+23 | from typing import Any
+   |
+
+F401 [*] `typing.Any` imported but unused
+  --> pipeline\predict_extract.py:24:20
+   |
+22 | from datetime import date, datetime, timedelta, timezone
+23 | from pathlib import Path
+24 | from typing import Any
+   |                    ^^^
+25 |
+26 | import anthropic
+   |
+help: Remove unused import: `typing.Any`
+   |
+23 | from pathlib import Path
+   - from typing import Any
+24 |
+   |
+
+F401 [*] `pipeline.summarize.BATCH_POLL_SEC` imported but unused
+  --> pipeline\predict_extract.py:35:5
+   |
+33 | from pipeline.state import url_hash
+34 | from pipeline.summarize import (
+35 |     BATCH_POLL_SEC,
+   |     ^^^^^^^^^^^^^^
+36 |     BATCH_TIMEOUT_MIN,
+37 |     DATA_DIR,
+   |
+help: Remove unused import
+   |
+34 | from pipeline.summarize import (
+   -     BATCH_POLL_SEC,
+   -     BATCH_TIMEOUT_MIN,
+35 |     DATA_DIR,
+   |
+
+F401 [*] `pipeline.summarize.BATCH_TIMEOUT_MIN` imported but unused
+  --> pipeline\predict_extract.py:36:5
+   |
+34 | from pipeline.summarize import (
+35 |     BATCH_POLL_SEC,
+36 |     BATCH_TIMEOUT_MIN,
+   |     ^^^^^^^^^^^^^^^^^
+37 |     DATA_DIR,
+38 |     MODEL,
+   |
+help: Remove unused import
+   |
+34 | from pipeline.summarize import (
+   -     BATCH_POLL_SEC,
+   -     BATCH_TIMEOUT_MIN,
+35 |     DATA_DIR,
+   |
+
+F401 [*] `pathlib.Path` imported but unused
+  --> pipeline\rank.py:10:21
+   |
+ 8 | import unicodedata
+ 9 | from datetime import datetime, timezone
+10 | from pathlib import Path
+   |                     ^^^^
+11 |
+12 | from pipeline.collect import today
+   |
+help: Remove unused import: `pathlib.Path`
+   |
+9  | from datetime import datetime, timezone
+   - from pathlib import Path
+10 |
+   |
+
+F401 [*] `datetime.date` imported but unused
+  --> pipeline\themes.py:15:22
+   |
+13 | import re
+14 | from collections import Counter
+15 | from datetime import date, datetime, timedelta, timezone
+   |                      ^^^^
+16 | from pathlib import Path
+17 | from typing import Any
+   |
+help: Remove unused import: `datetime.date`
+   |
+14 | from collections import Counter
+   - from datetime import date, datetime, timedelta, timezone
+15 + from datetime import datetime, timedelta, timezone
+16 | from pathlib import Path
+   |
+
+F401 [*] `pathlib.Path` imported but unused
+  --> pipeline\themes.py:16:21
+   |
+14 | from collections import Counter
+15 | from datetime import date, datetime, timedelta, timezone
+16 | from pathlib import Path
+   |                     ^^^^
+17 | from typing import Any
+   |
+help: Remove unused import: `pathlib.Path`
+   |
+15 | from datetime import date, datetime, timedelta, timezone
+   - from pathlib import Path
+16 | from typing import Any
+   |
+
+F401 [*] `pathlib.Path` imported but unused
+  --> pipeline\trending.py:9:21
+   |
+ 7 | import re
+ 8 | from collections import Counter
+ 9 | from pathlib import Path
+   |                     ^^^^
+10 |
+11 | from pipeline.collect import today
+   |
+help: Remove unused import: `pathlib.Path`
+  |
+8 | from collections import Counter
+  - from pathlib import Path
+9 |
+  |
+
+F401 [*] `pathlib.Path` imported but unused
+  --> pipeline\weekly.py:14:21
+   |
+12 | import re
+13 | from datetime import date, datetime, timedelta, timezone
+14 | from pathlib import Path
+   |                     ^^^^
+15 | from typing import Any
+   |
+help: Remove unused import: `pathlib.Path`
+   |
+13 | from datetime import date, datetime, timedelta, timezone
+   - from pathlib import Path
+14 | from typing import Any
+   |
+
+Found 23 errors.
+[*] 20 fixable with the `--fix` option (3 hidden fixes can be enabled with the `--unsafe-fixes` option).
