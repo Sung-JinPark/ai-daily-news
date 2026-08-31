@@ -242,7 +242,7 @@ def upsert_paper(conn: sqlite3.Connection, arxiv_id: str, article: dict, day: st
         )
         return "insert"
 
-    old_tags_json, old_importance_max, old_first_seen, _old_seen_count = existing
+    old_tags_json, old_importance_max, _old_first_seen, _old_seen_count = existing
     merged_tags = _merge_json_list(old_tags_json, tags)
     new_importance_max = max(int(old_importance_max or 0), importance)
     cur.execute(
