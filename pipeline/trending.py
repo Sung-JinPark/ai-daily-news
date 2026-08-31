@@ -6,7 +6,6 @@ import json
 import logging
 import re
 from collections import Counter
-from pathlib import Path
 
 from pipeline.collect import today
 from pipeline.summarize import DATA_DIR

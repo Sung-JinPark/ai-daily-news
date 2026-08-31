@@ -26,8 +26,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-from collections import defaultdict
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from itertools import combinations
 from pathlib import Path
 

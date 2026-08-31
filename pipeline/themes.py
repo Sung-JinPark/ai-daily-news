@@ -12,8 +12,7 @@ import json
 import logging
 import re
 from collections import Counter
-from datetime import date, datetime, timedelta, timezone
-from pathlib import Path
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 import anthropic

@@ -14,10 +14,6 @@ export type Player = {
 
 export const PLAYERS: Player[] = players as Player[];
 
-export function findPlayer(id: string): Player | undefined {
-  return PLAYERS.find((p) => p.id === id);
-}
-
 function matchesPlayer(article: Article, p: Player): boolean {
   if (p.source_ids.includes(article.source_id)) return true;
   const tags = article.tags ?? [];
