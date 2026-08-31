@@ -11,8 +11,9 @@ const pool = dedupeArticles(loadRecentDays(7));
 const filtered = pool
   .filter((a) => a.category === "product" || a.category === "hardware")
   .sort((a, b) => {
-    if (b.importance_score !== a.importance_score) return b.importance_score - a.importance_score;
-    return (b.published ?? "").localeCompare(a.published ?? "");
+    const pubDiff = (b.published ?? "").localeCompare(a.published ?? "");
+    if (pubDiff !== 0) return pubDiff;
+    return b.importance_score - a.importance_score;
   });
 
 const productCount = filtered.filter((a) => a.category === "product").length;
