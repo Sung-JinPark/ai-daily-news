@@ -14,6 +14,7 @@ Usage: python -m pipeline.research.backfill_news
 from __future__ import annotations
 
 import hashlib
+import html
 import json
 import time
 from pathlib import Path
@@ -69,7 +70,7 @@ def run(window_lo: str = WINDOW_LO, window_hi: str = WINDOW_HI) -> dict:
             day = time.strftime("%Y-%m-%d", pp)
             if not (window_lo <= day <= window_hi):
                 continue
-            title = (e.get("title") or "").strip()
+            title = html.unescape(e.get("title") or "").strip()
             link = e.get("link") or ""
             aid = _url_hash(link)
             n_win += 1

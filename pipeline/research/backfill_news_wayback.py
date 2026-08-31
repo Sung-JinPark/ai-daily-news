@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import html
 import json
 import time
 from pathlib import Path
@@ -85,7 +86,7 @@ def _articles(feed: str, snaps: list[str], lo: str, hi: str) -> dict:
                 continue
             content_body = (e.get("content") or [{}])[0].get("value", "") if e.get("content") else ""
             body = content_body or e.get("summary", "") or ""
-            out[link] = {"day": day, "title": (e.get("title") or "").strip(), "body": body}
+            out[link] = {"day": day, "title": html.unescape(e.get("title") or "").strip(), "body": body}
         time.sleep(1.2)
     return out
 

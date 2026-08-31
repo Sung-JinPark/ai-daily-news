@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import logging
 import re
@@ -50,10 +51,14 @@ def from_rss(source: dict, content: bytes) -> list[dict]:
             {
                 "source_id": source["id"],
                 "source_name": source["name"],
-                "title": title.strip(),
+                # Some feeds double-encode entities (e.g. "&amp;#8217;" in the XML),
+                # so feedparser's one XML-level unescape leaves a literal "&#8217;"
+                # behind. html.unescape() cleans up that residue; it's a no-op on
+                # already-clean titles.
+                "title": html.unescape(title).strip(),
                 "url": link,
                 "published": parse_date(entry.get("published") or entry.get("updated")),
-                "summary": (entry.get("summary") or "")[:1000],
+                "summary": html.unescape((entry.get("summary") or "")[:1000]),
             }
         )
     return items
@@ -82,10 +87,10 @@ def from_arxiv(source: dict) -> list[dict]:
             {
                 "source_id": source["id"],
                 "source_name": source["name"],
-                "title": re.sub(r"\s+", " ", title).strip(),
+                "title": html.unescape(re.sub(r"\s+", " ", title)).strip(),
                 "url": link,
                 "published": parse_date(entry.get("published")),
-                "summary": (entry.get("summary") or "")[:1500],
+                "summary": html.unescape((entry.get("summary") or "")[:1500]),
             }
         )
     return items
@@ -134,7 +139,7 @@ def from_scrape_links(source: dict) -> list[dict]:
         if path in seen_paths:
             continue
         seen_paths.add(path)
-        title = re.sub(r"\s+", " ", anchor.get_text(strip=True))
+        title = html.unescape(re.sub(r"\s+", " ", anchor.get_text(strip=True)))
         if len(title) < 8:
             title = _slug_to_title(path)
         items.append(

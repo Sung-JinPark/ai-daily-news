@@ -2,6 +2,7 @@
 only the image URL (3rd-party hot-link) is persisted in articles.json."""
 from __future__ import annotations
 
+import html
 import logging
 import re
 from urllib.parse import urljoin
@@ -28,11 +29,14 @@ _OG_PATTERNS = [
 ]
 
 
-def _extract_og_image(html: str, page_url: str) -> str:
+def _extract_og_image(page_html: str, page_url: str) -> str:
     for pat in _OG_PATTERNS:
-        m = pat.search(html)
+        m = pat.search(page_html)
         if m:
-            raw = m.group(1).strip()
+            # HTML attribute values legitimately escape "&" as "&amp;"; the
+            # regex grabs the raw markup, so decode entities before the URL
+            # is used, or query-string "&" separators come through literal.
+            raw = html.unescape(m.group(1).strip())
             if raw.startswith("//"):
                 return "https:" + raw
             if raw.startswith("/"):
@@ -49,7 +53,7 @@ def extract_article(url: str) -> dict[str, str]:
             resp = fetch(url, client=client)
             if resp.status_code >= 400:
                 return {"body": "", "image_url": ""}
-            html = resp.text
+            page_html = resp.text
     except Exception as exc:  # noqa: BLE001
         log.warning("fetch failed for %s: %s", url, exc)
         return {"body": "", "image_url": ""}
@@ -57,14 +61,14 @@ def extract_article(url: str) -> dict[str, str]:
     body = ""
     try:
         text = trafilatura.extract(
-            html, include_comments=False, include_tables=False, favor_precision=True
+            page_html, include_comments=False, include_tables=False, favor_precision=True
         )
         if text:
             body = text[:MAX_CHARS]
     except Exception as exc:  # noqa: BLE001
         log.warning("trafilatura failed for %s: %s", url, exc)
 
-    image = _extract_og_image(html, url)
+    image = _extract_og_image(page_html, url)
     return {"body": body, "image_url": image}
 
 

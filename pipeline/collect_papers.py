@@ -33,6 +33,7 @@ module never touches public repo state.
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import logging
 import re
@@ -491,9 +492,9 @@ def enrich_batch(client, ids: list[str]) -> dict[str, dict]:
                 pdf_url = link.get("href")
                 break
         out[arxiv_id] = {
-            "title": re.sub(r"\s+", " ", _text(entry, "title")).strip() or None,
+            "title": html.unescape(re.sub(r"\s+", " ", _text(entry, "title"))).strip() or None,
             "authors_json": json.dumps(authors, ensure_ascii=False) if authors else "[]",
-            "abstract": _text(entry, "summary").strip() or None,
+            "abstract": html.unescape(_text(entry, "summary")).strip() or None,
             "primary_category": primary,
             "categories_json": json.dumps(cats, ensure_ascii=False),
             "published": entry.get("published"),
