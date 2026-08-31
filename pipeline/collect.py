@@ -193,7 +193,6 @@ def main() -> int:
             continue
         try:
             items = fetch_source(source)
-            error = ""
         except Exception as exc:  # noqa: BLE001 - one failing source must not stop pipeline
             log.warning("source %s failed: %s", source["id"], exc)
             health_rows.append(

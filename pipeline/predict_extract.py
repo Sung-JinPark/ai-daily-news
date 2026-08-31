@@ -18,10 +18,7 @@ import hashlib
 import json
 import logging
 import re
-import time
 from datetime import date, datetime, timedelta, timezone
-from pathlib import Path
-from typing import Any
 
 import anthropic
 from dotenv import load_dotenv
@@ -32,8 +29,6 @@ load_dotenv()
 from pipeline.collect import today as today_str
 from pipeline.state import url_hash
 from pipeline.summarize import (
-    BATCH_POLL_SEC,
-    BATCH_TIMEOUT_MIN,
     DATA_DIR,
     MODEL,
     RETRYABLE,

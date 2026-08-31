@@ -7,7 +7,6 @@ import logging
 import re
 import unicodedata
 from datetime import datetime, timezone
-from pathlib import Path
 
 from pipeline.collect import today
 from pipeline.summarize import DATA_DIR
