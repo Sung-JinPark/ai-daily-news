@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>방문자 통계 (로컬 전용)</title>
+<style>
+  :root { --ink: #0a0a0a; --accent: #be1622; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 40px 20px 80px;
+    background: #fff; color: var(--ink);
+    font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 900; margin: 0 0 6px; }
+  .kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+  .note { font-size: 13px; color: rgba(10,10,10,.6); line-height: 1.6; margin: 8px 0 0; }
+  header { border-bottom: 2px solid var(--ink); padding-bottom: 16px; margin-bottom: 28px; }
+  section.box { border: 1px solid rgba(10,10,10,.15); padding: 18px; margin-bottom: 28px; }
+  .box-title { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: rgba(10,10,10,.5); margin-bottom: 12px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  label { display: block; }
+  label span { display: block; font-size: 12px; color: rgba(10,10,10,.6); margin-bottom: 4px; }
+  input {
+    width: 100%; border: 1px solid rgba(10,10,10,.25); padding: 8px 10px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+  }
+  input:focus { outline: none; border-color: var(--accent); }
+  button {
+    padding: 9px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; cursor: pointer; border: none;
+  }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-secondary { background: #fff; border: 1px solid rgba(10,10,10,.25); color: rgba(10,10,10,.6); }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  #status { font-size: 12px; color: rgba(10,10,10,.5); }
+  .hidden { display: none !important; }
+  .range { display: flex; gap: 6px; }
+  .range button { border: 1px solid rgba(10,10,10,.25); background: #fff; color: var(--ink); }
+  .range button.active { border-color: var(--accent); color: var(--accent); }
+  .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 8px; }
+  #updated { font-size: 11px; color: rgba(10,10,10,.4); }
+  .error { display: none; margin-bottom: 18px; border: 1px solid rgba(190,22,34,.4); background: rgba(190,22,34,.05); color: var(--accent); padding: 10px 14px; font-size: 13px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
+  .stat { border-left: 2px solid rgba(10,10,10,.15); padding-left: 12px; }
+  .stat-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: rgba(10,10,10,.5); margin-bottom: 2px; }
+  .stat-value { font-size: 26px; font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1; }
+  .stat-value.accent { color: var(--accent); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  h2 { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: rgba(10,10,10,.5); margin: 0 0 12px; }
+  ul.bars { list-style: none; margin: 0; padding: 0; }
+  ul.bars li { display: flex; align-items: center; gap: 10px; font-size: 12px; margin-bottom: 6px; }
+  .bar-label { width: 130px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgba(10,10,10,.7); }
+  .bar-track { flex: 1; height: 12px; background: rgba(10,10,10,.08); border-radius: 2px; overflow: hidden; }
+  .bar-fill { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+  .bar-value { width: 48px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: rgba(10,10,10,.7); }
+  @media (max-width: 640px) {
+    .row, .grid2, .stats-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="kicker">Local Only — Never Deployed</div>
+    <h1>방문자 통계</h1>
+    <p class="note">
+      이 파일은 저장소에는 있지만 사이트 빌드/배포에는 전혀 포함되지 않습니다.
+      이 컴퓨터에서 직접 열 때만 존재하는 로컬 뷰어입니다. Worker URL과
+      관리자 키는 이 브라우저의 localStorage에만 저장되고 그 외 어디로도
+      전송되지 않습니다(Worker API 호출 제외).
+    </p>
+  </header>
+
+  <section id="unlock" class="box">
+    <div class="box-title">연결</div>
+    <div class="row">
+      <label>
+        <span>Worker URL</span>
+        <input id="gc-url" type="text" placeholder="https://ai-daily-news-analytics.xxx.workers.dev" autocomplete="off" />
+      </label>
+      <label>
+        <span>ADMIN_KEY</span>
+        <input id="gc-key" type="password" placeholder="wrangler secret put ADMIN_KEY 로 만든 값" autocomplete="off" />
+      </label>
+    </div>
+    <div class="actions">
+      <button id="gc-save" class="btn-primary">저장하고 불러오기</button>
+      <button id="gc-clear" class="btn-secondary">초기화</button>
+      <span id="status"></span>
+    </div>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="top-row">
+      <div class="range" role="group" aria-label="기간 선택">
+        <button data-days="7" class="gc-range">7일</button>
+        <button data-days="30" class="gc-range">30일</button>
+        <button data-days="90" class="gc-range">90일</button>
+      </div>
+      <span id="updated"></span>
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-label">순방문자</div>
+        <div id="stat-visitors" class="stat-value">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">페이지뷰</div>
+        <div id="stat-pageviews" class="stat-value">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">기간</div>
+        <div id="stat-range" class="stat-value accent">—</div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <h2>인기 페이지</h2>
+        <ul id="list-paths" class="bars"></ul>
+      </div>
+      <div>
+        <h2>유입 경로 (리퍼러)</h2>
+        <ul id="list-refs" class="bars"></ul>
+      </div>
+      <div>
+        <h2>국가</h2>
+        <ul id="list-countries" class="bars"></ul>
+      </div>
+      <div>
+        <h2>브라우저 / OS</h2>
+        <ul id="list-browsers" class="bars"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var LS_URL = "analytics_local_worker_url";
+  var LS_KEY = "analytics_local_admin_key";
+
+  var dashboard = document.getElementById("dashboard");
+  var urlInput = document.getElementById("gc-url");
+  var keyInput = document.getElementById("gc-key");
+  var saveBtn = document.getElementById("gc-save");
+  var clearBtn = document.getElementById("gc-clear");
+  var statusEl = document.getElementById("status");
+  var errorEl = document.getElementById("error");
+  var updatedEl = document.getElementById("updated");
+  var rangeEl = document.getElementById("stat-range");
+  var currentDays = 30;
+
+  function getCreds() {
+    try {
+      var url = localStorage.getItem(LS_URL);
+      var key = localStorage.getItem(LS_KEY);
+      return url && key ? { url: url.replace(/\/$/, ""), key: key } : null;
+    } catch (e) { return null; }
+  }
+
+  function saveCreds(url, key) {
+    try { localStorage.setItem(LS_URL, url); localStorage.setItem(LS_KEY, key); } catch (e) {}
+  }
+
+  function clearCreds() {
+    try { localStorage.removeItem(LS_URL); localStorage.removeItem(LS_KEY); } catch (e) {}
+    dashboard.classList.add("hidden");
+    urlInput.value = ""; keyInput.value = ""; statusEl.textContent = "";
+  }
+
+  function showError(msg) { errorEl.textContent = msg; errorEl.style.display = "block"; }
+  function hideError() { errorEl.style.display = "none"; errorEl.textContent = ""; }
+
+  function renderBars(container, items) {
+    container.innerHTML = "";
+    if (!items || !items.length) {
+      var li = document.createElement("li");
+      li.style.color = "rgba(10,10,10,.4)";
+      li.textContent = "데이터 없음";
+      container.appendChild(li);
+      return;
+    }
+    var max = Math.max.apply(null, items.map(function (i) { return i.count; }).concat([1]));
+    items.forEach(function (i) {
+      var li = document.createElement("li");
+
+      var label = document.createElement("span");
+      label.className = "bar-label";
+      label.title = i.name;
+      label.textContent = i.name;
+
+      var track = document.createElement("span");
+      track.className = "bar-track";
+      var fill = document.createElement("span");
+      fill.className = "bar-fill";
+      fill.style.width = Math.max(2, (i.count / max) * 100) + "%";
+      track.appendChild(fill);
+
+      var value = document.createElement("span");
+      value.className = "bar-value";
+      value.textContent = i.count.toLocaleString("ko-KR");
+
+      li.appendChild(label);
+      li.appendChild(track);
+      li.appendChild(value);
+      container.appendChild(li);
+    });
+  }
+
+  function fetchJson(url, key) {
+    return fetch(url, { headers: { Authorization: "Bearer " + key } }).then(function (res) {
+      if (!res.ok) {
+        var err = new Error("HTTP " + res.status);
+        err.status = res.status;
+        throw err;
+      }
+      return res.json();
+    });
+  }
+
+  function loadStats(days) {
+    var creds = getCreds();
+    if (!creds) return;
+    currentDays = days;
+    hideError();
+    document.querySelectorAll(".gc-range").forEach(function (b) {
+      b.classList.toggle("active", Number(b.dataset.days) === days);
+    });
+    rangeEl.textContent = "최근 " + days + "일";
+
+    fetchJson(creds.url + "/stats?days=" + days, creds.key)
+      .then(function (data) {
+        document.getElementById("stat-visitors").textContent = (data.total_visitors || 0).toLocaleString("ko-KR");
+        document.getElementById("stat-pageviews").textContent = (data.total_pageviews || 0).toLocaleString("ko-KR");
+        renderBars(document.getElementById("list-paths"), data.top_paths);
+        renderBars(document.getElementById("list-refs"), data.top_referrers);
+        renderBars(document.getElementById("list-countries"), data.top_countries);
+        var browsersAndOs = (data.top_browsers || []).concat(data.top_os || []);
+        renderBars(document.getElementById("list-browsers"), browsersAndOs);
+        dashboard.classList.remove("hidden");
+        updatedEl.textContent = "갱신 " + new Date().toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" });
+      })
+      .catch(function (e) {
+        if (e && (e.status === 401 || e.status === 403)) {
+          showError("ADMIN_KEY가 유효하지 않습니다. 값을 다시 확인해 주세요.");
+        } else {
+          showError("데이터를 불러오지 못했습니다 (" + (e && e.message ? e.message : "네트워크 오류") + "). Worker URL과 배포 상태를 확인해 주세요.");
+        }
+      });
+  }
+
+  saveBtn.addEventListener("click", function () {
+    var url = urlInput.value.trim().replace(/\/(collect|stats).*$/, "").replace(/\/$/, "");
+    var key = keyInput.value.trim();
+    if (!url || !key) { statusEl.textContent = "Worker URL과 ADMIN_KEY를 모두 입력하세요."; return; }
+    saveCreds(url, key);
+    statusEl.textContent = "";
+    loadStats(currentDays);
+  });
+
+  clearBtn.addEventListener("click", clearCreds);
+
+  document.querySelectorAll(".gc-range").forEach(function (btn) {
+    btn.addEventListener("click", function () { loadStats(Number(btn.dataset.days)); });
+  });
+
+  var existing = getCreds();
+  if (existing) {
+    urlInput.value = existing.url;
+    keyInput.value = existing.key;
+    loadStats(currentDays);
+  }
+})();
+</script>
+</body>
+</html>
