@@ -25,6 +25,7 @@ function isCurrent(target: string): "page" | undefined {
   return undefined;
 }
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const goatcounterCode = import.meta.env.PUBLIC_GOATCOUNTER_CODE;
 
 const today = new Date();
 const datelineEn = today.toLocaleDateString("ko-KR", {
@@ -60,6 +61,9 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
     />
     {googleVerification && (
       <meta name="google-site-verification" content={googleVerification} />
+    )}
+    {goatcounterCode && (
+      <script data-goatcounter={`https://${goatcounterCode}.goatcounter.com/count`} async src="//gc.zgo.at/count.js"></script>
     )}
     <title>{title}</title>
     <style is:global>
