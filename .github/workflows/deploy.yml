@@ -38,7 +38,7 @@ jobs:
         working-directory: site
         env:
           PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ secrets.GOOGLE_SITE_VERIFICATION }}
-          PUBLIC_GOATCOUNTER_CODE: ${{ secrets.GOATCOUNTER_CODE }}
+          PUBLIC_ANALYTICS_COLLECT_URL: ${{ secrets.ANALYTICS_COLLECT_URL }}
         run: npm run build
 
       - uses: actions/configure-pages@v5

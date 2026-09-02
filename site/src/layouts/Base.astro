@@ -25,7 +25,7 @@ function isCurrent(target: string): "page" | undefined {
   return undefined;
 }
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
-const goatcounterCode = import.meta.env.PUBLIC_GOATCOUNTER_CODE;
+const analyticsCollectUrl = import.meta.env.PUBLIC_ANALYTICS_COLLECT_URL;
 
 const today = new Date();
 const datelineEn = today.toLocaleDateString("ko-KR", {
@@ -61,9 +61,6 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
     />
     {googleVerification && (
       <meta name="google-site-verification" content={googleVerification} />
-    )}
-    {goatcounterCode && (
-      <script data-goatcounter={`https://${goatcounterCode}.goatcounter.com/count`} async src="//gc.zgo.at/count.js"></script>
     )}
     <title>{title}</title>
     <style is:global>
@@ -269,6 +266,20 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
         document.addEventListener("scroll", hide, { passive: true });
       })();
     </script>
+    {analyticsCollectUrl && (
+      <script is:inline define:vars={{ collectUrl: analyticsCollectUrl }}>
+        (function () {
+          try {
+            var ref = "";
+            if (document.referrer) {
+              try { ref = new URL(document.referrer).hostname; } catch (e) {}
+            }
+            var qs = "p=" + encodeURIComponent(location.pathname) + "&r=" + encodeURIComponent(ref);
+            new Image().src = collectUrl + "?" + qs;
+          } catch (e) { /* 방문자 통계 실패는 사이트 기능에 영향 없어야 함 */ }
+        })();
+      </script>
+    )}
     <footer class="border-t-2 border-ink mt-20">
       <div class="max-w-6xl mx-auto px-4 py-8 text-[11px] tracking-kicker uppercase font-semibold text-ink/60 flex flex-col sm:flex-row gap-3 justify-between">
         <span>All articles © their respective publishers · All rights reserved</span>
