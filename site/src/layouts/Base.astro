@@ -25,7 +25,8 @@ function isCurrent(target: string): "page" | undefined {
   return undefined;
 }
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
-const analyticsCollectUrl = import.meta.env.PUBLIC_ANALYTICS_COLLECT_URL;
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
 const today = new Date();
 const datelineEn = today.toLocaleDateString("ko-KR", {
@@ -266,16 +267,47 @@ const datelineEn = today.toLocaleDateString("ko-KR", {
         document.addEventListener("scroll", hide, { passive: true });
       })();
     </script>
-    {analyticsCollectUrl && (
-      <script is:inline define:vars={{ collectUrl: analyticsCollectUrl }}>
+    {supabaseUrl && supabaseAnonKey && (
+      <script is:inline define:vars={{ supabaseUrl, supabaseAnonKey }}>
         (function () {
           try {
+            var VID_KEY = "_adn_vid";
+            var vid = "";
+            try { vid = localStorage.getItem(VID_KEY) || ""; } catch (e) {}
+            if (!vid) {
+              vid = (crypto.randomUUID ? crypto.randomUUID() : (Date.now() + "-" + Math.random().toString(16).slice(2)));
+              try { localStorage.setItem(VID_KEY, vid); } catch (e) {}
+            }
+
             var ref = "";
             if (document.referrer) {
               try { ref = new URL(document.referrer).hostname; } catch (e) {}
             }
-            var qs = "p=" + encodeURIComponent(location.pathname) + "&r=" + encodeURIComponent(ref);
-            new Image().src = collectUrl + "?" + qs;
+
+            var ua = navigator.userAgent || "";
+            var os = "기타";
+            if (/Windows/i.test(ua)) os = "Windows";
+            else if (/Mac OS X|Macintosh/i.test(ua)) os = "macOS";
+            else if (/Android/i.test(ua)) os = "Android";
+            else if (/iPhone|iPad|iPod/i.test(ua)) os = "iOS";
+            else if (/Linux/i.test(ua)) os = "Linux";
+            var browser = "기타";
+            if (/Edg\//i.test(ua)) browser = "Edge";
+            else if (/Chrome\//i.test(ua) && !/Chromium/i.test(ua)) browser = "Chrome";
+            else if (/Firefox\//i.test(ua)) browser = "Firefox";
+            else if (/Safari\//i.test(ua) && !/Chrome/i.test(ua)) browser = "Safari";
+
+            fetch(supabaseUrl + "/rest/v1/hits", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "apikey": supabaseAnonKey,
+                "Authorization": "Bearer " + supabaseAnonKey,
+                "Prefer": "return=minimal",
+              },
+              body: JSON.stringify({ path: location.pathname, ref: ref, browser: browser, os: os, visitor_hash: vid }),
+              keepalive: true,
+            }).catch(function () {});
           } catch (e) { /* 방문자 통계 실패는 사이트 기능에 영향 없어야 함 */ }
         })();
       </script>

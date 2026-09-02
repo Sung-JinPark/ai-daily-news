@@ -38,7 +38,8 @@ jobs:
         working-directory: site
         env:
           PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ secrets.GOOGLE_SITE_VERIFICATION }}
-          PUBLIC_ANALYTICS_COLLECT_URL: ${{ secrets.ANALYTICS_COLLECT_URL }}
+          PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: npm run build
 
       - uses: actions/configure-pages@v5

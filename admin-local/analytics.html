@@ -19,8 +19,7 @@
   header { border-bottom: 2px solid var(--ink); padding-bottom: 16px; margin-bottom: 28px; }
   section.box { border: 1px solid rgba(10,10,10,.15); padding: 18px; margin-bottom: 28px; }
   .box-title { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: rgba(10,10,10,.5); margin-bottom: 12px; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-  label { display: block; }
+  label { display: block; margin-bottom: 12px; }
   label span { display: block; font-size: 12px; color: rgba(10,10,10,.6); margin-bottom: 4px; }
   input {
     width: 100%; border: 1px solid rgba(10,10,10,.25); padding: 8px 10px;
@@ -58,7 +57,7 @@
   .bar-fill { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
   .bar-value { width: 48px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: rgba(10,10,10,.7); }
   @media (max-width: 640px) {
-    .row, .grid2, .stats-grid { grid-template-columns: 1fr; }
+    .grid2, .stats-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -69,24 +68,18 @@
     <h1>방문자 통계</h1>
     <p class="note">
       이 파일은 저장소에는 있지만 사이트 빌드/배포에는 전혀 포함되지 않습니다.
-      이 컴퓨터에서 직접 열 때만 존재하는 로컬 뷰어입니다. Worker URL과
-      관리자 키는 이 브라우저의 localStorage에만 저장되고 그 외 어디로도
-      전송되지 않습니다(Worker API 호출 제외).
+      이 컴퓨터에서 직접 열 때만 존재하는 로컬 뷰어입니다. 관리자 키는 이
+      브라우저의 localStorage에만 저장되고, Supabase API 호출 외에는 어디로도
+      전송되지 않습니다.
     </p>
   </header>
 
   <section id="unlock" class="box">
     <div class="box-title">연결</div>
-    <div class="row">
-      <label>
-        <span>Worker URL</span>
-        <input id="gc-url" type="text" placeholder="https://ai-daily-news-analytics.xxx.workers.dev" autocomplete="off" />
-      </label>
-      <label>
-        <span>ADMIN_KEY</span>
-        <input id="gc-key" type="password" placeholder="wrangler secret put ADMIN_KEY 로 만든 값" autocomplete="off" />
-      </label>
-    </div>
+    <label>
+      <span>관리자 키</span>
+      <input id="gc-key" type="password" placeholder="admin_config에 등록한 키" autocomplete="off" />
+    </label>
     <div class="actions">
       <button id="gc-save" class="btn-primary">저장하고 불러오기</button>
       <button id="gc-clear" class="btn-secondary">초기화</button>
@@ -108,7 +101,7 @@
 
     <div class="stats-grid">
       <div class="stat">
-        <div class="stat-label">순방문자</div>
+        <div class="stat-label">순방문자(추정)</div>
         <div id="stat-visitors" class="stat-value">—</div>
       </div>
       <div class="stat">
@@ -131,24 +124,24 @@
         <ul id="list-refs" class="bars"></ul>
       </div>
       <div>
-        <h2>국가</h2>
-        <ul id="list-countries" class="bars"></ul>
+        <h2>브라우저</h2>
+        <ul id="list-browsers" class="bars"></ul>
       </div>
       <div>
-        <h2>브라우저 / OS</h2>
-        <ul id="list-browsers" class="bars"></ul>
+        <h2>OS</h2>
+        <ul id="list-os" class="bars"></ul>
       </div>
     </div>
   </section>
 </main>
 
+<script src="config.js"></script>
 <script>
 (function () {
-  var LS_URL = "analytics_local_worker_url";
   var LS_KEY = "analytics_local_admin_key";
 
+  var cfg = window.ANALYTICS_CONFIG || {};
   var dashboard = document.getElementById("dashboard");
-  var urlInput = document.getElementById("gc-url");
   var keyInput = document.getElementById("gc-key");
   var saveBtn = document.getElementById("gc-save");
   var clearBtn = document.getElementById("gc-clear");
@@ -158,22 +151,20 @@
   var rangeEl = document.getElementById("stat-range");
   var currentDays = 30;
 
-  function getCreds() {
-    try {
-      var url = localStorage.getItem(LS_URL);
-      var key = localStorage.getItem(LS_KEY);
-      return url && key ? { url: url.replace(/\/$/, ""), key: key } : null;
-    } catch (e) { return null; }
+  if (!cfg.supabaseUrl || cfg.supabaseUrl.indexOf("REPLACE_WITH") === 0) {
+    statusEl.textContent = "config.js에 Supabase URL/anon key를 먼저 채워 넣으세요.";
   }
 
-  function saveCreds(url, key) {
-    try { localStorage.setItem(LS_URL, url); localStorage.setItem(LS_KEY, key); } catch (e) {}
+  function getKey() {
+    try { return localStorage.getItem(LS_KEY) || null; } catch (e) { return null; }
   }
-
-  function clearCreds() {
-    try { localStorage.removeItem(LS_URL); localStorage.removeItem(LS_KEY); } catch (e) {}
+  function saveKey(key) {
+    try { localStorage.setItem(LS_KEY, key); } catch (e) {}
+  }
+  function clearKey() {
+    try { localStorage.removeItem(LS_KEY); } catch (e) {}
     dashboard.classList.add("hidden");
-    urlInput.value = ""; keyInput.value = ""; statusEl.textContent = "";
+    keyInput.value = ""; statusEl.textContent = "";
   }
 
   function showError(msg) { errorEl.textContent = msg; errorEl.style.display = "block"; }
@@ -215,20 +206,9 @@
     });
   }
 
-  function fetchJson(url, key) {
-    return fetch(url, { headers: { Authorization: "Bearer " + key } }).then(function (res) {
-      if (!res.ok) {
-        var err = new Error("HTTP " + res.status);
-        err.status = res.status;
-        throw err;
-      }
-      return res.json();
-    });
-  }
-
   function loadStats(days) {
-    var creds = getCreds();
-    if (!creds) return;
+    var key = getKey();
+    if (!key) return;
     currentDays = days;
     hideError();
     document.querySelectorAll(".gc-range").forEach(function (b) {
@@ -236,46 +216,62 @@
     });
     rangeEl.textContent = "최근 " + days + "일";
 
-    fetchJson(creds.url + "/stats?days=" + days, creds.key)
+    fetch(cfg.supabaseUrl + "/rest/v1/rpc/get_stats", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": cfg.supabaseAnonKey,
+        "Authorization": "Bearer " + cfg.supabaseAnonKey,
+      },
+      body: JSON.stringify({ admin_key: key, days: days }),
+    })
+      .then(function (res) {
+        if (!res.ok) {
+          return res.json().catch(function () { return {}; }).then(function (body) {
+            var err = new Error((body && (body.message || body.hint)) || ("HTTP " + res.status));
+            err.status = res.status;
+            throw err;
+          });
+        }
+        return res.json();
+      })
       .then(function (data) {
         document.getElementById("stat-visitors").textContent = (data.total_visitors || 0).toLocaleString("ko-KR");
         document.getElementById("stat-pageviews").textContent = (data.total_pageviews || 0).toLocaleString("ko-KR");
         renderBars(document.getElementById("list-paths"), data.top_paths);
         renderBars(document.getElementById("list-refs"), data.top_referrers);
-        renderBars(document.getElementById("list-countries"), data.top_countries);
-        var browsersAndOs = (data.top_browsers || []).concat(data.top_os || []);
-        renderBars(document.getElementById("list-browsers"), browsersAndOs);
+        renderBars(document.getElementById("list-browsers"), data.top_browsers);
+        renderBars(document.getElementById("list-os"), data.top_os);
         dashboard.classList.remove("hidden");
         updatedEl.textContent = "갱신 " + new Date().toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" });
       })
       .catch(function (e) {
-        if (e && (e.status === 401 || e.status === 403)) {
-          showError("ADMIN_KEY가 유효하지 않습니다. 값을 다시 확인해 주세요.");
+        var msg = (e && e.message) || "";
+        if (/unauthorized/i.test(msg) || (e && e.status === 401)) {
+          showError("관리자 키가 유효하지 않습니다. 값을 다시 확인해 주세요.");
         } else {
-          showError("데이터를 불러오지 못했습니다 (" + (e && e.message ? e.message : "네트워크 오류") + "). Worker URL과 배포 상태를 확인해 주세요.");
+          showError("데이터를 불러오지 못했습니다 (" + (msg || "네트워크 오류") + "). config.js 값과 Supabase 프로젝트 상태를 확인해 주세요.");
         }
       });
   }
 
   saveBtn.addEventListener("click", function () {
-    var url = urlInput.value.trim().replace(/\/(collect|stats).*$/, "").replace(/\/$/, "");
     var key = keyInput.value.trim();
-    if (!url || !key) { statusEl.textContent = "Worker URL과 ADMIN_KEY를 모두 입력하세요."; return; }
-    saveCreds(url, key);
+    if (!key) { statusEl.textContent = "관리자 키를 입력하세요."; return; }
+    saveKey(key);
     statusEl.textContent = "";
     loadStats(currentDays);
   });
 
-  clearBtn.addEventListener("click", clearCreds);
+  clearBtn.addEventListener("click", clearKey);
 
   document.querySelectorAll(".gc-range").forEach(function (btn) {
     btn.addEventListener("click", function () { loadStats(Number(btn.dataset.days)); });
   });
 
-  var existing = getCreds();
+  var existing = getKey();
   if (existing) {
-    urlInput.value = existing.url;
-    keyInput.value = existing.key;
+    keyInput.value = existing;
     loadStats(currentDays);
   }
 })();
