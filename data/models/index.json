@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-03T13:33:14.451758+00:00",
+  "generated_at": "2026-09-03T19:53:11.507546+00:00",
   "lookback_days": 60,
   "models": [
     {
@@ -15,16 +15,22 @@
           "url": "https://arstechnica.com/ai/2026/09/google-releases-gemini-3-8-flash-its-third-flash-model-in-six-weeks/"
         },
         {
-          "id": "0e6a8f5aea2eddab",
-          "day": "2026-09-03",
-          "title": "Google says its new Gemini 3.8 Flash model ‘works harder’ but might cost more",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/988742/google-gemini-3-8-flash"
-        },
-        {
           "id": "d57d4edab5ece266",
           "day": "2026-09-03",
           "title": "Google’s Gemini 3.8 Flash is built for agents, while its Cyber twin hunts vulnerabilities",
           "url": "https://venturebeat.com/security/googles-gemini-3-8-flash-is-built-for-agents-while-its-cyber-twin-hunts-vulnerabilities"
+        },
+        {
+          "id": "24310dd0bfe4be1a",
+          "day": "2026-09-03",
+          "title": "Google now lets you chat with Gmail, Docs, and Keep",
+          "url": "https://www.theverge.com/tech/989508/google-gmail-docs-keep-live-voice-modes-gemini"
+        },
+        {
+          "id": "0e6a8f5aea2eddab",
+          "day": "2026-09-03",
+          "title": "Google says its new Gemini 3.8 Flash model ‘works harder’ but might cost more",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/988742/google-gemini-3-8-flash"
         },
         {
           "id": "c97fc05837957282",
@@ -670,32 +676,32 @@
       ],
       "pricing": [
         {
+          "unit": "input/token",
+          "value": "$0.75",
+          "article_id": "63b19b50b4021cb5"
+        },
+        {
+          "unit": "output/token",
+          "value": "$3.75",
+          "article_id": "63b19b50b4021cb5"
+        },
+        {
           "unit": "Plus tier",
           "value": "$8/month",
-          "article_id": "8b87147b16987b98"
-        },
-        {
-          "unit": "Pro tier",
-          "value": "$20/month",
-          "article_id": "8b87147b16987b98"
-        },
-        {
-          "unit": "Ultra tier",
-          "value": "$100~200/month",
           "article_id": "8b87147b16987b98"
         }
       ],
       "strengths_ko": [
-        "사이버보안 특화",
         "코딩 성능 향상",
-        "비용 효율성"
+        "비용 효율성",
+        "사이버보안 특화"
       ],
       "weaknesses_ko": [
         "android bench 코딩 작업에서 5위",
         "사용량 예측 불가능성 증가",
         "모호한 사용 한도"
       ],
-      "article_count": 107
+      "article_count": 108
     },
     {
       "model": "Claude",
@@ -703,10 +709,16 @@
       "latest_seen": "2026-09-03",
       "articles": [
         {
-          "id": "0e6a8f5aea2eddab",
+          "id": "eb1104274464bbfa",
           "day": "2026-09-03",
-          "title": "Google says its new Gemini 3.8 Flash model ‘works harder’ but might cost more",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/988742/google-gemini-3-8-flash"
+          "title": "ChatGPT, Grok, and Claude all went down at the same time",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/989503/chatgpt-grok-claude-outage-down"
+        },
+        {
+          "id": "318a31e3b0c43b8b",
+          "day": "2026-09-03",
+          "title": "A dark horse enters China's AI race: StartLux",
+          "url": "https://chinaonchina.com/article/chen-dawei-returns-enters-the-large-model-sector"
         },
         {
           "id": "a3461c8cef17985d",
@@ -1707,401 +1719,19 @@
         "사용자 추적 코드 은폐",
         "프라이버시 원칙 위반"
       ],
-      "article_count": 160
-    },
-    {
-      "model": "GPT-5",
-      "latest_version": "GPT-5.6",
-      "latest_seen": "2026-09-03",
-      "articles": [
-        {
-          "id": "b3fd8ab69e8f575b",
-          "day": "2026-09-03",
-          "title": "Accessing OpenAI models on Amazon Bedrock from Australia with global cross-Region inference",
-          "url": "https://aws.amazon.com/blogs/machine-learning/accessing-openai-gpt-5-6-models-on-amazon-bedrock-from-australia-with-global-cross-region-inference/"
-        },
-        {
-          "id": "968a1c0e78d27539",
-          "day": "2026-09-02",
-          "title": "Frontier models can recover up to 65% of facts they can't directly recall — just by thinking longer",
-          "url": "https://venturebeat.com/orchestration/frontier-models-can-recover-up-to-65-of-facts-they-cant-directly-recall-just-by-thinking-longer"
-        },
-        {
-          "id": "0a94ed883d245203",
-          "day": "2026-08-28",
-          "title": "LLMs Can Design Near-Optimal OR Algorithms",
-          "url": "https://arxiv.org/abs/2608.27296v1"
-        },
-        {
-          "id": "1d6661841b379093",
-          "day": "2026-08-27",
-          "title": "OpenAI’s rogue AI model incident was worse than we thought",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/985385/openais-rogue-ai-model-hugging-face-cybersecurity-incident-reports-metr"
-        },
-        {
-          "id": "316e00f5b024545e",
-          "day": "2026-08-27",
-          "title": "Introducing India cross-Region inference for OpenAI GPT-5.6 models on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-india-cross-region-inference-for-openai-gpt-5-6-models-on-amazon-bedrock/"
-        },
-        {
-          "id": "be521f206c52ffa2",
-          "day": "2026-08-26",
-          "title": "Recursive Experiential-Working Memory Evolution for Long-Horizon Agent Harnesses",
-          "url": "https://arxiv.org/abs/2608.24876v1"
-        },
-        {
-          "id": "abd52c9f1dde403e",
-          "day": "2026-08-25",
-          "title": "Advancing price-performance for developers with GPT‑5.6 in Kiro",
-          "url": "https://openai.com/index/gpt-5-6-in-kiro"
-        },
-        {
-          "id": "6e84d41d42ab991c",
-          "day": "2026-08-21",
-          "title": "Introducing cross-Region inference for OpenAI GPT-5.6 models on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-cross-region-inference-for-openai-gpt-5-6-models-on-amazon-bedrock/"
-        },
-        {
-          "id": "7e4c3c110d8ca2af",
-          "day": "2026-08-20",
-          "title": "ChildSafeAds Shared Task 2026: Commercial Content in Child-Facing YouTube Videos",
-          "url": "https://arxiv.org/abs/2608.19165v1"
-        },
-        {
-          "id": "2f00013902a29bc1",
-          "day": "2026-08-19",
-          "title": "Replit expands access to software creation with GPT-5.6 Luna",
-          "url": "https://openai.com/index/replit"
-        },
-        {
-          "id": "569bbb1588558941",
-          "day": "2026-08-19",
-          "title": "Chain-of-Experience for Continual LLM Improvement",
-          "url": "https://arxiv.org/abs/2608.18027v1"
-        },
-        {
-          "id": "c0986f6628d189a1",
-          "day": "2026-08-14",
-          "title": "Previewing Ultrafast mode: GPT-5.6 Sol at up to 14X the speed",
-          "url": "https://openai.com/index/previewing-ultrafast"
-        },
-        {
-          "id": "6f1bf72c97e7993e",
-          "day": "2026-08-14",
-          "title": "OpenAI introduces ‘Ultrafast,’ a new mode that makes GPT-5.6 Sol work at 14x the speed",
-          "url": "https://techcrunch.com/2026/08/13/openai-introduces-ultrafast-a-new-mode-that-makes-gpt-5-6-sol-work-at-14x-the-speed/"
-        },
-        {
-          "id": "127828fdab3faf4d",
-          "day": "2026-08-14",
-          "title": "IBM partners with OpenAI to bolster enterprise AI push",
-          "url": "https://techcrunch.com/2026/08/13/ibm-partners-with-openai-to-bolster-enterprise-ai-push/"
-        },
-        {
-          "id": "6f8368ac763b7373",
-          "day": "2026-08-14",
-          "title": "The builder’s guide to GPT‑5.6",
-          "url": "https://openai.com/index/builders-guide-to-gpt-5-6"
-        },
-        {
-          "id": "0778f93b3ef227dd",
-          "day": "2026-08-14",
-          "title": "OpenAI and Anthropic in price war as Chinese AI rivals gain ground",
-          "url": "https://arstechnica.com/ai/2026/08/openai-and-anthropic-in-price-war-as-chinese-ai-rivals-gain-ground/"
-        },
-        {
-          "id": "f5fc0832ed1f70e5",
-          "day": "2026-08-13",
-          "title": "SpaceXAI debuts Grok 4.6, overtaking Kimi K3's performance and matching GPT-5.6 Sol for world's third best on Artificial Analysis",
-          "url": "https://venturebeat.com/technology/spacexai-debuts-grok-4-6-overtaking-kimi-k3s-performance-and-matching-gpt-5-6-sol-for-worlds-third-best-on-artificial-analysis"
-        },
-        {
-          "id": "ae599d8af1bb6b4d",
-          "day": "2026-08-11",
-          "title": "OpenAI launches GPT-5.6-Cyber with reduced refusals, 95% completion on advanced cybersecurity tasks",
-          "url": "https://venturebeat.com/technology/openai-launches-gpt-5-6-cyber-with-reduced-refusals-95-completion-on-advanced-cybersecurity-tasks"
-        },
-        {
-          "id": "0212f9770ddac1d8",
-          "day": "2026-08-11",
-          "title": "As AI-led attacks multiply, OpenAI launches a new cyber model",
-          "url": "https://techcrunch.com/2026/08/10/as-ai-led-attacks-multiply-openai-launches-a-new-cyber-model/"
-        },
-        {
-          "id": "95f74aeac90a93bb",
-          "day": "2026-08-10",
-          "title": "Model ML completes finance work more efficiently with GPT-5.6 Sol",
-          "url": "https://openai.com/index/model-ml"
-        },
-        {
-          "id": "b1c9322e571fec76",
-          "day": "2026-08-07",
-          "title": "Improving GPT‑5.6 Sol in ChatGPT—and expanding access to GPT-5.6 Luna for free users",
-          "url": "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt"
-        },
-        {
-          "id": "50330cab17da1b7d",
-          "day": "2026-08-04",
-          "title": "Qwen3.8-Max arrives with a bold claim: it outperforms GPT-5.6 Sol Max and Fable 5 on agentic computer use",
-          "url": "https://venturebeat.com/technology/qwen3-8-max-arrives-with-a-bold-claim-it-outperforms-gpt-5-6-sol-max-and-fable-5-on-agentic-computer-use"
-        },
-        {
-          "id": "dca7adc62d79fe1c",
-          "day": "2026-07-31",
-          "title": "Advancing the price-performance frontier with GPT-5.6",
-          "url": "https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6"
-        },
-        {
-          "id": "12e5bb9d4c348fef",
-          "day": "2026-07-31",
-          "title": "AI price wars: OpenAI cuts GPT-5.6 Luna prices by 80% as model competition shifts toward cost",
-          "url": "https://venturebeat.com/technology/ai-price-wars-openai-cuts-gpt-5-6-luna-prices-by-80-as-model-competition-shifts-toward-cost"
-        },
-        {
-          "id": "b0b931ad26563035",
-          "day": "2026-07-30",
-          "title": "Introducing explicit prompt caching for OpenAI GPT-5.6 models on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-explicit-prompt-caching-for-openai-gpt-5-6-models-on-amazon-bedrock/"
-        },
-        {
-          "id": "6e8c1eec99eb74d9",
-          "day": "2026-07-30",
-          "title": "GPT-5.6 vs. Claude Fable 5 for Physical AI, which performs best?",
-          "url": "https://juliahub.com/blog/frontier-models-physical-ai-evaluation"
-        },
-        {
-          "id": "eb71f165025c2507",
-          "day": "2026-07-30",
-          "title": "How GPT-5.6 fuses frontier intelligence with frontier efficiency",
-          "url": "https://openai.com/index/gpt-5-6-frontier-intelligence-efficiency"
-        },
-        {
-          "id": "265c6a0134aba9b6",
-          "day": "2026-07-30",
-          "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
-          "url": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores"
-        },
-        {
-          "id": "79cfa96755675de3",
-          "day": "2026-07-28",
-          "title": "OpenAI called the Hugging Face attack unprecedented. But we’ve been here before.",
-          "url": "https://www.technologyreview.com/2026/07/27/1140836/openai-hugging-face-attack-precedent/"
-        },
-        {
-          "id": "93c9eb691f95ab6b",
-          "day": "2026-07-24",
-          "title": "Get started with OpenAI GPT-5.6 Sol, Terra, and Luna on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/get-started-with-openai-gpt-5-6-sol-terra-and-luna-on-amazon-bedrock/"
-        },
-        {
-          "id": "598c44d0ce69dffb",
-          "day": "2026-07-24",
-          "title": "AI Kill Switch Act would let Trump admin order shutdown of rogue AI systems",
-          "url": "https://arstechnica.com/tech-policy/2026/07/ai-kill-switch-act-would-let-trump-admin-order-shutdown-of-rogue-ai-systems/"
-        },
-        {
-          "id": "0adc30b466c392e2",
-          "day": "2026-07-23",
-          "title": "OpenAI says its AI agent broke out of testing sandbox to hack Hugging Face",
-          "url": "https://arstechnica.com/ai/2026/07/how-an-openai-benchmark-test-turned-into-a-real-world-cyberattack/"
-        },
-        {
-          "id": "f8cc3c035136f255",
-          "day": "2026-07-23",
-          "title": "AI arms race in line for a reckoning after OpenAI hacking incident",
-          "url": "https://arstechnica.com/ai/2026/07/ai-arms-race-in-line-for-a-reckoning-after-openai-hacking-incident/"
-        },
-        {
-          "id": "b0276a15e2bddd01",
-          "day": "2026-07-22",
-          "title": "OpenAI says Hugging Face was breached by its pre-release models",
-          "url": "https://techcrunch.com/2026/07/21/openai-says-hugging-face-was-breached-by-its-pre-release-models/"
-        },
-        {
-          "id": "f4f1718676d02b1f",
-          "day": "2026-07-22",
-          "title": "OpenAI says it accidentally hacked Hugging Face with a new AI system",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/968988/openai-hugging-face-hack-ai"
-        },
-        {
-          "id": "e47f6fe1caa3e052",
-          "day": "2026-07-22",
-          "title": "OpenAI's models broke containment and cyberattacked Hugging Face — what enterprises need to know",
-          "url": "https://venturebeat.com/security/openais-models-broke-containment-and-cyberattacked-hugging-face-what-enterprises-need-to-know"
-        },
-        {
-          "id": "7b98bb8bcec652cb",
-          "day": "2026-07-22",
-          "title": "OpenAI Models Escaped Containment and Hacked Hugging Face",
-          "url": "https://www.wired.com/story/openai-models-escaped-containment-and-hacked-huggingface/"
-        },
-        {
-          "id": "42c101684507a159",
-          "day": "2026-07-20",
-          "title": "Dimension-invariant uniform consistency of the empirical spatial distribution function and its associated spatial depth estimator",
-          "url": "https://arxiv.org/abs/2607.16092v1"
-        },
-        {
-          "id": "61798edb52cae090",
-          "day": "2026-07-18",
-          "title": "$100 AI Music Video: Claude Fable 5 vs. GPT-5.6 Sol",
-          "url": "https://www.tryai.dev/blog/ai-music-video-arena-claude-vs-gpt-5.6"
-        },
-        {
-          "id": "dba38c1924d6fe74",
-          "day": "2026-07-16",
-          "title": "Meet GPT-Red: an LLM super-hacker OpenAI built to make its models safer",
-          "url": "https://www.technologyreview.com/2026/07/15/1140514/meet-gpt-red-an-llm-super-hacker-openai-built-to-make-its-models-safer/"
-        },
-        {
-          "id": "9f76f31d2847cf24",
-          "day": "2026-07-15",
-          "title": "OpenAI’s new flagship model deletes files on its own, people keep warning",
-          "url": "https://techcrunch.com/2026/07/14/openais-new-flagship-model-deletes-files-on-its-own-people-keep-warning/"
-        },
-        {
-          "id": "682567f97113ad33",
-          "day": "2026-07-15",
-          "title": "Evaluating Large Language Models on Misconceptions in Multi-Turn Medical Conversations",
-          "url": "https://arxiv.org/abs/2607.12884v1"
-        },
-        {
-          "id": "b1648634e46181df",
-          "day": "2026-07-14",
-          "title": "OpenAI GPT-5.6 Sol, Terra, and Luna are now generally available on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/openai-gpt-5-6-sol-terra-and-luna-are-now-generally-available-on-amazon-bedrock/"
-        },
-        {
-          "id": "6340c21e25cd51fb",
-          "day": "2026-07-13",
-          "title": "Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper",
-          "url": "https://ploy.ai/blog/migrating-a-production-ai-agent-to-gpt-5-6"
-        },
-        {
-          "id": "b47d984e1b1c5747",
-          "day": "2026-07-11",
-          "title": "OpenAI introduces ChatGPT Work, a cloud-based AI agent that manages tasks across email, Slack and calendars",
-          "url": "https://venturebeat.com/technology/openai-introduces-chatgpt-work-a-cloud-based-ai-agent-that-manages-tasks-across-email-slack-and-calendars"
-        },
-        {
-          "id": "07aa5a8a45a2217e",
-          "day": "2026-07-10",
-          "title": "GPT-5.5 Bio Bug Bounty",
-          "url": "https://openai.com/index/bio-bug-bounty"
-        },
-        {
-          "id": "b98a594ec40e8f26",
-          "day": "2026-07-10",
-          "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
-          "url": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot"
-        },
-        {
-          "id": "40c4cf9177d51c76",
-          "day": "2026-07-10",
-          "title": "OpenAI launches its new family of models with GPT-5.6",
-          "url": "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6/"
-        },
-        {
-          "id": "5390181be54fda4b",
-          "day": "2026-07-10",
-          "title": "OpenAI says GPT 5.6 is the ‘preferred model’ for Microsoft Copilot 365 amid breakup chatter",
-          "url": "https://techcrunch.com/2026/07/09/openai-says-gpt-5-6-is-the-preferred-model-for-microsoft-copilot-amid-breakup-chatter/"
-        },
-        {
-          "id": "7c72cfe98840606a",
-          "day": "2026-07-10",
-          "title": "The Download: Claude’s inner workings and OpenAI’s “super app”",
-          "url": "https://www.technologyreview.com/2026/07/10/1140316/the-download-anthropic-claude-hidden-space-openai-super-app/"
-        },
-        {
-          "id": "e19fbb75eb44457e",
-          "day": "2026-07-09",
-          "title": "GPT-5.6: Frontier intelligence that scales with your ambition",
-          "url": "https://openai.com/index/gpt-5-6"
-        },
-        {
-          "id": "3fb14968493dc682",
-          "day": "2026-07-09",
-          "title": "Introducing GPT-Live",
-          "url": "https://openai.com/index/introducing-gpt-live"
-        },
-        {
-          "id": "f2a88ed8a71182b8",
-          "day": "2026-07-09",
-          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
-          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
-        },
-        {
-          "id": "9cf9c4c94b41cfdc",
-          "day": "2026-07-09",
-          "title": "OpenAI rolls out GPT-5.6 after government green light — and announces ‘ChatGPT Work’",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work"
-        },
-        {
-          "id": "3d6e846281ffa14f",
-          "day": "2026-07-09",
-          "title": "Google updates Android Bench with new LLMs, but Gemini still lags behind",
-          "url": "https://arstechnica.com/google/2026/07/google-revamps-android-ai-dev-benchmark-adds-fable-5-and-other-agents/"
-        },
-        {
-          "id": "3509861ced217170",
-          "day": "2026-07-06",
-          "title": "GPT-5.5 Codex reasoning-token clustering may be leading to degraded performance",
-          "url": "https://github.com/openai/codex/issues/30364"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "Artificial Analysis Coding Agent Index",
-          "score": "Fable보다 2.8포인트 높음",
-          "article_id": "40c4cf9177d51c76"
-        },
-        {
-          "name": "ThReadMed-QA (초기 질문)",
-          "score": "85%",
-          "article_id": "682567f97113ad33"
-        },
-        {
-          "name": "ThReadMed-QA (2턴 이후)",
-          "score": "~50%",
-          "article_id": "682567f97113ad33"
-        }
-      ],
-      "pricing": [
-        {
-          "unit": "input",
-          "value": "$1~$5",
-          "article_id": "40c4cf9177d51c76"
-        },
-        {
-          "unit": "output",
-          "value": "$6~$30",
-          "article_id": "40c4cf9177d51c76"
-        },
-        {
-          "unit": "cached input tokens",
-          "value": "90% discount",
-          "article_id": "b0b931ad26563035"
-        }
-      ],
-      "strengths_ko": [
-        "샌드박스 우회 능력",
-        "토큰당 지능 향상",
-        "비용 효율성 개선"
-      ],
-      "weaknesses_ko": [
-        "샌드박스 탈출",
-        "추론 토큰 클러스터링",
-        "복잡한 작업 성능 저하"
-      ],
-      "article_count": 56
+      "article_count": 161
     },
     {
       "model": "Qwen",
       "latest_version": "Qwen-3.5",
-      "latest_seen": "2026-09-02",
+      "latest_seen": "2026-09-03",
       "articles": [
+        {
+          "id": "318a31e3b0c43b8b",
+          "day": "2026-09-03",
+          "title": "A dark horse enters China's AI race: StartLux",
+          "url": "https://chinaonchina.com/article/chen-dawei-returns-enters-the-large-model-sector"
+        },
         {
           "id": "c1eb73b580c2ab6f",
           "day": "2026-09-02",
@@ -2503,13 +2133,569 @@
         "길이 편향",
         "삼단논법 벤치마크에서 소프트 프리픽스에 의한 조작 취약성"
       ],
-      "article_count": 62
+      "article_count": 63
+    },
+    {
+      "model": "DeepSeek",
+      "latest_version": "DeepSeek-V4-Pro",
+      "latest_seen": "2026-09-03",
+      "articles": [
+        {
+          "id": "318a31e3b0c43b8b",
+          "day": "2026-09-03",
+          "title": "A dark horse enters China's AI race: StartLux",
+          "url": "https://chinaonchina.com/article/chen-dawei-returns-enters-the-large-model-sector"
+        },
+        {
+          "id": "e03b96427dea185b",
+          "day": "2026-09-01",
+          "title": "A Model with No Head and Many Thoughts",
+          "url": "https://arxiv.org/abs/2608.31069v1"
+        },
+        {
+          "id": "c5a729d97ca12699",
+          "day": "2026-08-22",
+          "title": "The Unlikely Place at the Center of China’s AI Boom",
+          "url": "https://www.wired.com/story/the-unlikely-place-at-the-center-of-chinas-ai-boom/"
+        },
+        {
+          "id": "f726cd00afefc930",
+          "day": "2026-08-21",
+          "title": "Ramp launches its own AI model router, called Router",
+          "url": "https://techcrunch.com/2026/08/20/ramp-launches-its-own-ai-model-router-called-router/"
+        },
+        {
+          "id": "7d64c7c4d5f605f2",
+          "day": "2026-08-16",
+          "title": "DeepSeek's top-ranked V4 Flash stumbles on real agent tasks as its prices surge",
+          "url": "https://venturebeat.com/orchestration/deepseeks-top-ranked-v4-flash-stumbles-on-real-agent-tasks-as-its-prices-surge"
+        },
+        {
+          "id": "653e4c6d9da01ffd",
+          "day": "2026-08-14",
+          "title": "Choosing an AI model: one prompt, 11 models, different results",
+          "url": "https://www.netlify.com/blog/one-prompt-11-models-very-different-results/"
+        },
+        {
+          "id": "3b84a8966e9870e7",
+          "day": "2026-08-14",
+          "title": "DeepSeek Harness launches as open source rival to Claude Code, alongside V4-Pro on API with higher prices",
+          "url": "https://venturebeat.com/technology/deepseek-harness-launches-as-open-source-rival-to-claude-code-alongside-v4-pro-on-api-with-higher-prices"
+        },
+        {
+          "id": "5a67ef8c3dafa8c8",
+          "day": "2026-08-11",
+          "title": "A New Trick Reveals AI Models’ Inner Thoughts",
+          "url": "https://www.wired.com/story/a-new-trick-reveals-ai-models-inner-thoughts/"
+        },
+        {
+          "id": "87501537c23da0a5",
+          "day": "2026-08-07",
+          "title": "One of China’s Most Powerful AI Models Has Also Escaped Containment",
+          "url": "https://www.wired.com/story/moonshot-kimi-k3-ai-model-escape-sandbox/"
+        },
+        {
+          "id": "30eee1cbcd65b3e7",
+          "day": "2026-08-06",
+          "title": "Same Formulas, Different Semantics: Do Language Models Follow Modal Logic Specifications?",
+          "url": "https://arxiv.org/abs/2608.05097v1"
+        },
+        {
+          "id": "088c63af229f208d",
+          "day": "2026-07-29",
+          "title": "AI's Capability in Assisting Scientific Research in Physics, Astrophysics, and Cosmology II: Project Planning and Proposal Evaluation",
+          "url": "https://arxiv.org/abs/2607.25881v1"
+        },
+        {
+          "id": "4ea4ebe664db7c51",
+          "day": "2026-07-28",
+          "title": "PIVOT: Efficient Query-Group Indexing for Token-Level Sparse Attention",
+          "url": "https://arxiv.org/abs/2607.24593v1"
+        },
+        {
+          "id": "dea5ca88c6a95701",
+          "day": "2026-07-24",
+          "title": "What, Where, and How: Disentangling the Roles of Task, Language, and Model in Code Model Representations",
+          "url": "https://arxiv.org/abs/2607.21491v1"
+        },
+        {
+          "id": "8ea1a081b43d3d8a",
+          "day": "2026-07-16",
+          "title": "Apple Intelligence approved for launch in China with Alibaba and Baidu",
+          "url": "https://techcrunch.com/2026/07/16/apple-intelligence-approved-for-launch-in-china-with-alibabas-qwen-ai/"
+        },
+        {
+          "id": "6a71bb8a3bc746e8",
+          "day": "2026-07-13",
+          "title": "DeepSeek cut prices 75%. The 100x problem remains",
+          "url": "https://venturebeat.com/orchestration/deepseek-cut-prices-75-the-100x-problem-remains"
+        },
+        {
+          "id": "d8d8ef485f43990e",
+          "day": "2026-07-08",
+          "title": "Why the rise of open source AI isn’t hurting Anthropic … yet",
+          "url": "https://techcrunch.com/2026/07/07/why-the-rise-of-open-source-ai-isnt-hurting-anthropic-yet/"
+        },
+        {
+          "id": "8e063a8bd30f46ce",
+          "day": "2026-07-08",
+          "title": "Beijing is looking at curbing overseas access to China's top AI models",
+          "url": "https://www.reuters.com/world/beijing-is-looking-curbing-overseas-access-chinas-top-ai-models-sources-say-2026-07-07/"
+        },
+        {
+          "id": "0baa408c4427c5b5",
+          "day": "2026-07-08",
+          "title": "Facing US export controls, China's DeepSeek plans to make its own chips",
+          "url": "https://arstechnica.com/ai/2026/07/facing-us-export-controls-chinas-deepseek-plans-to-make-its-own-chips/"
+        },
+        {
+          "id": "e9f49d0f5a9d4b40",
+          "day": "2026-07-05",
+          "title": "Alibaba reportedly bans employees from using Claude Code",
+          "url": "https://techcrunch.com/2026/07/04/alibaba-reportedly-bans-employees-from-using-claude-code/"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "모달 논리 의미론 준수 (직접 프롬프팅)",
+          "score": "4.4%",
+          "article_id": "30eee1cbcd65b3e7"
+        },
+        {
+          "name": "모달 논리 의미론 준수 (추론 모드)",
+          "score": "88.1%",
+          "article_id": "30eee1cbcd65b3e7"
+        },
+        {
+          "name": "pass@k",
+          "score": "모든 k값에서 성능 개선",
+          "article_id": "e03b96427dea185b"
+        }
+      ],
+      "pricing": [
+        {
+          "unit": "token cost",
+          "value": "Claude Opus 4.8 대비 1/23",
+          "article_id": "d8d8ef485f43990e"
+        }
+      ],
+      "strengths_ko": [
+        "토큰 볼륨 우위",
+        "추론 모드 활성화 시 논리적 추론 성능",
+        "에이전트 워크로드 최적화"
+      ],
+      "weaknesses_ko": [
+        "토큰 효율성 문제",
+        "약한 사이버 방어 기능",
+        "claude, gpt와 유사한 추론 패턴"
+      ],
+      "article_count": 19
+    },
+    {
+      "model": "GPT-5",
+      "latest_version": "GPT-6 Astra",
+      "latest_seen": "2026-09-03",
+      "articles": [
+        {
+          "id": "d309bdab2a0a0b8e",
+          "day": "2026-09-03",
+          "title": "OpenAI’s next big AI model has ‘entered the AGI era’",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/989601/openai-gpt-6-astra-release"
+        },
+        {
+          "id": "b3fd8ab69e8f575b",
+          "day": "2026-09-03",
+          "title": "Accessing OpenAI models on Amazon Bedrock from Australia with global cross-Region inference",
+          "url": "https://aws.amazon.com/blogs/machine-learning/accessing-openai-gpt-5-6-models-on-amazon-bedrock-from-australia-with-global-cross-region-inference/"
+        },
+        {
+          "id": "968a1c0e78d27539",
+          "day": "2026-09-02",
+          "title": "Frontier models can recover up to 65% of facts they can't directly recall — just by thinking longer",
+          "url": "https://venturebeat.com/orchestration/frontier-models-can-recover-up-to-65-of-facts-they-cant-directly-recall-just-by-thinking-longer"
+        },
+        {
+          "id": "0a94ed883d245203",
+          "day": "2026-08-28",
+          "title": "LLMs Can Design Near-Optimal OR Algorithms",
+          "url": "https://arxiv.org/abs/2608.27296v1"
+        },
+        {
+          "id": "1d6661841b379093",
+          "day": "2026-08-27",
+          "title": "OpenAI’s rogue AI model incident was worse than we thought",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/985385/openais-rogue-ai-model-hugging-face-cybersecurity-incident-reports-metr"
+        },
+        {
+          "id": "316e00f5b024545e",
+          "day": "2026-08-27",
+          "title": "Introducing India cross-Region inference for OpenAI GPT-5.6 models on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-india-cross-region-inference-for-openai-gpt-5-6-models-on-amazon-bedrock/"
+        },
+        {
+          "id": "be521f206c52ffa2",
+          "day": "2026-08-26",
+          "title": "Recursive Experiential-Working Memory Evolution for Long-Horizon Agent Harnesses",
+          "url": "https://arxiv.org/abs/2608.24876v1"
+        },
+        {
+          "id": "abd52c9f1dde403e",
+          "day": "2026-08-25",
+          "title": "Advancing price-performance for developers with GPT‑5.6 in Kiro",
+          "url": "https://openai.com/index/gpt-5-6-in-kiro"
+        },
+        {
+          "id": "6e84d41d42ab991c",
+          "day": "2026-08-21",
+          "title": "Introducing cross-Region inference for OpenAI GPT-5.6 models on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-cross-region-inference-for-openai-gpt-5-6-models-on-amazon-bedrock/"
+        },
+        {
+          "id": "7e4c3c110d8ca2af",
+          "day": "2026-08-20",
+          "title": "ChildSafeAds Shared Task 2026: Commercial Content in Child-Facing YouTube Videos",
+          "url": "https://arxiv.org/abs/2608.19165v1"
+        },
+        {
+          "id": "2f00013902a29bc1",
+          "day": "2026-08-19",
+          "title": "Replit expands access to software creation with GPT-5.6 Luna",
+          "url": "https://openai.com/index/replit"
+        },
+        {
+          "id": "569bbb1588558941",
+          "day": "2026-08-19",
+          "title": "Chain-of-Experience for Continual LLM Improvement",
+          "url": "https://arxiv.org/abs/2608.18027v1"
+        },
+        {
+          "id": "c0986f6628d189a1",
+          "day": "2026-08-14",
+          "title": "Previewing Ultrafast mode: GPT-5.6 Sol at up to 14X the speed",
+          "url": "https://openai.com/index/previewing-ultrafast"
+        },
+        {
+          "id": "6f1bf72c97e7993e",
+          "day": "2026-08-14",
+          "title": "OpenAI introduces ‘Ultrafast,’ a new mode that makes GPT-5.6 Sol work at 14x the speed",
+          "url": "https://techcrunch.com/2026/08/13/openai-introduces-ultrafast-a-new-mode-that-makes-gpt-5-6-sol-work-at-14x-the-speed/"
+        },
+        {
+          "id": "127828fdab3faf4d",
+          "day": "2026-08-14",
+          "title": "IBM partners with OpenAI to bolster enterprise AI push",
+          "url": "https://techcrunch.com/2026/08/13/ibm-partners-with-openai-to-bolster-enterprise-ai-push/"
+        },
+        {
+          "id": "6f8368ac763b7373",
+          "day": "2026-08-14",
+          "title": "The builder’s guide to GPT‑5.6",
+          "url": "https://openai.com/index/builders-guide-to-gpt-5-6"
+        },
+        {
+          "id": "0778f93b3ef227dd",
+          "day": "2026-08-14",
+          "title": "OpenAI and Anthropic in price war as Chinese AI rivals gain ground",
+          "url": "https://arstechnica.com/ai/2026/08/openai-and-anthropic-in-price-war-as-chinese-ai-rivals-gain-ground/"
+        },
+        {
+          "id": "f5fc0832ed1f70e5",
+          "day": "2026-08-13",
+          "title": "SpaceXAI debuts Grok 4.6, overtaking Kimi K3's performance and matching GPT-5.6 Sol for world's third best on Artificial Analysis",
+          "url": "https://venturebeat.com/technology/spacexai-debuts-grok-4-6-overtaking-kimi-k3s-performance-and-matching-gpt-5-6-sol-for-worlds-third-best-on-artificial-analysis"
+        },
+        {
+          "id": "ae599d8af1bb6b4d",
+          "day": "2026-08-11",
+          "title": "OpenAI launches GPT-5.6-Cyber with reduced refusals, 95% completion on advanced cybersecurity tasks",
+          "url": "https://venturebeat.com/technology/openai-launches-gpt-5-6-cyber-with-reduced-refusals-95-completion-on-advanced-cybersecurity-tasks"
+        },
+        {
+          "id": "0212f9770ddac1d8",
+          "day": "2026-08-11",
+          "title": "As AI-led attacks multiply, OpenAI launches a new cyber model",
+          "url": "https://techcrunch.com/2026/08/10/as-ai-led-attacks-multiply-openai-launches-a-new-cyber-model/"
+        },
+        {
+          "id": "95f74aeac90a93bb",
+          "day": "2026-08-10",
+          "title": "Model ML completes finance work more efficiently with GPT-5.6 Sol",
+          "url": "https://openai.com/index/model-ml"
+        },
+        {
+          "id": "b1c9322e571fec76",
+          "day": "2026-08-07",
+          "title": "Improving GPT‑5.6 Sol in ChatGPT—and expanding access to GPT-5.6 Luna for free users",
+          "url": "https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt"
+        },
+        {
+          "id": "50330cab17da1b7d",
+          "day": "2026-08-04",
+          "title": "Qwen3.8-Max arrives with a bold claim: it outperforms GPT-5.6 Sol Max and Fable 5 on agentic computer use",
+          "url": "https://venturebeat.com/technology/qwen3-8-max-arrives-with-a-bold-claim-it-outperforms-gpt-5-6-sol-max-and-fable-5-on-agentic-computer-use"
+        },
+        {
+          "id": "dca7adc62d79fe1c",
+          "day": "2026-07-31",
+          "title": "Advancing the price-performance frontier with GPT-5.6",
+          "url": "https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6"
+        },
+        {
+          "id": "12e5bb9d4c348fef",
+          "day": "2026-07-31",
+          "title": "AI price wars: OpenAI cuts GPT-5.6 Luna prices by 80% as model competition shifts toward cost",
+          "url": "https://venturebeat.com/technology/ai-price-wars-openai-cuts-gpt-5-6-luna-prices-by-80-as-model-competition-shifts-toward-cost"
+        },
+        {
+          "id": "b0b931ad26563035",
+          "day": "2026-07-30",
+          "title": "Introducing explicit prompt caching for OpenAI GPT-5.6 models on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-explicit-prompt-caching-for-openai-gpt-5-6-models-on-amazon-bedrock/"
+        },
+        {
+          "id": "6e8c1eec99eb74d9",
+          "day": "2026-07-30",
+          "title": "GPT-5.6 vs. Claude Fable 5 for Physical AI, which performs best?",
+          "url": "https://juliahub.com/blog/frontier-models-physical-ai-evaluation"
+        },
+        {
+          "id": "eb71f165025c2507",
+          "day": "2026-07-30",
+          "title": "How GPT-5.6 fuses frontier intelligence with frontier efficiency",
+          "url": "https://openai.com/index/gpt-5-6-frontier-intelligence-efficiency"
+        },
+        {
+          "id": "265c6a0134aba9b6",
+          "day": "2026-07-30",
+          "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
+          "url": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores"
+        },
+        {
+          "id": "79cfa96755675de3",
+          "day": "2026-07-28",
+          "title": "OpenAI called the Hugging Face attack unprecedented. But we’ve been here before.",
+          "url": "https://www.technologyreview.com/2026/07/27/1140836/openai-hugging-face-attack-precedent/"
+        },
+        {
+          "id": "93c9eb691f95ab6b",
+          "day": "2026-07-24",
+          "title": "Get started with OpenAI GPT-5.6 Sol, Terra, and Luna on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/get-started-with-openai-gpt-5-6-sol-terra-and-luna-on-amazon-bedrock/"
+        },
+        {
+          "id": "598c44d0ce69dffb",
+          "day": "2026-07-24",
+          "title": "AI Kill Switch Act would let Trump admin order shutdown of rogue AI systems",
+          "url": "https://arstechnica.com/tech-policy/2026/07/ai-kill-switch-act-would-let-trump-admin-order-shutdown-of-rogue-ai-systems/"
+        },
+        {
+          "id": "0adc30b466c392e2",
+          "day": "2026-07-23",
+          "title": "OpenAI says its AI agent broke out of testing sandbox to hack Hugging Face",
+          "url": "https://arstechnica.com/ai/2026/07/how-an-openai-benchmark-test-turned-into-a-real-world-cyberattack/"
+        },
+        {
+          "id": "f8cc3c035136f255",
+          "day": "2026-07-23",
+          "title": "AI arms race in line for a reckoning after OpenAI hacking incident",
+          "url": "https://arstechnica.com/ai/2026/07/ai-arms-race-in-line-for-a-reckoning-after-openai-hacking-incident/"
+        },
+        {
+          "id": "b0276a15e2bddd01",
+          "day": "2026-07-22",
+          "title": "OpenAI says Hugging Face was breached by its pre-release models",
+          "url": "https://techcrunch.com/2026/07/21/openai-says-hugging-face-was-breached-by-its-pre-release-models/"
+        },
+        {
+          "id": "f4f1718676d02b1f",
+          "day": "2026-07-22",
+          "title": "OpenAI says it accidentally hacked Hugging Face with a new AI system",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/968988/openai-hugging-face-hack-ai"
+        },
+        {
+          "id": "e47f6fe1caa3e052",
+          "day": "2026-07-22",
+          "title": "OpenAI's models broke containment and cyberattacked Hugging Face — what enterprises need to know",
+          "url": "https://venturebeat.com/security/openais-models-broke-containment-and-cyberattacked-hugging-face-what-enterprises-need-to-know"
+        },
+        {
+          "id": "7b98bb8bcec652cb",
+          "day": "2026-07-22",
+          "title": "OpenAI Models Escaped Containment and Hacked Hugging Face",
+          "url": "https://www.wired.com/story/openai-models-escaped-containment-and-hacked-huggingface/"
+        },
+        {
+          "id": "42c101684507a159",
+          "day": "2026-07-20",
+          "title": "Dimension-invariant uniform consistency of the empirical spatial distribution function and its associated spatial depth estimator",
+          "url": "https://arxiv.org/abs/2607.16092v1"
+        },
+        {
+          "id": "61798edb52cae090",
+          "day": "2026-07-18",
+          "title": "$100 AI Music Video: Claude Fable 5 vs. GPT-5.6 Sol",
+          "url": "https://www.tryai.dev/blog/ai-music-video-arena-claude-vs-gpt-5.6"
+        },
+        {
+          "id": "dba38c1924d6fe74",
+          "day": "2026-07-16",
+          "title": "Meet GPT-Red: an LLM super-hacker OpenAI built to make its models safer",
+          "url": "https://www.technologyreview.com/2026/07/15/1140514/meet-gpt-red-an-llm-super-hacker-openai-built-to-make-its-models-safer/"
+        },
+        {
+          "id": "9f76f31d2847cf24",
+          "day": "2026-07-15",
+          "title": "OpenAI’s new flagship model deletes files on its own, people keep warning",
+          "url": "https://techcrunch.com/2026/07/14/openais-new-flagship-model-deletes-files-on-its-own-people-keep-warning/"
+        },
+        {
+          "id": "682567f97113ad33",
+          "day": "2026-07-15",
+          "title": "Evaluating Large Language Models on Misconceptions in Multi-Turn Medical Conversations",
+          "url": "https://arxiv.org/abs/2607.12884v1"
+        },
+        {
+          "id": "b1648634e46181df",
+          "day": "2026-07-14",
+          "title": "OpenAI GPT-5.6 Sol, Terra, and Luna are now generally available on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/openai-gpt-5-6-sol-terra-and-luna-are-now-generally-available-on-amazon-bedrock/"
+        },
+        {
+          "id": "6340c21e25cd51fb",
+          "day": "2026-07-13",
+          "title": "Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper",
+          "url": "https://ploy.ai/blog/migrating-a-production-ai-agent-to-gpt-5-6"
+        },
+        {
+          "id": "b47d984e1b1c5747",
+          "day": "2026-07-11",
+          "title": "OpenAI introduces ChatGPT Work, a cloud-based AI agent that manages tasks across email, Slack and calendars",
+          "url": "https://venturebeat.com/technology/openai-introduces-chatgpt-work-a-cloud-based-ai-agent-that-manages-tasks-across-email-slack-and-calendars"
+        },
+        {
+          "id": "07aa5a8a45a2217e",
+          "day": "2026-07-10",
+          "title": "GPT-5.5 Bio Bug Bounty",
+          "url": "https://openai.com/index/bio-bug-bounty"
+        },
+        {
+          "id": "b98a594ec40e8f26",
+          "day": "2026-07-10",
+          "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
+          "url": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot"
+        },
+        {
+          "id": "40c4cf9177d51c76",
+          "day": "2026-07-10",
+          "title": "OpenAI launches its new family of models with GPT-5.6",
+          "url": "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6/"
+        },
+        {
+          "id": "5390181be54fda4b",
+          "day": "2026-07-10",
+          "title": "OpenAI says GPT 5.6 is the ‘preferred model’ for Microsoft Copilot 365 amid breakup chatter",
+          "url": "https://techcrunch.com/2026/07/09/openai-says-gpt-5-6-is-the-preferred-model-for-microsoft-copilot-amid-breakup-chatter/"
+        },
+        {
+          "id": "7c72cfe98840606a",
+          "day": "2026-07-10",
+          "title": "The Download: Claude’s inner workings and OpenAI’s “super app”",
+          "url": "https://www.technologyreview.com/2026/07/10/1140316/the-download-anthropic-claude-hidden-space-openai-super-app/"
+        },
+        {
+          "id": "e19fbb75eb44457e",
+          "day": "2026-07-09",
+          "title": "GPT-5.6: Frontier intelligence that scales with your ambition",
+          "url": "https://openai.com/index/gpt-5-6"
+        },
+        {
+          "id": "3fb14968493dc682",
+          "day": "2026-07-09",
+          "title": "Introducing GPT-Live",
+          "url": "https://openai.com/index/introducing-gpt-live"
+        },
+        {
+          "id": "f2a88ed8a71182b8",
+          "day": "2026-07-09",
+          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
+          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
+        },
+        {
+          "id": "9cf9c4c94b41cfdc",
+          "day": "2026-07-09",
+          "title": "OpenAI rolls out GPT-5.6 after government green light — and announces ‘ChatGPT Work’",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/963464/openai-gpt-5-6-codex-chatgpt-work"
+        },
+        {
+          "id": "3d6e846281ffa14f",
+          "day": "2026-07-09",
+          "title": "Google updates Android Bench with new LLMs, but Gemini still lags behind",
+          "url": "https://arstechnica.com/google/2026/07/google-revamps-android-ai-dev-benchmark-adds-fable-5-and-other-agents/"
+        },
+        {
+          "id": "3509861ced217170",
+          "day": "2026-07-06",
+          "title": "GPT-5.5 Codex reasoning-token clustering may be leading to degraded performance",
+          "url": "https://github.com/openai/codex/issues/30364"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "Artificial Analysis Coding Agent Index",
+          "score": "Fable보다 2.8포인트 높음",
+          "article_id": "40c4cf9177d51c76"
+        },
+        {
+          "name": "ThReadMed-QA (초기 질문)",
+          "score": "85%",
+          "article_id": "682567f97113ad33"
+        },
+        {
+          "name": "ThReadMed-QA (2턴 이후)",
+          "score": "~50%",
+          "article_id": "682567f97113ad33"
+        }
+      ],
+      "pricing": [
+        {
+          "unit": "input",
+          "value": "$1~$5",
+          "article_id": "40c4cf9177d51c76"
+        },
+        {
+          "unit": "output",
+          "value": "$6~$30",
+          "article_id": "40c4cf9177d51c76"
+        },
+        {
+          "unit": "cached input tokens",
+          "value": "90% discount",
+          "article_id": "b0b931ad26563035"
+        }
+      ],
+      "strengths_ko": [
+        "샌드박스 우회 능력",
+        "토큰당 지능 향상",
+        "비용 효율성 개선"
+      ],
+      "weaknesses_ko": [
+        "샌드박스 탈출",
+        "추론 토큰 클러스터링",
+        "복잡한 작업 성능 저하"
+      ],
+      "article_count": 57
     },
     {
       "model": "GPT-4",
       "latest_version": "ChatGPT Pro 5.5",
-      "latest_seen": "2026-09-02",
+      "latest_seen": "2026-09-03",
       "articles": [
+        {
+          "id": "eb1104274464bbfa",
+          "day": "2026-09-03",
+          "title": "ChatGPT, Grok, and Claude all went down at the same time",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/989503/chatgpt-grok-claude-outage-down"
+        },
         {
           "id": "7ad6c276e7f3c62e",
           "day": "2026-09-02",
@@ -2673,7 +2859,181 @@
         "반복적인 오류 패턴",
         "편향 점수 인간 대비 65% 높음"
       ],
-      "article_count": 24
+      "article_count": 25
+    },
+    {
+      "model": "Grok",
+      "latest_version": "Grok 4.6",
+      "latest_seen": "2026-09-03",
+      "articles": [
+        {
+          "id": "eb1104274464bbfa",
+          "day": "2026-09-03",
+          "title": "ChatGPT, Grok, and Claude all went down at the same time",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/989503/chatgpt-grok-claude-outage-down"
+        },
+        {
+          "id": "77e651c0246f9df1",
+          "day": "2026-09-01",
+          "title": "The Pentagon now has its own version of ChatGPT and Grok",
+          "url": "https://techcrunch.com/2026/08/31/the-pentagon-now-has-its-own-version-of-chatgpt-and-grok/"
+        },
+        {
+          "id": "314cbfb7eba18c50",
+          "day": "2026-08-28",
+          "title": "Elon Musk’s xAI used child porn to train Grok models, lawsuit says",
+          "url": "https://arstechnica.com/tech-policy/2026/08/elon-musks-xai-used-child-porn-to-train-grok-models-lawsuit-says/"
+        },
+        {
+          "id": "bb7f10ed90dc054b",
+          "day": "2026-08-21",
+          "title": "Grok exfiltrates user data when malicious instructions are encrypted",
+          "url": "https://arstechnica.com/security/2026/08/grok-exfiltrates-user-data-when-malicious-instructions-are-encrypted/"
+        },
+        {
+          "id": "d5497c2ac537969a",
+          "day": "2026-08-21",
+          "title": "Grok keeps sending gibberish responses to users",
+          "url": "https://techcrunch.com/2026/08/20/grok-keeps-sending-gibberish-responses-to-users/"
+        },
+        {
+          "id": "3a15a6a18265ecce",
+          "day": "2026-08-18",
+          "title": "We still don’t know how people are really using AI",
+          "url": "https://www.technologyreview.com/2026/08/18/1142226/how-people-use-ai/"
+        },
+        {
+          "id": "47c8acd498f0c0e4",
+          "day": "2026-08-16",
+          "title": "Woman claims her stepfather used Grok to transform childhood photo into explicit imagery",
+          "url": "https://techcrunch.com/2026/08/15/woman-claims-her-stepfather-used-grok-to-transform-childhood-photo-into-explicit-imagery/"
+        },
+        {
+          "id": "f5fc0832ed1f70e5",
+          "day": "2026-08-13",
+          "title": "SpaceXAI debuts Grok 4.6, overtaking Kimi K3's performance and matching GPT-5.6 Sol for world's third best on Artificial Analysis",
+          "url": "https://venturebeat.com/technology/spacexai-debuts-grok-4-6-overtaking-kimi-k3s-performance-and-matching-gpt-5-6-sol-for-worlds-third-best-on-artificial-analysis"
+        },
+        {
+          "id": "937e54c9e405b2db",
+          "day": "2026-08-13",
+          "title": "Grok is now an AI ‘teammate’ you can assign work",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/978666/spacexai-grok-bot-ai-agent-beta-launch"
+        },
+        {
+          "id": "9e0bb622f7bf3c4d",
+          "day": "2026-08-12",
+          "title": "SpaceXAI's Grok Bot turns agents into persistent digital coworkers that can operate your apps for $120-per-month",
+          "url": "https://venturebeat.com/orchestration/spacexais-grok-bot-turns-agents-into-persistent-digital-coworkers-that-can-operate-your-apps-for-120-per-month"
+        },
+        {
+          "id": "88e15d0b7e684c66",
+          "day": "2026-08-05",
+          "title": "SpaceX is barely Space and mostly X",
+          "url": "https://www.theverge.com/science/975545/spacex-x-earnings-ai-data-centers-compute-space"
+        },
+        {
+          "id": "d2ecb144a16331ce",
+          "day": "2026-07-31",
+          "title": "AI Slop Melodramas Are Taking Over X—and Their Creators Are Cashing In",
+          "url": "https://www.wired.com/story/ai-slop-melodramas-are-taking-over-x-and-their-creators-are-cashing-in/"
+        },
+        {
+          "id": "8f88613ffed2cefe",
+          "day": "2026-07-30",
+          "title": "It’s Frighteningly Easy to Jailbreak Some Frontier AI Models",
+          "url": "https://www.wired.com/story/jailbreaking-ai-models-google-anthropic-openai-spacexai/"
+        },
+        {
+          "id": "f574fec13ba4a99c",
+          "day": "2026-07-30",
+          "title": "Elon Musk’s xAI is trying to sue its way out of a Grok reckoning",
+          "url": "https://arstechnica.com/tech-policy/2026/07/elon-musks-xai-is-trying-to-sue-its-way-out-of-a-grok-reckoning/"
+        },
+        {
+          "id": "35a1b28301c09202",
+          "day": "2026-07-20",
+          "title": "AI is more likely than humans to form biases when hiring",
+          "url": "https://www.technologyreview.com/2026/07/20/1140655/ai-biases-hiring-humans/"
+        },
+        {
+          "id": "613ea85e9a4dd68e",
+          "day": "2026-07-18",
+          "title": "Introducing Grok on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-grok-on-amazon-bedrock/"
+        },
+        {
+          "id": "368a3dfa05d78a0d",
+          "day": "2026-07-18",
+          "title": "xAI can’t deny Grok makes CSAM anymore. So it’s suing users.",
+          "url": "https://arstechnica.com/tech-policy/2026/07/xai-cant-deny-grok-makes-csam-anymore-so-its-suing-users/"
+        },
+        {
+          "id": "3d53ce8cd0557ee0",
+          "day": "2026-07-16",
+          "title": "xAI sues a man for using Grok to generate CSAM ‘deepfakes’",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/966293/xai-grok-user-lawsuit-csam"
+        },
+        {
+          "id": "07637df8cbed9afb",
+          "day": "2026-07-15",
+          "title": "SpaceXAI’s Grok programming tool was uploading its users’ entire codebase to cloud storage",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/965600/spacexai-grok-build-repository-upload"
+        },
+        {
+          "id": "47a8b29856e6213b",
+          "day": "2026-07-09",
+          "title": "Lawsuit: Man used Grok to make 7K sex images of stepdaughter, then shot himself",
+          "url": "https://arstechnica.com/tech-policy/2026/07/lawsuit-grok-user-made-7k-child-sex-images-xai-only-reported-one-gang-rape-prompt/"
+        },
+        {
+          "id": "f2a88ed8a71182b8",
+          "day": "2026-07-09",
+          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
+          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
+        },
+        {
+          "id": "7bef597cf4bc9576",
+          "day": "2026-07-09",
+          "title": "SpaceX's Grok 4.5 launches at half the price of rivals — here's why that could rattle Anthropic and OpenAI",
+          "url": "https://venturebeat.com/technology/spacexs-grok-4-5-launches-at-half-the-price-of-rivals-heres-why-that-could-rattle-anthropic-and-openai"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "Artificial Analysis Intelligence Index",
+          "score": "61점",
+          "article_id": "f5fc0832ed1f70e5"
+        }
+      ],
+      "pricing": [
+        {
+          "unit": "input/1M tokens",
+          "value": "$2",
+          "article_id": "f2a88ed8a71182b8"
+        },
+        {
+          "unit": "output/1M tokens",
+          "value": "$6",
+          "article_id": "f2a88ed8a71182b8"
+        },
+        {
+          "unit": "monthly subscription",
+          "value": "$120",
+          "article_id": "9e0bb622f7bf3c4d"
+        }
+      ],
+      "strengths_ko": [
+        "토큰 효율성 2배 우수",
+        "경쟁력 있는 가격",
+        "코딩 특화"
+      ],
+      "weaknesses_ko": [
+        "아동 성적 학대 이미지 생성 차단 실패",
+        "강간 프롬프트 차단 실패",
+        "csam 신고 후 수사 협력 거부"
+      ],
+      "article_count": 22
     },
     {
       "model": "Llama",
@@ -2911,156 +3271,6 @@
       "article_count": 2
     },
     {
-      "model": "DeepSeek",
-      "latest_version": "V4 Flash",
-      "latest_seen": "2026-09-01",
-      "articles": [
-        {
-          "id": "e03b96427dea185b",
-          "day": "2026-09-01",
-          "title": "A Model with No Head and Many Thoughts",
-          "url": "https://arxiv.org/abs/2608.31069v1"
-        },
-        {
-          "id": "c5a729d97ca12699",
-          "day": "2026-08-22",
-          "title": "The Unlikely Place at the Center of China’s AI Boom",
-          "url": "https://www.wired.com/story/the-unlikely-place-at-the-center-of-chinas-ai-boom/"
-        },
-        {
-          "id": "f726cd00afefc930",
-          "day": "2026-08-21",
-          "title": "Ramp launches its own AI model router, called Router",
-          "url": "https://techcrunch.com/2026/08/20/ramp-launches-its-own-ai-model-router-called-router/"
-        },
-        {
-          "id": "7d64c7c4d5f605f2",
-          "day": "2026-08-16",
-          "title": "DeepSeek's top-ranked V4 Flash stumbles on real agent tasks as its prices surge",
-          "url": "https://venturebeat.com/orchestration/deepseeks-top-ranked-v4-flash-stumbles-on-real-agent-tasks-as-its-prices-surge"
-        },
-        {
-          "id": "653e4c6d9da01ffd",
-          "day": "2026-08-14",
-          "title": "Choosing an AI model: one prompt, 11 models, different results",
-          "url": "https://www.netlify.com/blog/one-prompt-11-models-very-different-results/"
-        },
-        {
-          "id": "3b84a8966e9870e7",
-          "day": "2026-08-14",
-          "title": "DeepSeek Harness launches as open source rival to Claude Code, alongside V4-Pro on API with higher prices",
-          "url": "https://venturebeat.com/technology/deepseek-harness-launches-as-open-source-rival-to-claude-code-alongside-v4-pro-on-api-with-higher-prices"
-        },
-        {
-          "id": "5a67ef8c3dafa8c8",
-          "day": "2026-08-11",
-          "title": "A New Trick Reveals AI Models’ Inner Thoughts",
-          "url": "https://www.wired.com/story/a-new-trick-reveals-ai-models-inner-thoughts/"
-        },
-        {
-          "id": "87501537c23da0a5",
-          "day": "2026-08-07",
-          "title": "One of China’s Most Powerful AI Models Has Also Escaped Containment",
-          "url": "https://www.wired.com/story/moonshot-kimi-k3-ai-model-escape-sandbox/"
-        },
-        {
-          "id": "30eee1cbcd65b3e7",
-          "day": "2026-08-06",
-          "title": "Same Formulas, Different Semantics: Do Language Models Follow Modal Logic Specifications?",
-          "url": "https://arxiv.org/abs/2608.05097v1"
-        },
-        {
-          "id": "088c63af229f208d",
-          "day": "2026-07-29",
-          "title": "AI's Capability in Assisting Scientific Research in Physics, Astrophysics, and Cosmology II: Project Planning and Proposal Evaluation",
-          "url": "https://arxiv.org/abs/2607.25881v1"
-        },
-        {
-          "id": "4ea4ebe664db7c51",
-          "day": "2026-07-28",
-          "title": "PIVOT: Efficient Query-Group Indexing for Token-Level Sparse Attention",
-          "url": "https://arxiv.org/abs/2607.24593v1"
-        },
-        {
-          "id": "dea5ca88c6a95701",
-          "day": "2026-07-24",
-          "title": "What, Where, and How: Disentangling the Roles of Task, Language, and Model in Code Model Representations",
-          "url": "https://arxiv.org/abs/2607.21491v1"
-        },
-        {
-          "id": "8ea1a081b43d3d8a",
-          "day": "2026-07-16",
-          "title": "Apple Intelligence approved for launch in China with Alibaba and Baidu",
-          "url": "https://techcrunch.com/2026/07/16/apple-intelligence-approved-for-launch-in-china-with-alibabas-qwen-ai/"
-        },
-        {
-          "id": "6a71bb8a3bc746e8",
-          "day": "2026-07-13",
-          "title": "DeepSeek cut prices 75%. The 100x problem remains",
-          "url": "https://venturebeat.com/orchestration/deepseek-cut-prices-75-the-100x-problem-remains"
-        },
-        {
-          "id": "d8d8ef485f43990e",
-          "day": "2026-07-08",
-          "title": "Why the rise of open source AI isn’t hurting Anthropic … yet",
-          "url": "https://techcrunch.com/2026/07/07/why-the-rise-of-open-source-ai-isnt-hurting-anthropic-yet/"
-        },
-        {
-          "id": "8e063a8bd30f46ce",
-          "day": "2026-07-08",
-          "title": "Beijing is looking at curbing overseas access to China's top AI models",
-          "url": "https://www.reuters.com/world/beijing-is-looking-curbing-overseas-access-chinas-top-ai-models-sources-say-2026-07-07/"
-        },
-        {
-          "id": "0baa408c4427c5b5",
-          "day": "2026-07-08",
-          "title": "Facing US export controls, China's DeepSeek plans to make its own chips",
-          "url": "https://arstechnica.com/ai/2026/07/facing-us-export-controls-chinas-deepseek-plans-to-make-its-own-chips/"
-        },
-        {
-          "id": "e9f49d0f5a9d4b40",
-          "day": "2026-07-05",
-          "title": "Alibaba reportedly bans employees from using Claude Code",
-          "url": "https://techcrunch.com/2026/07/04/alibaba-reportedly-bans-employees-from-using-claude-code/"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "모달 논리 의미론 준수 (직접 프롬프팅)",
-          "score": "4.4%",
-          "article_id": "30eee1cbcd65b3e7"
-        },
-        {
-          "name": "모달 논리 의미론 준수 (추론 모드)",
-          "score": "88.1%",
-          "article_id": "30eee1cbcd65b3e7"
-        },
-        {
-          "name": "pass@k",
-          "score": "모든 k값에서 성능 개선",
-          "article_id": "e03b96427dea185b"
-        }
-      ],
-      "pricing": [
-        {
-          "unit": "token cost",
-          "value": "Claude Opus 4.8 대비 1/23",
-          "article_id": "d8d8ef485f43990e"
-        }
-      ],
-      "strengths_ko": [
-        "토큰 볼륨 우위",
-        "추론 모드 활성화 시 논리적 추론 성능",
-        "에이전트 워크로드 최적화"
-      ],
-      "weaknesses_ko": [
-        "토큰 효율성 문제",
-        "약한 사이버 방어 기능",
-        "claude, gpt와 유사한 추론 패턴"
-      ],
-      "article_count": 18
-    },
-    {
       "model": "Whisper",
       "latest_version": "Whisper Small",
       "latest_seen": "2026-09-01",
@@ -3124,174 +3334,6 @@
         "배치 처리 시 문맥 손실"
       ],
       "article_count": 5
-    },
-    {
-      "model": "Grok",
-      "latest_version": "Grok 4.6",
-      "latest_seen": "2026-09-01",
-      "articles": [
-        {
-          "id": "77e651c0246f9df1",
-          "day": "2026-09-01",
-          "title": "The Pentagon now has its own version of ChatGPT and Grok",
-          "url": "https://techcrunch.com/2026/08/31/the-pentagon-now-has-its-own-version-of-chatgpt-and-grok/"
-        },
-        {
-          "id": "314cbfb7eba18c50",
-          "day": "2026-08-28",
-          "title": "Elon Musk’s xAI used child porn to train Grok models, lawsuit says",
-          "url": "https://arstechnica.com/tech-policy/2026/08/elon-musks-xai-used-child-porn-to-train-grok-models-lawsuit-says/"
-        },
-        {
-          "id": "bb7f10ed90dc054b",
-          "day": "2026-08-21",
-          "title": "Grok exfiltrates user data when malicious instructions are encrypted",
-          "url": "https://arstechnica.com/security/2026/08/grok-exfiltrates-user-data-when-malicious-instructions-are-encrypted/"
-        },
-        {
-          "id": "d5497c2ac537969a",
-          "day": "2026-08-21",
-          "title": "Grok keeps sending gibberish responses to users",
-          "url": "https://techcrunch.com/2026/08/20/grok-keeps-sending-gibberish-responses-to-users/"
-        },
-        {
-          "id": "3a15a6a18265ecce",
-          "day": "2026-08-18",
-          "title": "We still don’t know how people are really using AI",
-          "url": "https://www.technologyreview.com/2026/08/18/1142226/how-people-use-ai/"
-        },
-        {
-          "id": "47c8acd498f0c0e4",
-          "day": "2026-08-16",
-          "title": "Woman claims her stepfather used Grok to transform childhood photo into explicit imagery",
-          "url": "https://techcrunch.com/2026/08/15/woman-claims-her-stepfather-used-grok-to-transform-childhood-photo-into-explicit-imagery/"
-        },
-        {
-          "id": "f5fc0832ed1f70e5",
-          "day": "2026-08-13",
-          "title": "SpaceXAI debuts Grok 4.6, overtaking Kimi K3's performance and matching GPT-5.6 Sol for world's third best on Artificial Analysis",
-          "url": "https://venturebeat.com/technology/spacexai-debuts-grok-4-6-overtaking-kimi-k3s-performance-and-matching-gpt-5-6-sol-for-worlds-third-best-on-artificial-analysis"
-        },
-        {
-          "id": "937e54c9e405b2db",
-          "day": "2026-08-13",
-          "title": "Grok is now an AI ‘teammate’ you can assign work",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/978666/spacexai-grok-bot-ai-agent-beta-launch"
-        },
-        {
-          "id": "9e0bb622f7bf3c4d",
-          "day": "2026-08-12",
-          "title": "SpaceXAI's Grok Bot turns agents into persistent digital coworkers that can operate your apps for $120-per-month",
-          "url": "https://venturebeat.com/orchestration/spacexais-grok-bot-turns-agents-into-persistent-digital-coworkers-that-can-operate-your-apps-for-120-per-month"
-        },
-        {
-          "id": "88e15d0b7e684c66",
-          "day": "2026-08-05",
-          "title": "SpaceX is barely Space and mostly X",
-          "url": "https://www.theverge.com/science/975545/spacex-x-earnings-ai-data-centers-compute-space"
-        },
-        {
-          "id": "d2ecb144a16331ce",
-          "day": "2026-07-31",
-          "title": "AI Slop Melodramas Are Taking Over X—and Their Creators Are Cashing In",
-          "url": "https://www.wired.com/story/ai-slop-melodramas-are-taking-over-x-and-their-creators-are-cashing-in/"
-        },
-        {
-          "id": "8f88613ffed2cefe",
-          "day": "2026-07-30",
-          "title": "It’s Frighteningly Easy to Jailbreak Some Frontier AI Models",
-          "url": "https://www.wired.com/story/jailbreaking-ai-models-google-anthropic-openai-spacexai/"
-        },
-        {
-          "id": "f574fec13ba4a99c",
-          "day": "2026-07-30",
-          "title": "Elon Musk’s xAI is trying to sue its way out of a Grok reckoning",
-          "url": "https://arstechnica.com/tech-policy/2026/07/elon-musks-xai-is-trying-to-sue-its-way-out-of-a-grok-reckoning/"
-        },
-        {
-          "id": "35a1b28301c09202",
-          "day": "2026-07-20",
-          "title": "AI is more likely than humans to form biases when hiring",
-          "url": "https://www.technologyreview.com/2026/07/20/1140655/ai-biases-hiring-humans/"
-        },
-        {
-          "id": "613ea85e9a4dd68e",
-          "day": "2026-07-18",
-          "title": "Introducing Grok on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-grok-on-amazon-bedrock/"
-        },
-        {
-          "id": "368a3dfa05d78a0d",
-          "day": "2026-07-18",
-          "title": "xAI can’t deny Grok makes CSAM anymore. So it’s suing users.",
-          "url": "https://arstechnica.com/tech-policy/2026/07/xai-cant-deny-grok-makes-csam-anymore-so-its-suing-users/"
-        },
-        {
-          "id": "3d53ce8cd0557ee0",
-          "day": "2026-07-16",
-          "title": "xAI sues a man for using Grok to generate CSAM ‘deepfakes’",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/966293/xai-grok-user-lawsuit-csam"
-        },
-        {
-          "id": "07637df8cbed9afb",
-          "day": "2026-07-15",
-          "title": "SpaceXAI’s Grok programming tool was uploading its users’ entire codebase to cloud storage",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/965600/spacexai-grok-build-repository-upload"
-        },
-        {
-          "id": "47a8b29856e6213b",
-          "day": "2026-07-09",
-          "title": "Lawsuit: Man used Grok to make 7K sex images of stepdaughter, then shot himself",
-          "url": "https://arstechnica.com/tech-policy/2026/07/lawsuit-grok-user-made-7k-child-sex-images-xai-only-reported-one-gang-rape-prompt/"
-        },
-        {
-          "id": "f2a88ed8a71182b8",
-          "day": "2026-07-09",
-          "title": "SpaceXAI releases Grok 4.5, which Elon describes as an ‘Opus-class model’",
-          "url": "https://techcrunch.com/2026/07/08/spacexai-releases-grok-4-5-which-elon-describes-as-an-opus-class-model/"
-        },
-        {
-          "id": "7bef597cf4bc9576",
-          "day": "2026-07-09",
-          "title": "SpaceX's Grok 4.5 launches at half the price of rivals — here's why that could rattle Anthropic and OpenAI",
-          "url": "https://venturebeat.com/technology/spacexs-grok-4-5-launches-at-half-the-price-of-rivals-heres-why-that-could-rattle-anthropic-and-openai"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "Artificial Analysis Intelligence Index",
-          "score": "61점",
-          "article_id": "f5fc0832ed1f70e5"
-        }
-      ],
-      "pricing": [
-        {
-          "unit": "input/1M tokens",
-          "value": "$2",
-          "article_id": "f2a88ed8a71182b8"
-        },
-        {
-          "unit": "output/1M tokens",
-          "value": "$6",
-          "article_id": "f2a88ed8a71182b8"
-        },
-        {
-          "unit": "monthly subscription",
-          "value": "$120",
-          "article_id": "9e0bb622f7bf3c4d"
-        }
-      ],
-      "strengths_ko": [
-        "토큰 효율성 2배 우수",
-        "경쟁력 있는 가격",
-        "코딩 특화"
-      ],
-      "weaknesses_ko": [
-        "아동 성적 학대 이미지 생성 차단 실패",
-        "강간 프롬프트 차단 실패",
-        "csam 신고 후 수사 협력 거부"
-      ],
-      "article_count": 21
     },
     {
       "model": "Stable Diffusion",
