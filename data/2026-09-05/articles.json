@@ -503,5 +503,86 @@
       "안전성",
       "보안"
     ]
+  },
+  {
+    "id": "fc8b777bd4955741",
+    "cluster_id": "k006116",
+    "title_original": "Can AI design circuit boards yet?",
+    "url": "https://eebench.org/blog/can-ai-design-circuit-boards-yet/",
+    "image_url": "https://eebench.org/src/can-ai-design-circuit-boards-yet.png",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-09-04T19:48:29+00:00",
+    "fetched_at": "2026-09-05T17:13:14.804754+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "EEBench는 AI의 전자회로 설계 능력을 측정하는 벤치마크로, 선언형 코드(atopile) 기반으로 실제 부품 허용치·비용·공급망을 고려한 설계 최적화를 평가합니다. Claude Opus 5가 61.6%로 선두를 기록했으며, Grok 4.6(57.1%)과 Anthropic 모델들이 우수한 성과를 보인 반면 OpenAI 모델들은 상대적으로 낮은 순위를 기록했습니다.",
+    "insights_ko": [
+      "GUI 기반 CAD 조작 대신 회로를 코드로 표현하면 AI 에이전트가 더 효율적으로 설계 공간을 탐색할 수 있음을 보여줍니다. 이는 복잡한 UI 상태 추적 오버헤드를 제거하고 실제 전자공학 문제에 집중하게 함으로써 모델의 내재적 지식을 더 잘 활용하게 됩니다.",
+      "EEBench가 이상적 값이 아닌 실제 부품의 공차·가격·조달성을 고려하도록 설계한 점이 중요합니다. 이는 텍스트북 기반 최적화와 실제 제품 엔지니어링의 간극을 드러내며, 단순한 회로 이해가 아닌 트레이드오프 판단 능력을 검증합니다.",
+      "xAI가 Grok 4.6 모델 카드에 EEBench를 정식 평가 지표로 포함시킨 것은 AI 엔지니어링 능력이 프론티어 랩의 벤치마킹 표준 카테고리로 격상되었음을 의미합니다. 향후 PCB 레이아웃·제조·시스템 통합 단계로 확장될 경우 평가 복잡도와 의미가 대폭 증가할 것으로 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "EEBench measures AI circuit design against real-world engineering constraints",
+    "tags": [
+      "벤치마크",
+      "Claude",
+      "Grok",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "3d056644792d44a8",
+    "cluster_id": "k006115",
+    "title_original": "AI handles incidents, engineers lose touch with their systems",
+    "url": "https://www.sylvainkalache.com/blog/ai-handles-incidents-engineers-lose-touch-with-their-systems",
+    "image_url": "https://www.sylvainkalache.com/blog/ai-handles-incidents-engineers-lose-touch-with-their-systems/opengraph-image/primary?c892ecc60b0c6273",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-09-05T07:52:50+00:00",
+    "fetched_at": "2026-09-05T17:13:14.805002+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AI 기반 인시던트 대응 도구가 일상적 장애를 자동 해결함에 따라, 엔지니어들이 시스템 운영 경험을 잃고 있다는 우려를 제기하는 칼럼입니다. 저자는 1983년 Lisanne Bainbridge의 '자동화의 역설' 논문을 인용하며, 루틴 업무 자동화가 엔지니어의 실무 감각을 퇴화시켜 복잡한 장애 대응 시 오히려 대응 시간이 늘어날 수 있다고 경고합니다. 항공업계의 파일럿 재교육 사례와 실제 인시던트 시뮬레이션을 통한 해결책을 제시합니다.",
+    "insights_ko": [
+      "자동화가 성공할수록 엔지니어는 일상적 장애 대응을 통해 얻는 '안전한' 학습 기회를 잃게 되므로, 복잡하고 예상 밖의 SEV1/SEV0 인시던트에서 대응 역량이 급격히 하락할 위험이 있습니다. 평균 MTTR은 개선되지만 최악의 경우 해결 시간이 증가하는 역설적 결과가 초래될 수 있다는 점이 핵심입니다.",
+      "AI SRE 도구의 '설명 기능'만으로는 엔지니어의 실무 감각을 복원할 수 없으며, 항공 산업처럼 정기적인 시뮬레이션 기반 훈련과 실제 시스템 조작이 필수가 됩니다. 이는 현대 SRE 조직에서 chaos engineering, tabletop exercise의 중요도가 이전보다 높아져야 함을 의미합니다.",
+      "엔지니어링 팀이 '이해도 부채(comprehension debt)'를 누적할 위험이 커지고 있으며, 자동화 의존도가 높을수록 조직 전체의 기술 부양력(technical debt 해결 능력)이 악화될 수 있습니다. 프론티어 모델 개발사와 대규모 시스템 운영 조직에서 특히 주의깊은 교육·훈련 체계 설계가 필요합니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "AI incident automation risks degrading engineers' hands-on system expertise",
+    "tags": [
+      "에이전트",
+      "안전성",
+      "생산성"
+    ]
+  },
+  {
+    "id": "5d8b342437f848f9",
+    "cluster_id": "k006117",
+    "title_original": "Tesla’s Cybercab has been deployed, and it’s already under investigation",
+    "url": "https://arstechnica.com/cars/2026/09/teslas-cybercab-has-been-deployed-and-its-already-under-investigation/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2025/05/GettyImages-2183782392-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-09-05T15:17:36+00:00",
+    "fetched_at": "2026-09-05T17:13:14.805319+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Tesla의 Cybercab이 텍사스와 플로리다에서 일반 승객을 대상으로 운영을 시작했지만, 미국 연방정부의 안전 기준 적합성 조사를 받고 있습니다. 핸들과 브레이크 페달이 없는 이 차량은 기존 연방 안전 규정을 충족하지 않을 수 있으며, Tesla는 기존 규정 준수를 주장하는 반면 경쟁사 Zoox는 면제 승인을 받았습니다. NHTSA는 자동운전차 배포를 위해 8가지 규정을 개정하고 있는 상황입니다.",
+    "insights_ko": [
+      "Tesla가 경쟁사와 달리 연방 면제를 신청하지 않겠다는 전략적 입장이 법적 충돌로 발전할 가능성이 높습니다. 기존 규정 준수 주장이 NHTSA 조사 결과에 따라 위반 판정을 받으면 배포 중단 명령이 나올 수 있으며, 이는 Robotaxi 상용화 타이밍에 큰 영향을 미칩니다.",
+      "자율주행 표준화 과정에서 규정 개정(페달·와이퍼·백미러 제거 논의)과 현장 배포가 병행되며 규제 공백이 발생하고 있습니다. Zoox의 면제 사례는 규제 순응이 필수임을 보여주는데, Tesla의 비협조 입장은 산업 표준화를 지연시키고 정부와의 관계 악화를 초래할 수 있습니다.",
+      "자동운전 로보택시는 기술보다 규제 승인이 상용화의 핵심 병목이 되고 있으며, Tesla의 공격적 배포가 성공할 경우 규제 기준이 사후적으로 수정될 수 있다는 선례를 만들 위험이 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Tesla Cybercab begins operations amid federal safety investigation",
+    "tags": [
+      "자율주행",
+      "규제"
+    ]
   }
 ]
