@@ -2226,5 +2226,302 @@
       "추론",
       "데이터센터"
     ]
+  },
+  {
+    "id": "012857c2159ffdb3",
+    "cluster_id": "k006919",
+    "title_original": "Enhancing industrial safety AI with synthetic data on Amazon SageMaker AI",
+    "url": "https://aws.amazon.com/blogs/machine-learning/enhancing-industrial-safety-ai-with-synthetic-data-on-amazon-sagemaker-ai/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/01/ML-20809-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-09-17T15:28:08+00:00",
+    "fetched_at": "2026-09-17T18:53:11.168022+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS는 Amazon SageMaker AI와 Rekognition을 활용한 합성 데이터 파이프라인으로 산업 안전 AI의 훈련 데이터 부족 문제를 해결하는 방법을 제시했습니다. Qwen-Image-Edit-2509 확산 모델로 실제 장비 이미지에 합성 인물을 삽입하고, Rekognition이 자동으로 라벨을 생성하는 두 단계 프로세스를 통해 인물 감지 정확도를 최대 160% 향상시켰습니다. 이 접근은 위험한 촬영 시나리오를 회피하면서도 드문 위험 상황에 대한 충분한 훈련 신호를 제공합니다.",
+    "insights_ko": [
+      "산업 안전 AI에서 가장 중요한 엣지 케이스(아이가 기계 근처에 있는 경우 등)가 정확히 가장 드물고 수집 불가능한 데이터라는 딜레마를 합성 데이터로 직접 해결함으로써, 라벨링 비용(이미지당 $3~5)을 획기적으로 절감하고 윤리·안전 이슈를 제거합니다.",
+      "기존 장비 배경을 보존하면서 인물만 삽입하는 '인플레이스 에디팅' 전략은 완전 합성 이미지의 도메인 갭 문제를 회피하며, 엣지 배포 모델의 컴퓨팅 제약 속에서도 실용적인 훈련 신호를 극대화합니다.",
+      "자동 라벨링(Amazon Rekognition DetectLabels)이 의사 라벨(Pseudo-label)로 기능하는 방식은 추가 수동 검증 비용 없이 확장성을 확보하며, 이 패턴이 제조·농업·광업 등 규제·안전이 중요한 산업의 AI 구축 모델로 빠르게 확산될 가능성을 보여줍니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AWS synthetic data pipeline cuts industrial safety AI training time by 160 percent",
+    "tags": [
+      "합성데이터",
+      "Amazon"
+    ]
+  },
+  {
+    "id": "a6a39cb7eefe8f13",
+    "cluster_id": "k006914",
+    "title_original": "Selecting a vector store for Amazon Bedrock Knowledge Bases",
+    "url": "https://aws.amazon.com/blogs/machine-learning/selecting-a-vector-store-for-amazon-bedrock-knowledge-bases/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/09/ML-19758-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-09-17T15:53:13+00:00",
+    "fetched_at": "2026-09-17T18:53:11.168347+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS는 Amazon Bedrock Knowledge Bases 사용 시 고객이 선택할 수 있는 세 가지 벡터 스토어 백엔드(Amazon OpenSearch Service, Amazon Aurora PostgreSQL with pgvector, Amazon S3 Vectors)를 비교 분석했습니다. 각 옵션의 성능, 비용, 지연시간을 세 가지 RAG 사용 사례(전자상거래 제품 검색, 엔터프라이즈 문서 검색, 아카이브 데이터 분석)별로 평가하여 선택 기준을 제시합니다. 벡터 데이터베이스가 RAG 솔루션에서 의미론적 검색과 정보 검색을 연결하는 핵심 역할을 한다는 점을 강조합니다.",
+    "insights_ko": [
+      "벡터 스토어 선택이 단순 기술 결정이 아니라 비용-지연시간-확장성 트레이드오프를 고려한 아키텍처 설계 문제임을 명확히 함으로써, 기업의 RAG 도입 성숙도에 따라 다른 선택지가 필요함을 시사합니다.",
+      "Amazon S3 Vectors의 비용 우위(기존 벡터 DB 대비 최대 90% 절감)와 서브초 검색 성능은 대규모 아카이브 데이터나 비용 민감 워크로드의 새로운 표준이 될 가능성을 보여주며, AWS가 벡터 스토어 시장의 다각화 전략을 강화하고 있음을 드러냅니다.",
+      "Amazon OpenSearch Serverless의 하이브리드 검색(의미론적 + 키워드 매칭), pgvector의 인덱싱 유연성, S3 Vectors의 비용 효율성이라는 세 가지 차별화 포인트는 각각 다른 산업 도메인(전자상거래, 엔터프라이즈, 데이터 웨어하우스)의 요구에 최적화된 생태계 구성을 의도하고 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AWS compares three vector stores for Bedrock Knowledge Bases RAG solutions",
+    "tags": [
+      "RAG",
+      "Amazon",
+      "데이터센터"
+    ]
+  },
+  {
+    "id": "52856cb84e76c8fa",
+    "cluster_id": "k006917",
+    "title_original": "How MRH Trowe enabled secure self-service AI agents in financial services",
+    "url": "https://aws.amazon.com/blogs/machine-learning/how-mrh-trowe-enabled-secure-self-service-ai-agents-in-financial-services/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/15/ML-21177-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-09-17T15:36:42+00:00",
+    "fetched_at": "2026-09-17T18:53:11.168579+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "독일 보험중개업체 MRH Trowe는 Strands Agents, Amazon Bedrock AgentCore, LibreChat를 조합하여 약 400명의 직원에게 규제 준수적 자체 서비스 AI 에이전트 접근성을 첫 달 내 제공했습니다. 개별 팀의 그림자 AI 도구 확산을 방지하면서도 보안, 데이터 거주지, 감사추적성을 보장하는 중앙집중식 거버넌스를 구현했습니다. 초기 비용은 사용자당 월 14달러이며, 스케일 최적화를 통해 약 40% 감소 가능성을 확인했습니다.",
+    "insights_ko": [
+      "규제가 엄격한 금융 부문에서 오픈소스 에이전트 프레임워크(Strands)와 관리형 클라우드 플랫폼(Bedrock AgentCore)의 결합이 유연성과 규제 요구 사항의 균형을 제시합니다. 이는 컴플라이언스 부담이 높은 산업에서도 self-service AI 민주화가 가능함을 보여줍니다.",
+      "기존 엔터프라이즈 ID(Microsoft Entra) 통합과 리전 고정(Frankfurt)을 통한 세션 격리가 기본 설계에 내재되어 있으며, 이러한 아키텍처 선택이 데이터 주권과 비용 투명성을 동시에 달성하는 핵심입니다.",
+      "Microsoft Teams 회의록 요약 에이전트 사례는 반복적 업무 자동화의 진입점으로 기능하며, 정규직 기반 조직에서 생산성 도구로서 AI 에이전트의 신속한 채택을 견인할 수 있음을 시사합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "MRH Trowe deploys secure self-service AI agents across 400 employees",
+    "tags": [
+      "Amazon",
+      "에이전트",
+      "금융",
+      "생산성"
+    ]
+  },
+  {
+    "id": "b328c9a2ac1d20f6",
+    "cluster_id": "k006918",
+    "title_original": "Implementing defense-in-depth authorization for MCP tools on Amazon Quick",
+    "url": "https://aws.amazon.com/blogs/machine-learning/implementing-defense-in-depth-authorization-for-mcp-tools-on-amazon-quick/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/15/ML-21168-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-09-17T15:30:17+00:00",
+    "fetched_at": "2026-09-17T18:53:11.168818+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS는 Amazon Quick에서 MCP 도구 호출 시 방어심층(defense-in-depth) 인증을 구현하는 방법을 제시했습니다. MFA, 지리적 제한, 역할 기반 접근제어(RBAC), 도구 수준 권한 검사 등 4단계 게이트를 순차적으로 평가하는 다중 게이트 패턴을 AWS Lambda 인터셉터와 Microsoft Entra ID를 통해 구현합니다. 이 접근법은 단순 SSO 토큰 검증을 넘어 민감한 데이터에 대한 세밀한 권한 제어를 제공하며, 금융·헬스케어·정부 기관의 컴플라이언스 요구사항을 충족할 수 있습니다.",
+    "insights_ko": [
+      "MCP 도구 통합 시 '인증됨' ≠ '인가됨'이라는 보안 원칙을 명시적으로 구현한 사례로, 생성형 AI 에이전트가 민감 데이터에 접근할 때 토큰 기반 접근만으로는 부족하다는 점을 강조합니다. 이는 엔터프라이즈 AI 배포의 핵심 보안 문제를 AWS가 직접 솔루션화한 것입니다.",
+      "조직이 IAM 정책 설정 실수로 과도한 권한을 부여할 수 있다는 점을 인식하고, 도구·파라미터 단위까지 내려가는 세밀한 권한 게이트 방식을 제시했습니다. 이는 향후 AI 에이전트 보안 아키텍처의 표준 패턴이 될 가능성을 보여줍니다.",
+      "규제 산업(금융, 헬스케어, 정부)을 명시 대상으로 설정했으며, 감사 추적(audit trail)을 변경불가(immutable) 방식으로 기록하도록 설계했습니다. 컴플라이언스 감시 부담이 커지는 시장에서 AWS의 엔터프라이즈 포지셀이 강화되는 신호로 해석됩니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AWS implements defense-in-depth authorization for MCP tools on Amazon Quick",
+    "tags": [
+      "Amazon",
+      "MCP",
+      "보안",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "67388d6277cd414e",
+    "cluster_id": "k006912",
+    "title_original": "Pinterest teases a new ‘Restyle’ feature that lets you redesign your room with AI",
+    "url": "https://techcrunch.com/2026/09/17/pinterest-teases-a-new-restyle-feature-that-lets-you-redesign-your-room-with-ai/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/09/Restyle_dopamine.png?resize=1200,808",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-09-17T17:15:00+00:00",
+    "fetched_at": "2026-09-17T18:53:11.169047+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Pinterest가 AI 기반 'Restyle' 베타 기능을 미국과 캐나다에서 출시하여, 사용자가 자신의 공간 사진을 촬영한 후 가구·벽화·조명 등을 가상으로 추가하거나 변경하며 홈 데코 옵션을 비교할 수 있게 했습니다. NVIDIA Blackwell GPU와 오픈소스 모델을 활용한 Pinterest Intelligence가 기반이며, 저장된 핀 이미지를 실제 공간에 시각화함으로써 영감 단계에서 구매로의 전환을 촉진하려는 전략입니다. 초기 프리뷰 후 다음 달부터 광범위하게 롤아웃될 예정입니다.",
+    "insights_ko": [
+      "홈 리스타일링 자체는 이미 알려진 AI 활용 사례이지만, Pinterest가 자사 핀 아카이브와 직접 통합함으로써 '발견→저장→구매' 퍼널을 단축하는 고유한 비즈니스 기회를 만들었습니다. 사용자가 실제 공간에서 아이템이 어떻게 보일지 미리 보면 구매 확률과 AOV(평균 주문액)가 상승할 가능성이 높습니다.",
+      "NVIDIA Blackwell GPU와의 파트너십으로 Pinterest가 AI 인프라 수준의 의존성을 높이면서 추론 비용 구조가 중요한 경쟁 요소로 부상합니다. 고해상도 이미지 생성과 실시간 편집에 필요한 컴퓨팅 비용을 얼마나 효율적으로 처리하느냐가 상용화 타이밍과 마진율을 결정할 것입니다.",
+      "시각 검색과 쇼핑 광고 도구를 함께 발표함으로써 Pinterest가 인플루언서/브랜드의 콘텐츠 가치를 높이는 방향으로 이동 중입니다. Restyle이 광고주들에게도 제품 이미지를 사용자의 공간에 자동 삽입하는 시각화 광고 포맷으로 확대될 가능성을 열어놓았습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Pinterest launches AI room redesign tool powered by Blackwell GPUs",
+    "tags": [
+      "NVIDIA",
+      "이미지생성"
+    ]
+  },
+  {
+    "id": "f94fd964d75e6e62",
+    "cluster_id": "k006916",
+    "title_original": "A shared agentic platform for Wood Mackenzie, on Amazon Bedrock AgentCore",
+    "url": "https://aws.amazon.com/blogs/machine-learning/a-shared-agentic-platform-for-wood-mackenzie-on-amazon-bedrock-agentcore/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/16/ML-21057-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-09-17T15:41:03+00:00",
+    "fetched_at": "2026-09-17T18:53:11.169232+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Wood Mackenzie가 Amazon Bedrock AgentCore 기반으로 APEX(Agentic Platform for Energy eXperience)라는 공유 에이전트 플랫폼을 구축했습니다. 기존에는 각 팀이 인증, 거버넌스, 관찰성, 모델 통합을 매번 처음부터 다시 구현했으나, AgentCore를 활용해 플랫폼 레이어를 표준화하고 비즈니스 로직에만 집중하도록 설계했습니다. 평가·거버넌스·인프라 중복이라는 프로덕션 에이전트의 핵심 병목을 플랫폼 차원에서 해결합니다.",
+    "insights_ko": [
+      "에이전트 프로토타입과 프로덕션 간 거대한 갭(88%의 PoC가 본격 배포 미달성)을 인프라 공유로 극복하는 사례로, 모델 성능보다 오케스트레이션·추적·거버넌스 같은 아키텍처 문제가 엔터프라이즈 에이전트 도입을 좌우함을 실증합니다.",
+      "AgentCore의 모델·프레임워크 독립성(Claude/GPT/Nova/Llama 동시 지원, LangGraph/LangChain/CrewAI 호환)과 관리형 인프라가 플랫폼 표준화와 팀별 선택지 자유를 양립시키는 설계 원칙을 보여줍니다.",
+      "정책 기반 툴 호출 제어(Cedar 언어)와 IAM 통합이 에이전트 안전성·규정 준수를 코딩 없이 가능하게 하며, 보안/컴플라이언스 팀이 비즈니스 로직 변경 없이 통제할 수 있는 거버넌스 모델을 제시합니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Wood Mackenzie standardizes multi-team agent infrastructure on AWS Bedrock AgentCore",
+    "tags": [
+      "Amazon",
+      "에이전트",
+      "RAG",
+      "데이터센터"
+    ]
+  },
+  {
+    "id": "0b6d2d59e6284db2",
+    "cluster_id": "k006913",
+    "title_original": "Reduce time-to-hire for quality candidates with AI-powered Amazon Connect Talent",
+    "url": "https://aws.amazon.com/blogs/machine-learning/reduce-time-to-hire-for-quality-candidates-with-ai-powered-amazon-connect-talent/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/16/Reduce-time-to-hire-for-quality-candidates-with-AI-powered-Amazon-Connect-Talent.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-09-17T17:55:20+00:00",
+    "fetched_at": "2026-09-17T18:53:11.169484+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS가 Amazon Connect Talent를 출시했습니다. 이는 AI 기반 채용 솔루션으로, AI 에이전트가 대규모 지원자를 자동으로 면접·평가하고 채용담당자에게 점수가 매겨진 후보자 대시보드를 제공합니다. Amazon의 수십 년 채용 과학을 바탕으로 하며, 채용담당자는 최종 의사결정권을 유지하면서 속도와 공정성을 모두 확보할 수 있습니다.",
+    "insights_ko": [
+      "대규모 채용이 필요한 소매·물류·서비스업에서 지원자 대기 시간이 길어지는 구조적 문제를 AI 자동화로 해결하려는 점이 신의합니다. 채용담당자의 병목을 줄이면서도 '인간 최종 검증' 구조를 유지해 규제·신뢰 리스크를 낮췄습니다.",
+      "면접 완전 자동화가 아닌 '휴먼·인더·루프' 방식을 강조한 점은 채용 과정의 편향성 문제를 기술과 투명성으로 다루려는 의도를 보여줍니다. 지원자의 무명 평가(anonymized evaluation)와 근거 기반 점수 추적이 공정성 주장의 핵심입니다.",
+      "AWS의 엔터프라이즈 보안 기반 위에서 운영되는 채용 데이터 플랫폼이 새로운 니즈(HR·규정 준수)를 AWS 고객층에 제시하는 신규 수직(HR 기술)으로의 침투 신호입니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AWS launches AI-powered hiring platform to accelerate enterprise recruitment at scale",
+    "tags": [
+      "Amazon",
+      "생산성",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "c78d0c6b782c70ca",
+    "cluster_id": "k006911",
+    "title_original": "Base Labs launches an open-weight AI safety partnership with Hugging Face and Goodfire",
+    "url": "https://techcrunch.com/2026/09/17/base-labs-launches-an-open-weight-ai-safety-partnership-with-hugging-face-and-goodfire/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/07/hugging-face-logo-smartphone.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-09-17T17:15:59+00:00",
+    "fetched_at": "2026-09-17T18:53:11.169717+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Baseten의 Base Labs 연구팀이 Hugging Face, Goodfire AI와 함께 오픈 가중치 모델을 위한 안전 인프라 표준을 출범했습니다. Abliteration 기법으로 인한 대규모 모델 안전장치 제거 문제(Hugging Face에서 6,000개 이상)에 대응하기 위해 투명하고 학습 단계부터 내장된 모니터링 및 평가 방법론을 개발할 계획입니다. 오픈소스의 투명성이 폐쇄형보다 안전성 연구를 더 실질적으로 구현할 수 있다고 주장하고 있습니다.",
+    "insights_ko": [
+      "오픈 모델 안전성이 산업의 실제 문제로 격상되며, 프론티어 모델 규제와는 별개로 '오픈 에코시스템 내 안전 표준화'라는 새로운 규범 영역이 형성되고 있습니다. 이는 규제 기관과는 무관하게 개발자 커뮤니티가 주도하는 자율 안전 인프라의 시작입니다.",
+      "Goodfire의 해석성 기술이 오픈 모델 안전장치 구현의 핵심이 될 가능성이 높으며, 이는 '검은 상자 해석 → 안전 통제 설계'의 역방향 가치사슬을 만듭니다. 해석성 기술이 학술 영역을 벗어나 상용 안전 인프라의 필수 요소로 자리잡는 계기가 될 수 있습니다.",
+      "Baseten과 Goodfire의 연합(총 15억 달러 이상 자금조달)이 오픈 모델 안전 시장의 선도 표준이 될 확률이 높으며, 추후 이 표준이 기술 사실상의 표준(de facto standard)으로 기능하면서 오픈소스 AI의 상용화 장벽을 낮추는 역할을 할 것으로 보입니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Base Labs launches open-weight AI safety standard with Hugging Face and Goodfire",
+    "tags": [
+      "Hugging Face",
+      "오픈소스",
+      "안전성",
+      "해석성"
+    ]
+  },
+  {
+    "id": "706ce6be995d55f2",
+    "cluster_id": "k006915",
+    "title_original": "A serverless, data-driven Git metrics dashboard using Amazon Quick Sight",
+    "url": "https://aws.amazon.com/blogs/machine-learning/a-serverless-data-driven-git-metrics-dashboard-using-amazon-quick-sight/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/11/ML-21183-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-09-17T15:42:31+00:00",
+    "fetched_at": "2026-09-17T18:53:11.169905+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS는 서버리스 아키텍처를 기반으로 GitHub·GitLab 저장소 메트릭을 자동 수집해 Amazon QuickSight 대시보드로 시각화하는 솔루션을 공개했습니다. EventBridge Scheduler, Step Functions, Lambda를 조율해 변경사항을 감지하고 전체/증분 로드를 선택적으로 실행하며, 저장소 개수가 많을 경우 자동으로 병렬 처리합니다. 개발팀이 AI 코딩 도구 도입 전후의 개발 속도·품질을 정량적으로 측정할 수 있도록 설계됐습니다.",
+    "insights_ko": [
+      "AI 코딩 도구 투자 효과를 실제 데이터로 검증하는 '기준 설정→추적→개선' 사이클이 개발팀의 표준 관행으로 정착할 필요성이 커지고 있으며, 이를 위한 관찰성 인프라가 AWS 같은 클라우드 플랫폼 중심으로 제품화되는 추세를 보입니다.",
+      "서버리스 설계로 초기 인프라 구축 비용과 지속 유지보수 부담을 제거한 점이 중소 조직의 개발 분석 접근성을 대폭 낮추며, Git 메트릭의 민주화가 추진되고 있습니다.",
+      "변경감지→병렬 청킹→증분 로드의 조합 패턴은 대규모 다중 저장소 환경에서 API 호출과 실행 시간을 최소화하는 일반 설계 원칙이 되어, 향후 다른 메트릭 수집 시나리오의 템플릿이 될 가능성이 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Serverless Git metrics collection and visualization dashboard for development observability"
+  },
+  {
+    "id": "6be1855923aac50b",
+    "cluster_id": "k006910",
+    "title_original": "Even the king of England has his hesitations about AI",
+    "url": "https://techcrunch.com/2026/09/17/even-the-king-of-england-has-his-hesitations-about-ai/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/09/JONATHAN-BRADY.jpg?w=1024",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-09-17T17:26:25+00:00",
+    "fetched_at": "2026-09-17T18:53:11.170119+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "영국의 찰스 왕이 NVIDIA, OpenAI, Anthropic 등 AI 업계 지도자와 영국 정부 관계자를 소집하여 AI 통제 필요성에 대해 논했습니다. 왕은 AI가 생명을 구하는 동시에 \"실존적 위험\"을 초래할 수 있다며 \"너무 늦기 전에\" 국제 협력을 통해 통제 수단을 마련해야 한다고 강조했습니다. 이는 AI 가속화를 둘러싼 산업·정치·사회의 이해관계 충돌을 보여주는 사건입니다.",
+    "insights_ko": [
+      "영국 왕실이 공식 채널을 통해 AI 감속론을 지지함으로써 비즈니스 압력(IPO, 경쟁)과 안전성 고려 사이의 긴장을 제도적으로 가시화했습니다. 최근 Sam Altman·Dario Amodei의 감속 발언에 이어 영국 최고 권위가 동조한 것은 글로벌 정책 담론에 영향을 미칠 가능성이 있습니다.",
+      "Anthropic의 Fable·Mythos 모델 미국 독점 공개와 이 정상회담이 연쇄적으로 일어나며, AI 지정학화 및 주권 경쟁이 국가·왕실 수준의 외교 이슈로 격상되었음을 보여줍니다. OpenAI IPO 지연, Trump의 중국 경쟁 언급과 함께 글로벌 규제·경제 구도 재편이 가시화되고 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "King Charles convenes AI leaders for existential risk and governance discussion",
+    "tags": [
+      "OpenAI",
+      "Anthropic",
+      "NVIDIA",
+      "규제",
+      "안전성"
+    ]
+  },
+  {
+    "id": "dbe6412b9fc88491",
+    "cluster_id": "k006920",
+    "title_original": "The AI Slowdown Debate Crashed Salesforce's Party",
+    "url": "https://www.wired.com/story/are-rogue-ai-agents-really-just-a-cybersecurity-problem/",
+    "image_url": "https://media.wired.com/photos/6aab113b6146f3a3b3e310bc/191:100/w_1280,c_limit/Model-Behavior-Year-Dreamforce-Was-Overtaken-by--Debate-Over-Existential-AI-Fears-Business.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-09-17T18:42:25+00:00",
+    "fetched_at": "2026-09-17T18:53:11.170486+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Salesforce의 Dreamforce 컨퍼런스에서 AI 안전성을 둘러싼 업계의 분열이 드러났습니다. Anthropic CEO Dario Amodei는 AI 개발 속도를 조절해야 한다고 주장했고 OpenAI의 Sam Altman도 동조했지만, NVIDIA의 Jensen Huang은 자율규제로 충분하다며 규제 불필요를 강조했습니다. 백악관 AI 고문과 트럼프 행정부는 AI 위험을 과장이라며 반박했고, 학계는 기술적 안전성보다 기업의 조직적 성숙도와 책임성 강화를 핵심으로 봅니다.",
+    "insights_ko": [
+      "Anthropic과 OpenAI가 '프론티어 페이싱'이라는 명목 아래 규제 틀 형성에 주도권을 확보하려는 움직임이지만, 실제로는 경쟁사(NVIDIA, 신흥 기업) 진입을 제도화하고 자신들의 규모의 경제를 보호하려는 전략으로 읽히며, 규제포획 비판이 제기되고 있습니다.",
+      "OpenAI의 Hugging Face 침해 사건은 '미래 초지능 정렬' 같은 추상적 우려보다 현재 AI 기업의 기본적인 사이버보안 및 거버넌스 부재가 실질적 위험임을 입증했으며, 독립 평가자 도입과 기업 책임성 강화(손해배상 의무화)가 정책적 우선순위로 부상하고 있습니다.",
+      "기술 공급자(NVIDIA, Salesforce)는 현상 유지 입장이고, 모델 제공자(Anthropic, OpenAI)는 제도화된 '조절', 학계·정책 커뮤니티는 투명성·책임성을 강조하는 삼각형 구도가 2025년 AI 정책 논쟁의 축이 될 전망입니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "AI slowdown debate deepens as industry alignment fractures at Dreamforce",
+    "tags": [
+      "Anthropic",
+      "OpenAI",
+      "규제",
+      "안전성",
+      "에이전트"
+    ]
   }
 ]
