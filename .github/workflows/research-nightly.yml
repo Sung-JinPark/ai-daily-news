@@ -45,11 +45,11 @@ jobs:
 
       - name: Checkout
         if: steps.guard.outputs.skip != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Python
         if: steps.guard.outputs.skip != 'true'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: pip
@@ -63,7 +63,7 @@ jobs:
       - name: Restore private state (Actions cache — lightweight ledger only)
         id: restore
         if: steps.guard.outputs.skip != 'true'
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           # research.db (news-driven ledger) + audits/labels + en_corpus + notes.
           # papers.db is deliberately NOT cached: the 268MB all-arXiv corpus is a
@@ -129,7 +129,7 @@ jobs:
       - name: Create R5-READY issue (one-time; alert only, dedup — NO analysis)
         if: steps.guard.outputs.skip != 'true' && steps.r5.outputs.emit == 'true'
         continue-on-error: true   # ★alert failure must not fail the nightly collection body
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           R5_TITLE: ${{ steps.r5.outputs.title }}
           R5_BODY: ${{ steps.r5.outputs.body }}
@@ -185,7 +185,7 @@ jobs:
 
       - name: Save private state (Actions cache)
         if: steps.guard.outputs.skip != 'true' && success()
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: data/research_private
           key: ${{ env.CACHE_PREFIX }}${{ github.run_id }}
@@ -196,7 +196,7 @@ jobs:
 
       - name: Report failure as issue
         if: failure()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             await github.rest.issues.create({

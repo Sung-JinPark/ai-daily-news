@@ -39,10 +39,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: pip
@@ -53,7 +53,7 @@ jobs:
           pip install -e .
 
       - name: Restore seen cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .cache
           key: seen-v1-${{ github.run_id }}
@@ -62,7 +62,7 @@ jobs:
 
       - name: Verify issues permission (dispatch-only, AUD-025)
         if: ${{ github.event.inputs.verify_issue_perm == 'true' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const { data: issue } = await github.rest.issues.create({
@@ -212,7 +212,7 @@ jobs:
         run: python -m pipeline.build_db
 
       - name: Upload research archive artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: archive-db
           path: data/exports/archive.db.gz
@@ -271,9 +271,9 @@ jobs:
           exit 1
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
           cache-dependency-path: site/package.json
 
@@ -288,20 +288,20 @@ jobs:
         run: npm run build
 
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: site/dist
 
       - name: Deploy to Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       - name: Report failure as issue
         if: failure()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const title = `Pipeline failed: ${new Date().toISOString()}`;
