@@ -19,7 +19,7 @@ if (-not $status) {
     exit 0
 }
 
-& git add site/ pipeline/ README.md CLAUDE.md .github/ 2>&1 | Out-Null
+& git add site/ pipeline/ README.md CLAUDE.md AGENTS.md .mcp.json .claude/ .github/ 2>&1 | Out-Null
 
 $staged = & git diff --cached --name-only 2>&1
 if ($staged) {
