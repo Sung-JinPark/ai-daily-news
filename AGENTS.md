@@ -22,7 +22,9 @@ Claude Code는 `CLAUDE.md`가 이 파일을 `@AGENTS.md`로 임포트하며, Cla
 
 ## 명령
 ```bash
-# 파이프라인 (순서 고정) — 또는 run-pipeline.bat
+# 파이프라인 핵심 단계 (순서 고정).
+# 전체 시퀀스(entity_index·embed·similarity·themes·predictions·build_db 포함)는
+# run-pipeline.bat 이 단일 출처 — 단계를 추가하면 거기에도 반영한다.
 python -m pipeline.collect
 python -m pipeline.dedupe
 python -m pipeline.summarize

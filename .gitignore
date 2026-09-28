@@ -54,8 +54,11 @@ data/papers_private/
 # Third-party media copyright; research consumes the local files directly.
 data/corpus/*/bodies.jsonl
 
-# 미발표 연구 방법론 스킬 — 논문 전까지 비공개
-.claude/skills/
+# 미발표 연구 방법론 스킬 — 논문 전까지 비공개.
+# ★범위 주의: 예전엔 .claude/skills/ 전체를 막았으나, 공개 가능한 운영 스킬
+#   (deploy 등)을 커밋하기 위해 이 한 디렉터리로 좁혔다. 새 스킬을 추가할 때
+#   비공개여야 하면 반드시 아래에 경로를 직접 추가할 것 — 기본값이 '공개'다.
+.claude/skills/concept-research-methodology/
 
 # 사용자 개인 참고 자료 — 프로젝트 코드 아님. Stop 훅(.claude/settings.json)이
 # 매 턴 git status를 돌리는데, 이 한글 폴더명이 quotepath 이스케이프(\NNN 옥텍)로

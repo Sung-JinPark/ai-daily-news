@@ -22,6 +22,22 @@ if (-not $status) {
 & git add site/ pipeline/ README.md CLAUDE.md AGENTS.md .mcp.json .claude/ .github/ 2>&1 | Out-Null
 
 $staged = & git diff --cached --name-only 2>&1
+
+# Leak gate (fail closed). This repo is PUBLIC and this hook pushes without
+# review, so a private path that slips into the index would be irreversible.
+# The risk grew when .gitignore was narrowed from `.claude/skills/` to just the
+# unpublished research skill: new private material is no longer denied by
+# default. Unstage the offenders and skip the commit entirely so the anomaly
+# is visible instead of being auto-pushed.
+$leak = @($staged | Where-Object {
+    $_ -match '^data/(research_private|papers_private)/' -or $_ -match 'bodies\.jsonl$'
+})
+if ($leak.Count -gt 0) {
+    & git restore --staged -- $leak 2>&1 | Out-Null
+    Write-Output "LEAK GATE: auto-commit aborted. Private paths were staged: $($leak -join ', ')"
+    exit 0
+}
+
 if ($staged) {
     & git commit -m "auto: apply changes" 2>&1 | Out-Null
     & git push 2>&1 | Out-Null

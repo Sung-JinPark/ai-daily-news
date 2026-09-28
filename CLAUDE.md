@@ -17,7 +17,9 @@
   - `code-style.md` (pipeline/**, site/**) · `testing.md` (tests/**) · `api-conventions.md` (LLM·데이터 계약)
 - `agents/` — 서브에이전트: `code-reviewer.md`, `security-auditor.md`. 커밋됨.
 - `hooks/stop-auto-commit.ps1` — 턴 종료 시 자동 커밋. 커밋됨.
-- `skills/` — **gitignored**. 미발표 연구 방법론 스킬(`concept-research-methodology`)이 논문 전까지 비공개.
+- `skills/` — `deploy/`(SKILL.md + deploy-config.md)는 커밋됨. `/deploy` 슬래시 커맨드로도 실행.
+  `concept-research-methodology/`**만** gitignored (논문 전까지 비공개).
+  ★새 스킬은 **기본 공개**다 — 비공개가 필요하면 `.gitignore`에 경로를 직접 추가할 것.
 - `worktrees/` — gitignored 작업 공간.
 - 루트 `CLAUDE.local.md` — 개인 로컬 메모. gitignored.
 - 루트 `.mcp.json` — 프로젝트 공유 MCP 서버. 현재 비어 있음(추가 시 팀 전체 공유됨).
