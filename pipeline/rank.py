@@ -56,6 +56,11 @@ def main() -> int:
     articles = json.loads(articles_file.read_text(encoding="utf-8"))
     if not articles:
         log.warning("no articles to rank")
+        # Write an empty highlights.json anyway: summarize.py can legitimately
+        # write an empty articles.json for the day when its batch is still
+        # pending (AUD-030), and digest.py requires highlights.json to exist.
+        out = DATA_DIR / args.day / "highlights.json"
+        out.write_text(json.dumps([], indent=2), encoding="utf-8")
         return 0
 
     ranked = sorted(articles, key=score, reverse=True)

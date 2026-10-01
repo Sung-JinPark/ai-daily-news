@@ -19,7 +19,19 @@ def main() -> int:
     if not days:
         log.warning("no day directories found")
         return 0
-    latest = days[0]
+
+    def article_count(day: str) -> int:
+        try:
+            return len(json.loads((DATA_DIR / day / "articles.json").read_text(encoding="utf-8")))
+        except Exception:  # noqa: BLE001
+            return 0
+
+    # AUD-030: summarize.py can write an empty articles.json for "today"
+    # while its batch is still pending on Anthropic's side. Skip empty days
+    # when picking latest_day so the homepage keeps showing yesterday's real
+    # content instead of "today, 0 articles". Fall back to days[0] only if
+    # every day on record is empty.
+    latest = next((d for d in days if article_count(d) > 0), days[0])
     # Volume floor — flag days that came in below a research-usable
     # threshold so the site can render a small notice. Weekends have
     # a lower floor: many labs and outlets don't publish Sat/Sun, so
@@ -28,12 +40,7 @@ def main() -> int:
     # original tuning (25 articles).
     WEEKDAY_LOW_VOLUME_FLOOR = 25
     WEEKEND_LOW_VOLUME_FLOOR = 15
-    latest_count = 0
-    try:
-        latest_articles = json.loads((DATA_DIR / latest / "articles.json").read_text(encoding="utf-8"))
-        latest_count = len(latest_articles)
-    except Exception:  # noqa: BLE001
-        latest_count = 0
+    latest_count = article_count(latest)
     # AUDIT-1 AUD-011: the banner's audience is KST readers, but data
     # day keys are UTC — deriving the weekday from the day string made
     # KST Saturday mornings (data = Friday UTC) use the weekday floor.
