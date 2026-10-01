@@ -248,6 +248,25 @@ def empty_stats() -> dict:
     }
 
 
+def defer_today(day: str, seen: set[str], stats: dict | None = None) -> int:
+    """Write an empty-but-valid articles.json/_stats.json for `day` (merged
+    with whatever is already there) so downstream steps (rank/digest/
+    index_latest) don't hard-fail on a missing file, without claiming any
+    new articles were produced this run.
+    """
+    stats = stats if stats is not None else empty_stats()
+    out_dir = DATA_DIR / day
+    out_dir.mkdir(parents=True, exist_ok=True)
+    existing_file = out_dir / "articles.json"
+    articles: list[dict] = (
+        json.loads(existing_file.read_text(encoding="utf-8")) if existing_file.exists() else []
+    )
+    write_text_atomic(existing_file, json.dumps(articles, ensure_ascii=False, indent=2))
+    write_text_atomic(out_dir / "_stats.json", json.dumps(stats, indent=2))
+    save_seen(seen)
+    return 0
+
+
 def finalize_batch(
     client: anthropic.Anthropic,
     day: str,
@@ -331,8 +350,8 @@ def finalize_batch(
         seen.add(custom_id)
         stats["succeeded"] += 1
 
-    existing_file.write_text(json.dumps(articles, ensure_ascii=False, indent=2), encoding="utf-8")
-    (out_dir / "_stats.json").write_text(json.dumps(stats, indent=2), encoding="utf-8")
+    write_text_atomic(existing_file, json.dumps(articles, ensure_ascii=False, indent=2))
+    write_text_atomic(out_dir / "_stats.json", json.dumps(stats, indent=2))
     corpus_writer.update_manifest(day)
     log.info("summarize done: %d articles total for %s (stats=%s)", len(articles), day, stats)
     return stats
@@ -390,45 +409,50 @@ def main() -> int:
         return 0
 
     # Phase 0: resolve any batch a previous run couldn't wait out (AUD-030).
-    # Must happen before filtering today's new_clusters by `seen`, so a
-    # just-recovered day's custom_ids are excluded if they also show up
-    # in today's raw clusters.
+    # This is a hard gate: if a pending batch exists and isn't resolved
+    # (ended + merged) by the end of this block, we return immediately
+    # instead of falling through to submit today's own batch. Letting both
+    # run concurrently risks a second same-run timeout overwriting the
+    # single pending_batch.json slot — permanently losing the first
+    # batch's result even though Anthropic keeps processing (and billing)
+    # it regardless of whether we're tracking it.
     client = anthropic.Anthropic()
     pending = load_pending()
     if pending:
         try:
             pbatch = client.messages.batches.retrieve(pending["batch_id"])
         except Exception as exc:  # noqa: BLE001
-            log.warning("could not check pending batch %s: %s", pending["batch_id"], exc)
-            pbatch = None
-        if pbatch is not None:
-            if pbatch.processing_status == "ended":
-                log.info(
-                    "pending batch %s for day %s has ended; recovering results",
-                    pending["batch_id"], pending["day"],
-                )
-                finalize_batch(
-                    client, pending["day"], pending["batch_id"],
-                    pending["cluster_meta"], seen, pending.get("stats"),
-                )
-                save_seen(seen)
-                clear_pending()
-            else:
-                log.info(
-                    "pending batch %s for day %s still %s; will retry next run",
-                    pending["batch_id"], pending["day"], pbatch.processing_status,
-                )
+            log.warning(
+                "could not check pending batch %s: %s; skipping this run", pending["batch_id"], exc
+            )
+            return defer_today(args.day, seen)
+        if pbatch.processing_status != "ended":
+            log.info(
+                "pending batch %s for day %s still %s; skipping this run, will retry next",
+                pending["batch_id"], pending["day"], pbatch.processing_status,
+            )
+            return defer_today(args.day, seen)
+        log.info(
+            "pending batch %s for day %s has ended; recovering results",
+            pending["batch_id"], pending["day"],
+        )
+        try:
+            finalize_batch(
+                client, pending["day"], pending["batch_id"],
+                pending["cluster_meta"], seen, pending.get("stats"),
+            )
+        except Exception as exc:  # noqa: BLE001
+            log.error(
+                "failed to finalize pending batch %s: %s; will retry next run",
+                pending["batch_id"], exc,
+            )
+            return defer_today(args.day, seen)
+        save_seen(seen)
+        clear_pending()
 
     new_clusters = [c for c in clusters if url_hash(c["representative"]["url"]) not in seen]
     log.info("clusters: %d total, %d new (cap=%d)", len(clusters), len(new_clusters), args.limit)
     new_clusters = new_clusters[: args.limit]
-
-    out_dir = DATA_DIR / args.day
-    out_dir.mkdir(parents=True, exist_ok=True)
-    existing_file = out_dir / "articles.json"
-    articles: list[dict] = (
-        json.loads(existing_file.read_text(encoding="utf-8")) if existing_file.exists() else []
-    )
 
     stats = empty_stats()
 
@@ -438,12 +462,7 @@ def main() -> int:
     stats["skipped_no_body"] = len(new_clusters) - len(requests_list)
     if not requests_list:
         log.info("no clusters to summarize")
-        existing_file.write_text(
-            json.dumps(articles, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
-        (out_dir / "_stats.json").write_text(json.dumps(stats, indent=2), encoding="utf-8")
-        save_seen(seen)
-        return 0
+        return defer_today(args.day, seen, stats)
 
     # Phase 2: submit batch.
     stats["calls"] = len(requests_list)
@@ -464,18 +483,21 @@ def main() -> int:
     except TimeoutError as exc:
         log.warning("%s; deferring to next run", exc)
         save_pending(args.day, batch.id, cluster_meta, stats)
-        existing_file.write_text(
-            json.dumps(articles, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
-        (out_dir / "_stats.json").write_text(json.dumps(stats, indent=2), encoding="utf-8")
-        save_seen(seen)
-        return 0
+        return defer_today(args.day, seen, stats)
     except Exception as exc:  # noqa: BLE001
         log.error("batch wait failed: %s", exc)
         return 1
 
-    # Phase 4: collect results.
-    finalize_batch(client, args.day, batch.id, cluster_meta, seen, stats)
+    # Phase 4: collect results. The batch itself is done (`ended`); a failure
+    # here is almost certainly a transient error fetching/parsing results,
+    # not a reason to resubmit — so treat it like a timeout and let the next
+    # run retry fetching, instead of crashing the whole job.
+    try:
+        finalize_batch(client, args.day, batch.id, cluster_meta, seen, stats)
+    except Exception as exc:  # noqa: BLE001
+        log.error("failed to finalize batch %s: %s; deferring to next run", batch.id, exc)
+        save_pending(args.day, batch.id, cluster_meta, stats)
+        return defer_today(args.day, seen, stats)
     save_seen(seen)
     return 0
 

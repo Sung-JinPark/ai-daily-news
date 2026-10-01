@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 
 from pipeline.collect import today
 from pipeline.summarize import DATA_DIR
+from pipeline.utils.atomic import write_text_atomic
 
 log = logging.getLogger(__name__)
 TOP_N = 5
@@ -60,7 +61,7 @@ def main() -> int:
         # write an empty articles.json for the day when its batch is still
         # pending (AUD-030), and digest.py requires highlights.json to exist.
         out = DATA_DIR / args.day / "highlights.json"
-        out.write_text(json.dumps([], indent=2), encoding="utf-8")
+        write_text_atomic(out, json.dumps([], indent=2))
         return 0
 
     ranked = sorted(articles, key=score, reverse=True)
@@ -89,7 +90,7 @@ def main() -> int:
         if len(highlights) >= TOP_N:
             break
     out = DATA_DIR / args.day / "highlights.json"
-    out.write_text(json.dumps(highlights, indent=2), encoding="utf-8")
+    write_text_atomic(out, json.dumps(highlights, indent=2))
     log.info("rank done: top %d highlights", len(highlights))
     return 0
 

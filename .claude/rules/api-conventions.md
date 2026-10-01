@@ -18,8 +18,12 @@ paths:
   "보통 수 분, 과부하 시 최대 24시간"이라 런 내 타임아웃만으론 못 버틴다(2026-09-29 관측: 7시간+).
   50분 내 `ended`가 안 되면 `pipeline.summarize`가 `.cache/pending_batch.json`에
   `{day, batch_id, cluster_meta, stats}`를 저장하고 **그 날짜 articles.json을 빈 배열로 써서**
-  (rank/digest가 "파일 없음"으로 하드 실패하지 않게) `exit 0`한다. 다음 런 시작 시
-  Phase 0에서 그 배치를 조회해 `ended`면 결과를 병합(resubmit 없음), 아니면 그대로 다음 런까지 대기.
+  (rank/digest가 "파일 없음"으로 하드 실패하지 않게) `exit 0`한다.
+  **다음 런의 Phase 0는 하드 게이트다**: pending 배치가 있으면 먼저 그것만 조회한다 — `ended`면
+  결과를 병합하고(resubmit 없음) 이어서 오늘 분을 정상 처리하지만, 아직 안 끝났거나 조회/병합이
+  실패하면 오늘 배치를 **제출하지 않고** 즉시 오늘치를 빈 articles.json으로 defer한 채 종료한다.
+  (pending 슬롯은 1개뿐이라, 게이트 없이 오늘 배치를 같이 돌리면 그게 또 타임아웃될 때
+  `pending_batch.json`을 덮어써 첫 배치 결과를 영구히 잃는다 — 반드시 직렬로 하나씩만 추적한다.)
   `index_latest.py`는 article 수 0인 날을 `latest_day`로 선택하지 않는다(전날 실데이터 유지).
 - 프롬프트는 `pipeline/utils/prompts.py`에 모은다. 인라인 문자열로 흩어놓지 않는다.
 - API 키는 `.env`의 `ANTHROPIC_API_KEY`에서만 읽는다. 하드코딩·로그 출력 금지.
