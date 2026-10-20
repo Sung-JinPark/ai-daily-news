@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T14:37:56.273364+00:00",
+  "generated_at": "2026-10-20T19:20:58.793228+00:00",
   "lookback_days": 60,
   "models": [
     {
       "model": "Qwen",
-      "latest_version": "Qwen-Image-MTEdit",
+      "latest_version": "Qwen3-32B",
       "latest_seen": "2026-10-20",
       "articles": [
         {
-          "id": "e5be943baa7712b2",
+          "id": "52762da3151dc245",
           "day": "2026-10-20",
-          "title": "Amazon SageMaker JumpStart: 2026 year-to-date in review",
-          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-jumpstart-2026-year-to-date-in-review/"
+          "title": "WeAct: Dynamic Weight Switching as Agent Actions",
+          "url": "https://arxiv.org/abs/2610.26847v1"
         },
         {
           "id": "ac9366b29fc282bc",
@@ -21,10 +21,10 @@
           "url": "https://arxiv.org/abs/2610.26828v1"
         },
         {
-          "id": "52762da3151dc245",
+          "id": "e5be943baa7712b2",
           "day": "2026-10-20",
-          "title": "WeAct: Dynamic Weight Switching as Agent Actions",
-          "url": "https://arxiv.org/abs/2610.26847v1"
+          "title": "Amazon SageMaker JumpStart: 2026 year-to-date in review",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-jumpstart-2026-year-to-date-in-review/"
         },
         {
           "id": "425649d8eefe80fc",
@@ -443,9 +443,15 @@
     },
     {
       "model": "GPT-5",
-      "latest_version": "GPT-5.1",
+      "latest_version": "GPT-5.6-Sol",
       "latest_seen": "2026-10-20",
       "articles": [
+        {
+          "id": "ac9366b29fc282bc",
+          "day": "2026-10-20",
+          "title": "Agent World Model in the Wild: Computer-Use Agent Environment Synthesis",
+          "url": "https://arxiv.org/abs/2610.26828v1"
+        },
         {
           "id": "19618a47b00ca429",
           "day": "2026-10-20",
@@ -711,17 +717,215 @@
         "100만 토큰 컨텍스트"
       ],
       "weaknesses_ko": [
-        "맥락 윈도우 밖 도구 출력 접근 시 정확도 저하",
+        "검색된 도구 출력 접근 시 정확도 저하",
         "증거 대체 현상",
         "제한된 환경 벗어남"
       ],
-      "article_count": 40
+      "article_count": 41
+    },
+    {
+      "model": "Llama",
+      "latest_version": "Muse Wonder Full",
+      "latest_seen": "2026-10-20",
+      "articles": [
+        {
+          "id": "96a2e7fa34b207c9",
+          "day": "2026-10-20",
+          "title": "Fine-tuning GPT-OSS-20B for multilingual reasoning on Amazon SageMaker HyperPod",
+          "url": "https://aws.amazon.com/blogs/machine-learning/fine-tuning-gpt-oss-20b-for-multilingual-reasoning-on-amazon-sagemaker-hyperpod/"
+        },
+        {
+          "id": "ed6d0fbeadb88874",
+          "day": "2026-10-19",
+          "title": "FuTransformer: FP8 prefill and INT4 decode for Llama-style inference on Hopper",
+          "url": "https://arxiv.org/abs/2610.23796v1"
+        },
+        {
+          "id": "0ff44230aa971ba8",
+          "day": "2026-10-15",
+          "title": "SpectrumQuant: Spectrum Alignment for LLM Quantization",
+          "url": "https://arxiv.org/abs/2610.20303v1"
+        },
+        {
+          "id": "0a3035ce11f254c3",
+          "day": "2026-10-14",
+          "title": "The AI race is back on",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1011311/the-ai-race-is-back-on"
+        },
+        {
+          "id": "5a91e99e9146b953",
+          "day": "2026-10-14",
+          "title": "AI Models Can Be Easily Modified to Assist Terrorist and Extremist Activity",
+          "url": "https://www.wired.com/story/ai-models-can-be-easily-modified-to-assist-terrorist-and-extremist-activity/"
+        },
+        {
+          "id": "57a4475092cade12",
+          "day": "2026-10-14",
+          "title": "Read the Room Before Your Model Generates",
+          "url": "https://arxiv.org/abs/2610.18820v1"
+        },
+        {
+          "id": "e5bbd114f6a2ff9f",
+          "day": "2026-10-12",
+          "title": "Muse Wonder Puts Meta Back at the AI Frontier",
+          "url": "https://www.wired.com/story/muse-wonder-puts-meta-back-at-the-ai-frontier/"
+        },
+        {
+          "id": "dea3f2aab79dd572",
+          "day": "2026-10-11",
+          "title": "Sub-1-Bit LLM Compression via Latent Factorization",
+          "url": "https://github.com/SamsungLabs/LittleBit"
+        },
+        {
+          "id": "a66a323457f53299",
+          "day": "2026-10-08",
+          "title": "Document-Level Text Simplification in Estonian Using Large Language Models",
+          "url": "https://arxiv.org/abs/2610.10378v1"
+        },
+        {
+          "id": "6fe19a5ea2ddf542",
+          "day": "2026-10-08",
+          "title": "Google releases a new local-first Granola competitor",
+          "url": "https://techcrunch.com/2026/10/08/google-releases-a-new-local-first-granola-competitor/"
+        },
+        {
+          "id": "07a3961b77d07a47",
+          "day": "2026-10-05",
+          "title": "People really hate AI, so why can’t they get enough?",
+          "url": "https://www.technologyreview.com/2026/10/05/1145682/people-really-hate-ai-so-why-cant-they-get-enough/"
+        },
+        {
+          "id": "05e1ad07fb081d43",
+          "day": "2026-10-02",
+          "title": "Every Ablation Is a Dose: Counterweights and the Semblance of Self-Repair",
+          "url": "https://arxiv.org/abs/2610.02173v1"
+        },
+        {
+          "id": "f1cabd5fe7838e2b",
+          "day": "2026-09-24",
+          "title": "Fine-Tuning LLMs for Translation: General Forgetting Mitigation Does Not Preserve MT-Specific Instruction Following",
+          "url": "https://arxiv.org/abs/2609.28395v1"
+        },
+        {
+          "id": "ae2a66f3c360fd17",
+          "day": "2026-09-21",
+          "title": "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
+          "url": "https://huggingface.co/blog/MultiverseComputingCAI/pruning-llms-like-a-physicist-block-removal-as-an"
+        },
+        {
+          "id": "e2f8ea0ffcf3f479",
+          "day": "2026-09-17",
+          "title": "A Zeroth-Order Paradigm for LLM Preference Alignment",
+          "url": "https://arxiv.org/abs/2609.19144v1"
+        },
+        {
+          "id": "c416a28c64df65d0",
+          "day": "2026-09-16",
+          "title": "Enhancing Accessibility of Medical Texts through Large Language Model-Driven Plain Language Adaptation",
+          "url": "https://arxiv.org/abs/2609.17398v1"
+        },
+        {
+          "id": "75f64499b4f1d5de",
+          "day": "2026-09-15",
+          "title": "Before You Poll with LLMs: A Deliberative Diagnostic Framework",
+          "url": "https://arxiv.org/abs/2609.15849v1"
+        },
+        {
+          "id": "e3e67d4a9ffc0836",
+          "day": "2026-09-15",
+          "title": "The generative AI customization spectrum: From prompt engineering to custom models on AWS",
+          "url": "https://aws.amazon.com/blogs/machine-learning/the-generative-ai-customization-spectrum-from-prompt-engineering-to-custom-models-on-aws/"
+        },
+        {
+          "id": "b0d54237a2e58b9c",
+          "day": "2026-09-15",
+          "title": "Mind2Dialogue: Training Human-Aware Language Models by Simulating User Mental States",
+          "url": "https://arxiv.org/abs/2609.15972v1"
+        },
+        {
+          "id": "5d430a9ae2c92295",
+          "day": "2026-09-11",
+          "title": "Reduce LLM latency with prefix-aware routing on Amazon SageMaker Inference",
+          "url": "https://aws.amazon.com/blogs/machine-learning/reduce-llm-latency-with-prefix-aware-routing-on-amazon-sagemaker-inference/"
+        },
+        {
+          "id": "c63a7484f9aac779",
+          "day": "2026-09-02",
+          "title": "Beyond Scores: Understanding LLM-as-a-Judge Mechanisms in Summarization Evaluation",
+          "url": "https://arxiv.org/abs/2609.01604v1"
+        },
+        {
+          "id": "e21378f22db2cf25",
+          "day": "2026-09-02",
+          "title": "WebLLM: high-performance in-browser LLM inference engine",
+          "url": "https://github.com/mlc-ai/web-llm"
+        },
+        {
+          "id": "e03b96427dea185b",
+          "day": "2026-09-01",
+          "title": "A Model with No Head and Many Thoughts",
+          "url": "https://arxiv.org/abs/2608.31069v1"
+        },
+        {
+          "id": "bc43fb3db9dd4259",
+          "day": "2026-08-28",
+          "title": "Meta researchers taught an 8B AI model to match Claude Opus 4.5 — without the frontier price tag",
+          "url": "https://venturebeat.com/orchestration/meta-researchers-taught-an-8b-ai-model-to-match-claude-opus-4-5-without-the-frontier-price-tag"
+        },
+        {
+          "id": "86b30fddef0621a4",
+          "day": "2026-08-24",
+          "title": "CLEAR: Continuous Latent Adapter Routing for Utility-Preserving LLM Safety Alignment",
+          "url": "https://arxiv.org/abs/2608.21278v1"
+        },
+        {
+          "id": "c8b319a4e6300993",
+          "day": "2026-08-21",
+          "title": "Inject, Align, Recover: Staged Post-Training for Retrieval-Free Document Knowledge Internalization",
+          "url": "https://arxiv.org/abs/2608.20281v1"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "HarmBench ASR",
+          "score": "0.5% (32.3%에서 감소)",
+          "article_id": "86b30fddef0621a4"
+        },
+        {
+          "name": "GSM8K",
+          "score": "전역 SFT·LoRA 대비 최대 7.1%p 향상",
+          "article_id": "86b30fddef0621a4"
+        },
+        {
+          "name": "pass@k",
+          "score": "모든 k값에서 성능 개선",
+          "article_id": "e03b96427dea185b"
+        }
+      ],
+      "pricing": [],
+      "strengths_ko": [
+        "안전-유용성 트레이드오프 개선",
+        "경량 계산 비용",
+        "8b 파라미터로 claude opus 4.5 수준 성능"
+      ],
+      "weaknesses_ko": [
+        "인간 수준 대비 5~7배 과잉 신념 변화",
+        "응절제 후 안전점수 급락 (97→3)",
+        "테러·극단주의 활동 지원 용이"
+      ],
+      "article_count": 26
     },
     {
       "model": "Claude",
       "latest_version": "Claude Opus",
       "latest_seen": "2026-10-20",
       "articles": [
+        {
+          "id": "2456e36fdc692004",
+          "day": "2026-10-20",
+          "title": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/"
+        },
         {
           "id": "19618a47b00ca429",
           "day": "2026-10-20",
@@ -1565,7 +1769,7 @@
         "허위 정보 생성",
         "거짓 정보 제출"
       ],
-      "article_count": 133
+      "article_count": 134
     },
     {
       "model": "DeepSeek",
@@ -1684,6 +1888,12 @@
       "latest_version": "Gemini 4 Argon",
       "latest_seen": "2026-10-20",
       "articles": [
+        {
+          "id": "2456e36fdc692004",
+          "day": "2026-10-20",
+          "title": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/"
+        },
         {
           "id": "e5be943baa7712b2",
           "day": "2026-10-20",
@@ -2323,7 +2533,7 @@
         "시각적 신호 해석",
         "멀티턴 컨텍스트 유지"
       ],
-      "article_count": 99
+      "article_count": 100
     },
     {
       "model": "Mistral",
@@ -2424,192 +2634,6 @@
       ],
       "weaknesses_ko": [],
       "article_count": 14
-    },
-    {
-      "model": "Llama",
-      "latest_version": "Muse Wonder Full",
-      "latest_seen": "2026-10-19",
-      "articles": [
-        {
-          "id": "ed6d0fbeadb88874",
-          "day": "2026-10-19",
-          "title": "FuTransformer: FP8 prefill and INT4 decode for Llama-style inference on Hopper",
-          "url": "https://arxiv.org/abs/2610.23796v1"
-        },
-        {
-          "id": "0ff44230aa971ba8",
-          "day": "2026-10-15",
-          "title": "SpectrumQuant: Spectrum Alignment for LLM Quantization",
-          "url": "https://arxiv.org/abs/2610.20303v1"
-        },
-        {
-          "id": "0a3035ce11f254c3",
-          "day": "2026-10-14",
-          "title": "The AI race is back on",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1011311/the-ai-race-is-back-on"
-        },
-        {
-          "id": "5a91e99e9146b953",
-          "day": "2026-10-14",
-          "title": "AI Models Can Be Easily Modified to Assist Terrorist and Extremist Activity",
-          "url": "https://www.wired.com/story/ai-models-can-be-easily-modified-to-assist-terrorist-and-extremist-activity/"
-        },
-        {
-          "id": "57a4475092cade12",
-          "day": "2026-10-14",
-          "title": "Read the Room Before Your Model Generates",
-          "url": "https://arxiv.org/abs/2610.18820v1"
-        },
-        {
-          "id": "e5bbd114f6a2ff9f",
-          "day": "2026-10-12",
-          "title": "Muse Wonder Puts Meta Back at the AI Frontier",
-          "url": "https://www.wired.com/story/muse-wonder-puts-meta-back-at-the-ai-frontier/"
-        },
-        {
-          "id": "dea3f2aab79dd572",
-          "day": "2026-10-11",
-          "title": "Sub-1-Bit LLM Compression via Latent Factorization",
-          "url": "https://github.com/SamsungLabs/LittleBit"
-        },
-        {
-          "id": "a66a323457f53299",
-          "day": "2026-10-08",
-          "title": "Document-Level Text Simplification in Estonian Using Large Language Models",
-          "url": "https://arxiv.org/abs/2610.10378v1"
-        },
-        {
-          "id": "6fe19a5ea2ddf542",
-          "day": "2026-10-08",
-          "title": "Google releases a new local-first Granola competitor",
-          "url": "https://techcrunch.com/2026/10/08/google-releases-a-new-local-first-granola-competitor/"
-        },
-        {
-          "id": "07a3961b77d07a47",
-          "day": "2026-10-05",
-          "title": "People really hate AI, so why can’t they get enough?",
-          "url": "https://www.technologyreview.com/2026/10/05/1145682/people-really-hate-ai-so-why-cant-they-get-enough/"
-        },
-        {
-          "id": "05e1ad07fb081d43",
-          "day": "2026-10-02",
-          "title": "Every Ablation Is a Dose: Counterweights and the Semblance of Self-Repair",
-          "url": "https://arxiv.org/abs/2610.02173v1"
-        },
-        {
-          "id": "f1cabd5fe7838e2b",
-          "day": "2026-09-24",
-          "title": "Fine-Tuning LLMs for Translation: General Forgetting Mitigation Does Not Preserve MT-Specific Instruction Following",
-          "url": "https://arxiv.org/abs/2609.28395v1"
-        },
-        {
-          "id": "ae2a66f3c360fd17",
-          "day": "2026-09-21",
-          "title": "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
-          "url": "https://huggingface.co/blog/MultiverseComputingCAI/pruning-llms-like-a-physicist-block-removal-as-an"
-        },
-        {
-          "id": "e2f8ea0ffcf3f479",
-          "day": "2026-09-17",
-          "title": "A Zeroth-Order Paradigm for LLM Preference Alignment",
-          "url": "https://arxiv.org/abs/2609.19144v1"
-        },
-        {
-          "id": "c416a28c64df65d0",
-          "day": "2026-09-16",
-          "title": "Enhancing Accessibility of Medical Texts through Large Language Model-Driven Plain Language Adaptation",
-          "url": "https://arxiv.org/abs/2609.17398v1"
-        },
-        {
-          "id": "75f64499b4f1d5de",
-          "day": "2026-09-15",
-          "title": "Before You Poll with LLMs: A Deliberative Diagnostic Framework",
-          "url": "https://arxiv.org/abs/2609.15849v1"
-        },
-        {
-          "id": "e3e67d4a9ffc0836",
-          "day": "2026-09-15",
-          "title": "The generative AI customization spectrum: From prompt engineering to custom models on AWS",
-          "url": "https://aws.amazon.com/blogs/machine-learning/the-generative-ai-customization-spectrum-from-prompt-engineering-to-custom-models-on-aws/"
-        },
-        {
-          "id": "b0d54237a2e58b9c",
-          "day": "2026-09-15",
-          "title": "Mind2Dialogue: Training Human-Aware Language Models by Simulating User Mental States",
-          "url": "https://arxiv.org/abs/2609.15972v1"
-        },
-        {
-          "id": "5d430a9ae2c92295",
-          "day": "2026-09-11",
-          "title": "Reduce LLM latency with prefix-aware routing on Amazon SageMaker Inference",
-          "url": "https://aws.amazon.com/blogs/machine-learning/reduce-llm-latency-with-prefix-aware-routing-on-amazon-sagemaker-inference/"
-        },
-        {
-          "id": "c63a7484f9aac779",
-          "day": "2026-09-02",
-          "title": "Beyond Scores: Understanding LLM-as-a-Judge Mechanisms in Summarization Evaluation",
-          "url": "https://arxiv.org/abs/2609.01604v1"
-        },
-        {
-          "id": "e21378f22db2cf25",
-          "day": "2026-09-02",
-          "title": "WebLLM: high-performance in-browser LLM inference engine",
-          "url": "https://github.com/mlc-ai/web-llm"
-        },
-        {
-          "id": "e03b96427dea185b",
-          "day": "2026-09-01",
-          "title": "A Model with No Head and Many Thoughts",
-          "url": "https://arxiv.org/abs/2608.31069v1"
-        },
-        {
-          "id": "bc43fb3db9dd4259",
-          "day": "2026-08-28",
-          "title": "Meta researchers taught an 8B AI model to match Claude Opus 4.5 — without the frontier price tag",
-          "url": "https://venturebeat.com/orchestration/meta-researchers-taught-an-8b-ai-model-to-match-claude-opus-4-5-without-the-frontier-price-tag"
-        },
-        {
-          "id": "86b30fddef0621a4",
-          "day": "2026-08-24",
-          "title": "CLEAR: Continuous Latent Adapter Routing for Utility-Preserving LLM Safety Alignment",
-          "url": "https://arxiv.org/abs/2608.21278v1"
-        },
-        {
-          "id": "c8b319a4e6300993",
-          "day": "2026-08-21",
-          "title": "Inject, Align, Recover: Staged Post-Training for Retrieval-Free Document Knowledge Internalization",
-          "url": "https://arxiv.org/abs/2608.20281v1"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "HarmBench ASR",
-          "score": "0.5% (32.3%에서 감소)",
-          "article_id": "86b30fddef0621a4"
-        },
-        {
-          "name": "GSM8K",
-          "score": "전역 SFT·LoRA 대비 최대 7.1%p 향상",
-          "article_id": "86b30fddef0621a4"
-        },
-        {
-          "name": "pass@k",
-          "score": "모든 k값에서 성능 개선",
-          "article_id": "e03b96427dea185b"
-        }
-      ],
-      "pricing": [],
-      "strengths_ko": [
-        "안전-유용성 트레이드오프 개선",
-        "경량 계산 비용",
-        "8b 파라미터로 claude opus 4.5 수준 성능"
-      ],
-      "weaknesses_ko": [
-        "인간 수준 대비 5~7배 과잉 신념 변화",
-        "응절제 후 안전점수 급락 (97→3)",
-        "테러·극단주의 활동 지원 용이"
-      ],
-      "article_count": 25
     },
     {
       "model": "GPT-4",
