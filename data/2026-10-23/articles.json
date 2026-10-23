@@ -2353,5 +2353,330 @@
     "category": "business",
     "importance_score": 4,
     "subtitle_en": "Ukraine seeks Starlink alternatives as Musk's politics threaten critical infrastructure"
+  },
+  {
+    "id": "b535efb452866cdf",
+    "cluster_id": "k009593",
+    "title_original": "How Bayer Crop Science built an agentic decision engine on Amazon Bedrock AgentCore with AWS Unified Operations",
+    "url": "https://aws.amazon.com/blogs/machine-learning/how-bayer-crop-science-built-an-agentic-decision-engine-on-amazon-bedrock-agentcore-with-aws-unified-operations/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/10/23/How-Bayer-Crop-Science-built-an-agentic-decision-engine-on-Amazon-Bedrock-AgentCore-with-AWS-Unified-Operations.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-10-23T16:21:36+00:00",
+    "fetched_at": "2026-10-23T18:56:50.851675+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Bayer Crop Science는 Amazon Bedrock AgentCore를 활용해 Agentic Decision Engine(ADE)을 구축했으며, 식물 육종 연구자들이 복잡한 ML 워크플로우를 자연어로 질의할 수 있도록 지원합니다. ADE는 22개의 전문 에이전트로 구성되어 있으며 AWS Unified Operations 지원 아래 프로덕션에 배포되었고, 사용자 질문의 약 80%를 엔지니어 개입 없이 해결합니다. 진단 시간이 1시간 이상에서 10분 이내로 단축되는 등 운영 효율성이 크게 개선되었습니다.",
+    "insights_ko": [
+      "에이전트 아키텍처가 단순한 챗봇을 넘어 복합 엔터프라이즈 의사결정 플랫폼으로 진화하고 있음을 보여줍니다. 도메인별 전문 에이전트 + 슈퍼바이저 라우팅 패턴은 기존 운영 스택의 컨텍스트 단절을 해소하는 구체적 솔루션이며, 이는 금융·제조·헬스케어 등 데이터-중심 산업에서 광범위하게 적용 가능한 블루프린트입니다.",
+      "AgentCore의 프레임워크 무관성(LangGraph 직접 실행), IAM 기반 도구 접근 제어, 세션 격리 등 설계가 엔터프라이즈급 에이전트 배포의 필수 요건임을 암시합니다. AWS가 호스팅·보안·거버넌스 인프라를 추상화함으로써 개발팀이 비즈니스 로직(도메인 에이전트, 워크플로우 오케스트레이션)에 집중할 수 있게 한 점은 에이전트 플랫폼의 상용화 방향을 제시합니다.",
+      "AWS Unified Operations의 TAM+DSE 투입 모델은 대규모 AI 프로젝트 초기화 시 전략적 거버넌스와 기술 실행력을 동시에 제공하는 새로운 컨설팅 서비스 패턴으로, 엔터프라이즈 고객 획득 및 AI 워크로드 고착(lock-in) 전략의 핵심입니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Bayer deploys multi-agent natural language interface on Amazon Bedrock AgentCore",
+    "tags": [
+      "Amazon",
+      "에이전트",
+      "RAG",
+      "생산성"
+    ]
+  },
+  {
+    "id": "67838713450dd8b5",
+    "cluster_id": "k009584",
+    "title_original": "Crows can evaluate visual info twice as fast as mammals",
+    "url": "https://arstechnica.com/science/2026/10/crows-can-evaluate-visual-info-twice-as-fast-as-mammals/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/10/GettyImages-1472974929-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-10-23T17:32:58+00:00",
+    "fetched_at": "2026-10-23T18:56:50.851915+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "독일 튀빙겐대 신경생물학자 Andreas Nieder와 Philipp Schmidbauer는 까마귀 두 마리에게 영장류와 동일한 무작위 점 운동 과제를 수행하게 한 후 뇌 활동을 기록했습니다. 까마귀는 신피질이 없는 완전히 다른 뇌 구조에도 불구하고 영장류와 동일한 수학적 논리로 의사 결정을 내렸으며, 놀랍게도 2배 빠르게 수행했습니다.",
+    "insights_ko": [
+      "신경해부학적으로 상이한 시스템(포유류 신피질 vs 조류 팔레움)이 동일한 수렴적 의사결정 알고리즘을 구현할 수 있음을 보여줍니다. 이는 지능적 의사결정의 근본 메커니즘이 신경 구조 자체보다는 정보 처리의 수학적 원리에 기반한다는 뜻이며, 뇌진화 이론의 중요한 증거입니다.",
+      "까마귀의 2배 빠른 처리 속도는 신경 회로의 효율성 차이를 시사합니다. 더 적은 뉴런으로 더 빠르게 증거를 축적하는 구조적 최적화가 있을 가능성이 있으며, 이는 신경망 설계의 효율성 탐구에 인사이트를 제공할 수 있습니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "Crows make visual decisions twice faster than primates despite different brain structure",
+    "tags": [
+      "해석성"
+    ]
+  },
+  {
+    "id": "a9526976eeebfbfe",
+    "cluster_id": "k009595",
+    "title_original": "Now Google says it might use your Gmail and Google Photos data to target ads",
+    "url": "https://www.theverge.com/tech/1017600/google-personal-intelligence-privacy-policy-ads-update",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/02/STK093_GOOGLE_D.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-10-23T16:52:55+00:00",
+    "fetched_at": "2026-10-23T18:56:50.852259+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Google이 개인정보 보호정책을 수정하여, Gmail·Google Drive·Google Photos 데이터를 광고 타게팅에 활용할 수 있는 예외 조항을 추가했습니다. 10월 16일 이후 Personal Intelligence 기능으로 이들 서비스를 AI 도구에 연결한 사용자는 해당 콘텐츠 기반 맞춤형 광고 노출이 증가할 수 있습니다. Google은 광고주에게 개인식별 정보나 민감한 카테고리 데이터는 제공하지 않는다고 강조했으나, 사용자는 검색 서비스 개인화 설정 페이지에서 이를 비활성화할 수 있습니다.",
+    "insights_ko": [
+      "Google의 핵심 수익원인 광고 타게팅 범위를 기존 검색·열람 활동에서 개인 저장소(이메일·사진·문서)로 급격히 확대하는 전환점입니다. 광고 품질 고도화라는 명목이지만 프라이버시 경계의 실질적 이동으로, 규제자와 사용자 신뢰도에 직접 영향을 줄 가능성이 높습니다.",
+      "AI 개인화 서비스 제공과 광고 타게팅을 묶음으로 연결한 점이 중요합니다. 사용자가 더 나은 AI 추천을 원하면 광고 노출도 감수해야 하는 구조로, 기술 편의성과 프라이버시 선택 간 명시적 트레이드오프를 강제합니다.",
+      "EU의 디지털시장법(DMA)과 미국의 FTC 감시 강화 속에서 이 정책 변경이 규제 대상 행위로 지목될 가능성이 있으며, 특히 기존 약속의 후퇴로 해석되면 신뢰성 손상 논란으로 확대될 수 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Google expands ad targeting to Gmail and Photos data via AI personalization",
+    "tags": [
+      "광고"
+    ]
+  },
+  {
+    "id": "8b0b484a58d8b4ae",
+    "cluster_id": "k009587",
+    "title_original": "Knicks sent employees fake offer of championship rings in phishing test: Report",
+    "url": "https://arstechnica.com/tech-policy/2026/10/knicks-sent-employees-fake-offer-of-championship-rings-in-phishing-test-report/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/10/james-dolan-knicks-championship-1152x648-1792772606.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-10-23T16:51:59+00:00",
+    "fetched_at": "2026-10-23T18:56:50.852490+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "뉴욕 닉스는 직원들의 피싱 이메일 탐지 능력을 테스트하기 위해 무료 챔피언십 링 제공을 약속하는 가짜 이메일을 9월에 발송했습니다. 링크를 클릭한 직원들은 의무 사이버보안 교육을 받도록 강제되었으며, 이는 구단 주인 James Dolan의 사이버보안 우려 증대를 반영한 조치입니다. NBA 팀 직원들이 실제로 챔피언십 링을 받는 것이 관례이기 때문에 이 피싱 테스트는 특히 설득력 있었습니다.",
+    "insights_ko": [
+      "기업 내부 보안 훈련 목표는 타당하지만, 현실적이고 감정적으로 매력적인 보상을 미끼로 사용한 점이 테스트의 효과성을 높이면서도 직원 신뢰도는 훼손할 수 있는 양날의 칼 상황입니다. 50년 넘게 우승하지 못한 팀의 맥락에서 챔피언십 링은 실제 가치가 매우 높아 합리적 의심을 어렵게 만듭니다.",
+      "대규모 조직의 사이버보안 침해 사례가 늘어나면서 경영진이 보안 문화 강화에 직접 나서고 있음을 보여줍니다. 다만 처벌적 교육(mandatory class)보다는 교육적·공감적 접근이 장기적 보안 의식 향상에 더 효과적일 수 있다는 학습 설계의 시사점을 남깁니다."
+    ],
+    "category": "community",
+    "importance_score": 2,
+    "subtitle_en": "NBA team's phishing test uses championship ring lure to catch inattentive staff",
+    "tags": [
+      "보안"
+    ]
+  },
+  {
+    "id": "f04afccaacb0377a",
+    "cluster_id": "k009592",
+    "title_original": "Visualize points and routes with GeoJSON in Amazon Quick Sight layer maps",
+    "url": "https://aws.amazon.com/blogs/machine-learning/visualize-points-and-routes-with-geojson-in-amazon-quick-sight-layer-maps/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/10/20/ML-21612-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-10-23T16:24:55+00:00",
+    "fetched_at": "2026-10-23T18:56:50.852679+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Amazon QuickSight의 레이어 맵이 이제 GeoJSON 기반 Point와 LineString 기하 유형을 지원하여 개별 위치와 경로를 시각화할 수 있게 되었습니다. 매장 위치, 비행 경로, 배송 루트 같은 지점과 선을 지도에 표시하고 메트릭 데이터와 조인하여 위치 기반 패턴을 분석할 수 있습니다. QuickSight 데이터셋과 GeoJSON 파일을 공유 키로 연결하며, 색상, 너비, 투명도 등으로 시각 커스터마이징이 가능합니다.",
+    "insights_ko": [
+      "레이어 맵이 다각형(Polygon)에서 점(Point)과 선(LineString)으로 기능을 확장함에 따라, 경계나 지역 수준의 분석에서 한 걸음 나아가 운영 최적화 시나리오(배송 경로, 네트워크 흐름)를 직접 BI 도구 내에서 다룰 수 있게 되었습니다. 이는 엔터프라이즈 BI가 점점 더 구체적인 운영 데이터(예: 실시간 배송 추적)를 통합하는 추세를 반영합니다.",
+      "개발자 관점에서 100MB 한도의 GeoJSON 파일 지원과 프로그래매틱 업데이트 가능성이 언급된 것은 동적 데이터(예: 일일 비행 데이터, 실시간 배송 경로)를 주기적으로 갱신하는 워크플로우를 가능하게 한다는 의미입니다. 이는 정적 보고서에서 운영 모니터링 도구로의 QuickSight 포지셔닝 강화를 의도합니다."
+    ],
+    "category": "product",
+    "importance_score": 2,
+    "subtitle_en": "QuickSight layer maps now support geospatial points and routes visualization",
+    "tags": [
+      "Amazon"
+    ]
+  },
+  {
+    "id": "ee4c22366ef7e7ab",
+    "cluster_id": "k009597",
+    "title_original": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
+    "url": "https://openai.com/index/scaling-storage-one-billion-users-part-two",
+    "image_url": null,
+    "source_id": "openai_news",
+    "source_name": "OpenAI",
+    "published": "2026-10-23T17:00:00+00:00",
+    "fetched_at": "2026-10-23T18:56:50.852866+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "OpenAI가 Habitat 저장소 시스템을 멀티테넌시, 글로벌 캐싱, Azure Cosmos DB를 활용해 확장하여 ChatGPT 사용자 1억 명 이상을 지원하며 읽기 성능을 12배 향상시켰습니다. 이는 프로덕션 규모의 저장소 인프라 최적화 사례를 다룹니다.",
+    "insights_ko": [
+      "ChatGPT 규모의 1억+ 동시 사용자를 감당하기 위해 단순한 데이터베이스 선택을 넘어 다층 캐싱, 멀티테넌시 격리, 지역별 분산이 필수 아키텍처임을 보여줍니다. 이는 엔터프라이즈 LLM 배포 시 백엔드 스택이 모델만큼 중요함을 시사합니다.",
+      "Microsoft Azure 깊은 통합(Cosmos DB 선택)과 12배 성능 개선은 클라우드 벤더-AI 랩 간 밀착 협력이 인프라 경쟁력의 핵심임을 드러냅니다. 이는 OpenAI의 비용 최적화와 배포 속도에 직접 영향을 미칩니다."
+    ],
+    "category": "hardware",
+    "importance_score": 3,
+    "subtitle_en": "OpenAI scales Habitat storage 12× faster with Cosmos DB, Azure caching",
+    "tags": [
+      "데이터센터",
+      "Microsoft"
+    ]
+  },
+  {
+    "id": "a93a5fce988fba3a",
+    "cluster_id": "k009586",
+    "title_original": "RFK Jr.’s vaccine injury clinic could damage NIH hospital, board warns",
+    "url": "https://arstechnica.com/health/2026/10/rfk-jr-s-vaccine-injury-clinic-could-damage-nih-hospital-board-warns/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/10/GettyImages-2298718210-2560x1440.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-10-23T16:58:39+00:00",
+    "fetched_at": "2026-10-23T18:56:50.853125+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "NIH 임상센터 연구병원 이사회 의장 Jack Leslie는 최근 회의에서 Robert F. Kennedy 보건장관의 백신 피해 클리닉 개설이 병원의 명성을 손상할 수 있다고 경고했습니다. Kennedy가 백신 피해자들을 출연시킨 리본 커팅 행사를 열었으며, 이사회는 이것이 과학적 중립성을 훼손할 우려를 표명했습니다. 다만 NIH는 이미 수십 년간 백신 안전성 연구를 해온 기관이며, Kennedy의 클리닉은 새로운 프로토콜일 뿐 추가 자금이나 공간을 받지 않는 상태입니다.",
+    "insights_ko": [
+      "Kennedy 행정부의 반백신 활동이 미국 최고 의료 연구 기관인 NIH의 과학적 신뢰도를 정치적으로 훼손할 수 있다는 우려가 내부에서도 공식화되었으며, 이는 정책과 과학 사이의 긴장을 드러냅니다.",
+      "NIH가 백신 안전성 연구 전통을 강조하면서도 Kennedy의 클리닉을 단순히 '새로운 프로토콜'로 격하하려는 시도는 실질적 충돌을 회피하되 입장 차이를 분명히 하는 전략으로 보입니다.",
+      "이 사건은 미국 내 백신 신뢰도 저하와 공공 의료 기관의 정치화 우려가 구체적 충돌로 발전할 가능성을 시사하며, 향후 NIH 연구 수행의 자율성과 자금 배분을 둘러싼 논쟁이 심화될 가능성이 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "NIH board chair warns RFK Jr.'s vaccine clinic could damage hospital credibility"
+  },
+  {
+    "id": "488b1661c30781ea",
+    "cluster_id": "k009591",
+    "title_original": "Orchestrating SageMaker AI endpoint auto scaling with AWS CDK",
+    "url": "https://aws.amazon.com/blogs/machine-learning/orchestrating-sagemaker-ai-endpoint-auto-scaling-with-aws-cdk/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/10/23/Orchestrating-SageMaker-AI-endpoint-auto-scaling-with-AWS-CDK.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-10-23T16:30:10+00:00",
+    "fetched_at": "2026-10-23T18:56:50.853350+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS CDK를 사용한 SageMaker AI 엔드포인트 배포 시 엔드포인트 구성 변경과 오토 스케일링이 충돌하는 문제를 해결하는 방법을 설명합니다. 이 포스트는 CloudFormation 커스텀 리소스와 CDK 구성을 활용해 오토 스케일링을 자동으로 해제·재등록하는 재사용 가능한 구성을 제시하며, 단일 배포에서 엔드포인트와 스케일링 설정을 함께 업데이트할 수 있도록 합니다.",
+    "insights_ko": [
+      "SageMaker의 오토 스케일링 제약(업데이트 전 반드시 해제 필요)은 IaC 도구의 상태 추적 메커니즘과 충돌하며, 이는 인프라 자동화 수준이 높을수록 명시적 오케스트레이션이 필요함을 보여줍니다. CDK 커스텀 리소스의 의존성 정렬을 통한 해결책은 AWS 관리형 ML 서비스 운영의 일반적 패턴이 될 가능성을 시사합니다.",
+      "구성 해시 기반의 강제 재실행과 비동기 대기 패턴(onEvent/isComplete)은 부분 장애 복구력을 높이는 실제 구현 기법입니다. 다만 최종 배포 스택이 12개의 Lambda와 2개의 Step Functions를 포함하게 되는 복잡성은 관리 오버헤드를 증가시키므로, 인프라 코드 복잡도와 운영 편의성의 트레이드오프를 고려해야 합니다."
+    ],
+    "category": "product",
+    "importance_score": 2,
+    "subtitle_en": "Automate SageMaker endpoint updates with auto scaling via CDK",
+    "tags": [
+      "Amazon"
+    ]
+  },
+  {
+    "id": "1e9b03cbb67bfe99",
+    "cluster_id": "k009585",
+    "title_original": "Intel gets waiver after worries fuzzy US ban on foreign-made robots may hit fabs",
+    "url": "https://arstechnica.com/ai/2026/10/intel-gets-waiver-after-worries-fuzzy-us-ban-on-foreign-made-robots-may-hit-fabs/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/10/Intel-fab-interior-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-10-23T17:18:31+00:00",
+    "fetched_at": "2026-10-23T18:56:50.855594+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Intel이 미국 정부의 외국산 로봇 금지 규제에 대한 불확실성으로 인해 FCC로부터 면제를 요청했고, 10월 22일 1년 동기안 자사 반도체 팹에서 외국산 자동운반차(AGV)를 계속 사용할 수 있다는 승인을 받았습니다. 해당 로봇은 일본 무라타·다이후쿠 같은 제조사 제품으로 자재 이동 용도이며, Intel은 규제 적용 여부가 불명확해 '과도한 주의' 차원에서 면제를 신청했습니다.",
+    "insights_ko": [
+      "FCC의 외국산 로봇 금지 기준이 모호하고 집행 불확실성이 크다는 점이 드러났습니다. 업계 리더인 Intel조차 자신의 기존 시스템이 규제 대상인지 판단 불가능해 면제를 신청한 것으로, 정책 설계의 구체성과 명확성 부재를 시사합니다.",
+      "미국 반도체 제조 기반시설이 일본산 자동화 장비에 깊이 의존하고 있음을 간접 확인할 수 있습니다. 1년 유예 기간 동안 Intel을 포함한 팹 운영사들이 미국산 또는 동맹국산 대체 솔루션을 개발·도입하거나, 향후 규제 완화를 위한 정치적 로비를 벌일 가능성이 높습니다.",
+      "외국산 장비·부품 제약이 심화되면서 반도체 제조 기술 자립화는 가속화되지만 단기적으로는 비용 상승과 현지화 지연 리스크가 커집니다. 인텔의 면제는 일시적 완화일 뿐 중기적 공급망 재편 압박은 지속될 것으로 보입니다."
+    ],
+    "category": "policy",
+    "importance_score": 3,
+    "subtitle_en": "Intel wins waiver amid unclear US foreign robotics ban enforcement",
+    "tags": [
+      "NVIDIA",
+      "수출통제",
+      "제조"
+    ]
+  },
+  {
+    "id": "c6dba218462cbd9b",
+    "cluster_id": "k009590",
+    "title_original": "Multi-Turn Reinforcement Learning on Amazon SageMaker AI: A hands-on guide",
+    "url": "https://aws.amazon.com/blogs/machine-learning/multi-turn-reinforcement-learning-on-amazon-sagemaker-ai-a-hands-on-guide/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/10/12/ML-22014-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-10-23T17:48:54+00:00",
+    "fetched_at": "2026-10-23T18:56:50.855833+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS는 Amazon SageMaker AI에서 다중턴 강화학습(MTRL) 기능을 출시해 에이전트 작업 최적화를 지원합니다. Wordle 게임을 예시로 들며, 단일 프롬프트가 아닌 다단계 시퀀스 의사결정 작업에서 모델을 훈련하는 방법을 제시했습니다. 20B 파라미터 모델을 약 339달러에 61%에서 84%의 성공률로 개선한 실제 사례를 공유하며, 에이전트와 보상 함수를 AgentCore에 배포하고 GRPO 알고리즘으로 LoRA 어댑터를 업데이트하는 파이프라인을 설명합니다.",
+    "insights_ko": [
+      "단순 감독 학습이 아닌 다단계 작업 특화 강화학습을 AWS 관리형 서비스로 제공함으로써, 소규모 폐쇄형 모델이 내부 워크플로우에 최적화될 수 있는 기술 민주화가 진행되고 있습니다. 이는 프론티어 모델에 의존하지 않고 저비용으로 도메인 특화 에이전트를 구축하려는 엔터프라이즈 수요와 직결됩니다.",
+      "토큰 기반 세분화된 가격 책정(프리필·샘플·트레인) 모델은 장기 시퀀스 작업의 비용을 명시화하며, 게임 길이나 추론 상세도 감소가 직접 비용 절감으로 이어진다는 점에서 에지 배포와 경량 추론의 가치가 재조명됩니다.",
+      "Bedrock AgentCore와 SageMaker AI의 통합으로 에이전트 샌드박스 환경과 훈련 파이프라인이 하나의 매니지드 서비스로 수렴하는 모습은 멀티에이전트 시스템 운영의 진입장벽을 낮추고 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AWS launches multi-turn reinforcement learning on SageMaker for agentic workflows",
+    "tags": [
+      "Amazon",
+      "강화학습",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "7aa6acbd35f79e1a",
+    "cluster_id": "k009596",
+    "title_original": "Meta delays new business terms after publisher pushback on AI scraping",
+    "url": "https://www.theverge.com/tech/1017450/meta-business-terms-delayed-ai-scraping",
+    "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/23951350/STK043_VRG_Illo_N_Barclay_6_Meta.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+    "source_id": "theverge_ai",
+    "source_name": "The Verge AI",
+    "published": "2026-10-23T14:47:41+00:00",
+    "fetched_at": "2026-10-23T18:56:50.856048+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Meta가 뉴스 출판사들의 AI 학습용 콘텐츠 스크래핑 우려에 따라 새로운 이용약관 시행을 10월 30일에서 11월 20일로 연기했습니다. News/Media Alliance를 포함한 글로벌 출판사와 EU·UK의 디지털 광고사들이 규제 당국에 약관 시행 중단을 촉구했으며, Meta는 웹 크롤러 사용 방식과 robots.txt를 통한 스크래핑 차단 옵션을 더 자세히 설명하기 위해 시간을 벌고 있습니다.",
+    "insights_ko": [
+      "출판업계의 집단 저항이 Meta의 약관 개정 시도를 지연시킨 사례로, AI 학습 데이터 확보를 둘러싼 기업-미디어 간 긴장이 규제 압력과 만날 때 기업 속도에 제약이 생김을 보여줍니다.",
+      "Meta가 '학습' 언어를 삭제했음에도 법률 전문가들이 실질적 차단이 불충분하다고 판단한 점은, 약관 기술적 수정만으로는 규제 신뢰를 얻기 어렵다는 신호입니다. 향후 robots.txt 준수 강화나 opt-in 모델로의 전환 요구가 높아질 가능성이 있습니다.",
+      "EU·UK 규제당국까지 움직인 점은 AI 학습용 콘텐츠 스크래핑이 단순 약관 문제를 넘어 저작권·공정 사용료 논의의 다음 전선이 될 수 있음을 시사합니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Meta delays AI scraping terms after global publisher backlash",
+    "tags": [
+      "저작권",
+      "규제"
+    ]
+  },
+  {
+    "id": "6fa4559ee3ac375d",
+    "cluster_id": "k009588",
+    "title_original": "Everybody panic: A Valve developer said \"HLX\" in public",
+    "url": "https://arstechnica.com/gaming/2026/10/everybody-panic-a-valve-developer-said-hlx-in-public/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2017/08/024-1152x648-1740609184.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-10-23T16:35:00+00:00",
+    "fetched_at": "2026-10-23T18:56:50.862935+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Valve의 작곡가 Mike Morasky가 GameSoundCon 패널에서 HDR 오디오 구현에 대해 설명하던 중 \"HLX\"라는 세 글자를 공개적으로 언급했습니다. HLX는 오래전부터 Half-Life 시리즈의 다음 프로젝트 내부 코드명으로 알려져 왔지만, Valve 직원이 공개 자리에서 이를 언급한 것은 이번이 처음입니다. 팬들 사이에서는 이것이 Half-Life 3 개발이 실제로 진행 중임을 시사하는 신호로 받아들여지고 있습니다.",
+    "insights_ko": [
+      "20년 이상 팬들의 희망과 추측의 대상이던 Half-Life 3의 존재가 공식 인사람을 통해 처음 확인된 사건으로, 게임 커뮤니티 여론에 즉각적인 영향을 미칠 만한 상징적 의미를 갖습니다.",
+      "Valve의 느슨한 공식 커뮤니케이션 문화 속에서 우연한 단어 하나가 내부 프로젝트의 존재를 증명하는 증거가 되는 현상은 대형 스튜디오의 투명성 부재와 팬 커뮤니티의 탐정 역할을 드러냅니다."
+    ],
+    "category": "community",
+    "importance_score": 2,
+    "subtitle_en": "Valve composer accidentally confirms Half-Life next project codename HLX"
+  },
+  {
+    "id": "5d794c3788a3a4be",
+    "cluster_id": "k009589",
+    "title_original": "LitPivot: Developing research ideas through dynamic contextualization within the literature landscape",
+    "url": "https://huggingface.co/blog/allenai/litpivot",
+    "image_url": "https://cdn-uploads.huggingface.co/production/uploads/638e39b249de7ae552d977b5/7F9q8BZloWigwe7m5YGLG.png",
+    "source_id": "huggingface_blog",
+    "source_name": "Hugging Face",
+    "published": "2026-10-23T16:15:50+00:00",
+    "fetched_at": "2026-10-23T18:56:50.865116+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "University of Pennsylvania 연구팀이 LitPivot이라는 시스템을 개발했으며, 이는 연구자가 논문을 읽으면서 연구 방향을 수정하는 '문헌-주도 피벗' 과정을 지원합니다. 제안서의 문제, 기여, 평가 방법을 분리하여 각 부분별로 관련 문헌을 그룹화하고, 문헌 기반 비평과 수정 제안을 제시합니다. 17명의 연구자 실험에서 LitPivot으로 개발한 아이디어가 텍스트 에디터와 AI 채팅 도구보다 문헌에 더 잘 근거한 것으로 평가받았습니다.",
+    "insights_ko": [
+      "연구 초기 단계의 아이디어 개발과 문헌 검토를 분리된 작업이 아닌 통합 워크플로우로 재설계한 점이 중요합니다. 기존 도구들은 검색과 비평을 별개로 처리하지만, LitPivot은 제안서의 각 facet(문제·기여·평가)마다 문헌 관련성을 동적으로 다시 순위화하여 사용자 제어를 유지합니다.",
+      "학계 및 산업의 과학 저술 환경(Prism, Claude Code 등)이 발전하면서, AI 어시스턴트가 단순 질답을 넘어 구조화된 비평과 증거 기반 수정을 제시하는 방식으로 진화하고 있음을 시사합니다. 이는 연구 생산성 도구와 에이전트 설계의 새로운 패러다임이 될 가능성입니다.",
+      "UIST 2026 발표 예정이며, 향후 논문 초록 작성 등 더 긴 문서 편집 작업으로 확장 가능성이 언급되어 있습니다. 학술 출판 전체 파이프라인에서 AI 보조 도구의 역할이 확대될 흐름을 보여줍니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "LitPivot guides research idea development through literature-informed feedback and revision",
+    "tags": [
+      "RAG",
+      "에이전트",
+      "코딩",
+      "교육"
+    ]
   }
 ]
