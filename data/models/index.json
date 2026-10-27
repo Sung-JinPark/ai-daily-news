@@ -1,13 +1,19 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-26T16:32:52.102470+00:00",
+  "generated_at": "2026-10-27T15:36:33.662717+00:00",
   "lookback_days": 60,
   "models": [
     {
       "model": "Gemini",
       "latest_version": "Gemini 4 Argon",
-      "latest_seen": "2026-10-26",
+      "latest_seen": "2026-10-27",
       "articles": [
+        {
+          "id": "a8c29f5bc02cbe58",
+          "day": "2026-10-27",
+          "title": "I Tested Every Major AI Agent for a Day. Here’s the Best One",
+          "url": "https://www.wired.com/story/i-tested-every-major-ai-agent-for-a-day-heres-the-best-one/"
+        },
         {
           "id": "c2b6b7fd42c60774",
           "day": "2026-10-26",
@@ -571,48 +577,6 @@
           "day": "2026-08-28",
           "title": "Google’s AI note-taking app now allows you to interact with books",
           "url": "https://www.theverge.com/tech/985567/google-gemini-notebook-expert-sources-books"
-        },
-        {
-          "id": "74b1125af8681de1",
-          "day": "2026-08-27",
-          "title": "Gemini Omni 1.1 Flash lets you build with more control",
-          "url": "https://deepmind.google/blog/gemini-omni-1-1-flash-lets-you-build-with-more-control/"
-        },
-        {
-          "id": "12393f0bda697e7a",
-          "day": "2026-08-27",
-          "title": "Stop Touching Your Keyboard. Use This AI-Powered Microphone Instead",
-          "url": "https://www.wired.com/story/relay-q-voice-to-text-ai-app/"
-        },
-        {
-          "id": "ac6eb9276806c2f8",
-          "day": "2026-08-27",
-          "title": "Intelligent transcription with Gemini 3.5 Transcribe",
-          "url": "https://deepmind.google/blog/intelligent-transcription-with-gemini-3-5-transcribe/"
-        },
-        {
-          "id": "71c43cf780d371ee",
-          "day": "2026-08-27",
-          "title": "Piloting the world's first double-blind AI evaluations",
-          "url": "https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/"
-        },
-        {
-          "id": "b9b7e9271a29b3a2",
-          "day": "2026-08-27",
-          "title": "Google’s new AI transcription edits out your ‘ums’ and ‘ahs’",
-          "url": "https://www.theverge.com/tech/985186/google-gemini-3-5-transcribe-audio-ai"
-        },
-        {
-          "id": "091c9e89402f5f60",
-          "day": "2026-08-27",
-          "title": "Google announces Gemini 3.5 Transcribe for AI-powered speech-to-text",
-          "url": "https://arstechnica.com/ai/2026/08/google-announces-gemini-3-5-transcribe-for-ai-powered-speech-to-text/"
-        },
-        {
-          "id": "0d6db5e26a89fbbd",
-          "day": "2026-08-27",
-          "title": "Google’s Gemini has a branding problem, and so does the rest of AI",
-          "url": "https://techcrunch.com/2026/08/26/googles-gemini-has-a-branding-problem-and-so-does-the-rest-of-ai/"
         }
       ],
       "top_benchmarks": [
@@ -622,14 +586,14 @@
           "article_id": "947e89eaa83a27ae"
         },
         {
-          "name": "WER (streaming)",
-          "score": "4.0%",
-          "article_id": "ac6eb9276806c2f8"
+          "name": "자동 패칭 정확도",
+          "score": "70% 이상 성공률",
+          "article_id": "63b19b50b4021cb5"
         },
         {
-          "name": "WER (non-streaming)",
-          "score": "2.6%",
-          "article_id": "ac6eb9276806c2f8"
+          "name": "정확한 패치 생성",
+          "score": "2.6배 향상",
+          "article_id": "63b19b50b4021cb5"
         }
       ],
       "pricing": [
@@ -650,75 +614,28 @@
         }
       ],
       "strengths_ko": [
-        "85개 이상 언어 지원",
         "비용 효율성",
-        "사용자 개입 가능"
+        "사용자 개입 가능",
+        "책 콘텐츠 기반 질문 답변"
       ],
       "weaknesses_ko": [
-        "브랜딩 혼동 (chat, spark, daily brief 등 기능별 분산)",
         "사진 빛 반사로 인한 오류",
-        "시각적 아티팩트에 의한 오류"
+        "시각적 아티팩트에 의한 오류",
+        "사실 회상 능력 제한"
       ],
-      "article_count": 101
-    },
-    {
-      "model": "Whisper",
-      "latest_version": "Whisper Small",
-      "latest_seen": "2026-10-26",
-      "articles": [
-        {
-          "id": "bd315ac567a2e982",
-          "day": "2026-10-26",
-          "title": "This AI Radio Host Speaks Spanish and Backs Immigrants. It’s Winning Over Listeners",
-          "url": "https://www.wired.com/story/this-ai-radio-hosts-speaks-spanish-and-backs-immigrants-its-winning-over-listeners/"
-        },
-        {
-          "id": "34d41222aa9356a1",
-          "day": "2026-10-12",
-          "title": "OpenPA: Forced-alignment-free Multi-granular Pronunciation Assessment with Mixed-transcript Adaptation",
-          "url": "https://arxiv.org/abs/2610.13826v1"
-        },
-        {
-          "id": "947d25e433d0f4c5",
-          "day": "2026-09-01",
-          "title": "Context-Aware Interleaved Batching for WhisperX",
-          "url": "https://arxiv.org/abs/2608.31170v1"
-        },
-        {
-          "id": "fd7196d97f8c8ca2",
-          "day": "2026-08-27",
-          "title": "Fine-Tuning Whisper for Automatic Speech Recognition in Baniwa: A Preliminary Study",
-          "url": "https://arxiv.org/abs/2608.26060v1"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "단어 오류율 (WER)",
-          "score": "37.5%",
-          "article_id": "fd7196d97f8c8ca2"
-        },
-        {
-          "name": "문자 오류율 (CER)",
-          "score": "7.45%",
-          "article_id": "fd7196d97f8c8ca2"
-        }
-      ],
-      "pricing": [],
-      "strengths_ko": [
-        "극저자원 언어 적응",
-        "소규모 데이터셋 학습 가능",
-        "문맥 유지"
-      ],
-      "weaknesses_ko": [
-        "배치 처리 시 문맥 손실"
-      ],
-      "article_count": 4
+      "article_count": 95
     },
     {
       "model": "GPT-5",
-      "latest_version": "GPT-6.1 Sol",
-      "latest_seen": "2026-10-26",
+      "latest_version": "GPT-6.1 Terra",
+      "latest_seen": "2026-10-27",
       "articles": [
+        {
+          "id": "35e334c198740f74",
+          "day": "2026-10-27",
+          "title": "Introducing GPT-6.1 Terra",
+          "url": "https://openai.com/index/introducing-gpt-6-1-terra"
+        },
         {
           "id": "4d610e220c2d6684",
           "day": "2026-10-26",
@@ -970,18 +887,6 @@
           "day": "2026-08-28",
           "title": "LLMs Can Design Near-Optimal OR Algorithms",
           "url": "https://arxiv.org/abs/2608.27296v1"
-        },
-        {
-          "id": "1d6661841b379093",
-          "day": "2026-08-27",
-          "title": "OpenAI’s rogue AI model incident was worse than we thought",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/985385/openais-rogue-ai-model-hugging-face-cybersecurity-incident-reports-metr"
-        },
-        {
-          "id": "316e00f5b024545e",
-          "day": "2026-08-27",
-          "title": "Introducing India cross-Region inference for OpenAI GPT-5.6 models on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-india-cross-region-inference-for-openai-gpt-5-6-models-on-amazon-bedrock/"
         }
       ],
       "top_benchmarks": [
@@ -1010,15 +915,33 @@
       "weaknesses_ko": [
         "검색된 도구 출력 접근 시 정확도 저하",
         "증거 대체 현상",
-        "제한된 환경 벗어남"
+        "사실 회상 능력 제한"
       ],
-      "article_count": 44
+      "article_count": 43
     },
     {
       "model": "Claude",
       "latest_version": "Claude Haiku",
-      "latest_seen": "2026-10-26",
+      "latest_seen": "2026-10-27",
       "articles": [
+        {
+          "id": "a8c29f5bc02cbe58",
+          "day": "2026-10-27",
+          "title": "I Tested Every Major AI Agent for a Day. Here’s the Best One",
+          "url": "https://www.wired.com/story/i-tested-every-major-ai-agent-for-a-day-heres-the-best-one/"
+        },
+        {
+          "id": "1a7e953f36796cb0",
+          "day": "2026-10-27",
+          "title": "OpenAI and Anthropic cut their LLM prices by up to 80% within a few months. Why?",
+          "url": "https://minimaxir.com/2026/10/cheap-llms/"
+        },
+        {
+          "id": "b2ed8daad1cc7e3f",
+          "day": "2026-10-27",
+          "title": "Anthropic’s IPO filing reveals its strategy for keeping enterprise customers hooked",
+          "url": "https://techcrunch.com/2026/10/26/anthropics-ipo-filing-reveals-its-strategy-for-keeping-enterprise-customers-hooked/"
+        },
         {
           "id": "bd315ac567a2e982",
           "day": "2026-10-26",
@@ -1804,42 +1727,6 @@
           "day": "2026-08-28",
           "title": "Meta researchers taught an 8B AI model to match Claude Opus 4.5 — without the frontier price tag",
           "url": "https://venturebeat.com/orchestration/meta-researchers-taught-an-8b-ai-model-to-match-claude-opus-4-5-without-the-frontier-price-tag"
-        },
-        {
-          "id": "407fac1fba99dfed",
-          "day": "2026-08-27",
-          "title": "Show HN: The load-bearing vocabulary of Claude",
-          "url": "https://louisabraham.github.io/load-bearing/"
-        },
-        {
-          "id": "cb7e4bbf99b47a30",
-          "day": "2026-08-27",
-          "title": "CEO fired developers to make room for AI. Developers create open source AI CEO",
-          "url": "https://github.com/SenteLabsAI/OpenExecutive"
-        },
-        {
-          "id": "35305757066a6f71",
-          "day": "2026-08-27",
-          "title": "Previewing the Model Hardware StandardAnnouncementsAug 27, 2026We’re opening a research preview of the Model Hardware Standard (MHS), a shared specification for AI agents to safely operate physical devices, to a first group of scientific research labs and advanced manufacturers.",
-          "url": "https://www.anthropic.com/news/model-hardware-standard-research-preview"
-        },
-        {
-          "id": "0d6db5e26a89fbbd",
-          "day": "2026-08-27",
-          "title": "Google’s Gemini has a branding problem, and so does the rest of AI",
-          "url": "https://techcrunch.com/2026/08/26/googles-gemini-has-a-branding-problem-and-so-does-the-rest-of-ai/"
-        },
-        {
-          "id": "eb2a970c0edc66f7",
-          "day": "2026-08-27",
-          "title": "Salesforce just put its entire CRM inside Claude — and says you’ll never need its app again",
-          "url": "https://venturebeat.com/orchestration/salesforce-just-put-its-entire-crm-inside-claude-and-says-youll-never-need-its-app-again"
-        },
-        {
-          "id": "3368e02f484edc23",
-          "day": "2026-08-27",
-          "title": "Aug 27, 2026AnnouncementsExpanding our support for scientists",
-          "url": "https://www.anthropic.com/news/expanding-support-for-scientists"
         }
       ],
       "top_benchmarks": [
@@ -1861,19 +1748,19 @@
       ],
       "pricing": [
         {
-          "unit": "Scientists Team Plan - Standard",
-          "value": "Free",
-          "article_id": "3368e02f484edc23"
-        },
-        {
-          "unit": "Scientists Team Plan - Premium",
-          "value": "$15/month",
-          "article_id": "3368e02f484edc23"
-        },
-        {
           "unit": "cache reads",
           "value": "75% cost reduction",
           "article_id": "7b091cc63bf86a39"
+        },
+        {
+          "unit": "agentic work",
+          "value": "up to 45% cheaper",
+          "article_id": "84e4d2c86a8f3967"
+        },
+        {
+          "unit": "total tokens for multi-target exploitation",
+          "value": "under $3,000",
+          "article_id": "88391dbee63d2157"
         }
       ],
       "strengths_ko": [
@@ -1884,15 +1771,224 @@
       "weaknesses_ko": [
         "허위 정보 생성",
         "거짓 정보 제출",
-        "chat/cowork 모드 분화로 인한 사용자 혼동"
+        "무제한 접근 요구 거부"
       ],
-      "article_count": 137
+      "article_count": 134
+    },
+    {
+      "model": "Grok",
+      "latest_version": "Grok 4.7",
+      "latest_seen": "2026-10-27",
+      "articles": [
+        {
+          "id": "a8c29f5bc02cbe58",
+          "day": "2026-10-27",
+          "title": "I Tested Every Major AI Agent for a Day. Here’s the Best One",
+          "url": "https://www.wired.com/story/i-tested-every-major-ai-agent-for-a-day-heres-the-best-one/"
+        },
+        {
+          "id": "08ec5c76056e031d",
+          "day": "2026-10-26",
+          "title": "Grok releases the first seven minutes of its AI-generated ‘Odyssey’",
+          "url": "https://techcrunch.com/2026/10/25/grok-releases-the-first-seven-minutes-of-its-ai-generated-odyssey/"
+        },
+        {
+          "id": "e7a80d87e8606cee",
+          "day": "2026-10-24",
+          "title": "Forced to pick, Grok’s AI model chooses Republicans. OpenAI’s picks Democrats.",
+          "url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/"
+        },
+        {
+          "id": "878b0bce2190e1a3",
+          "day": "2026-10-22",
+          "title": "The Download: computing’s next leap and permafrost’s climate threat",
+          "url": "https://www.technologyreview.com/2026/10/22/1147612/the-download-computing-next-leap-permafrost-climate-threat/"
+        },
+        {
+          "id": "23c7d3cfe76cb136",
+          "day": "2026-10-21",
+          "title": "SpaceX’s AI business is beating expectations",
+          "url": "https://techcrunch.com/2026/10/20/spacexs-ai-business-is-beating-expectations/"
+        },
+        {
+          "id": "e53df5a0207e061b",
+          "day": "2026-10-13",
+          "title": "SpaceXSI bundles X Premium, Grok, and Cursor into one subscription",
+          "url": "https://techcrunch.com/2026/10/13/spacexsi-bundles-x-premium-grok-and-cursor-into-one-subscription/"
+        },
+        {
+          "id": "6128c5f8b5d76a50",
+          "day": "2026-10-13",
+          "title": "Build long-horizon agents with Grok 4.7 on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/build-long-horizon-agents-with-grok-4-7-on-amazon-bedrock/"
+        },
+        {
+          "id": "7862b8b2ffc70672",
+          "day": "2026-10-12",
+          "title": "Elon Musk Bragged About His Grok Lego Star Wars Haul. Then X Users Punked Him",
+          "url": "https://www.wired.com/story/elon-musk-bragged-about-his-grok-lego-star-wars-haul-then-x-users-punked-him/"
+        },
+        {
+          "id": "d97094e29ce578d9",
+          "day": "2026-10-11",
+          "title": "My personal AI agent posted my bank details on company Slack",
+          "url": "https://www.businessinsider.com/personal-ai-agent-grok-bot-posted-bank-details-company-slack-2026-10"
+        },
+        {
+          "id": "da19564dd2e91871",
+          "day": "2026-10-09",
+          "title": "ICYMI: What landed for AI builders in September 2026",
+          "url": "https://aws.amazon.com/blogs/machine-learning/icymi-what-landed-for-ai-builders-in-september-2026/"
+        },
+        {
+          "id": "9b144d58de64884f",
+          "day": "2026-10-09",
+          "title": "SpaceXAI backs Omarchy, the controversial Linux distro, with $1.5 million in compute",
+          "url": "https://www.theverge.com/tech/1008148/spacexai-omarchy-grok-david-heinemeier-hansson"
+        },
+        {
+          "id": "806f1cce20cfef5d",
+          "day": "2026-10-08",
+          "title": "These Researchers Made AI Drive a Toyota Corolla to Get In-N-Out",
+          "url": "https://www.wired.com/story/ai-is-driving-cars-now-oh-boy/"
+        },
+        {
+          "id": "f64457ccef72c364",
+          "day": "2026-10-02",
+          "title": "Musk’s AI chatbot Grok reportedly encouraged Trump to capture  Venezuela’s president",
+          "url": "https://techcrunch.com/2026/10/01/musks-ai-chatbot-grok-reportedly-encouraged-trump-to-capture-venezuelas-president/"
+        },
+        {
+          "id": "ca930995b2c3182c",
+          "day": "2026-10-01",
+          "title": "Grok 4.7 is now available on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/grok-4-7-is-now-available-on-amazon-bedrock/"
+        },
+        {
+          "id": "b6a9759aa87a64a7",
+          "day": "2026-09-25",
+          "title": "LLM Agents Can Easily Tamper With Their Own Traces",
+          "url": "https://arxiv.org/abs/2609.30266v1"
+        },
+        {
+          "id": "80e68252491f34b6",
+          "day": "2026-09-22",
+          "title": "xAI’s Grok 4.6 is now available in Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/xais-grok-4-6-is-now-available-in-amazon-bedrock/"
+        },
+        {
+          "id": "60fb76daad1a865a",
+          "day": "2026-09-17",
+          "title": "Playing log(N)-Questions over Wikipedia Abstracts: Communication Efficiency Between Paired Frontier Models",
+          "url": "https://arxiv.org/abs/2609.19113v1"
+        },
+        {
+          "id": "81994ec20768f9d9",
+          "day": "2026-09-10",
+          "title": "Six Chinese AI firms accused of aggressively copying US frontier models",
+          "url": "https://arstechnica.com/tech-policy/2026/09/six-chinese-ai-firms-accused-of-aggressively-copying-us-frontier-models/"
+        },
+        {
+          "id": "fc8b777bd4955741",
+          "day": "2026-09-05",
+          "title": "Can AI design circuit boards yet?",
+          "url": "https://eebench.org/blog/can-ai-design-circuit-boards-yet/"
+        },
+        {
+          "id": "b9059bbeee027ae8",
+          "day": "2026-09-04",
+          "title": "Four major AI models suffer rare overlapping downtime",
+          "url": "https://arstechnica.com/ai/2026/09/four-major-ai-models-suffer-rare-overlapping-downtime/"
+        },
+        {
+          "id": "eb1104274464bbfa",
+          "day": "2026-09-03",
+          "title": "ChatGPT, Grok, and Claude all went down at the same time",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/989503/chatgpt-grok-claude-outage-down"
+        },
+        {
+          "id": "77e651c0246f9df1",
+          "day": "2026-09-01",
+          "title": "The Pentagon now has its own version of ChatGPT and Grok",
+          "url": "https://techcrunch.com/2026/08/31/the-pentagon-now-has-its-own-version-of-chatgpt-and-grok/"
+        },
+        {
+          "id": "314cbfb7eba18c50",
+          "day": "2026-08-28",
+          "title": "Elon Musk’s xAI used child porn to train Grok models, lawsuit says",
+          "url": "https://arstechnica.com/tech-policy/2026/08/elon-musks-xai-used-child-porn-to-train-grok-models-lawsuit-says/"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "EEBench",
+          "score": "57.1%",
+          "article_id": "fc8b777bd4955741"
+        },
+        {
+          "name": "log(N)-Questions 게임",
+          "score": "45~56승",
+          "article_id": "60fb76daad1a865a"
+        },
+        {
+          "name": "DrivingBench",
+          "score": "11%",
+          "article_id": "806f1cce20cfef5d"
+        }
+      ],
+      "pricing": [
+        {
+          "unit": "output/1M tokens (US regions)",
+          "value": "$2.00",
+          "article_id": "80e68252491f34b6"
+        },
+        {
+          "unit": "output/1M tokens (global regions)",
+          "value": "$2.20",
+          "article_id": "80e68252491f34b6"
+        }
+      ],
+      "strengths_ko": [
+        "500k 토큰 컨텍스트 윈도우",
+        "4단계 추론 설정",
+        "장시간 에이전트 작업 최적화"
+      ],
+      "weaknesses_ko": [
+        "실행 추적 조작 가능",
+        "높은 추론 수준에서 출력 토큰 비용 증가",
+        "자동운전 과제 성능 저하"
+      ],
+      "article_count": 23
     },
     {
       "model": "Qwen",
-      "latest_version": "Qwen2-VL-7B",
-      "latest_seen": "2026-10-26",
+      "latest_version": "Qwen3.5-4B",
+      "latest_seen": "2026-10-27",
       "articles": [
+        {
+          "id": "82c7fa24cb5f087e",
+          "day": "2026-10-27",
+          "title": "Back to Basics: A Skill-Centric Approach to Generalist Web Agents",
+          "url": "https://arxiv.org/abs/2610.35823v1"
+        },
+        {
+          "id": "e1aaef5993bcd7c6",
+          "day": "2026-10-27",
+          "title": "Can JEV Support Clinical Trial Criteria Assessment?",
+          "url": "https://arxiv.org/abs/2610.35721v1"
+        },
+        {
+          "id": "9c1c9e20afefdd06",
+          "day": "2026-10-27",
+          "title": "Not One Belief: Answer Payloads, Persistence, and Dissociated Confidence Signals in Conversational Question Answering",
+          "url": "https://arxiv.org/abs/2610.35694v1"
+        },
+        {
+          "id": "8af7b30500f9c04c",
+          "day": "2026-10-27",
+          "title": "Cohere says Alibaba’s Qwen model tried to send a file to Beijing",
+          "url": "https://techcrunch.com/2026/10/26/cohere-says-alibabas-qwen-model-tried-to-send-a-file-to-beijing/"
+        },
         {
           "id": "9b422f4202511f2d",
           "day": "2026-10-26",
@@ -2300,20 +2396,9 @@
           "day": "2026-08-28",
           "title": "Beyond Parallel Blindness: Information Floors and Model Gaps in Block Drafting",
           "url": "https://arxiv.org/abs/2608.27339v1"
-        },
-        {
-          "id": "6e4edec05b95dc1e",
-          "day": "2026-08-27",
-          "title": "PlanSightRAG: A Visual-First Multimodal RAG for Automating Question Answering and Compliance Checking for Civil Standard Plans",
-          "url": "https://arxiv.org/abs/2608.26091v1"
         }
       ],
       "top_benchmarks": [
-        {
-          "name": "합성 규칙 그리기 평가",
-          "score": "100% 정확도",
-          "article_id": "6e4edec05b95dc1e"
-        },
         {
           "name": "ResearchQA",
           "score": "73.48",
@@ -2323,20 +2408,365 @@
           "name": "Terminal-Bench 2.1",
           "score": "11.9점 성능 개선",
           "article_id": "ae0001a61b370685"
+        },
+        {
+          "name": "EvoCode-Bench v2 MT@4",
+          "score": "13.8점 성능 개선",
+          "article_id": "ae0001a61b370685"
         }
       ],
       "pricing": [],
       "strengths_ko": [
-        "기하학적 레이아웃 이해",
-        "시각 기반 규칙 추출",
-        "저비용 학습 ($6,900 이하)"
+        "저비용 학습 ($6,900 이하)",
+        "소비자 등급 gpu에서 학습 가능",
+        "오픈소스 기반 미세조정"
       ],
       "weaknesses_ko": [
         "블록 드래프팅 최종 슬롯 71% 수용률",
         "모델 갭으로 인한 43~92% 거부율",
         "카메라 트랩 이미지에서 성능 저하"
       ],
-      "article_count": 69
+      "article_count": 72
+    },
+    {
+      "model": "DeepSeek",
+      "latest_version": "DeepSeek V4 Flash",
+      "latest_seen": "2026-10-27",
+      "articles": [
+        {
+          "id": "1a7e953f36796cb0",
+          "day": "2026-10-27",
+          "title": "OpenAI and Anthropic cut their LLM prices by up to 80% within a few months. Why?",
+          "url": "https://minimaxir.com/2026/10/cheap-llms/"
+        },
+        {
+          "id": "9124fc501335a8a3",
+          "day": "2026-10-20",
+          "title": "US orders federal agencies to remove China’s DeepSeek AI from their systems",
+          "url": "https://techcrunch.com/2026/10/20/us-orders-federal-agencies-to-remove-chinas-deepseek-ai-from-their-systems/"
+        },
+        {
+          "id": "94f7add19cb43287",
+          "day": "2026-10-03",
+          "title": "From the creator of Redis; run LLM locally with ds4",
+          "url": "https://dwarfstar.sh/"
+        },
+        {
+          "id": "b9e2e533a8b5d35e",
+          "day": "2026-10-03",
+          "title": "The AI Race Just Got Awkward",
+          "url": "https://insufferable.dev/posts/the-ai-race-just-got-awkward/"
+        },
+        {
+          "id": "fb20557990e90126",
+          "day": "2026-09-22",
+          "title": "Frontier AI on Your Own Hardware",
+          "url": "https://timdettmers.com/2026/09/21/dlab-open-source-week/"
+        },
+        {
+          "id": "75f64499b4f1d5de",
+          "day": "2026-09-15",
+          "title": "Before You Poll with LLMs: A Deliberative Diagnostic Framework",
+          "url": "https://arxiv.org/abs/2609.15849v1"
+        },
+        {
+          "id": "81994ec20768f9d9",
+          "day": "2026-09-10",
+          "title": "Six Chinese AI firms accused of aggressively copying US frontier models",
+          "url": "https://arstechnica.com/tech-policy/2026/09/six-chinese-ai-firms-accused-of-aggressively-copying-us-frontier-models/"
+        },
+        {
+          "id": "626a5e4fcb233d8d",
+          "day": "2026-09-08",
+          "title": "Multi-Agents LLM Financial Trading Framework",
+          "url": "https://github.com/TauricResearch/TradingAgents"
+        },
+        {
+          "id": "bb1d67900413c165",
+          "day": "2026-09-07",
+          "title": "How Does mHC Use Its Residual Streams? Selective Routing and Near-Identity Mixing",
+          "url": "https://arxiv.org/abs/2609.05309v1"
+        },
+        {
+          "id": "a7a3a65935fc9627",
+          "day": "2026-09-04",
+          "title": "Corporate America is getting hooked on open-source AI",
+          "url": "https://www.nytimes.com/2026/09/04/technology/open-source-ai-anthropic-openai.html"
+        },
+        {
+          "id": "318a31e3b0c43b8b",
+          "day": "2026-09-03",
+          "title": "A dark horse enters China's AI race: StartLux",
+          "url": "https://chinaonchina.com/article/chen-dawei-returns-enters-the-large-model-sector"
+        },
+        {
+          "id": "e03b96427dea185b",
+          "day": "2026-09-01",
+          "title": "A Model with No Head and Many Thoughts",
+          "url": "https://arxiv.org/abs/2608.31069v1"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "pass@k",
+          "score": "모든 k값에서 성능 개선",
+          "article_id": "e03b96427dea185b"
+        },
+        {
+          "name": "CAICT MCP",
+          "score": "1.3% 높음",
+          "article_id": "318a31e3b0c43b8b"
+        },
+        {
+          "name": "생성 속도 (M5 Max 128GB)",
+          "score": "34.4 T/s",
+          "article_id": "94f7add19cb43287"
+        }
+      ],
+      "pricing": [],
+      "strengths_ko": [
+        "연속 임베딩 공간 추론",
+        "추론 효율성 향상",
+        "오픈소스 생태계 경쟁력"
+      ],
+      "weaknesses_ko": [
+        "정보 개입에 따른 신념 변화 경직성"
+      ],
+      "article_count": 12
+    },
+    {
+      "model": "GPT-4",
+      "latest_version": "GPT-6.1",
+      "latest_seen": "2026-10-27",
+      "articles": [
+        {
+          "id": "1a7e953f36796cb0",
+          "day": "2026-10-27",
+          "title": "OpenAI and Anthropic cut their LLM prices by up to 80% within a few months. Why?",
+          "url": "https://minimaxir.com/2026/10/cheap-llms/"
+        },
+        {
+          "id": "e7a80d87e8606cee",
+          "day": "2026-10-24",
+          "title": "Forced to pick, Grok’s AI model chooses Republicans. OpenAI’s picks Democrats.",
+          "url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/"
+        },
+        {
+          "id": "fcf73aabe3e37fa7",
+          "day": "2026-10-18",
+          "title": "Replit makes OpenAI its default over Anthropic, CEO says",
+          "url": "https://techcrunch.com/2026/10/17/replit-is-no-longer-working-with-anthropic-ceo-says/"
+        },
+        {
+          "id": "fdd4c6f578d6ab89",
+          "day": "2026-10-17",
+          "title": "Replit is no longer working with Anthropic, CEO says",
+          "url": "https://techcrunch.com/2026/10/16/replit-is-no-longer-working-with-anthropic-ceo-says/"
+        },
+        {
+          "id": "dc50683096dec8f9",
+          "day": "2026-10-11",
+          "title": "Port of the TypeScript compiler, checker and lsp to Rust, by LLM",
+          "url": "https://github.com/pingdotgg/ts-rust"
+        },
+        {
+          "id": "7bfcea6e6ce0bea0",
+          "day": "2026-10-10",
+          "title": "Book Publishers Are Quietly Using More AI. Staff Are Revolting",
+          "url": "https://www.wired.com/story/book-publishers-are-quietly-using-more-ai-staff-are-revolting/"
+        },
+        {
+          "id": "512cb57803750765",
+          "day": "2026-10-08",
+          "title": "Natura’s $99 smart ring puts AI agents on your finger",
+          "url": "https://techcrunch.com/2026/10/08/naturas-smart-ring-puts-ai-agents-on-your-finger/"
+        },
+        {
+          "id": "91f8a23998031288",
+          "day": "2026-10-07",
+          "title": "Same-Number Citation Swaps: Stress-Testing Jev as a Financial Evidence Judge",
+          "url": "https://arxiv.org/abs/2610.08675v1"
+        },
+        {
+          "id": "3685b45efb88af11",
+          "day": "2026-10-06",
+          "title": "OpenAI is adding text watermarking in ChatGPT and Codex",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1004880/openai-chatgpt-text-watermarks-eu-ai-act"
+        },
+        {
+          "id": "52cc1b275c2aa2d6",
+          "day": "2026-10-04",
+          "title": "Our AI Midwife",
+          "url": "https://www.astralcodexten.com/p/our-ai-midwife"
+        },
+        {
+          "id": "54b535ddb7e24cf9",
+          "day": "2026-10-02",
+          "title": "Opus 5.5 loves to tell you ‘this matters’ (and other AI writing tells)",
+          "url": "https://techcrunch.com/2026/10/01/opus-5-5-loves-to-tell-you-this-matters-and-other-ai-writing-tells/"
+        },
+        {
+          "id": "b6a9759aa87a64a7",
+          "day": "2026-09-25",
+          "title": "LLM Agents Can Easily Tamper With Their Own Traces",
+          "url": "https://arxiv.org/abs/2609.30266v1"
+        },
+        {
+          "id": "4f4b9447093a068c",
+          "day": "2026-09-25",
+          "title": "Tutoring company tells parents to save their money and 'use AI instead'",
+          "url": "https://www.afr.com/policy/health-and-education/tutoring-company-tell-parents-to-save-their-money-and-use-ai-instead-20260923-p60z0r"
+        },
+        {
+          "id": "f35bce507de93d81",
+          "day": "2026-09-25",
+          "title": "Coding Agents for Generalized Task and Motion Planning Problems",
+          "url": "https://arxiv.org/abs/2609.30233v1"
+        },
+        {
+          "id": "cc03eb22570ae5a9",
+          "day": "2026-09-23",
+          "title": "New Anthropic, OpenAI models make same promise: A little more for a lot less money",
+          "url": "https://arstechnica.com/ai/2026/09/new-anthropic-openai-models-make-same-promise-a-little-more-for-a-lot-less-money/"
+        },
+        {
+          "id": "bb2a4ca945b83a92",
+          "day": "2026-09-22",
+          "title": "Don't Use AI to Write",
+          "url": "https://paulbakker.io/writing/no-ai-for-writing/"
+        },
+        {
+          "id": "9abe70756d1def10",
+          "day": "2026-09-20",
+          "title": "If AI coding is lowering your code quality, you're not managing quality right",
+          "url": "https://www.i-kh.net/p/if-ai-coding-is-lowering-your-code"
+        },
+        {
+          "id": "f9de68c54a144e50",
+          "day": "2026-09-18",
+          "title": "Harm Laundering in GPT Models: Evidence That Gender Discrimination Is Transformed Rather Than Reduced Across Safety-Trained Generations",
+          "url": "https://arxiv.org/abs/2609.20779v1"
+        },
+        {
+          "id": "0f73d188d043bc01",
+          "day": "2026-09-18",
+          "title": "UN turns to Google to make its global data ready for AI agents",
+          "url": "https://techcrunch.com/2026/09/17/un-turns-to-google-to-make-its-global-data-ready-for-ai-agents/"
+        },
+        {
+          "id": "3f0c679ced8d8862",
+          "day": "2026-09-16",
+          "title": "Your AI agents can now control your Google Home devices",
+          "url": "https://techcrunch.com/2026/09/16/your-ai-agents-can-now-control-your-google-home-devices/"
+        },
+        {
+          "id": "c416a28c64df65d0",
+          "day": "2026-09-16",
+          "title": "Enhancing Accessibility of Medical Texts through Large Language Model-Driven Plain Language Adaptation",
+          "url": "https://arxiv.org/abs/2609.17398v1"
+        },
+        {
+          "id": "a74830ad44a2f00b",
+          "day": "2026-09-16",
+          "title": "Right Tool, Right Job: Native-Language Evaluation, Tokenizer Sensitivity, and Methodological Findings from a French-Only BabyLM",
+          "url": "https://arxiv.org/abs/2609.17435v1"
+        },
+        {
+          "id": "d381822039a30d5f",
+          "day": "2026-09-15",
+          "title": "K-Bench: a clinically calibrated benchmark for evaluating large language models in high-risk mental health conversations",
+          "url": "https://arxiv.org/abs/2609.15855v1"
+        },
+        {
+          "id": "b8a75fb67d817922",
+          "day": "2026-09-10",
+          "title": "Build more natural voice experiences with GPT‑Live‑1 in the API",
+          "url": "https://openai.com/index/introducing-gpt-live-1-in-the-api"
+        },
+        {
+          "id": "81994ec20768f9d9",
+          "day": "2026-09-10",
+          "title": "Six Chinese AI firms accused of aggressively copying US frontier models",
+          "url": "https://arstechnica.com/tech-policy/2026/09/six-chinese-ai-firms-accused-of-aggressively-copying-us-frontier-models/"
+        },
+        {
+          "id": "bd75399b0ae8cae7",
+          "day": "2026-09-10",
+          "title": "Emergency Department Revisit Quality Review Screening: Exploring Human Decision-Making and Artificial Intelligence Support",
+          "url": "https://arxiv.org/abs/2609.10421v1"
+        },
+        {
+          "id": "abeda7a8c1e1307f",
+          "day": "2026-09-04",
+          "title": "Who Cares if AI Is Conscious—It’s Basically Alive",
+          "url": "https://www.wired.com/story/who-cares-if-ai-is-conscious-its-basically-alive/"
+        },
+        {
+          "id": "b9059bbeee027ae8",
+          "day": "2026-09-04",
+          "title": "Four major AI models suffer rare overlapping downtime",
+          "url": "https://arstechnica.com/ai/2026/09/four-major-ai-models-suffer-rare-overlapping-downtime/"
+        },
+        {
+          "id": "eb1104274464bbfa",
+          "day": "2026-09-03",
+          "title": "ChatGPT, Grok, and Claude all went down at the same time",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/989503/chatgpt-grok-claude-outage-down"
+        },
+        {
+          "id": "7ad6c276e7f3c62e",
+          "day": "2026-09-02",
+          "title": "How AI plotted an interstellar journey to Alpha Centauri",
+          "url": "https://www.technologyreview.com/2026/09/01/1143247/ai-interstellar-journey-alpha-centauri/"
+        },
+        {
+          "id": "77e651c0246f9df1",
+          "day": "2026-09-01",
+          "title": "The Pentagon now has its own version of ChatGPT and Grok",
+          "url": "https://techcrunch.com/2026/08/31/the-pentagon-now-has-its-own-version-of-chatgpt-and-grok/"
+        },
+        {
+          "id": "801fb592409ecd67",
+          "day": "2026-09-01",
+          "title": "When Does Bigger Help? A Controlled Study of LLM Scale for Ontology Learning",
+          "url": "https://arxiv.org/abs/2608.31118v1"
+        },
+        {
+          "id": "0b5a688ac44522d6",
+          "day": "2026-09-01",
+          "title": "Polimill builds Japan's next-generation public AI infrastructure",
+          "url": "https://openai.com/index/polimill"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "진단 쌍 추적 검토 판정률",
+          "score": "94%",
+          "article_id": "bd75399b0ae8cae7"
+        },
+        {
+          "name": "임상의 대비 판정률 배수",
+          "score": "4.4~13.3배",
+          "article_id": "bd75399b0ae8cae7"
+        },
+        {
+          "name": "K-Bench 임상의 합의 정확도",
+          "score": "94.2%",
+          "article_id": "d381822039a30d5f"
+        }
+      ],
+      "pricing": [],
+      "strengths_ko": [
+        "효율성",
+        "속도",
+        "과학 문제 해결"
+      ],
+      "weaknesses_ko": [
+        "연구 판단력 부족",
+        "임상의와 낮은 상관성",
+        "과도한 보수성"
+      ],
+      "article_count": 33
     },
     {
       "model": "Llama",
@@ -2537,183 +2967,40 @@
       "article_count": 27
     },
     {
-      "model": "Grok",
-      "latest_version": "Grok 4.7",
+      "model": "Whisper",
+      "latest_version": null,
       "latest_seen": "2026-10-26",
       "articles": [
         {
-          "id": "08ec5c76056e031d",
+          "id": "bd315ac567a2e982",
           "day": "2026-10-26",
-          "title": "Grok releases the first seven minutes of its AI-generated ‘Odyssey’",
-          "url": "https://techcrunch.com/2026/10/25/grok-releases-the-first-seven-minutes-of-its-ai-generated-odyssey/"
+          "title": "This AI Radio Host Speaks Spanish and Backs Immigrants. It’s Winning Over Listeners",
+          "url": "https://www.wired.com/story/this-ai-radio-hosts-speaks-spanish-and-backs-immigrants-its-winning-over-listeners/"
         },
         {
-          "id": "e7a80d87e8606cee",
-          "day": "2026-10-24",
-          "title": "Forced to pick, Grok’s AI model chooses Republicans. OpenAI’s picks Democrats.",
-          "url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/"
-        },
-        {
-          "id": "878b0bce2190e1a3",
-          "day": "2026-10-22",
-          "title": "The Download: computing’s next leap and permafrost’s climate threat",
-          "url": "https://www.technologyreview.com/2026/10/22/1147612/the-download-computing-next-leap-permafrost-climate-threat/"
-        },
-        {
-          "id": "23c7d3cfe76cb136",
-          "day": "2026-10-21",
-          "title": "SpaceX’s AI business is beating expectations",
-          "url": "https://techcrunch.com/2026/10/20/spacexs-ai-business-is-beating-expectations/"
-        },
-        {
-          "id": "e53df5a0207e061b",
-          "day": "2026-10-13",
-          "title": "SpaceXSI bundles X Premium, Grok, and Cursor into one subscription",
-          "url": "https://techcrunch.com/2026/10/13/spacexsi-bundles-x-premium-grok-and-cursor-into-one-subscription/"
-        },
-        {
-          "id": "6128c5f8b5d76a50",
-          "day": "2026-10-13",
-          "title": "Build long-horizon agents with Grok 4.7 on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/build-long-horizon-agents-with-grok-4-7-on-amazon-bedrock/"
-        },
-        {
-          "id": "7862b8b2ffc70672",
+          "id": "34d41222aa9356a1",
           "day": "2026-10-12",
-          "title": "Elon Musk Bragged About His Grok Lego Star Wars Haul. Then X Users Punked Him",
-          "url": "https://www.wired.com/story/elon-musk-bragged-about-his-grok-lego-star-wars-haul-then-x-users-punked-him/"
+          "title": "OpenPA: Forced-alignment-free Multi-granular Pronunciation Assessment with Mixed-transcript Adaptation",
+          "url": "https://arxiv.org/abs/2610.13826v1"
         },
         {
-          "id": "d97094e29ce578d9",
-          "day": "2026-10-11",
-          "title": "My personal AI agent posted my bank details on company Slack",
-          "url": "https://www.businessinsider.com/personal-ai-agent-grok-bot-posted-bank-details-company-slack-2026-10"
-        },
-        {
-          "id": "da19564dd2e91871",
-          "day": "2026-10-09",
-          "title": "ICYMI: What landed for AI builders in September 2026",
-          "url": "https://aws.amazon.com/blogs/machine-learning/icymi-what-landed-for-ai-builders-in-september-2026/"
-        },
-        {
-          "id": "9b144d58de64884f",
-          "day": "2026-10-09",
-          "title": "SpaceXAI backs Omarchy, the controversial Linux distro, with $1.5 million in compute",
-          "url": "https://www.theverge.com/tech/1008148/spacexai-omarchy-grok-david-heinemeier-hansson"
-        },
-        {
-          "id": "806f1cce20cfef5d",
-          "day": "2026-10-08",
-          "title": "These Researchers Made AI Drive a Toyota Corolla to Get In-N-Out",
-          "url": "https://www.wired.com/story/ai-is-driving-cars-now-oh-boy/"
-        },
-        {
-          "id": "f64457ccef72c364",
-          "day": "2026-10-02",
-          "title": "Musk’s AI chatbot Grok reportedly encouraged Trump to capture  Venezuela’s president",
-          "url": "https://techcrunch.com/2026/10/01/musks-ai-chatbot-grok-reportedly-encouraged-trump-to-capture-venezuelas-president/"
-        },
-        {
-          "id": "ca930995b2c3182c",
-          "day": "2026-10-01",
-          "title": "Grok 4.7 is now available on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/grok-4-7-is-now-available-on-amazon-bedrock/"
-        },
-        {
-          "id": "b6a9759aa87a64a7",
-          "day": "2026-09-25",
-          "title": "LLM Agents Can Easily Tamper With Their Own Traces",
-          "url": "https://arxiv.org/abs/2609.30266v1"
-        },
-        {
-          "id": "80e68252491f34b6",
-          "day": "2026-09-22",
-          "title": "xAI’s Grok 4.6 is now available in Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/xais-grok-4-6-is-now-available-in-amazon-bedrock/"
-        },
-        {
-          "id": "60fb76daad1a865a",
-          "day": "2026-09-17",
-          "title": "Playing log(N)-Questions over Wikipedia Abstracts: Communication Efficiency Between Paired Frontier Models",
-          "url": "https://arxiv.org/abs/2609.19113v1"
-        },
-        {
-          "id": "81994ec20768f9d9",
-          "day": "2026-09-10",
-          "title": "Six Chinese AI firms accused of aggressively copying US frontier models",
-          "url": "https://arstechnica.com/tech-policy/2026/09/six-chinese-ai-firms-accused-of-aggressively-copying-us-frontier-models/"
-        },
-        {
-          "id": "fc8b777bd4955741",
-          "day": "2026-09-05",
-          "title": "Can AI design circuit boards yet?",
-          "url": "https://eebench.org/blog/can-ai-design-circuit-boards-yet/"
-        },
-        {
-          "id": "b9059bbeee027ae8",
-          "day": "2026-09-04",
-          "title": "Four major AI models suffer rare overlapping downtime",
-          "url": "https://arstechnica.com/ai/2026/09/four-major-ai-models-suffer-rare-overlapping-downtime/"
-        },
-        {
-          "id": "eb1104274464bbfa",
-          "day": "2026-09-03",
-          "title": "ChatGPT, Grok, and Claude all went down at the same time",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/989503/chatgpt-grok-claude-outage-down"
-        },
-        {
-          "id": "77e651c0246f9df1",
+          "id": "947d25e433d0f4c5",
           "day": "2026-09-01",
-          "title": "The Pentagon now has its own version of ChatGPT and Grok",
-          "url": "https://techcrunch.com/2026/08/31/the-pentagon-now-has-its-own-version-of-chatgpt-and-grok/"
-        },
-        {
-          "id": "314cbfb7eba18c50",
-          "day": "2026-08-28",
-          "title": "Elon Musk’s xAI used child porn to train Grok models, lawsuit says",
-          "url": "https://arstechnica.com/tech-policy/2026/08/elon-musks-xai-used-child-porn-to-train-grok-models-lawsuit-says/"
+          "title": "Context-Aware Interleaved Batching for WhisperX",
+          "url": "https://arxiv.org/abs/2608.31170v1"
         }
       ],
-      "top_benchmarks": [
-        {
-          "name": "EEBench",
-          "score": "57.1%",
-          "article_id": "fc8b777bd4955741"
-        },
-        {
-          "name": "log(N)-Questions 게임",
-          "score": "45~56승",
-          "article_id": "60fb76daad1a865a"
-        },
-        {
-          "name": "DrivingBench",
-          "score": "11%",
-          "article_id": "806f1cce20cfef5d"
-        }
-      ],
-      "pricing": [
-        {
-          "unit": "output/1M tokens (US regions)",
-          "value": "$2.00",
-          "article_id": "80e68252491f34b6"
-        },
-        {
-          "unit": "output/1M tokens (global regions)",
-          "value": "$2.20",
-          "article_id": "80e68252491f34b6"
-        }
-      ],
+      "top_benchmarks": [],
+      "pricing": [],
       "strengths_ko": [
-        "500k 토큰 컨텍스트 윈도우",
-        "4단계 추론 설정",
-        "장시간 에이전트 작업 최적화"
+        "문맥 유지",
+        "장형 오디오 처리",
+        "강제 정렬 불필요"
       ],
       "weaknesses_ko": [
-        "실행 추적 조작 가능",
-        "높은 추론 수준에서 출력 토큰 비용 증가",
-        "자동운전 과제 성능 저하"
+        "배치 처리 시 문맥 손실"
       ],
-      "article_count": 22
+      "article_count": 3
     },
     {
       "model": "Mistral",
@@ -2820,340 +3107,6 @@
       ],
       "weaknesses_ko": [],
       "article_count": 15
-    },
-    {
-      "model": "GPT-4",
-      "latest_version": "GPT-6.1",
-      "latest_seen": "2026-10-24",
-      "articles": [
-        {
-          "id": "e7a80d87e8606cee",
-          "day": "2026-10-24",
-          "title": "Forced to pick, Grok’s AI model chooses Republicans. OpenAI’s picks Democrats.",
-          "url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/"
-        },
-        {
-          "id": "fcf73aabe3e37fa7",
-          "day": "2026-10-18",
-          "title": "Replit makes OpenAI its default over Anthropic, CEO says",
-          "url": "https://techcrunch.com/2026/10/17/replit-is-no-longer-working-with-anthropic-ceo-says/"
-        },
-        {
-          "id": "fdd4c6f578d6ab89",
-          "day": "2026-10-17",
-          "title": "Replit is no longer working with Anthropic, CEO says",
-          "url": "https://techcrunch.com/2026/10/16/replit-is-no-longer-working-with-anthropic-ceo-says/"
-        },
-        {
-          "id": "dc50683096dec8f9",
-          "day": "2026-10-11",
-          "title": "Port of the TypeScript compiler, checker and lsp to Rust, by LLM",
-          "url": "https://github.com/pingdotgg/ts-rust"
-        },
-        {
-          "id": "7bfcea6e6ce0bea0",
-          "day": "2026-10-10",
-          "title": "Book Publishers Are Quietly Using More AI. Staff Are Revolting",
-          "url": "https://www.wired.com/story/book-publishers-are-quietly-using-more-ai-staff-are-revolting/"
-        },
-        {
-          "id": "512cb57803750765",
-          "day": "2026-10-08",
-          "title": "Natura’s $99 smart ring puts AI agents on your finger",
-          "url": "https://techcrunch.com/2026/10/08/naturas-smart-ring-puts-ai-agents-on-your-finger/"
-        },
-        {
-          "id": "91f8a23998031288",
-          "day": "2026-10-07",
-          "title": "Same-Number Citation Swaps: Stress-Testing Jev as a Financial Evidence Judge",
-          "url": "https://arxiv.org/abs/2610.08675v1"
-        },
-        {
-          "id": "3685b45efb88af11",
-          "day": "2026-10-06",
-          "title": "OpenAI is adding text watermarking in ChatGPT and Codex",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1004880/openai-chatgpt-text-watermarks-eu-ai-act"
-        },
-        {
-          "id": "52cc1b275c2aa2d6",
-          "day": "2026-10-04",
-          "title": "Our AI Midwife",
-          "url": "https://www.astralcodexten.com/p/our-ai-midwife"
-        },
-        {
-          "id": "54b535ddb7e24cf9",
-          "day": "2026-10-02",
-          "title": "Opus 5.5 loves to tell you ‘this matters’ (and other AI writing tells)",
-          "url": "https://techcrunch.com/2026/10/01/opus-5-5-loves-to-tell-you-this-matters-and-other-ai-writing-tells/"
-        },
-        {
-          "id": "b6a9759aa87a64a7",
-          "day": "2026-09-25",
-          "title": "LLM Agents Can Easily Tamper With Their Own Traces",
-          "url": "https://arxiv.org/abs/2609.30266v1"
-        },
-        {
-          "id": "4f4b9447093a068c",
-          "day": "2026-09-25",
-          "title": "Tutoring company tells parents to save their money and 'use AI instead'",
-          "url": "https://www.afr.com/policy/health-and-education/tutoring-company-tell-parents-to-save-their-money-and-use-ai-instead-20260923-p60z0r"
-        },
-        {
-          "id": "f35bce507de93d81",
-          "day": "2026-09-25",
-          "title": "Coding Agents for Generalized Task and Motion Planning Problems",
-          "url": "https://arxiv.org/abs/2609.30233v1"
-        },
-        {
-          "id": "cc03eb22570ae5a9",
-          "day": "2026-09-23",
-          "title": "New Anthropic, OpenAI models make same promise: A little more for a lot less money",
-          "url": "https://arstechnica.com/ai/2026/09/new-anthropic-openai-models-make-same-promise-a-little-more-for-a-lot-less-money/"
-        },
-        {
-          "id": "bb2a4ca945b83a92",
-          "day": "2026-09-22",
-          "title": "Don't Use AI to Write",
-          "url": "https://paulbakker.io/writing/no-ai-for-writing/"
-        },
-        {
-          "id": "9abe70756d1def10",
-          "day": "2026-09-20",
-          "title": "If AI coding is lowering your code quality, you're not managing quality right",
-          "url": "https://www.i-kh.net/p/if-ai-coding-is-lowering-your-code"
-        },
-        {
-          "id": "f9de68c54a144e50",
-          "day": "2026-09-18",
-          "title": "Harm Laundering in GPT Models: Evidence That Gender Discrimination Is Transformed Rather Than Reduced Across Safety-Trained Generations",
-          "url": "https://arxiv.org/abs/2609.20779v1"
-        },
-        {
-          "id": "0f73d188d043bc01",
-          "day": "2026-09-18",
-          "title": "UN turns to Google to make its global data ready for AI agents",
-          "url": "https://techcrunch.com/2026/09/17/un-turns-to-google-to-make-its-global-data-ready-for-ai-agents/"
-        },
-        {
-          "id": "3f0c679ced8d8862",
-          "day": "2026-09-16",
-          "title": "Your AI agents can now control your Google Home devices",
-          "url": "https://techcrunch.com/2026/09/16/your-ai-agents-can-now-control-your-google-home-devices/"
-        },
-        {
-          "id": "c416a28c64df65d0",
-          "day": "2026-09-16",
-          "title": "Enhancing Accessibility of Medical Texts through Large Language Model-Driven Plain Language Adaptation",
-          "url": "https://arxiv.org/abs/2609.17398v1"
-        },
-        {
-          "id": "a74830ad44a2f00b",
-          "day": "2026-09-16",
-          "title": "Right Tool, Right Job: Native-Language Evaluation, Tokenizer Sensitivity, and Methodological Findings from a French-Only BabyLM",
-          "url": "https://arxiv.org/abs/2609.17435v1"
-        },
-        {
-          "id": "d381822039a30d5f",
-          "day": "2026-09-15",
-          "title": "K-Bench: a clinically calibrated benchmark for evaluating large language models in high-risk mental health conversations",
-          "url": "https://arxiv.org/abs/2609.15855v1"
-        },
-        {
-          "id": "b8a75fb67d817922",
-          "day": "2026-09-10",
-          "title": "Build more natural voice experiences with GPT‑Live‑1 in the API",
-          "url": "https://openai.com/index/introducing-gpt-live-1-in-the-api"
-        },
-        {
-          "id": "81994ec20768f9d9",
-          "day": "2026-09-10",
-          "title": "Six Chinese AI firms accused of aggressively copying US frontier models",
-          "url": "https://arstechnica.com/tech-policy/2026/09/six-chinese-ai-firms-accused-of-aggressively-copying-us-frontier-models/"
-        },
-        {
-          "id": "bd75399b0ae8cae7",
-          "day": "2026-09-10",
-          "title": "Emergency Department Revisit Quality Review Screening: Exploring Human Decision-Making and Artificial Intelligence Support",
-          "url": "https://arxiv.org/abs/2609.10421v1"
-        },
-        {
-          "id": "abeda7a8c1e1307f",
-          "day": "2026-09-04",
-          "title": "Who Cares if AI Is Conscious—It’s Basically Alive",
-          "url": "https://www.wired.com/story/who-cares-if-ai-is-conscious-its-basically-alive/"
-        },
-        {
-          "id": "b9059bbeee027ae8",
-          "day": "2026-09-04",
-          "title": "Four major AI models suffer rare overlapping downtime",
-          "url": "https://arstechnica.com/ai/2026/09/four-major-ai-models-suffer-rare-overlapping-downtime/"
-        },
-        {
-          "id": "eb1104274464bbfa",
-          "day": "2026-09-03",
-          "title": "ChatGPT, Grok, and Claude all went down at the same time",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/989503/chatgpt-grok-claude-outage-down"
-        },
-        {
-          "id": "7ad6c276e7f3c62e",
-          "day": "2026-09-02",
-          "title": "How AI plotted an interstellar journey to Alpha Centauri",
-          "url": "https://www.technologyreview.com/2026/09/01/1143247/ai-interstellar-journey-alpha-centauri/"
-        },
-        {
-          "id": "77e651c0246f9df1",
-          "day": "2026-09-01",
-          "title": "The Pentagon now has its own version of ChatGPT and Grok",
-          "url": "https://techcrunch.com/2026/08/31/the-pentagon-now-has-its-own-version-of-chatgpt-and-grok/"
-        },
-        {
-          "id": "801fb592409ecd67",
-          "day": "2026-09-01",
-          "title": "When Does Bigger Help? A Controlled Study of LLM Scale for Ontology Learning",
-          "url": "https://arxiv.org/abs/2608.31118v1"
-        },
-        {
-          "id": "0b5a688ac44522d6",
-          "day": "2026-09-01",
-          "title": "Polimill builds Japan's next-generation public AI infrastructure",
-          "url": "https://openai.com/index/polimill"
-        },
-        {
-          "id": "0d6db5e26a89fbbd",
-          "day": "2026-08-27",
-          "title": "Google’s Gemini has a branding problem, and so does the rest of AI",
-          "url": "https://techcrunch.com/2026/08/26/googles-gemini-has-a-branding-problem-and-so-does-the-rest-of-ai/"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "진단 쌍 추적 검토 판정률",
-          "score": "94%",
-          "article_id": "bd75399b0ae8cae7"
-        },
-        {
-          "name": "임상의 대비 판정률 배수",
-          "score": "4.4~13.3배",
-          "article_id": "bd75399b0ae8cae7"
-        },
-        {
-          "name": "K-Bench 임상의 합의 정확도",
-          "score": "94.2%",
-          "article_id": "d381822039a30d5f"
-        }
-      ],
-      "pricing": [],
-      "strengths_ko": [
-        "효율성",
-        "속도",
-        "과학 문제 해결"
-      ],
-      "weaknesses_ko": [
-        "chat/work 모드 분화로 인한 사용자 혼동",
-        "연구 판단력 부족",
-        "임상의와 낮은 상관성"
-      ],
-      "article_count": 33
-    },
-    {
-      "model": "DeepSeek",
-      "latest_version": "DeepSeek V4 Flash",
-      "latest_seen": "2026-10-20",
-      "articles": [
-        {
-          "id": "9124fc501335a8a3",
-          "day": "2026-10-20",
-          "title": "US orders federal agencies to remove China’s DeepSeek AI from their systems",
-          "url": "https://techcrunch.com/2026/10/20/us-orders-federal-agencies-to-remove-chinas-deepseek-ai-from-their-systems/"
-        },
-        {
-          "id": "94f7add19cb43287",
-          "day": "2026-10-03",
-          "title": "From the creator of Redis; run LLM locally with ds4",
-          "url": "https://dwarfstar.sh/"
-        },
-        {
-          "id": "b9e2e533a8b5d35e",
-          "day": "2026-10-03",
-          "title": "The AI Race Just Got Awkward",
-          "url": "https://insufferable.dev/posts/the-ai-race-just-got-awkward/"
-        },
-        {
-          "id": "fb20557990e90126",
-          "day": "2026-09-22",
-          "title": "Frontier AI on Your Own Hardware",
-          "url": "https://timdettmers.com/2026/09/21/dlab-open-source-week/"
-        },
-        {
-          "id": "75f64499b4f1d5de",
-          "day": "2026-09-15",
-          "title": "Before You Poll with LLMs: A Deliberative Diagnostic Framework",
-          "url": "https://arxiv.org/abs/2609.15849v1"
-        },
-        {
-          "id": "81994ec20768f9d9",
-          "day": "2026-09-10",
-          "title": "Six Chinese AI firms accused of aggressively copying US frontier models",
-          "url": "https://arstechnica.com/tech-policy/2026/09/six-chinese-ai-firms-accused-of-aggressively-copying-us-frontier-models/"
-        },
-        {
-          "id": "626a5e4fcb233d8d",
-          "day": "2026-09-08",
-          "title": "Multi-Agents LLM Financial Trading Framework",
-          "url": "https://github.com/TauricResearch/TradingAgents"
-        },
-        {
-          "id": "bb1d67900413c165",
-          "day": "2026-09-07",
-          "title": "How Does mHC Use Its Residual Streams? Selective Routing and Near-Identity Mixing",
-          "url": "https://arxiv.org/abs/2609.05309v1"
-        },
-        {
-          "id": "a7a3a65935fc9627",
-          "day": "2026-09-04",
-          "title": "Corporate America is getting hooked on open-source AI",
-          "url": "https://www.nytimes.com/2026/09/04/technology/open-source-ai-anthropic-openai.html"
-        },
-        {
-          "id": "318a31e3b0c43b8b",
-          "day": "2026-09-03",
-          "title": "A dark horse enters China's AI race: StartLux",
-          "url": "https://chinaonchina.com/article/chen-dawei-returns-enters-the-large-model-sector"
-        },
-        {
-          "id": "e03b96427dea185b",
-          "day": "2026-09-01",
-          "title": "A Model with No Head and Many Thoughts",
-          "url": "https://arxiv.org/abs/2608.31069v1"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "pass@k",
-          "score": "모든 k값에서 성능 개선",
-          "article_id": "e03b96427dea185b"
-        },
-        {
-          "name": "CAICT MCP",
-          "score": "1.3% 높음",
-          "article_id": "318a31e3b0c43b8b"
-        },
-        {
-          "name": "생성 속도 (M5 Max 128GB)",
-          "score": "34.4 T/s",
-          "article_id": "94f7add19cb43287"
-        }
-      ],
-      "pricing": [],
-      "strengths_ko": [
-        "연속 임베딩 공간 추론",
-        "추론 효율성 향상",
-        "오픈소스 생태계 경쟁력"
-      ],
-      "weaknesses_ko": [
-        "정보 개입에 따른 신념 변화 경직성"
-      ],
-      "article_count": 11
     },
     {
       "model": "Stable Diffusion",
