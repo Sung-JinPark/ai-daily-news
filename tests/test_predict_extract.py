@@ -6,6 +6,7 @@
 from datetime import date
 
 from pipeline.predict_extract import (
+    EXPIRE_AFTER_HORIZON_DAYS,
     EXPIRE_DAYS,
     RESOLVE_MAX_PREDS_PER_RUN,
     RESOLVE_REVIEW_COOLDOWN_DAYS,
@@ -70,6 +71,23 @@ def test_expire_threshold_matches_constant():
     boundary = date.fromordinal(TODAY.toordinal() - EXPIRE_DAYS).isoformat()
     preds = [_pred(day_made=boundary)]
     assert _expire_old(preds, TODAY) == 1
+
+
+def test_future_horizon_prediction_never_expires():
+    ancient_but_dated = _pred(day_made="2026-01-01", horizon="2027-06")
+    assert _expire_old([ancient_but_dated], TODAY) == 0
+    assert ancient_but_dated["status"] == "pending"
+
+
+def test_passed_horizon_expires_only_after_grace_period():
+    # horizon 2026-07 → 유예 기산일 2026-08-01, TODAY(10-28)까지 88일 < 90일 유예.
+    within_grace = _pred(day_made="2026-01-01", horizon="2026-07")
+    assert _expire_old([within_grace], TODAY) == 0
+    # horizon 2026-06 → 기산일 2026-07-01, 119일 경과 ≥ 90일 유예 → 만료.
+    past_grace = _pred(day_made="2026-01-01", horizon="2026-06")
+    assert EXPIRE_AFTER_HORIZON_DAYS == 90
+    assert _expire_old([past_grace], TODAY) == 1
+    assert past_grace["status"] == "expired"
 
 
 def test_select_for_review_caps_batch_size_per_run():

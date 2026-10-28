@@ -61,7 +61,8 @@ RESOLVE_LOOKBACK_DAYS = 30
 # 전부(관측: 1,408건=94청크)가 런마다 다시 나가 월 ~$45를 과금했다.
 RESOLVE_REVIEW_COOLDOWN_DAYS = 14   # still_pending 후 재검토 최소 간격
 RESOLVE_MAX_PREDS_PER_RUN = 150     # 런당 LLM 비용 하드 캡 (150건 = 10청크)
-EXPIRE_DAYS = 180                   # 이 나이의 pending은 LLM 없이 expired 전환
+EXPIRE_DAYS = 180                   # horizon 미지정 pending의 만료 나이
+EXPIRE_AFTER_HORIZON_DAYS = 90      # horizon 지정 pending은 horizon 경과 후 이 유예가 지나야 만료
 REGISTRY_FILE = DATA_DIR / "predictions" / "registry.json"
 
 VALID_CONFIDENCE = {"low", "medium", "high"}
@@ -263,19 +264,34 @@ def _pending_needs_resolution(pred: dict, today: date) -> bool:
 
 
 def _expire_old(predictions: list[dict], today: date) -> int:
-    """COST-1: EXPIRE_DAYS 지난 pending을 LLM 호출 없이 expired로 전환.
+    """COST-1: 판정 가망이 사라진 pending을 LLM 호출 없이 expired로 전환.
 
-    이 나이까지 증거 기사가 안 나온 예측은 판정될 가망이 낮고, 레지스트리에
-    남겨두면 재검토 풀이 무한히 자라 비용만 쌓인다. 전환 수를 반환한다."""
+    본질 보존 규칙 — 예측 추적·판정 자체는 건드리지 않는다:
+      - horizon 미지정: day_made + EXPIRE_DAYS 지나야 만료 (그때까지 계속 추적).
+      - horizon 지정: horizon 월이 지나고 EXPIRE_AFTER_HORIZON_DAYS 유예가
+        더 지나야 만료. **미래 horizon 예측은 절대 만료하지 않는다.**
+    레지스트리에 무한히 남으면 재검토 풀이 계속 자라 비용만 쌓인다. 전환 수 반환."""
     n = 0
     for p in predictions:
         if p.get("status") != "pending":
             continue
-        try:
-            made = date.fromisoformat(p.get("day_made", ""))
-        except ValueError:
-            continue
-        if (today - made).days >= EXPIRE_DAYS:
+        horizon = p.get("horizon") or "unspecified"
+        expired = False
+        if horizon == "unspecified":
+            try:
+                made = date.fromisoformat(p.get("day_made") or "")
+            except (TypeError, ValueError):
+                continue
+            expired = (today - made).days >= EXPIRE_DAYS
+        else:
+            try:
+                h_year, h_month = int(horizon[:4]), int(horizon[5:7])
+            except (TypeError, ValueError, IndexError):
+                continue
+            # horizon 월의 말일 다음 날부터 유예를 센다 (단순화: 다음 달 1일 기준).
+            h_end = date(h_year + (h_month // 12), h_month % 12 + 1, 1)
+            expired = h_end <= today and (today - h_end).days >= EXPIRE_AFTER_HORIZON_DAYS
+        if expired:
             p["status"] = "expired"
             p["resolution_day"] = today.isoformat()
             n += 1
