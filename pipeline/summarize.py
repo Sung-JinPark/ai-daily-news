@@ -1,4 +1,4 @@
-"""Run Claude Haiku 4.5 (Batch API) on each new cluster representative.
+"""Run Claude Haiku 5.5 (Batch API) on each new cluster representative.
 
 Reads raw/<day>/clusters.json, skips URLs already in .cache/seen.json,
 extracts the article body in-memory, sends all new clusters as a single
@@ -36,7 +36,10 @@ from pipeline import corpus_writer
 log = logging.getLogger(__name__)
 
 DATA_DIR = Path("data")
-MODEL = "claude-haiku-4-5-20251001"
+# COST-1 (2026-10-28): Haiku 4.5($1/$5) → 5.5($0.10/$0.50, 10배 저렴). 실프롬프트
+# 스모크 테스트로 JSON 스키마·한국어 품질·캐시 동작 확인 후 교체. 모든 LLM 모듈이
+# 이 상수를 import하므로 여기 한 곳만 바꾼다 (.claude/rules/api-conventions.md).
+MODEL = "claude-haiku-5-5"
 ALLOWED_CATEGORIES = {"model_research", "business", "policy", "product", "hardware", "community"}
 MAX_OUTPUT_TOKENS = 1200
 MIN_BODY_CHARS = 300

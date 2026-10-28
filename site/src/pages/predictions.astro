@@ -11,12 +11,14 @@ const STATUS_LABEL: Record<string, string> = {
   still_pending: "대기",
   confirmed: "확인됨",
   contradicted: "반박됨",
+  expired: "만료",
 };
 const STATUS_COLOR: Record<string, string> = {
   pending: "text-ink/50",
   still_pending: "text-ink/50",
   confirmed: "text-emerald-700",
   contradicted: "text-accent",
+  expired: "text-ink/35",
 };
 
 // Sort: confirmed & contradicted (resolved) most-recent first, then pending most-recent first.
@@ -53,6 +55,7 @@ const sources = Array.from(sourceSet).sort();
             <option value="pending">대기</option>
             <option value="confirmed">확인됨</option>
             <option value="contradicted">반박됨</option>
+            <option value="expired">만료</option>
           </select>
         </label>
         <label for="filter-source" class="flex items-center gap-2">

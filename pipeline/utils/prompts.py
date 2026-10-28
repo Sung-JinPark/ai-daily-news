@@ -1,4 +1,4 @@
-"""System prompt for Haiku 4.5 summarization.
+"""System prompt for Haiku summarization (model: pipeline.summarize.MODEL).
 
 Marked with cache_control: ephemeral. Empirically Haiku's prompt-cache
 threshold sits above 2300 tokens, so this prompt is padded with rich

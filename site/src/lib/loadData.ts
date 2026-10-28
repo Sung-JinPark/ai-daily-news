@@ -323,7 +323,7 @@ export type Prediction = {
   who: string;
   horizon: string;
   confidence: "low" | "medium" | "high";
-  status: "pending" | "confirmed" | "contradicted" | "still_pending";
+  status: "pending" | "confirmed" | "contradicted" | "still_pending" | "expired";
   resolution_article_id: string | null;
   resolution_day: string | null;
   resolution_note_ko: string | null;

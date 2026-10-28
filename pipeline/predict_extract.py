@@ -10,6 +10,13 @@ Runs after `summarize` on each day. Two passes:
     past OR that have been pending >60 days, batch-check against
     recent article summaries and mark confirmed/contradicted/
     still_pending. Contradicted predictions are retained (memory).
+
+    COST-1 (2026-10-28): Pass B is gated — a still_pending prediction is
+    not re-reviewed for RESOLVE_REVIEW_COOLDOWN_DAYS, at most
+    RESOLVE_MAX_PREDS_PER_RUN go out per run (oldest-reviewed first),
+    and pending predictions older than EXPIRE_DAYS are expired locally
+    without an LLM call. Without these gates every stale prediction was
+    re-sent on every run (~$45/month at 1.4k pending).
 """
 from __future__ import annotations
 
@@ -28,6 +35,7 @@ load_dotenv()
 
 from pipeline.collect import today as today_str
 from pipeline.state import url_hash
+from pipeline.utils.atomic import write_text_atomic
 from pipeline.summarize import (
     DATA_DIR,
     MODEL,
@@ -48,6 +56,12 @@ MAX_OUTPUT_TOKENS = 800
 IMPORTANCE_MIN = 3
 RESOLVE_STALE_DAYS = 60
 RESOLVE_LOOKBACK_DAYS = 30
+# COST-1 (2026-10-28): still_pending 판정을 받은 예측이 status=pending으로 남아
+# 매 런 재전송되던 구조를 차단하는 3중 가드. 쿨다운 없이는 60일 지난 pending
+# 전부(관측: 1,408건=94청크)가 런마다 다시 나가 월 ~$45를 과금했다.
+RESOLVE_REVIEW_COOLDOWN_DAYS = 14   # still_pending 후 재검토 최소 간격
+RESOLVE_MAX_PREDS_PER_RUN = 150     # 런당 LLM 비용 하드 캡 (150건 = 10청크)
+EXPIRE_DAYS = 180                   # 이 나이의 pending은 LLM 없이 expired 전환
 REGISTRY_FILE = DATA_DIR / "predictions" / "registry.json"
 
 VALID_CONFIDENCE = {"low", "medium", "high"}
@@ -64,10 +78,8 @@ def _load_registry() -> dict:
 
 
 def _save_registry(reg: dict) -> None:
-    REGISTRY_FILE.parent.mkdir(parents=True, exist_ok=True)
-    REGISTRY_FILE.write_text(
-        json.dumps(reg, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    # AUD-006: 레지스트리는 read-modify-rewrite 누적 파일 — 원자적 쓰기 필수.
+    write_text_atomic(REGISTRY_FILE, json.dumps(reg, ensure_ascii=False, indent=2))
 
 
 def _pred_id(article_id: str, claim: str) -> str:
@@ -223,6 +235,14 @@ def extract_predictions(client: anthropic.Anthropic, day: str, dry_run: bool = F
 def _pending_needs_resolution(pred: dict, today: date) -> bool:
     if pred["status"] != "pending":
         return False
+    # COST-1: 최근에 이미 still_pending 판정을 받았으면 쿨다운 동안 건너뛴다.
+    last = pred.get("last_reviewed", "")
+    if last:
+        try:
+            if (today - date.fromisoformat(last)).days < RESOLVE_REVIEW_COOLDOWN_DAYS:
+                return False
+        except ValueError:
+            pass
     day_made = pred.get("day_made", "")
     if day_made:
         try:
@@ -240,6 +260,35 @@ def _pending_needs_resolution(pred: dict, today: date) -> bool:
         except (ValueError, IndexError):
             pass
     return False
+
+
+def _expire_old(predictions: list[dict], today: date) -> int:
+    """COST-1: EXPIRE_DAYS 지난 pending을 LLM 호출 없이 expired로 전환.
+
+    이 나이까지 증거 기사가 안 나온 예측은 판정될 가망이 낮고, 레지스트리에
+    남겨두면 재검토 풀이 무한히 자라 비용만 쌓인다. 전환 수를 반환한다."""
+    n = 0
+    for p in predictions:
+        if p.get("status") != "pending":
+            continue
+        try:
+            made = date.fromisoformat(p.get("day_made", ""))
+        except ValueError:
+            continue
+        if (today - made).days >= EXPIRE_DAYS:
+            p["status"] = "expired"
+            p["resolution_day"] = today.isoformat()
+            n += 1
+    return n
+
+
+def _select_for_review(predictions: list[dict], today: date) -> list[dict]:
+    """재검토 대상 선정: stale 필터 → 가장 오래 전에 검토된 것부터 →
+    RESOLVE_MAX_PREDS_PER_RUN 상한(런당 LLM 비용 하드 캡). 상한에 걸려
+    밀린 건은 쿨다운이 풀린 다음 런들에서 라운드로빈으로 소화된다."""
+    stale = [p for p in predictions if _pending_needs_resolution(p, today)]
+    stale.sort(key=lambda p: (p.get("last_reviewed") or "", p.get("day_made") or ""))
+    return stale[:RESOLVE_MAX_PREDS_PER_RUN]
 
 
 @retry(
@@ -344,8 +393,17 @@ def resolve_predictions(
 ) -> int:
     registry = _load_registry()
     today = datetime.now(timezone.utc).date()
-    stale = [p for p in registry["predictions"] if _pending_needs_resolution(p, today)]
-    log.info("resolve: %d predictions need review", len(stale))
+    expired = _expire_old(registry["predictions"], today)
+    if expired:
+        log.info("resolve: expired %d predictions older than %d days", expired, EXPIRE_DAYS)
+        if not dry_run:
+            # 청크 호출이 중간에 실패해도 만료 처리는 보존되도록 먼저 저장.
+            _save_registry(registry)
+    stale = _select_for_review(registry["predictions"], today)
+    log.info(
+        "resolve: %d predictions selected for review (cooldown=%dd, cap=%d/run)",
+        len(stale), RESOLVE_REVIEW_COOLDOWN_DAYS, RESOLVE_MAX_PREDS_PER_RUN,
+    )
     if not stale:
         return 0
 

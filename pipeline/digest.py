@@ -1,7 +1,7 @@
 """Generate daily TL;DR digest from the day's highlights.
 
 Runs once per day after rank.py. Sends the top 5 highlighted articles'
-metadata + summary_ko to Claude Haiku 4.5, writes data/<day>/digest.json
+metadata + summary_ko to Claude Haiku (pipeline.summarize.MODEL), writes data/<day>/digest.json
 with {tldr_ko, bullets_ko, theme_of_day}.
 """
 from __future__ import annotations
