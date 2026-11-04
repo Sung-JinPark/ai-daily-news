@@ -18,6 +18,8 @@ permissions:
   # failing. issues: write was already present (N5/X4 issues worked).
   contents: write
   issues: write
+  # audit_ci_health reads Daily run/step conclusions via the Actions API.
+  actions: read
 
 jobs:
   audit:
@@ -53,6 +55,7 @@ jobs:
 
       - name: Run source-health audit (X4)
         id: sources
+        if: ${{ !cancelled() }}
         run: |
           mkdir -p .audit
           python -m pipeline.audit_sources \
@@ -62,8 +65,20 @@ jobs:
           echo "n_dead=$N" >> "$GITHUB_OUTPUT"
           echo "detected $N dead source(s)"
 
+      - name: Ensure issue labels exist
+        # `gh issue create --label X` fails when X is missing from the repo. These
+        # labels were never created, so every run with a finding went red from
+        # 09-07 on and the steps after it (including the CI health scan) never ran.
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create audit --color 5319e7 --description "Weekly cluster-merge audit finding" --force
+          gh label create source-health --color d93f0b --description "Source with a zero-article streak" --force
+          gh label create ci-health --color fbca04 --description "Repeated step failures in Daily runs" --force
+
       - name: Create or update cluster-merge anomaly issue
-        if: steps.audit.outputs.n_anomalies != '0' || github.event.inputs.simulate_anomaly == 'true'
+        if: ${{ !cancelled() && (steps.audit.outputs.n_anomalies != '0' || github.event.inputs.simulate_anomaly == 'true') }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -73,7 +88,9 @@ jobs:
           fi
           TITLE=$(head -n 1 .audit/issue.md)
           BODY=$(tail -n +3 .audit/issue.md)
-          EXISTING=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number' || echo "")
+          # Match on the label: the title embeds the finding count, so a title
+          # search opens a duplicate whenever that count changes.
+          EXISTING=$(gh issue list --state open --label "audit" --json number --jq '.[0].number' || echo "")
           if [ -n "$EXISTING" ]; then
             echo "commenting on existing issue #$EXISTING"
             printf '%s\n\n---\n\n### Weekly re-run: %s\n\n%s\n' \
@@ -85,7 +102,7 @@ jobs:
           fi
 
       - name: Create or update source-health anomaly issue (X4)
-        if: steps.sources.outputs.n_dead != '0'
+        if: ${{ !cancelled() && steps.sources.outputs.n_dead != '0' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -96,7 +113,7 @@ jobs:
           TITLE=$(head -n 1 .audit/sources-issue.md)
           BODY=$(tail -n +3 .audit/sources-issue.md)
           # Same de-dupe pattern as the cluster-merge branch above.
-          EXISTING=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number' || echo "")
+          EXISTING=$(gh issue list --state open --label "source-health" --json number --jq '.[0].number' || echo "")
           if [ -n "$EXISTING" ]; then
             echo "commenting on existing source-health issue #$EXISTING"
             printf '%s\n\n---\n\n### Weekly re-run: %s\n\n%s\n' \
@@ -109,6 +126,7 @@ jobs:
 
       - name: CI health scan (repeated step-reds, E2)
         id: cihealth
+        if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -120,7 +138,7 @@ jobs:
           echo "flagged $N step(s)"
 
       - name: Create or update ci-health issue (E2)
-        if: steps.cihealth.outputs.n_flagged != '0' || github.event.inputs.simulate_anomaly == 'true'
+        if: ${{ !cancelled() && (steps.cihealth.outputs.n_flagged != '0' || github.event.inputs.simulate_anomaly == 'true') }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
