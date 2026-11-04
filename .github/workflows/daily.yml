@@ -7,12 +7,18 @@ on:
     # "today, early morning" stamp instead of "yesterday evening".
     # The second run starts at KST 18:00 for an afternoon refresh.
     # KST 00:00 / 18:00  ==  UTC 15:00 / 09:00
-    - cron: "0 15,9 * * *"
+    # Minute 17, not :00 — top-of-hour schedules are GitHub's most congested
+    # slot: runs arrived 3-5h late and the 09:00 run vanished from 10-26 on.
+    - cron: "17 15,9 * * *"
   workflow_dispatch:
     inputs:
       cap:
         description: "Daily article cap (LLM safety)"
         default: "120"
+        required: false
+      force_weekly:
+        description: "Generate this ISO week's digest now (a mid-week partial blocks Sunday's full one)"
+        default: "false"
         required: false
       verify_issue_perm:
         description: "Create+close a perm-check issue to verify issues:write (AUD-025)"
@@ -92,6 +98,10 @@ jobs:
         run: python -m pipeline.rank
 
       - name: Digest (daily TL;DR)
+        # AUD-008: enhancement layer - non-fatal (see Weekly digest note).
+        # The site renders fine without digest.json; when this step was fatal,
+        # a digest-only failure froze the whole site for 7 days (10-28~11-03).
+        continue-on-error: true
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python -m pipeline.digest
@@ -110,7 +120,7 @@ jobs:
           DOW=$(date -u +%u)
           WEEK=$(date -u +%G-W%V)
           WEEK_FILE="data/weekly/${WEEK}.json"
-          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ ! -f "$WEEK_FILE" ]; }; then
+          if [ "${{ github.event.inputs.force_weekly }}" = "true" ] || { [ "$DOW" = "7" ] && [ ! -f "$WEEK_FILE" ]; }; then
             python -m pipeline.weekly
           else
             echo "skipping weekly (DOW=$DOW exists=$([ -f "$WEEK_FILE" ] && echo yes || echo no))"
@@ -123,14 +133,15 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           DOW=$(date -u +%u)
-          HOUR=$(date -u +%H)
-          # First Sunday UTC run only (HOUR=09 = KST 18:00). Skip 15:00 to
-          # avoid redundant LLM cost; glossary doesn't need self-healing
-          # since terms accumulate.
-          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$HOUR" = "09" ]; }; then
+          TODAY=$(date -u +%F)
+          # Once per Sunday, keyed on the file's updated_at rather than the
+          # clock hour: delayed schedules never started at HOUR=09, so the old
+          # gate silently skipped every scheduled update.
+          LAST=$(python -c "import json; print(json.load(open('data/glossary.json', encoding='utf-8')).get('updated_at', ''))" 2>/dev/null || true)
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || { [ "$DOW" = "7" ] && [ "$LAST" != "$TODAY" ]; }; then
             python -m pipeline.glossary
           else
-            echo "skipping glossary (DOW=$DOW HOUR=$HOUR)"
+            echo "skipping glossary (DOW=$DOW last=$LAST)"
           fi
 
       - name: Trending

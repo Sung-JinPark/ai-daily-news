@@ -39,6 +39,7 @@ from pipeline.utils.atomic import write_text_atomic
 from pipeline.summarize import (
     DATA_DIR,
     MODEL,
+    THINKING,
     RETRYABLE,
     parse_result,
     submit_batch,
@@ -52,7 +53,7 @@ from pipeline.utils.prompts import (
 )
 
 log = logging.getLogger(__name__)
-MAX_OUTPUT_TOKENS = 800
+MAX_OUTPUT_TOKENS = 1100
 IMPORTANCE_MIN = 3
 RESOLVE_STALE_DAYS = 60
 RESOLVE_LOOKBACK_DAYS = 30
@@ -131,6 +132,7 @@ def _build_extract_request(custom_id: str, article: dict) -> dict:
         "custom_id": custom_id,
         "params": {
             "model": MODEL,
+            "thinking": THINKING,
             "max_tokens": MAX_OUTPUT_TOKENS,
             "system": [
                 {
@@ -320,7 +322,8 @@ def _call_resolve(client: anthropic.Anthropic, predictions_block: str, articles_
     )
     msg = client.messages.create(
         model=MODEL,
-        max_tokens=2000,
+        thinking=THINKING,
+        max_tokens=2700,
         system=PREDICTION_RESOLVE_SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user}],
     )

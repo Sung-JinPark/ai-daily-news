@@ -85,6 +85,44 @@ def test_parse_result_returns_none_on_non_succeeded():
     assert usage["input_tokens"] == 0
 
 
+def test_parse_result_counts_usage_when_json_truncated():
+    """Haiku 5.5: thinking이 max_tokens를 소진해 JSON이 잘린 응답도 과금되므로 usage는 집계."""
+    result = _fake_batch_result({"x": 1})
+    result.result.message.content = [
+        types.SimpleNamespace(type="thinking", thinking=""),
+        types.SimpleNamespace(type="text", text='{"summary_ko": "잘린'),
+    ]
+    result.result.message.stop_reason = "max_tokens"
+    parsed, usage = parse_result(result)
+    assert parsed is None
+    assert usage["output_tokens"] == 50
+
+
+def test_every_llm_call_site_passes_thinking_config():
+    """호출부가 THINKING을 빠뜨리면 기본 ON thinking이 max_tokens를 소진해 빈 응답이 된다."""
+    import ast
+    from pathlib import Path
+
+    from pipeline.summarize import THINKING, build_request
+
+    assert THINKING == {"type": "disabled"}
+    assert build_request("id", "t", "s", "b")["params"]["thinking"] == THINKING
+
+    for path in Path("pipeline").rglob("*.py"):
+        for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
+            if (
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and node.func.attr == "create"
+                and any(k.arg == "max_tokens" for k in node.keywords)
+            ):
+                assert any(k.arg == "thinking" for k in node.keywords), f"{path}:{node.lineno}"
+            if isinstance(node, ast.Dict):
+                keys = {k.value for k in node.keys if isinstance(k, ast.Constant)}
+                if {"model", "max_tokens", "messages"} <= keys:
+                    assert "thinking" in keys, f"{path}:{node.lineno}"
+
+
 def test_extract_bodies_builds_one_request_per_cluster(monkeypatch):
     # extract_article is the only network touchpoint; stub it. day=None so
     # nothing is persisted to data/corpus/.

@@ -20,7 +20,7 @@ from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_ex
 
 load_dotenv()
 
-from pipeline.summarize import DATA_DIR, MODEL, RETRYABLE
+from pipeline.summarize import DATA_DIR, MODEL, RETRYABLE, THINKING
 from pipeline.utils.prompts import GLOSSARY_SYSTEM_PROMPT, GLOSSARY_USER_TEMPLATE
 from pipeline.weekly import collect_week_articles, iso_week_for
 
@@ -28,7 +28,7 @@ log = logging.getLogger(__name__)
 
 GLOSSARY_FILE = DATA_DIR / "glossary.json"
 MAX_TERMS = 50
-MAX_OUTPUT_TOKENS = 1800
+MAX_OUTPUT_TOKENS = 2400
 MAX_DESC_CHARS = 400
 
 
@@ -61,6 +61,7 @@ def call_haiku_glossary(client: anthropic.Anthropic, existing: str, stories: str
     user = GLOSSARY_USER_TEMPLATE.format(existing_terms=existing, stories=stories)
     msg = client.messages.create(
         model=MODEL,
+        thinking=THINKING,
         max_tokens=MAX_OUTPUT_TOKENS,
         system=GLOSSARY_SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user}],

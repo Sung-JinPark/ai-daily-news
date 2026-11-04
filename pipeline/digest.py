@@ -19,11 +19,11 @@ from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_ex
 load_dotenv()
 
 from pipeline.collect import today
-from pipeline.summarize import DATA_DIR, MODEL, RETRYABLE
+from pipeline.summarize import DATA_DIR, MODEL, RETRYABLE, THINKING
 from pipeline.utils.prompts import DIGEST_SYSTEM_PROMPT, DIGEST_USER_TEMPLATE
 
 log = logging.getLogger(__name__)
-MAX_OUTPUT_TOKENS = 700
+MAX_OUTPUT_TOKENS = 1000
 
 CATEGORY_KO = {
     "model_research": "모델/연구",
@@ -54,6 +54,7 @@ def call_haiku_digest(client: anthropic.Anthropic, stories: str, n: int) -> dict
     user = DIGEST_USER_TEMPLATE.format(n=n, stories=stories)
     msg = client.messages.create(
         model=MODEL,
+        thinking=THINKING,
         max_tokens=MAX_OUTPUT_TOKENS,
         system=DIGEST_SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user}],

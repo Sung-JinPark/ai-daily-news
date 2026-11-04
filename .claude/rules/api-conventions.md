@@ -12,6 +12,9 @@ paths:
 - 요약은 **Anthropic Batch API** (`client.messages.batches.create/retrieve/results`)로만 보낸다.
   50% 할인 목적이며, 동기 `messages.create`로 바꾸면 비용이 2배가 된다.
 - 모델 ID는 모듈 상수 한 곳에만 둔다 (`pipeline/summarize.py`의 `MODEL`). 호출부에 흩뿌리지 않는다.
+- **모든 LLM 호출(동기·배치)은 `pipeline.summarize.THINKING`을 함께 넘긴다.** Haiku 5.5+는 thinking이
+  기본 ON이고 그 토큰이 `max_tokens`에 포함돼, 안 끄면 JSON이 잘리거나 빈 응답이 된다(2026-10-28~11-03
+  전 런 실패). **모델 교체 시엔 스모크 1건으로 끝내지 말고 실제 호출을 반복해 `stop_reason`을 확인한다.**
 - 배치는 제출 후 폴링(런당 최대 50분). 부분 실패(스키마 불합격 등)는 건너뛰되 로그를 남기고,
   전체를 실패시키지 않는다.
 - **배치 타임아웃은 실패가 아니라 "다음 런으로 이어받기"다 (AUD-030)** — Batch API SLA는

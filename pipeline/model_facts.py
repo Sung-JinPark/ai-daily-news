@@ -32,6 +32,7 @@ from pipeline.state import url_hash
 from pipeline.summarize import (
     DATA_DIR,
     MODEL,
+    THINKING,
     parse_result,
     submit_batch,
     wait_for_batch,
@@ -39,7 +40,7 @@ from pipeline.summarize import (
 from pipeline.utils.prompts import MODEL_FACTS_SYSTEM_PROMPT, MODEL_FACTS_USER_TEMPLATE
 
 log = logging.getLogger(__name__)
-MAX_OUTPUT_TOKENS = 800
+MAX_OUTPUT_TOKENS = 1100
 LOOKBACK_DAYS = 60
 
 # Must match the "모델 어휘" section in MODEL_FACTS_SYSTEM_PROMPT.
@@ -149,6 +150,7 @@ def _build_request(custom_id: str, article: dict) -> dict:
         "custom_id": custom_id,
         "params": {
             "model": MODEL,
+            "thinking": THINKING,
             "max_tokens": MAX_OUTPUT_TOKENS,
             "system": [
                 {

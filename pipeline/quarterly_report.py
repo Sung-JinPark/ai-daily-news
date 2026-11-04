@@ -30,14 +30,14 @@ from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_ex
 
 load_dotenv()
 
-from pipeline.summarize import DATA_DIR, MODEL, RETRYABLE
+from pipeline.summarize import DATA_DIR, MODEL, RETRYABLE, THINKING
 from pipeline.utils.prompts import (
     QUARTERLY_REPORT_SYSTEM_PROMPT,
     QUARTERLY_REPORT_USER_TEMPLATE,
 )
 
 log = logging.getLogger(__name__)
-MAX_OUTPUT_TOKENS = 2200
+MAX_OUTPUT_TOKENS = 3000
 REPORTS_DIR = DATA_DIR / "reports"
 
 CATEGORY_KO = {
@@ -301,6 +301,7 @@ _QR_RETRYABLE = RETRYABLE + (json.JSONDecodeError, ValueError)
 def _call_haiku(client: anthropic.Anthropic, user: str) -> dict[str, Any]:
     msg = client.messages.create(
         model=MODEL,
+        thinking=THINKING,
         max_tokens=MAX_OUTPUT_TOKENS,
         system=QUARTERLY_REPORT_SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user}],

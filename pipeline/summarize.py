@@ -41,7 +41,13 @@ DATA_DIR = Path("data")
 # 이 상수를 import하므로 여기 한 곳만 바꾼다 (.claude/rules/api-conventions.md).
 MODEL = "claude-haiku-5-5"
 ALLOWED_CATEGORIES = {"model_research", "business", "policy", "product", "hardware", "community"}
-MAX_OUTPUT_TOKENS = 1200
+# Haiku 5.5는 thinking이 기본 ON이고 thinking 토큰도 max_tokens에 포함된다. 요약·JSON 추출에
+# 그대로 쓰면 thinking이 상한을 소진해 JSON이 잘리거나 빈 응답이 된다(2026-10-28~11-03 런
+# 전량 실패, 배치 76% 유실). Haiku 4.5와 동일하게 끈다 — effort=low로는 해결되지 않음(실측).
+# 모든 LLM 호출(동기·배치)이 이 상수를 함께 넘긴다.
+THINKING = {"type": "disabled"}
+# 같은 텍스트가 4.5 대비 약 30% 더 많은 토큰으로 계산되므로(새 토크나이저) 상한도 상향.
+MAX_OUTPUT_TOKENS = 1600
 MIN_BODY_CHARS = 300
 BATCH_POLL_SEC = 30
 BATCH_TIMEOUT_MIN = 50
@@ -106,6 +112,7 @@ def build_request(custom_id: str, title: str, source_name: str, body: str) -> di
         "custom_id": custom_id,
         "params": {
             "model": MODEL,
+            "thinking": THINKING,
             "max_tokens": MAX_OUTPUT_TOKENS,
             "system": [
                 {
@@ -372,20 +379,26 @@ def parse_result(result: Any) -> tuple[dict | None, dict]:
     if rtype != "succeeded":
         return None, empty_usage
     message = result.result.message
-    text = "".join(b.text for b in message.content if getattr(b, "type", "") == "text").strip()
-    match = re.search(r"\{.*\}", text, re.S)
-    if not match:
-        return None, empty_usage
-    try:
-        parsed = json.loads(match.group(0))
-    except Exception:  # noqa: BLE001
-        return None, empty_usage
+    # 파싱 실패 건도 과금되므로 usage는 항상 집계한다 (실패분이 비용 통계에서 빠지지 않게).
     usage = {
         "input_tokens": message.usage.input_tokens,
         "output_tokens": message.usage.output_tokens,
         "cache_read_input_tokens": getattr(message.usage, "cache_read_input_tokens", 0),
         "cache_creation_input_tokens": getattr(message.usage, "cache_creation_input_tokens", 0),
     }
+    text = "".join(b.text for b in message.content if getattr(b, "type", "") == "text").strip()
+    match = re.search(r"\{.*\}", text, re.S)
+    parsed = None
+    if match:
+        try:
+            parsed = json.loads(match.group(0))
+        except Exception:  # noqa: BLE001
+            parsed = None
+    if parsed is None:
+        log.warning(
+            "unparseable batch message: stop_reason=%s output_tokens=%s",
+            getattr(message, "stop_reason", None), message.usage.output_tokens,
+        )
     return parsed, usage
 
 
@@ -502,6 +515,11 @@ def main() -> int:
         save_pending(args.day, batch.id, cluster_meta, stats)
         return defer_today(args.day, seen, stats)
     save_seen(seen)
+    # 부분 실패는 런을 멈추지 않지만(api-conventions), 대량 유실은 눈에 띄게 남긴다.
+    lost = stats["errors"] + stats["schema_failed"]
+    if stats["calls"] and lost / stats["calls"] > 0.5:
+        log.error("summarize lost %d/%d articles — check model params/stop_reason", lost, stats["calls"])
+        print(f"::warning::summarize lost {lost}/{stats['calls']} articles")
     return 0
 
 
