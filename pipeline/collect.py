@@ -21,6 +21,7 @@ log = logging.getLogger(__name__)
 SOURCES_FILE = Path("pipeline/sources.yaml")
 RAW_DIR = Path("raw")
 PER_SOURCE_CAP = 50  # keep raw files small + avoid old backlog dominating
+_GENERIC_LINK_TEXT = {"featured", "learn more", "read more"}  # Meta AI blog cards
 
 
 def today() -> str:
@@ -101,6 +102,17 @@ def _slug_to_title(slug: str) -> str:
     return " ".join(p.capitalize() for p in parts if p)
 
 
+def _listing_date(anchor: Any) -> str | None:
+    """Date printed on the anchor's own card: the nearest ancestor holding exactly one <time>."""
+    for parent in anchor.parents:
+        times = parent.find_all("time")
+        if times:
+            if len(times) > 1:
+                return None  # reached a container of several cards
+            return parse_date(times[0].get("datetime") or times[0].get_text(strip=True))
+    return None
+
+
 def from_scrape_links(source: dict) -> list[dict]:
     """Generic listing-page scraper for sites without RSS (Anthropic, Meta AI, etc.).
 
@@ -115,15 +127,14 @@ def from_scrape_links(source: dict) -> list[dict]:
     with get_client() as client:
         resp = fetch(source["url"], client=client)
         resp.raise_for_status()
-        html = resp.text
+        page = resp.text
 
     base = source["base"].rstrip("/")
     href_prefix = source["href_prefix"]
     max_items = source.get("max_items", 20)
 
-    soup = BeautifulSoup(html, "html.parser")
-    items: list[dict] = []
-    seen_paths: set[str] = set()
+    soup = BeautifulSoup(page, "html.parser")
+    by_path: dict[str, dict] = {}
 
     abs_prefix = base + href_prefix
     for anchor in soup.find_all("a", href=True):
@@ -136,25 +147,31 @@ def from_scrape_links(source: dict) -> list[dict]:
             continue
         if path.rstrip("/") == href_prefix.rstrip("/"):
             continue  # the listing root itself
-        if path in seen_paths:
+        published = _listing_date(anchor)
+        if path in by_path:  # the same article can be linked from an undated featured slot
+            by_path[path]["published"] = by_path[path]["published"] or published
             continue
-        seen_paths.add(path)
         title = html.unescape(re.sub(r"\s+", " ", anchor.get_text(strip=True)))
-        if len(title) < 8:
+        if title.lower() == path.rstrip("/").rsplit("/", 1)[-1]:
+            continue  # category link on an article card, e.g. "Product" -> /news/product
+        if len(title) < 8 or title.lower() in _GENERIC_LINK_TEXT:
             title = _slug_to_title(path)
-        items.append(
-            {
-                "source_id": source["id"],
-                "source_name": source["name"],
-                "title": title[:300],
-                "url": base + path,
-                "published": None,
-                "summary": "",
-            }
-        )
-        if len(items) >= max_items:
-            break
-    return items
+        by_path[path] = {
+            "source_id": source["id"],
+            "source_name": source["name"],
+            "title": title[:300],
+            "url": base + path,
+            "published": published,
+            "summary": "",
+        }
+    items = list(by_path.values())
+    dated = [i for i in items if i["published"]]
+    if dated:
+        # On a dated listing, undated links are navigation (e.g. /news/product).
+        # Real dates also let dedupe's freshness filter drop old posts, which would
+        # otherwise be filed as today's news the first time they are seen.
+        items = sorted(dated, key=lambda i: i["published"], reverse=True)
+    return items[:max_items]
 
 
 def fetch_source(source: dict) -> list[dict]:
