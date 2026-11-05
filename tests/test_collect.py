@@ -52,3 +52,8 @@ def test_scrape_keeps_newest_dated_cards_and_drops_undated_navigation(monkeypatc
 def test_scrape_replaces_generic_link_text_with_a_title_from_the_slug(monkeypatch):
     items = _scrape(monkeypatch, '<a href="/news/new-model-launch/">Learn More</a>')
     assert items[0]["title"] == "New Model Launch"
+
+
+def test_scrape_title_excludes_the_teaser_inside_the_card_link(monkeypatch):
+    page = '<a href="/news/filing"><h2>Company files S-1</h2><p>Today the company filed.</p></a>'
+    assert _scrape(monkeypatch, page)[0]["title"] == "Company files S-1"

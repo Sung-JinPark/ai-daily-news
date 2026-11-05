@@ -151,7 +151,9 @@ def from_scrape_links(source: dict) -> list[dict]:
         if path in by_path:  # the same article can be linked from an undated featured slot
             by_path[path]["published"] = by_path[path]["published"] or published
             continue
-        title = html.unescape(re.sub(r"\s+", " ", anchor.get_text(strip=True)))
+        # A card's anchor can wrap the headline and its teaser; get_text would glue them.
+        title_node = anchor.find(re.compile(r"^h[1-6]$")) or anchor
+        title = html.unescape(re.sub(r"\s+", " ", title_node.get_text(strip=True)))
         if title.lower() == path.rstrip("/").rsplit("/", 1)[-1]:
             continue  # category link on an article card, e.g. "Product" -> /news/product
         if len(title) < 8 or title.lower() in _GENERIC_LINK_TEXT:
