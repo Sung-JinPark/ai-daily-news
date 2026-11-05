@@ -1,0 +1,1260 @@
+[
+  {
+    "id": "39800b620d453abb",
+    "cluster_id": "b20260717-39800b62",
+    "title_original": "Capability Emergence Can Be Forecast: Per-Seed, In Advance, With Calibrated Intervals, Certified False Alarms, and a Blind Pre-Registered Gate",
+    "url": "https://arxiv.org/abs/2609.19000v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-07-17T20:54:09+00:00",
+    "fetched_at": "2026-11-05T01:02:23.212423+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "본 논문은 'emergent capabilities(창발적 능력)'가 예측 불가능하다는 통념에 도전하여, 그로킹(grokking) 모델과 소형 언어모델에서 능력의 출현 시점을 실행(run)마다 사전에 예측할 수 있음을 보입니다. 동일 설정의 30개 트랜스포머에서 이전 토큰 헤드(previous-token head)의 형성 시점이 인덕션 헤드 출현을 Spearman ρ=0.977, 중앙값 975스텝(학습의 약 15%) 선행으로 예측했으며, 보정된 구간 예측과 거짓 경보 인증, 블라인드 사전등록 게이트 통과 결과를 함께 제시합니다. 또한 공개 모델 3개 계열(Pythia, OLMo, OLMo-2)에서도 선행 지표가 확인되었습니다.",
+    "insights_ko": [
+      "기존 연구가 조기 경보 지표를 제시하는 데 그쳤던 반면, 본 연구는 선행 시간(lead time), 통제된 거짓 경보율, 보정(calibration), 음성 사례, 블라인드 테스트를 포함한 '예측 성능 평가' 규율을 도입해 능력 출현을 실제 예보 문제로 다룬다는 점이 방법론적으로 새롭습니다. 특히 자기 규칙을 사전 등록된 공격(trap-language 실험)에 노출시켜 실패 모드를 공개한 점은 평가 신뢰도를 높입니다.",
+      "모델 안전성·능력 평가 측면에서 위험 능력이 언제 나타날지 사전에 감지할 수 있다면, 배포 전 레드팀 시점이나 학습 중단 결정 등 거버넌스 실무에 직접 활용될 여지가 큽니다. 다만 결과가 소형 모델과 그로킹 시스템에 집중되어 있어 대규모 프론티어 모델로의 일반화는 후속 검증이 필요하며, 이는 향후 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Capability emergence can be forecast per run with calibrated intervals",
+    "tags": [
+      "추론",
+      "해석성",
+      "벤치마크",
+      "파인튜닝",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "d01d555db2b4c94c",
+    "cluster_id": "b20260717-d01d555d",
+    "title_original": "Think, Plan, Paint: Layout-Aware Reasoning for Controllable Image Generation in Unified Models",
+    "url": "https://arxiv.org/abs/2607.16409v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-07-17T18:02:44+00:00",
+    "fetched_at": "2026-11-05T01:02:23.212423+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "ATLAS는 통합 멀티모달 LLM이 '생각하고(Think), 계획하고(Plan), 그리는(Paint)' 3단계 파이프라인을 따르도록 설계된 프레임워크입니다. 레이아웃을 세 단계를 잇는 공통 표현으로 사용해 복잡한 공간 지시를 처리하며, 강화학습 기반 레이아웃 정렬로 계획과 최종 이미지의 일치도를 높였습니다. 7B와 80B 규모에서 이미지 생성 벤치마크 최고 성능을 기록했고, 기존 레이아웃 기반 통합 모델 대비 평균 65.31%, 기저 모델 대비 공간 과제에서 평균 23.06% 향상을 보고했습니다. 같은 레이아웃 인터페이스로 지시 기반 편집과 멀티모달 그라운딩도 지원하며, 복잡한 공간 지시 평가용 벤치마크 ATLAS-Reasoning도 함께 공개했습니다.",
+    "insights_ko": [
+      "이미지를 바로 생성하지 않고 레이아웃이라는 중간 표현을 거치게 함으로써, 통합 모델이 공간 관계와 논리 제약을 명시적으로 추론할 수 있게 한 점이 핵심입니다. 텍스트-이미지 생성의 '통제 가능성' 문제에 대한 구조적 접근으로 볼 수 있습니다.",
+      "계획 단계의 충실도를 강화학습으로 맞춘다는 설계는, 생성 품질 자체보다 '지시 준수'를 보상 신호로 삼는 방향이 통합 모델 학습의 중요한 흐름임을 보여줍니다. 편집과 그라운딩까지 같은 인터페이스로 묶인 점은 단일 모델의 활용 범위 확장 가능성을 시사합니다.",
+      "다만 수치 개선폭(65.31%, 23.06%)은 특정 베이스라인과 벤치마크 설정에 의존할 수 있어, 독립 재현과 ATLAS-Reasoning의 채택 여부가 실제 의미를 판단하는 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "ATLAS plans layouts before painting for controllable unified image generation",
+    "tags": [
+      "멀티모달",
+      "이미지생성",
+      "추론",
+      "벤치마크",
+      "강화학습"
+    ]
+  },
+  {
+    "id": "37bda57d6d2bdc50",
+    "cluster_id": "b20260717-37bda57d",
+    "title_original": "Compiled Agency: Coding Agents as Game AI Researchers -- from a Roguelike to StarCraft II and Civilization",
+    "url": "https://arxiv.org/abs/2609.18996v2",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T17:59:29+00:00",
+    "fetched_at": "2026-11-05T01:02:23.213430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Gauntlet은 코딩 에이전트가 게임 설명, 원시 관측·행동 인터페이스, 빈 정책 파일만 받고 한 번의 자율 세션에서 독립 실행형 게임 플레이 프로그램을 만들도록 하는 개발-동결-평가 프로토콜입니다. 출하된 프로그램은 모델 호출 없이 플레이하며(compiled agency), 이 방식으로 StarCraft II에서 공정한 내장 AI는 물론 최신 세대에서는 치팅 티어까지 이기는 컨트롤러와 Civilization에서 정복 승리하는 컨트롤러가 만들어졌습니다. 5,000개 이상의 동결 버전을 재생한 결과, 조기에 정체되는 성능 향상, 실제 출하 버전에 대한 희소한 검증 옆에서 이루어지는 국소적 탐색, 에이전트가 받지 않은 모델별 대화 예산과의 경쟁으로 결정되는 중단 시점이 드러났습니다.",
+    "insights_ko": [
+      "에이전트의 연구 결정 자체(무엇을 조사할지, 어떤 실험을 할지, 언제 멈출지)를 측정 가능한 역량으로 다룬 점이 새롭습니다. 검증 패널만 중간에 갱신했을 때 출하 성공률이 12.4점 상승한 결과는 코드뿐 아니라 연구 실천 자체를 엔지니어링할 수 있음을 시사합니다.",
+      "모델 호출이 없는 정책을 배포하는 구조는 추론 비용 없이 게임 AI를 대량 생산할 수 있다는 의미이며, 에이전트 기반 자동 연구가 실제 배포 가능한 소프트웨어 산출물로 이어진다는 근거로 볼 수 있습니다. 다만 벤치마크 및 재생 도구가 공개되어 후속 재현과 비교 연구가 활발해질 것으로 예상됩니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Coding agents build standalone game AIs and engineer their own research decisions",
+    "tags": [
+      "에이전트",
+      "벤치마크",
+      "코딩",
+      "추론"
+    ]
+  },
+  {
+    "id": "28da6d6dbb4db956",
+    "cluster_id": "b20260717-28da6d6d",
+    "title_original": "DS@GT ARC at AnimalCLEF 2026: Species-Aware Graph Construction for Multi-Species Animal Re-Identification",
+    "url": "https://arxiv.org/abs/2607.16453v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-07-17T18:49:49+00:00",
+    "fetched_at": "2026-11-05T01:02:23.213430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "DS@GT ARC 팀은 AnimalCLEF 2026 대회에서 유라시아 스라소니, 불도룡뇽, 붉은바다거북, 텍사스 뿔도마뱀 등 여러 종의 개체를 재식별하는 시스템을 제출했습니다. 단일 특징 벡터나 최근접 이웃 검색 대신, 후보 이미지 쌍을 종 인식 그래프로 구성하고 LightGlue 기반 국소 특징 검증, LightGBM 쌍 점수화, Leiden 커뮤니티 탐지를 결합했습니다. 이 방식은 거짓 쌍이 다리 역할을 하며 서로 다른 개체를 병합하는 문제를 보수적 엣지 채택으로 완화했고, 공개 ARI 0.733, 비공개 ARI 0.674로 230개 팀 중 5위를 기록했습니다.",
+    "insights_ko": [
+      "야생동물 재식별에서 강한 시각 표현만으로는 부족하며, 전역 유사도·국소 식별 표식·이웃 문맥·그래프 수준 제약을 보정된 방식으로 통합해야 성능이 나온다는 점을 실험적으로 보였습니다. 생물다양성 모니터링 파이프라인 설계에 직접 참고할 만한 결과입니다.",
+      "클러스터링 기반 재식별의 대표적 실패 모드인 '전이적 폐포를 통한 과병합'을 엣지 채택 정책과 그래프 운영점으로 다룬 점이 특징입니다. 조각화와 과병합 사이의 트레이드오프를 명시적으로 조정 가능한 변수로 만든 접근은 다른 재식별 과제로도 확장될 여지가 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Species-aware graph construction improves multi-species animal re-identification ranking",
+    "tags": [
+      "멀티모달",
+      "벤치마크",
+      "해석성"
+    ]
+  },
+  {
+    "id": "dcce4ea3237866ae",
+    "cluster_id": "b20260717-dcce4ea3",
+    "title_original": "Chronofy: A Temporal-Logical Decay Architecture for Information Validity in Time-Aware Retrieval-Augmented Generation",
+    "url": "https://arxiv.org/abs/2607.20560v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-07-17T23:20:24+00:00",
+    "fetched_at": "2026-11-05T01:02:23.213430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Chronofy는 RAG 시스템이 과거 사실을 현재 사실과 동일한 신뢰도로 취급해 발생하는 '시간적 환각' 문제를 해결하기 위한 3계층 신경-기호 프레임워크입니다. 임베딩의 전용 시간 부분공간, 학습 가능한 지수 감쇠를 적용한 그래프 기반 검색, STL 강건성 함수를 통한 근거 유효성 평가로 구성되며, 시간 맥락이 부족할 때 데이터 재획득을 트리거합니다. 시간 지식 그래프 예측 벤치마크, TimE 시간 QA 벤치마크, 도메인별 민감도 분석에서 검색 정밀도 향상과 환각 감소를 보였다고 보고합니다.",
+    "insights_ko": [
+      "기존 RAG가 검색된 사실의 시점을 무시하는 구조적 맹점을 정면으로 다루며, 시간 정보를 임베딩 표현 자체에 구조적으로 포함시키려는 시도라는 점이 새롭습니다. 특히 LLM의 출력 확신도가 아니라 근거 지식의 시간적 유효성을 평가 대상으로 삼은 설계가 차별점입니다.",
+      "감쇠 계수를 베이지안 결정이론과 평균회귀 과정에 연결한 것은 이론적 근거를 제시하지만, 실제 의료·금융 등 고위험 도메인 적용 시 감쇠 파라미터 학습과 재획득 임계치 설정의 실효성은 추가 검증이 필요합니다. 최신 정보 갱신이 중요한 엔터프라이즈 RAG 파이프라인 설계에 참고할 만합니다.",
+      "약한 고리(weakest-link) 원칙으로 추론 체인 전체의 신뢰도를 가장 오래된 근거에 묶는 방식은 다단계 에이전트 추론의 신뢰성 보증 관점에서도 흥미로우며, 향후 시간 인식형 검색과 에이전트 메모리 관리를 결합하는 연구로 이어질 가능성이 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Chronofy adds temporal decay to retrieval so stale facts stop corrupting answers",
+    "tags": [
+      "RAG",
+      "추론",
+      "벤치마크",
+      "정렬"
+    ]
+  },
+  {
+    "id": "024b79b6a3ee535c",
+    "cluster_id": "b20260717-024b79b6",
+    "title_original": "Building2Building: A Large Scale Benchmark for Generalizable Real-World Reinforcement Learning",
+    "url": "https://arxiv.org/abs/2607.16534v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T22:16:57+00:00",
+    "fetched_at": "2026-11-05T01:02:23.213430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "arXiv에 공개된 Building2Building(B2B)은 EnergyPlus 건물 시뮬레이터 기반의 대규모 HVAC(냉난방·환기·공조) 제어 강화학습 벤치마크입니다. 파라메트릭 건물 생성기로 관측·행동 공간이 서로 다른 다양한 건물 구성을 체계적으로 만들 수 있으며, Gymnasium 인터페이스와 호환됩니다. 목표 적응, 동역학 적응, 행동 공간 변화, 도메인 간 전이 등 RL의 일반화 과제를 평가하기 위한 표준화된 프로토콜을 함께 제공합니다.",
+    "insights_ko": [
+      "기존 RL 벤치마크가 다루기 어려웠던 '동역학·행동/관측 공간·목표가 바뀌는 상황'의 일반화를 물리 기반 시뮬레이션으로 검증할 수 있는 테스트베드를 제공한다는 점에서, 실세계 배포를 목표로 한 RL 연구의 평가 기준을 정비하는 의미가 큽니다.",
+      "건물 에너지 소비의 큰 비중을 차지하는 HVAC를 대상으로 하므로, 학습 기반 제어가 여러 건물에 걸쳐 전이될 수 있는지 측정하는 연구가 활성화되면 대규모 에너지 절감과 탄소 감축 측면에서 실질적 파급 효과가 예상됩니다. 다만 실제 건물 데이터와 시뮬레이션 간 격차(sim-to-real)는 여전히 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Large-scale HVAC benchmark for generalizable real-world reinforcement learning",
+    "tags": [
+      "강화학습",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "07d42eede3160159",
+    "cluster_id": "b20260717-07d42eed",
+    "title_original": "Certifiable Safe Model-Based Reinforcement Learning with Control-Affine Dynamics Approximation",
+    "url": "https://arxiv.org/abs/2607.16501v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-07-17T20:45:28+00:00",
+    "fetched_at": "2026-11-05T01:02:23.214430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "로봇이 부분적으로만 알려진 동역학을 안전하게 탐색하면서 제어 효율을 확보하는 안전 모델 기반 강화학습 프레임워크가 제안되었습니다. 저자들은 잔여 모델 불확실성의 제어-아핀(control-affine) 구조를 활용해 Control-Affine Random Fourier Features(ARFF)로 동역학을 학습하고, 적응형 컨포멀 예측(ACP)으로 안전 제약의 불확실성을 정량화합니다. 이를 제어 바리어 함수(CBF) 기반 컨트롤러 설계와 결합해 인증 가능한 데이터 기반 안전 보장을 목표로 합니다. 카트폴과 3D 쿼드로터 시뮬레이션에서 효과를 검증했다고 보고합니다.",
+    "insights_ko": [
+      "기존 안전 학습 방법이 잔여 불확실성의 구조를 무시해 과도하게 보수적인 행동이나 무효한 안전 보장을 낳을 수 있다는 문제의식을 제기하며, 제어-아핀 구조를 명시적으로 반영한 점이 차별점입니다. 이는 로봇 학습에서 물리 사전지식을 모델 구조에 녹이는 흐름과 맞닿아 있습니다.",
+      "모델 자유(model-free) 방식의 ACP로 안전 제약 불확실성을 다루고 CBF와 연결함으로써, 학습 모델의 분포 가정에 덜 의존하는 안전 보장 경로를 제시합니다. 다만 결과는 카트폴과 쿼드로터 시뮬레이션에 한정되어 있어, 실제 하드웨어와 고차원 시스템으로의 확장성은 추가 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Certifiable safe model-based RL via control-affine dynamics learning",
+    "tags": [
+      "강화학습",
+      "안전성",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "f1778bbbcaacfeb6",
+    "cluster_id": "b20260717-f1778bbb",
+    "title_original": "Discrete Ricci Curvature on Protein Contact Graphs for Lightweight Fold Classification",
+    "url": "https://arxiv.org/abs/2607.16553v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-07-17T23:24:55+00:00",
+    "fetched_at": "2026-11-05T01:02:23.214430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "단백질 접촉 그래프(Cα contact graph)에 이산 리치 곡률(Ollivier-Ricci, Forman-Ricci)을 적용해 22차원 고정 길이 특징을 만들고, 이를 단백질 fold 분류에 사용하는 경량 구조 기술자를 제안했습니다. CATH top-10 Topology와 ASTRAL 40% SCOPe top-10 Fold 벤치마크에서 평균 풀링한 ESM-2(150M) 임베딩보다 크게 앞섰으며, 특히 SCOPe 40% 벤치마크에서 격차가 더 컸습니다. 리치 곡률 단독으로도 ESM-2 차원의 3.4%만 사용해 ESM-2를 능가했고, 지속 호몰로지와 결합하면 112차원으로 macro-F1 0.71(CATH), 0.68(SCOPe)을 기록했습니다.",
+    "insights_ko": [
+      "사전학습 단백질 언어모델이 구조 분류에서 항상 우위에 있다는 통념과 달리, 해석 가능한 저차원 그래프 기술자가 실용적 대안이 될 수 있음을 보여줍니다. 특히 시퀀스 유사도가 낮은 SCOPe 40% 조건에서 격차가 커진 점은 구조 정보가 원격 상동성 분류에 더 견고하다는 해석을 뒷받침합니다.",
+      "22차원 리치 곡률만으로 ESM-2 기준을 넘는다는 결과는 연산 비용과 메모리가 제약된 환경(대규모 스크리닝, 엣지 디바이스, 교육용 도구)에서 실질적 의미가 있습니다. 다만 벤치마크가 top-10 분류로 한정되어 있어 전체 fold 공간이나 신규 fold 일반화 성능은 후속 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Lightweight curvature descriptors rival ESM-2 embeddings for protein fold classification",
+    "tags": [
+      "벤치마크",
+      "해석성",
+      "멀티모달"
+    ]
+  },
+  {
+    "id": "7127723e0149e0cf",
+    "cluster_id": "b20260717-7127723e",
+    "title_original": "Decoding EEG Signals to Explore Next-Word Predictability in the Human Brain",
+    "url": "https://arxiv.org/abs/2607.18321v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T23:19:09+00:00",
+    "fetched_at": "2026-11-05T01:02:23.214430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "EEG로 뇌 반응을 밀리초 단위로 측정해, 다음 단어 예측 가능성(cloze probability)이 N400 반응에 미치는 영향을 어휘·문법 범주별로 분석한 연구입니다. 예측 가능성에 따른 N400 차이는 명사·동사 같은 내용어에서 기능어보다 뚜렷했고, 동사는 차이가 더 컸으며 명사는 예측 가능성에 관한 정보를 더 많이 담고 있었습니다. 연구진은 전통적 ERP 분석보다 디코딩 기법이 시간에 따른 인지 처리를 더 세밀하고 구별되게 포착한다고 보고했습니다.",
+    "insights_ko": [
+      "언어 이해의 top-down 예측 메커니즘을 어휘 범주 단위로 분리해 보여준 점이 새롭습니다. 기존 N400 연구가 예측 가능성이나 품사 중 하나에만 집중했던 한계를 넘어, 두 요인의 상호작용을 정량화하려는 시도입니다.",
+      "ERP 평균화 대신 디코딩을 쓰면 시간 축 상의 인지 표상을 더 정밀하게 추출할 수 있다는 방법론적 주장은 언어 신경과학뿐 아니라 뇌-언어모델 정렬 연구에도 참고가 될 수 있습니다. 다만 공개 데이터셋 제약으로 표본이 제한적일 가능성이 있어 일반화에는 신중할 필요가 있습니다.",
+      "언어모델의 다음 토큰 예측 확률과 인간 N400 반응을 대응시키는 후속 연구의 실험 설계 힌트로도 읽힙니다. 품사별 차이가 모델 내부 표현과 어떻게 대응되는지 살펴보는 것이 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "EEG decoding reveals how word predictability shapes brain responses",
+    "tags": [
+      "추론",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "c9f779e854ab58a9",
+    "cluster_id": "b20260717-c9f779e8",
+    "title_original": "Spectral-Morphological Attention U-Net: An Efficient Network for Active Wildfire Detection",
+    "url": "https://arxiv.org/abs/2607.16472v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-07-17T19:37:16+00:00",
+    "fetched_at": "2026-11-05T01:02:23.214430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "위성 영상 기반 산불 탐지의 정확도를 높이기 위해 스펙트럴-형태학 어텐션 U-Net(SMA-UNet)이 제안되었습니다. 스펙트럴 어텐션 모듈, 잔차 어텐션 UNet 백본, 채널-공간 변조기, 미분 가능한 형태학 게이트 쌍을 결합한 구조이며, TS-SatFire와 Sen2Fire 두 데이터셋에서 최고 성능을 기록했습니다(IoU 각각 75.16%, 22.50%). 능동 화재 탐지에 이러한 모듈을 처음 적용했다는 점이 특징입니다.",
+    "insights_ko": [
+      "미분 가능한 형태학 게이트를 신경망 내부에 넣어 침식·팽창 같은 형태학 연산을 학습 가능하게 만든 접근은, 작은 화점처럼 형태 정보가 중요한 원격탐사 과제에 일반화될 수 있는 설계 패턴으로 보입니다.",
+      "Sen2Fire에서의 IoU가 22.50%로 TS-SatFire(75.16%)보다 크게 낮다는 점은, 데이터셋 난이도와 레이블 특성 차이가 여전히 큰 병목임을 보여줍니다. 실제 배치 전에는 센서·지역이 다른 대규모 데이터 검증이 필수라는 저자들의 한계 언급이 핵심 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Spectral-morphological attention U-Net improves satellite active wildfire detection",
+    "tags": [
+      "멀티모달",
+      "해석성",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "9b67e737623cdb49",
+    "cluster_id": "b20260717-9b67e737",
+    "title_original": "One Axis, No Brake: Self-Knowledge Limits the Filtering of Harmful Peer Conformity in LLMs",
+    "url": "https://arxiv.org/abs/2609.18998v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-07-17T19:57:27+00:00",
+    "fetched_at": "2026-11-05T01:02:23.214430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "다중 에이전트 LLM 시스템에서 동료 간 수정(peer revision)이 틀린 답은 고치지만 맞는 답을 뒤집는 양날의 문제를 다룹니다. 이 논문은 해로운 수정만 걸러내는 '브레이크'를 만드는 것이 본질적으로 모델이 원래 답을 맞혔는지 아는 것(자기 지식, self-knowledge)과 같다고 주장하며, 여섯 개 모델 계열에서 AUROC 약 0.64–0.89라는 자기 지식의 한계를 '벽(wall)'으로 명명합니다. 백박스 조향으로도 이 벽을 넘지 못했고, 대다수 에이전트가 틀린 상태에서는 토론이 잘못된 합의를 증폭하는 '절벽(cliff)'이 됩니다. 에이전트 수·모델 다양성·강한 구성원 추가로도 해결되지 않으며, 수정 이후 필터링이 아니라 수정 이전에 정보를 더하는 것이 효과적이라고 결론짓습니다.",
+    "insights_ko": [
+      "다중 에이전트 검증·토론 구조를 '오류 교정 장치'로 설계하는 발상에 근본적 한계가 있음을 보여줍니다. 해로운 수정을 배포 시점 신호로 차단하려는 시도는 결국 정답 탐지기를 우회적으로 만드는 것이므로, 현재 모델의 자기 지식 수준(AUROC 약 0.9 이하)을 넘지 못합니다.",
+      "실무적으로는 에이전트를 더 늘리거나 다양한 모델을 섞는 것보다, 토론 전에 근거 자료·도구 결과 등 새로운 정보를 주입하는 설계에 투자하는 것이 합의의 정확도를 높이는 방향이라는 시사점이 큽니다. 다수 에이전트가 같은 실수를 공유할 때 합의가 '확신에 찬 오답'이 될 수 있다는 경고도 에이전트 오케스트레이션 제품에 직접적인 함의를 줍니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Peer debate cannot filter harmful revisions without self-knowledge",
+    "tags": [
+      "에이전트",
+      "벤치마크",
+      "정렬"
+    ]
+  },
+  {
+    "id": "f033f4f4125f5928",
+    "cluster_id": "b20260717-f033f4f4",
+    "title_original": "Linear Stability Analysis of an INDI Pitch-Rate Controller under Model Mismatch for a Tilt-Rotor VTOL UAV",
+    "url": "https://arxiv.org/abs/2607.16471v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-07-17T19:35:46+00:00",
+    "fetched_at": "2026-11-05T01:02:23.215435+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "틸트로터 VTOL UAV의 cascaded INDI 제어기 중 피치-레이트/엘레본 하위 채널을 분리해, 모델 불일치 하에서의 선형 안정성을 해석적으로 분석한 연구입니다. 제어기·추정기·액추에이터·플랜트를 모두 포함한 5차 전달함수를 유도하고 Routh-Hurwitz 판별법으로 안정 영역을 3개 파라미터 스윕으로 도출했습니다. 그 결과를 바탕으로 최악의 경우를 고려한 강건성 지향 및 성능 지향 튜닝 절차를 제안했으며, 제어 효과 불일치, 특히 할당 부호 오류가 가장 위험한 불안정 요인이라고 보고합니다.",
+    "insights_ko": [
+      "INDI는 완전한 공력 모델 없이도 외란 억제력을 확보하는 방식으로 주목받아 왔지만, 이 연구는 그 허용 가능한 모델 불일치 범위를 매개변수 명시적으로 닫힌 형태로 제시했다는 점에서 의미가 큽니다. 현장 튜닝 가이드라인을 정량적 안정 영역 지도로 바꾼 셈입니다.",
+      "결과적으로 액추에이터 지연이나 관성 불일치보다 제어 효과(control effectiveness)의 부호 오류가 가장 치명적이라는 결론은, 틸트로터 할당 로직 검증과 부호 체크 자동화가 실제 비행 안전에서 우선순위가 높음을 시사합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Stability limits of INDI pitch control for tilt-rotor UAVs under model mismatch",
+    "tags": [
+      "에이전트",
+      "안전성",
+      "로보틱스",
+      "제조"
+    ]
+  },
+  {
+    "id": "dbf307c5d093070f",
+    "cluster_id": "b20260717-dbf307c5",
+    "title_original": "A Situational Speech Synthesizer for Yoruba: System Design, Phonological Rule Architecture, and Orthographic Extensions for Contour",
+    "url": "https://arxiv.org/abs/2607.18317v5",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T20:13:41+00:00",
+    "fetched_at": "2026-11-05T01:02:23.215435+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "나이지리아 요루바어 텍스트를 음성으로 합성하는 규칙 기반 연결형(디포운) TTS 시스템 'TTSYoruba'가 소개되었습니다. 요루바 개인 이름 온라인 사전에 배포된 이 시스템은 성조 표기 텍스트를 입력받아, 자음-모음 조합별 5가지 성조 변이를 포함한 651개의 녹음 디포운 단위에 수작업 음운 규칙을 적용해 음성을 만듭니다. 연구진은 비음 구분, 상승·하강 성조 도출 등 음운 규칙 구조를 상세히 기술하고, 단일 모음 위의 윤곽 성조 표기로 카론(ǎ)과 써컴플렉스(â)를 표준화하는 제안을 함께 제시했습니다. 청취자 50명을 대상으로 한 MOS 평가 결과도 보고됩니다.",
+    "insights_ko": [
+      "신경망 대신 규칙과 녹음 인벤토리에 기반한 접근으로 데이터가 극히 부족한 저자원 아프리카 언어에서도 해석 가능하고 경량인 TTS를 구현할 수 있음을 보여줍니다. 음성 데이터 규모가 작은 언어권의 실용적 대안으로 참고할 만합니다.",
+      "성조 언어에서 가장 까다로운 부분인 성조 파일 선택과 문맥 의존 성조 생성을 명시적 규칙으로 다룬 점이 특징이며, 윤곽 성조 표기 표준화(카론·써컴플렉스)는 TTS 전처리와 입력 도구 양쪽에 영향을 주는 정서법 제안이라 디지털 요루바어 생태계 전반의 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Rule-based Yoruba speech synthesizer with tone-aware diphone architecture",
+    "tags": [
+      "음성",
+      "오픈소스"
+    ],
+    "authors": "Kola Tubosun"
+  },
+  {
+    "id": "9919142df9ce0141",
+    "cluster_id": "b20260717-9919142d",
+    "title_original": "When to Use Which? Benchmarking Optimisers for Configurable Systems under Varying Budgets",
+    "url": "https://arxiv.org/abs/2607.16476v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T19:48:58+00:00",
+    "fetched_at": "2026-11-05T01:02:23.216430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "arXiv에 게재된 이 연구는 소프트웨어 설정(configuration) 튜닝에 쓰이는 8개 최적화 기법을 22개 설정 가능 시스템에서 예산 수준별로 체계 평가했습니다. 예산이 빠듯할 때는 SMAC 같은 모델 기반 기법이 유리하고, 예산이 넉넉할 때는 GA 같은 모델 프리 기법이 우세했습니다. 한편 FLASH는 예산과 무관하게 대부분의 시스템에서 안정적인 성능을 보였으며, 많은 시스템이 넓은 유인 영역(basin of attraction)을 가진 좋은 지역 최적점을 갖고 있기 때문으로 분석했습니다.",
+    "insights_ko": [
+      "설정 튜닝에서 '예산에 따라 최적화 기법을 고르라'는 실무 가이드를 제시한 점이 핵심입니다. 측정 한 번에 수 분이 걸리는 PostgreSQL과 수 시간이 걸리는 MariaDB처럼 평가 비용이 시스템마다 크게 다른 현실에서, 기법 선택 기준이 명확해진다는 의미가 큽니다.",
+      "탐욕적(greedy) 기법인 FLASH가 광범위하게 강건했다는 결과는 설정 공간의 지형(landscape) 자체가 단순하다는 가설을 뒷받침합니다. 이는 복잡한 탐색 알고리즘보다 시스템별 지형 특성을 먼저 측정하는 접근이 비용 효율적일 수 있음을 시사합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Which optimiser wins for configuration tuning depends on the budget",
+    "tags": [
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "8f2405d866a7ecb0",
+    "cluster_id": "b20260717-8f2405d8",
+    "title_original": "Committed Before Reasoning: Behavioral Reproduction and Preliminary Activation-Level Evidence of Answer Pre-Commitment in an Open-Weight LLM",
+    "url": "https://arxiv.org/abs/2607.16451v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T18:49:15+00:00",
+    "fetched_at": "2026-11-05T01:02:23.216430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "연구진은 '세차장이 100m 거리인데 걸어갈까 차로 갈까'라는 질문에서 모델이 정답(차로 이동해야 세차가 가능)을 무시하고 걷기를 추천하는 현상을 분석했습니다. Qwen3-8B에서 5가지 시스템 프롬프트 조건, 210회 롤아웃을 통해 생각(thinking) 모드 여부와 관계없이 잘못된 답 선택이 85~100%에서 재현되며, 4,096 토큰의 추론 예산으로도 교정되지 않음을 확인했습니다. 또한 답변 생성 전 은닉 상태를 학습 없이 사전학습된 activation oracle로 읽었을 때 '걷기' 신호가 중립 기준선보다 높게 나타나, 모델이 추론 이전에 답을 이미 정해두는 경향이 활성화 수준에서도 관측될 수 있다는 예비 증거를 제시했습니다.",
+    "insights_ko": [
+      "추론 과정이 답을 도출하는 것이 아니라 이미 정해진 답을 정당화하는 사후 합리화일 수 있다는 가설을 활성화 수준에서 뒷받침하는 시도로, 체인 오브 스로트(CoT)의 충실성(faithfulness) 논의에 직접 연결됩니다.",
+      "표본이 작고 위치별 기울기는 유의하지 않아(p=.34) 예비 결과로 제한되지만, 질문 표현만 바꿔도 동일 프로브의 양성 대조군 성능이 2/16에서 11/16으로 변한다는 발견은 activation oracle 기반 해석 연구의 방법론적 주의를 환기합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Chat models commit to answers before reasoning, activation probes suggest",
+    "tags": [
+      "추론",
+      "정렬",
+      "해석성",
+      "벤치마크",
+      "Qwen"
+    ]
+  },
+  {
+    "id": "eb3f1303f1f1cce4",
+    "cluster_id": "b20260717-eb3f1303",
+    "title_original": "A Social Media Analysis of Discourse on the Israel--Palestine Conflict on Telegram",
+    "url": "https://arxiv.org/abs/2608.21385v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T17:52:51+00:00",
+    "fetched_at": "2026-11-05T01:02:23.216430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Telegram의 친이스라엘·친팔레스타인 채널 16개(각 8개)에서 2021년 5월부터 2026년 6월까지 수집한 8만 7,617건의 메시지를 감정 분석, 입장(stance) 탐지, 프레이밍 분석으로 비교한 연구입니다. 736건의 수동 주석 데이터로 검증한 결과, BERTweet 미세조정 모델이 72.1% 정확도로 키워드 매칭·제로샷 DeBERTa보다 8~11%p 높았습니다. 두 진영은 사망·피해자 관련 어휘를 동일하게 쓰면서도 감정 톤은 정반대로 사용했는데, 친이스라엘 채널은 대체로 중립적·보고서형인 반면 친팔레스타인 채널은 현저히 부정적이었습니다.",
+    "insights_ko": [
+      "같은 어휘를 두고 감정 톤이 갈리는 현상은 '행위자' 입장과 '피해자' 입장이라는 서로 다른 담론적 위치에서 글을 쓰기 때문이라는 해석을 제시합니다. 단순 감정 분석만으로는 여론 양극화를 제대로 포착하기 어렵고, 입장·프레이밍과 함께 읽어야 한다는 방법론적 시사점이 큽니다.",
+      "라벨 없는 기성 방법들이 60% 중반에 머문 반면 도메인 미세조정 모델만 70%대를 기록해, 분쟁 관련 소셜미디어 분석에서 범용 모델의 한계와 도메인 적응 데이터의 가치를 보여줍니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Same death vocabulary, opposite emotions: Telegram discourse on Israel-Palestine",
+    "tags": [
+      "벤치마크",
+      "정렬",
+      "해석성"
+    ]
+  },
+  {
+    "id": "7a9340a62a59df83",
+    "cluster_id": "b20260717-7a9340a6",
+    "title_original": "Hierarchical Domain Generalization",
+    "url": "https://arxiv.org/abs/2607.16528v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-07-17T22:09:01+00:00",
+    "fetched_at": "2026-11-05T01:02:23.216430+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "도메인 일반화(domain generalization)를 유한한 관측 영역에서 전체 인스턴스 공간으로의 외삽 문제로 정식화하고, i.i.d. 샘플링 가정을 임의의 도메인 계층 구조로 대체한 이론 연구입니다. 저자들은 실패의 핵심 원인이 가설 클래스의 복잡도뿐 아니라 근거가 드러나는 train/test 도메인 분할 자체에 있음을 보였습니다. 어떤 클래스가 작고 학습 데이터가 아무리 커도, 실패하는 목표 도메인을 만드는 분할이 존재한다고 증명했습니다.",
+    "insights_ko": [
+      "기존 일반화 이론이 가정해 온 i.i.d. 설정이 계층적 도메인 구조에서는 성립하지 않으며, 데이터를 얼마나 모아도 분할 구조 때문에 일반화가 보장되지 않는다는 점이 중요합니다. 단순 샘플 수 확대로는 해결할 수 없는 문제임을 명확히 합니다.",
+      "실무적으로는 의료 기관별·지역별·사용자 코호트별 데이터처럼 도메인 계층이 뚜렷한 환경에서 학습 데이터의 분할 방식 자체를 설계 변수로 다뤄야 한다는 신호입니다. 도메인 구조를 모델 평가와 데이터 수집 전략의 1급 객체로 취급하라는 방향성을 제시합니다.",
+      "후속 관전 포인트는 실제 벤치마크(WILDS 등)의 도메인 분할이 이 이론적 실패 조건에 얼마나 가까운지, 그리고 도메인 구조를 전제로 한 새로운 학습 목적함수나 평가 프로토콜이 나올지 여부입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Domain partitions, not just model complexity, can doom generalization",
+    "tags": [
+      "벤치마크",
+      "안전성"
+    ]
+  },
+  {
+    "id": "4a5fad8bca3db40b",
+    "cluster_id": "b20260717-4a5fad8b",
+    "title_original": "How Formerly Incarcerated People Envision Technologies for Prison Parole",
+    "url": "https://arxiv.org/abs/2607.16513v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T21:29:38+00:00",
+    "fetched_at": "2026-11-05T01:02:23.217507+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "arXiv에 게재된 이 연구는 가석방 심사를 앞둔 전과자 31명을 설문해, 이들이 가석방 준비를 돕는 기술을 어떻게 상상하는지 살펴봅니다. 참가자들은 AI 도구를 감옥 체계를 해체하는 수단이 아니라, 복잡한 가석방 개념을 익숙한 언어로 옮기고 개인의 변화를 심사위원이 읽을 수 있는 형태로 기록하며, 가족이 맡아온 보이지 않는 돌봄 노동을 인정받게 하는 자원으로 보았습니다. 연구진은 이를 감시 중심 도구에서 벗어나 교정 권력 구조 속에서 전략적 주체성을 높이는 인간 중심 시스템으로의 전환으로 제시합니다.",
+    "insights_ko": [
+      "AI 공정성 논의가 흔히 전제하는 '기술로 제도를 뒤집는다'는 틀과 달리, 당사자들은 현행 권력 구조를 협상하는 도구를 원했다는 점이 실무 설계 기준을 바꿉니다. 교정·복지 분야 제품은 해체 지향보다 사용자의 협상력 강화를 목표로 삼아야 함을 시사합니다.",
+      "가석방 위험 평가 알고리즘을 개발하는 기업과 정부에는 설계 단계부터 당사자 참여를 요구하는 근거가 됩니다. 정책적으로는 감시 도구 도입 전 영향 평가와 피검 당사자 자문 절차가 실질 요건으로 논의될 가능성이 큽니다."
+    ],
+    "category": "community",
+    "importance_score": 2,
+    "subtitle_en": "Formerly incarcerated people envision tools for parole navigation, not surveillance",
+    "tags": [
+      "에이전트",
+      "정렬",
+      "안전성"
+    ]
+  },
+  {
+    "id": "eab74f5142900f49",
+    "cluster_id": "b20260717-eab74f51",
+    "title_original": "Scaling Limits of Constant-Stepsize SGD at Flat Minima",
+    "url": "https://arxiv.org/abs/2607.16384v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-07-17T17:22:46+00:00",
+    "fetched_at": "2026-11-05T01:02:23.217507+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "볼록 목적함수가 평탄한 극소점(flat minimum)과 (준)이차 꼬리를 가질 때, 일정 스텝사이즈 SGD의 정상분포(invariant law)가 기존 강볼록 경우의 √α 스케일링과 가우시안 극한을 따르지 않음을 보였습니다. 마르코프 잡음 하에서 작은 상수 스텝사이즈마다 α 의존 메트릭의 Wasserstein 거리에서 정상분포의 존재·유일성·기하 수렴을 증명하고, 극소점의 평탄도 지수 m≥2일 때 수축 계수가 1−cα^{m−1}임을 보였습니다. 또한 정상분포는 α^{1/m} 스케일에 집중되며, 재스케일된 반복값은 SDE dY_t=−h_0(Y_t)dt+Σ^{1/2}dB_t의 정상분포로 약수렴하여 m>2에서는 비가우시안 극한이 나타납니다.",
+    "insights_ko": [
+      "평탄한 극소점에서는 학습률에 따른 노이즈 분포의 스케일이 √α가 아니라 α^{1/m}로 바뀌어, 이차 가정에 기반한 기존 하이퍼파라미터 및 노이즈 분석(예: 가우시안 근사에 의한 일반화·암묵적 정규화 설명)을 그대로 적용하기 어렵다는 점을 시사합니다.",
+      "m>2 영역에서 비가우시안 정상분포가 나타나므로, 딥러닝의 평탄한 해 탐색(flat minima 선호)을 가우시안 노이즈 모델로 해석하던 관점을 재검토할 필요가 있습니다. 다만 이 결과는 강한 볼록성·마르코프 잡음 가정 하의 이론이므로 비볼록 신경망에 바로 이식하기에는 간극이 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Constant-stepsize SGD at flat minima defies Gaussian scaling limits",
+    "tags": [
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "a8d3acddf72ee5cf",
+    "cluster_id": "b20260717-a8d3acdd",
+    "title_original": "Joint Utilization of Geospatial and census proxies for Autoencoder-Assisted Downscaling (JUGAAD) of socioeconomic indicators in India",
+    "url": "https://arxiv.org/abs/2607.20559v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T21:57:55+00:00",
+    "fetched_at": "2026-11-05T01:02:23.217507+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "인도의 빈곤·식량안보 지표를 고해상도로 추정하기 위해, 2001년과 2011년 인구조사 및 지리공간 데이터를 활용한 딥러닝 프레임워크 JuGAAD가 제안되었습니다. 인구조사 데이터는 전국을 포괄하지만 사회경제 지표는 드물게 실시되는 NSSO 조사에서 거친 해상도로만 얻어지는 척도 불일치 문제가 있습니다. 연구진은 마을 클러스터 단위로 데이터를 평균화하고, 오토인코더로 NSSO 데이터를 저차원 잠재표현으로 압축한 뒤, 회귀 모델로 인구조사·지리공간 변수를 이 표현에 매핑하여 세밀한 단위의 예측을 생성했고, 그 결과 지구 단위 실측값과 높은 정확도로 일치한다고 보고합니다.",
+    "insights_ko": [
+      "인구조사처럼 촘촘하지만 간접적인 변수로 희소한 설문 지표를 대체하는 접근은, 빈도가 낮은 조사에 의존하는 개발도상국의 정책 모니터링 비용을 크게 낮출 수 있다는 점에서 의미가 큽니다.",
+      "오토인코더로 고차원 설문 데이터를 잠재공간에 압축해 회귀 타깃으로 삼는 설계는 척도 간 연결을 학습 가능한 형태로 만든 방식으로, 다른 공간 다운스케일링 문제(기후, 보건 지표 등)에도 전이될 여지가 있습니다.",
+      "다만 검증이 지구 단위 실측값에 머물러 있어 마을 단위 정확도와 행정구역 경계 변화에 따른 편향은 추가 검증이 필요하며, 실제 정책 배분에 쓰기 전에는 불확실성 추정이 함께 제시되어야 할 것으로 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Deep learning downscales India socioeconomic indicators to village-level resolution",
+    "tags": [
+      "오픈소스",
+      "데이터센터",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "42011d8494f6aaad",
+    "cluster_id": "b20260717-42011d84",
+    "title_original": "One Modality to Forget Them All: Enhancing Cross-Modal Unlearning in Vision-Language Models",
+    "url": "https://arxiv.org/abs/2607.16442v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T18:44:02+00:00",
+    "fetched_at": "2026-11-05T01:02:23.217507+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "비전-언어 모델(VLM)에서 한 모달리티(텍스트 또는 이미지)로 수행한 언러닝이 다른 모달리티로 얼마나 전이되는지 LLaVA-1.5, InstructBLIP, IDEFICS 세 구조를 대상으로 양방향 체계 분석했습니다. 전이는 발생하지만 비대칭이고 불완전하며, 텍스트를 시각적으로 변형하는 타이포그래픽 공격에서는 잊은 지식이 쉽게 복원되어 얕은 언러닝임이 드러났습니다. 이를 보완하기 위해 교차 모달 일반화에 영향이 큰 트랜스포머 블록에 언러닝을 집중하는 영향도 기반 기법 CrossInf를 제안했습니다.",
+    "insights_ko": [
+      "멀티모달 모델에서 텍스트 쪽만 지우면 안전하다는 가정이 깨졌다는 점이 핵심입니다. 이미지로 같은 위험 지식을 우회하거나 글자를 이미지로 렌더링하는 공격이 실질적 위협임을 보여주며, 모달리티별 안전성 검증이 필요해집니다.",
+      "CrossInf가 타이포그래픽 공격 성공률을 거의 0으로 낮추면서 유틸리티를 유지했다는 결과는, 모델 구성요소별 영향도를 계산해 선택적으로 언러닝하는 방향이 실서비스 안전 파이프라인에 적용될 수 있음을 시사합니다. 다만 강한 융합 구조에서 주로 효과가 나타났다는 점은 아키텍처별 검증이 선행되어야 함을 의미합니다.",
+      "CKA 분석으로 얕은 언러닝을 진단하는 시도는 향후 규제 대응이나 모델 감사에서 '지식이 실제로 제거되었는가'를 측정하는 지표 논의로 이어질 가능성이 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Unlearning in one modality often fails to erase knowledge across vision and text",
+    "tags": [
+      "멀티모달",
+      "정렬",
+      "안전성",
+      "해석성"
+    ]
+  },
+  {
+    "id": "cd06634a4ba9ebf5",
+    "cluster_id": "b20260717-cd06634a",
+    "title_original": "Leakage-Robust Evaluation and Data-Scale Sensitivity of Attention-Enhanced Multi-Task Learning for Joint Fault Diagnosis and Remaining Useful Life Estimation",
+    "url": "https://arxiv.org/abs/2607.16493v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-07-17T20:33:36+00:00",
+    "fetched_at": "2026-11-05T01:02:23.218511+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "예지보전에서 고장 분류와 잔여수명(RUL) 회귀를 함께 수행하는 다중 과제 모델 AMTLNet을 세 가지 공개 벤치마크(C-MAPSS, IMS, Hydraulic)에서 검증한 연구입니다. 슬라이딩 윈도우를 무작위로 나누면 분류 정확도가 99.9%로 부풀려지거나 0%로 떨어질 수 있음을 보이고, 청크 단위로 데이터 누출을 차단하는 분할 프로토콜과 5개 시드·ANOVA·Tukey HSD 검정을 도입했습니다. C-MAPSS에서는 단일 과제 CNN-LSTM과 분류 성능이 통계적으로 동등했고(84.12%), 어텐션 분기가 회귀 안정성의 핵심 기여자임을 절제 실험으로 확인했습니다.",
+    "insights_ko": [
+      "데이터 누출 없이 평가하면 다중 과제 모델의 보고 성능이 크게 달라질 수 있어, 예지보전 논문들의 수치 비교 자체를 재검토해야 한다는 경고로 읽힙니다. 특히 99.9%와 0%라는 극단적 편차는 분할 방식이 모델 능력보다 평가 결과를 더 좌우할 수 있음을 보여줍니다.",
+      "과제 간 불안정성이 과제 유형이 아니라 레이블 출처(label provenance)에 의해 결정된다는 주장은, 데이터가 적은 산업 현장에서 공동 학습을 도입할지 판단하는 실용적 기준을 제시합니다. 다만 세 데이터셋에 한정된 결과라 일반화에는 추가 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Leakage-audited evaluation reveals how data splits can distort multi-task fault diagnosis",
+    "tags": [
+      "에이전트",
+      "안전성",
+      "벤치마크",
+      "추론"
+    ]
+  },
+  {
+    "id": "744f7029465abba8",
+    "cluster_id": "b20260717-744f7029",
+    "title_original": "Nonuniformity Principle in Human-AI Coworking",
+    "url": "https://arxiv.org/abs/2607.16530v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T22:10:07+00:00",
+    "fetched_at": "2026-11-05T01:02:23.218511+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "생성형 AI가 다단계·고위험 워크플로에 적용되면서 인간의 감독이 여전히 필수적이지만, 전문가의 시간과 자원에는 한계가 있습니다. 이 연구는 장기 AI 워크플로에서 인간 감독 지점을 어디에 배치해야 하는지를 최적화 문제로 정식화하고, 감독 간격이 워크플로를 따라 비감소(non-decreasing)해야 한다는 '비균일성 원리(nonuniformity principle)'를 제시합니다. 이 원리는 문헌 리뷰 작성과 웹사이트 구축 두 가지 AI 에이전트 워크플로에서 실험적으로 검증되었습니다.",
+    "insights_ko": [
+      "감독을 균등하게 분산하는 통념과 달리, 초반에는 촘촘히 개입하고 후반으로 갈수록 간격을 넓히는 전략이 최적일 수 있음을 보여줍니다. 초기 단계의 오류가 후속 단계로 증폭되기 때문에 앞부분의 검토 가치가 더 크다는 직관을 형식화한 것으로 볼 수 있습니다.",
+      "사람이 개입할 시점을 설계하는 것이 곧 비용·품질 trade-off를 결정하는 핵심 변수임을 시사합니다. 불필요한 재작업과 토큰 소비를 줄이면서 사용자 만족도를 높이는 HITL(Human-in-the-loop) 워크플로 설계의 실무 지침으로 활용될 여지가 큽니다.",
+      "다만 검증이 문헌 리뷰와 웹사이트 구축이라는 두 사례에 국한되어 있고, 최적 스케줄 도출에 필요한 가정의 현실성은 추가 검증이 필요합니다. 향후 에이전트 오케스트레이션 도구에 감독 스케줄러가 기본 기능으로 탑재될지가 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Human oversight should be denser early and sparser later in AI workflows",
+    "tags": [
+      "에이전트",
+      "추론",
+      "OpenAI",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "ad5746245e51a9e4",
+    "cluster_id": "b20260717-ad574624",
+    "title_original": "SEER: Supervised Learning to Control Energetic Reasoning",
+    "url": "https://arxiv.org/abs/2607.16523v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T21:52:59+00:00",
+    "fetched_at": "2026-11-05T01:02:23.218511+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "제약 프로그래밍(Constraint Programming)에서 전파(propagation)는 탐색 공간을 줄이지만 계산 시간이 늘어나는 트레이드오프가 있으며, 최적 전파기는 인스턴스와 탐색 시점에 따라 달라집니다. 본 논문은 머신러닝으로 학습한 오라클 함수를 이용해 복잡한 전파기(Energetic Reasoning)를 실행할지 여부를 동적으로 결정하는 방법을 제안합니다. 실험 결과 높은 예측 정확도를 얻을 수 있음을 보였으며, 분류 특징 제안과 오라클 구축 시 고려할 쟁점도 함께 제시합니다.",
+    "insights_ko": [
+      "기존에 정적으로 전파기를 고르는 ML 접근과 활동 기반 휴리스틱을 통한 동적 전파 강도 조절을 결합한 점이 새롭습니다. 인스턴스별·탐색 시점별 의사결정을 학습으로 대체할 수 있다는 가능성을 보여줍니다.",
+      "제약 솔버 실무에서는 계산 비용 대비 가지치기 효과의 균형이 핵심 병목인데, 이 접근은 기존 최신 솔버에 비교적 쉽게 삽입할 수 있는 구조를 지향해 산업적 스케줄링·자원 배분 문제에의 적용 가능성이 있습니다. 다만 본문 초록 기준이므로 구체적인 성능 향상 폭은 원문 확인이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Learned oracle decides when costly constraint propagation is worth running",
+    "tags": [
+      "추론",
+      "벤치마크",
+      "정렬"
+    ]
+  },
+  {
+    "id": "590d487c44c36cd8",
+    "cluster_id": "b20260717-590d487c",
+    "title_original": "AffectFuse: Cross-Task Feature Fusion with Temporal Modeling for Multi-Task Affective Behavior Analysis",
+    "url": "https://arxiv.org/abs/2607.16546v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-07-17T22:44:43+00:00",
+    "fetched_at": "2026-11-05T01:02:23.218511+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AffectFuse는 야생 환경의 얼굴 이미지에서 연속 valence-arousal, 표정 범주, 다중 action unit을 함께 예측하는 다중 과제 감정 행동 분석 시스템입니다. 동결된 AffectNet 사전학습 백본의 다해상도 특징 위에 과제별 시간 모델링 헤드와 교차 과제 융합 모듈을 얹는 post-encoder 적응 방식을 사용하며, action unit 인식에는 MAE-Face를 LoRA로 적응시키고 DISFA는 순차 전이 대신 unit별 expert 라우팅으로 활용했습니다. ABAW 11차 대회 MTL 트랙 공식 검증 세트에서 P = 1.7302를 기록했습니다.",
+    "insights_ko": [
+      "대규모 얼굴 파운데이션 모델을 새로 학습하지 않고도 동결 백본 위 경량 적응만으로 강력한 MTL 파이프라인을 구성할 수 있음을 보여줍니다. 대회 성능과 연구 비용 사이의 실용적 절충안으로 의미가 큽니다.",
+      "DISFA를 순차 전이하는 대신 action unit마다 expert를 라우팅하는 설계는 데이터셋 간 라벨 분포 차이로 인한 간섭을 줄이는 접근으로, 다중 소스 학습에서 재사용 가능한 아이디어입니다.",
+      "다만 본 결과는 정적 선택 프레임 기반(s-Aff-Wild2)이며 시간적 연속성을 완전히 활용하지 않은 버전이라, 실제 영상 스트림 적용 시 성능 격차와 추가 시간 모델링 효과는 별도 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Post-encoder adaptation delivers strong multi-task affective behavior analysis without new foundation models",
+    "tags": [
+      "멀티모달",
+      "파인튜닝",
+      "벤치마크",
+      "해석성"
+    ]
+  },
+  {
+    "id": "7e4de28ea8c3546a",
+    "cluster_id": "b20260717-7e4de28e",
+    "title_original": "Back to the museum: Investigation of the acceptance of Android Andrea with and without emotion simulation in a museum",
+    "url": "https://arxiv.org/abs/2607.16428v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-07-17T18:22:49+00:00",
+    "fetched_at": "2026-11-05T01:02:23.233520+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "독일 한 공공 박물관에서 안드로이드 로봇 Andrea가 6일 연속 완전 자율 대화 방식으로 방문객과 소통하며 실험을 진행했습니다. 감정 시뮬레이션이 없는 조건, ChatGPT 4.1로 감정을 결정한 조건, WASABI 감정 아키텍처로 감정 역학을 모사한 조건의 세 가지를 비교했고, 73명의 방문객을 대상으로 확장된 TAM2 설문으로 수용도를 평가했습니다. 분석 결과 앞의 두 방식은 방문객의 주관적 평가를 긍정적으로 끌어올리지 못했으며, 방문객이 의식적으로 인지하지도 못했습니다.",
+    "insights_ko": [
+      "감정 표현을 챗봇 아키텍처에 단순히 얹는 방식이 실제 사용자 수용도 향상으로 이어지지 않는다는 점에서, 소셜 로봇 설계의 통념을 되짚게 합니다. 감정의 존재 여부보다 어떤 방식으로 구현되고 어떤 맥락에서 드러나는지가 더 중요할 수 있습니다.",
+      "WASABI 같은 동적 감정 시뮬레이션 모델도 이번 실험에서 유의미한 차이를 만들지 못했다는 결과는, 감정 모델의 정교함이 곧 체감 품질로 연결되지 않음을 시사합니다. 후속 연구는 감정 표현의 시각·음성 동기화나 상호작용 맥락 설계를 함께 검증할 필요가 있습니다."
+    ],
+    "category": "community",
+    "importance_score": 2,
+    "subtitle_en": "Emotion simulation did not improve visitor acceptance of an android robot",
+    "tags": [
+      "음성",
+      "로보틱스",
+      "추론",
+      "RAG"
+    ]
+  },
+  {
+    "id": "d03c25bf456c5e6b",
+    "cluster_id": "b20260717-d03c25bf",
+    "title_original": "Geometry-Enhanced Portion Estimation for Multimodal LLMs",
+    "url": "https://arxiv.org/abs/2607.16514v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T21:30:50+00:00",
+    "fetched_at": "2026-11-05T01:02:23.233520+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "연구진은 식사 사진에서 음식 양(portion)을 추정하는 문제를 다룹니다. 현재 Gemini, GPT, Claude 등 최신 멀티모달 LLM은 음식 종류는 잘 인식하지만 분량 추정에는 취약합니다. 이를 보완하기 위해 동결된 DINOv2 백본 위에 기하 정보를 강화한 소형 포션 헤드를 붙여, MLLM이 출력한 음식명·바운딩 박스·밀도 범위를 입력으로 받아 분량을 추정하는 방식을 제안했습니다. 세 개의 실제 벤치마크에서 MLLM 단독 대비 음식별 분량 오차를 33~41% 줄였고, 기존 이미지 전용 모델의 보고 성능도 넘어섰습니다.",
+    "insights_ko": [
+      "MLLM을 재학습하지 않고 동결 상태로 두고 외부 전문 헤드를 결합하는 구조는, 상용 API 기반 서비스에서도 도메인 특화 정량 추정 기능을 붙일 수 있는 실용적 경로를 보여줍니다.",
+      "깊이 센서 없이 단일 RGB 사진만으로 분량을 추정했다는 점이 중요합니다. 식이 기록 앱, 영양 관리, 임상 영양 평가처럼 하드웨어 추가 부담 없이 적용해야 하는 시장에서 채택 장벽을 낮춥니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Geometry-enhanced head fixes multimodal LLMs' food portion estimation errors",
+    "tags": [
+      "멀티모달",
+      "벤치마크",
+      "Gemini",
+      "GPT-4",
+      "Claude"
+    ]
+  },
+  {
+    "id": "830609f7ff104b22",
+    "cluster_id": "b20260717-830609f7",
+    "title_original": "The Limits of BPE Tokenization in Polish: Segmentation-Flexional Forms, Grammatical Anchoring, and First-Person Stability in Inflectional Language Models",
+    "url": "https://arxiv.org/abs/2609.17553v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T17:51:52+00:00",
+    "fetched_at": "2026-11-05T01:02:23.235519+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "이 논문은 폴란드어처럼 굴절이 풍부한 언어에서 BPE 토큰화가 어디까지 언어학적 단위를 보존하는지 분석합니다. BPE는 빈도 기반으로 표면 조각을 나누기 때문에 문법 범주 자체가 아니라 굴절 어미 같은 자주 등장하는 형태소 조각만 안정적으로 잡아내며, 음소·음절 구조나 문맥 의존적 발음과도 체계적으로 대응하지 못합니다. 저자는 이를 '문법 형태 고정(grammatical form anchoring)' 개념과 Roclawski의 분절-굴절 형태 진단 틀로 설명하고, 폴란드어 동사형이 대명사 없이도 화자 위치를 드러내는 점을 들어 AI 언어모델이 대화에서 일관된 '나'를 유지하지 못하는 문제를 제기합니다.",
+    "insights_ko": [
+      "굴절어에서 BPE의 한계는 단순 성능 저하가 아니라 문법 범주를 토큰 경계에 반영하지 못하는 구조적 문제로, 토크나이저 설계가 다국어 모델의 문법 능력을 직접 제약할 수 있음을 보여줍니다. 폴란드어처럼 어미 변화가 많은 언어에서는 어휘 빈도 최적화와 형태론적 정합성 사이의 트레이드오프를 명시적으로 고려해야 합니다.",
+      "폴란드어 동사형(poszlam, zrobilam 등)이 주어 없이 성·수·인칭을 드러낸다는 점은, 모델이 대화 중 사용자 문체를 미러링하거나 문법 성을 바꾸는 현상이 단순 확률적 오류가 아니라 '화자 정체성 유지' 메커니즘의 부재에서 올 수 있음을 시사합니다. 페르소나 일관성 평가와 대화형 AI의 주체성 설계에 참고할 만한 관점입니다.",
+      "논문은 실험 규모가 제한적인 언어학적 분석 성격이 강하므로, 제안된 해결책(하위어휘 안정화, 문장 패턴·동사 결합가 표현 등)이 실제 학습 및 벤치마크에서 성능 향상으로 이어지는지는 후속 연구로 검증되어야 합니다. 형태론 인식 토큰화 연구와 다국어 평가 데이터셋 설계의 관점에서 관전할 가치가 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "BPE tokenization struggles to preserve grammatical form in Polish",
+    "tags": [
+      "멀티모달",
+      "사전학습",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "6fb46ead0db36759",
+    "cluster_id": "b20260717-6fb46ead",
+    "title_original": "Vision-Language-Motion Maps: An Open-Vocabulary, Uncertainty-Aware, Queryable Motion Attribute for 3D Scene Maps",
+    "url": "https://arxiv.org/abs/2607.16173v2",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-07-17T17:53:13+00:00",
+    "fetched_at": "2026-11-05T01:02:23.235519+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "VLMM(Vision-Language-Motion Maps)은 3D 장면 지도의 각 요소에 VLM/LLM 기반 의미적 이동성 사전 확률과 기하학적으로 관측된 프레임 간 움직임을 결합하고, 요소별 불확실성을 함께 저장하는 개방형 어휘 지도입니다. 질의는 자연어 일반 인터페이스가 아닌 규칙 기반 의도 라우터를 통해 객체 명사에 대해 속성 필터로 처리되어, '움직인 것', '움직일 수 있으나 움직이지 않은 것', '정지한 것'을 구분합니다. AI2-THOR 시뮬레이터와 실제 동적 RGB-D 데이터셋(TUM, Bonn)에서 사전 확률과 관측 움직임이 서로 대체 불가능함을 보이고, 불확실성 채널이 움직임 탐지 정밀도를 높이고 거짓 움직임 플래그를 줄인다고 보고합니다.",
+    "insights_ko": [
+      "기존 개방형 어휘 3D 지도는 정적 세계를 가정해 '무엇이 어디에 있는가'만 답할 수 있었는데, VLMM은 '어떻게 움직이는가'까지 질의 가능한 속성으로 확장해 동적 환경에서 로봇의 장면 이해 범위를 넓힙니다.",
+      "의미적 사전 확률(움직일 수 있는가)과 관측된 움직임(실제로 움직였는가)을 분리해 저장하는 설계는, 정지 상태 관측만으로는 판단할 수 없는 잠재적 동적 객체를 로봇 계획 단계에서 미리 고려할 수 있게 해 줍니다. 다만 질의 인터페이스가 규칙 기반이라 범용 자연어 이해 수준에는 아직 미치지 못합니다.",
+      "추정컨대 불확실성 채널의 사후 등주 보정(isotonic calibration, ECE 0.10)과 추정 자세에서의 견고성은 실제 배치 시 센서 노이즈와 포즈 오차가 큰 환경에서 중요한 기여이며, 향후 자율 이동 로봇의 장기 맵 유지와 동적 장애물 처리 연구의 기반 표현으로 주목할 만합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Queryable open-vocabulary 3D maps that encode how scene objects move",
+    "tags": [
+      "멀티모달",
+      "로보틱스",
+      "추론",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "e6e718bb2bd78dee",
+    "cluster_id": "b20260717-e6e718bb",
+    "title_original": "WeedExpert-R1: Incentivizing Botanical Reasoning in MLLMs with Reinforcement Learning for Precision Weed Grounding",
+    "url": "https://arxiv.org/abs/2607.16492v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-07-17T20:33:10+00:00",
+    "fetched_at": "2026-11-05T01:02:23.235519+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "WeedExpert-R1은 정밀 잡초 방제를 위해 다중모달 LLM(MLLM)에 식물학적 추론 능력을 강화학습으로 주입한 모델입니다. 인간이 큐레이션한 식물 형질 사전과 Auditor-Synthesizer LLM 워크플로로 생성한 Chain-of-Thought 데이터로 지도 미세조정한 뒤, 형식·정확도·인스턴스 수·응답 길이에 대한 보상으로 GRPO를 적용했습니다. 6개 데이터셋의 37개 잡초 종에서 4B 모델이 GPT-5.4와 Gemini-3.1-Pro 등 상용 모델과 30B급 오픈소스 모델을 앞섰고, 학습에 없던 종에서도 재학습 없이 동작하는 개방형 어휘 능력을 보였습니다.",
+    "insights_ko": [
+      "기존 객체 탐지기가 닫힌 어휘에 묶여 지역·작물을 옮기면 재학습이 필요했던 한계를, 추론 기반 MLLM으로 우회할 수 있음을 보여줍니다. 정밀 농업에서 현장 배포 비용을 낮출 수 있는 방향입니다.",
+      "검증 가능한 보상(verifiable reward)으로 식물학적 근거 추론을 강화한 접근은, 전문 도메인에서 MLLM의 환각을 줄이는 방법론으로 확장 가능성이 있습니다. 4B 모델이 대형 상용 모델을 이긴 점은 소형 도메인 특화 모델의 경제성을 시사합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Reinforcement learning teaches a small multimodal model botanical reasoning for weed grounding",
+    "tags": [
+      "멀티모달",
+      "추론",
+      "강화학습",
+      "벤치마크",
+      "오픈소스"
+    ]
+  },
+  {
+    "id": "d5a0601ac7a72b36",
+    "cluster_id": "b20260717-d5a0601a",
+    "title_original": "Foresight Residual RL for Long-Horizon Robot Manipulation with Vision-Language-Action Models",
+    "url": "https://arxiv.org/abs/2607.16506v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-07-17T21:00:28+00:00",
+    "fetched_at": "2026-11-05T01:02:23.237986+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "VLA(Vision-Language-Action) 정책을 고정한 채 잔차 강화학습을 적용하는 과정에서, 각 하위 작업의 성공 보상만으로는 작업을 연결했을 때 성능이 잘 오르지 않는 문제가 확인되었습니다. 이를 해결하기 위해 제안된 Foresight Residual RL은 하위 작업 종료 상태가 다음 작업 성공 확률에 미치는 영향을 나타내는 '선견(foresight) 가치'를 오프라인으로 추정해 보상에 곱하는 방식입니다. Isaac Gym의 3단계 렌치 기반 너트 체결 과제에서 전체 성공률 85.6%를 기록해, 표준 하위 작업 잔차 RL(54.5%)과 VLA 기준선을 앞섰습니다.",
+    "insights_ko": [
+      "장기 과제 성능 향상의 핵심이 '성공 여부'가 아니라 각 단계에서 '어떤 성공 상태가 만들어지는가'를 설계하는 데 있다는 점을 보여줍니다. 하위 작업을 독립적으로 최적화할 때 생기는 핸드오프 취약성을 정량적으로 드러낸 점이 의미 있습니다.",
+      "하위 작업별 성공률은 그대로 유지하면서 전체 과제 성공률만 크게 올랐다는 결과는, 조립·접촉이 많은 로봇 작업에서 VLA 기반 정책을 실용적으로 확장할 때 보상 설계와 시퀀스 결합 방식이 모델 자체만큼 중요해질 수 있음을 시사합니다. 다만 결과는 단일 시뮬레이션 과제에 한정되어 실환경 전이는 추가 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Shaping handoff states lifts long-horizon robot assembly success",
+    "tags": [
+      "로보틱스",
+      "강화학습",
+      "에이전트",
+      "멀티모달",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "3762f3ac2e0bc827",
+    "cluster_id": "b20260717-3762f3ac",
+    "title_original": "Binding Drift in Multi-Step Tool-Augmented Agents",
+    "url": "https://arxiv.org/abs/2607.18316v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T20:00:10+00:00",
+    "fetched_at": "2026-11-05T01:02:23.237986+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "도구를 사용하는 다단계 LLM 에이전트가 한 번 확인한 엔티티 바인딩을 후속 단계에서 잘못된 대상으로 조용히 바꾸는 '바인딩 드리프트' 현상을 분석한 arXiv 논문입니다. 200개 워크플로우, 4개 기업 도메인, 8개 모델 백엔드를 이용한 통제 실험에서 첫 바인딩을 고정하는 'entity lock' 방식은 오류 행동을 3.0배(최대 8.5배) 증폭시켰고, 단일 저비용 LLM 재검증기는 잘못된 행동을 79% 줄이며 오라클 상한에 근접했습니다.",
+    "insights_ko": [
+      "'첫 바인딩을 유지하라'는 직관적 해법이 오류가 처음부터 있었을 때 오히려 잘못된 엔티티를 모든 후속 단계에 충실히 복제해 피해를 키운다는 점이 핵심입니다. 드리프트를 막는 방어가 전파를 악화시킬 수 있어, 에이전트 안전장치는 두 실패 모드를 분리해 설계해야 합니다.",
+      "원 지시문을 다시 읽는 값싼 두 번째 모델 호출만으로 오라클에 거의 근접한 개선이 나온다는 결과는, 프로덕션 에이전트에 고비용 검증 체계 없이도 적용 가능한 실용적 패턴을 제시합니다. 다만 자연 설정에서도 기준 에이전트의 18%가 드리프트한다는 수치는 기업 워크플로우 자동화의 신뢰성 과제가 여전히 크다는 것을 보여줍니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Multi-step tool agents silently drift to wrong entities mid-workflow",
+    "tags": [
+      "에이전트",
+      "추론",
+      "벤치마크",
+      "Claude",
+      "안전성"
+    ]
+  },
+  {
+    "id": "c9c971da36babc5b",
+    "cluster_id": "b20260717-c9c971da",
+    "title_original": "K-IPO: Kendall-constrained Importance Preserving Oversampling for Imbalanced Tabular Data",
+    "url": "https://arxiv.org/abs/2607.16478v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T19:52:55+00:00",
+    "fetched_at": "2026-11-05T01:02:23.237986+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "K-IPO는 불균형 표형(tabular) 분류 데이터의 소수 클래스를 오버샘플링할 때 원본 데이터의 피처 중요도 순위가 왜곡되는 문제를 막기 위한 생성-후-선택(generate-then-select) 프레임워크입니다. 소수 클래스 후보를 생성한 뒤, 사용자가 정한 최소 Kendall's tau 상관계수를 원본 순위와 유지하는 후보만 채택하며, 상위 피처에 더 엄격한 제약을 선택적으로 걸 수 있습니다. 20개 불균형 이진 분류 데이터셋에서 대부분 피처 중요도 보존, 설명 일관성, 클래스 분리도에서 최상 또는 동률 최상의 결과를 보였습니다.",
+    "insights_ko": [
+      "기존 연구들이 오버샘플링에 의한 피처 중요도 왜곡을 측정만 했던 것과 달리, K-IPO는 이를 생성 단계의 제약 조건으로 직접 다뤄 설명 가능성을 함께 지키는 방향을 제시합니다. 금융·의료처럼 설명이 규제 요건인 표형 데이터 분야에서 실용성이 큽니다.",
+      "생성기에 독립적인 필터 방식이라 기존 SMOTE 계열이나 생성 모델 어디에든 붙일 수 있습니다. 다만 후보를 반복 생성·선택하므로 계산 비용과 기준 순위를 어떻게 정할지가 실제 적용의 관건이 될 것으로 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "K-IPO preserves feature importance rankings during imbalanced data oversampling",
+    "tags": [
+      "벤치마크",
+      "정렬",
+      "해석성"
+    ]
+  },
+  {
+    "id": "c7a8ebf695a16d87",
+    "cluster_id": "b20260717-c7a8ebf6",
+    "title_original": "Do Vision Encoders Exhibit Human-like Color Thresholds?",
+    "url": "https://arxiv.org/abs/2607.16540v2",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-07-17T22:30:12+00:00",
+    "fetched_at": "2026-11-05T01:02:23.237986+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "50여 개 사전학습 비전 인코더(CNN·ViT 포함)의 색 구분 능력을 인간의 색 구분 임계값(발산 타원)과 비교한 대규모 탐색 연구입니다. 영역 중첩 지표(mIoU)로 측정한 결과, 모든 모델 계열에서 인간 지각과의 정렬이 약했고 최고 mIoU도 0.25 미만이었습니다. 자기지도 학습 인코더가 지도 학습 모델보다 일관되게 우수했으며, 언어 지도 모델은 상위와 하위에 극단적으로 분포했습니다.",
+    "insights_ko": [
+      "현재 대규모 시각 학습 목적함수만으로는 인간 수준의 색 민감도가 자연스럽게 생기지 않는다는 점을 실증적으로 보여, 비전 파운데이션 모델의 표현 품질에 대한 기존 가정을 재고하게 합니다.",
+      "자기지도 학습이 지도 학습보다 인간 색 지각에 가깝다는 결과는 사전학습 목적 선택이 지각 정렬에 영향을 준다는 신호로, 색 민감도가 중요한 의료 영상·제품 검사·접근성 응용에서 인코더 선택 기준이 될 수 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Vision encoders fall short of human color discrimination thresholds",
+    "tags": [
+      "멀티모달",
+      "해석성",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "40d0d23c695d9947",
+    "cluster_id": "b20260717-40d0d23c",
+    "title_original": "Encoding EEG Signals to Examine Human-Like Next-Word Prediction Behaviour in Language Models",
+    "url": "https://arxiv.org/abs/2607.16549v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T23:11:16+00:00",
+    "fetched_at": "2026-11-05T01:02:23.238985+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "언어모델의 다음 단어 예측 능력이 인간과 유사해 보이지만, 그것이 실제로 인간의 독해 인지 과정을 반영하는지는 불분명합니다. 연구진은 EEG로 측정한 사건관련전위(ERP)를 인간과 언어모델 각각의 top-1 예측 및 surprisal 지표로 예측하는 회귀 모델을 만들어 비교했습니다. 그 결과 surprisal만이 언어처리 ERP와 잠재적으로 상관관계를 보였으며, 특히 의미 내용이 풍부한 개방형 어휘(명사·동사 등)에서 두드러졌습니다. 또한 모델 파라미터와 연산량을 늘리면 인간적 언어처리에 더 가까워진다는 가정에 의문을 제기합니다.",
+    "insights_ko": [
+      "예측 정확도가 높다고 해서 모델이 인간의 인지 신호를 포착한다고 볼 수 없음을 보여줍니다. 벤치마크 성능과 인지적 타당성을 구분해서 평가해야 한다는 메시지가 강하게 제기됩니다.",
+      "모델 스케일링이 인간 유사 언어처리로의 수렴을 보장하지 않는다는 결과는, 인지과학 기반 평가 지표(ERP 정렬 등)를 모델 개발 및 해석 연구에 도입할 필요성을 시사합니다.",
+      "뇌파 기반 평가는 모델 간 차이를 밀리초 단위로 세밀하게 분석할 수 있는 도구로, 향후 인지적으로 그럴듯한 언어모델 설계와 신경과학·NLP 간 융합 연구의 방향을 가늠하게 합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Next-word accuracy does not guarantee human-like language processing in models",
+    "tags": [
+      "추론",
+      "해석성",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "6f54040a4f7c1002",
+    "cluster_id": "b20260717-6f54040a",
+    "title_original": "Projective Maximum Entropy: Universality and Acceptance-Region Calibration",
+    "url": "https://arxiv.org/abs/2607.16547v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-07-17T22:50:47+00:00",
+    "fetched_at": "2026-11-05T01:02:23.238985+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "이 논문은 최대엔트로피 기준분포를 정규화된 확률 단체 대신 비정규화 측도들의 사영공간(projective space)에서 정식화합니다. 선형 모멘트 제약 하에서 Tsallis·Rényi 엔트로피, Hölder 복합 점수, 의사구면 점수 등 여러 동차 발산에 대한 최대엔트로피 해가 단조 변환과 무관하게 동일함을 보이고, 그 해가 q-지수 밀도임을 특성화합니다. 또한 Mahalanobis 수용영역의 반지름 R²>d+2가 변형 모수 γ_R=2/(R²-d-2)를 유일하게 결정하며, 이로부터 지정된 타원체와 지지집합이 일치하는 아핀 동변 기준밀도를 얻는다고 주장합니다.",
+    "insights_ko": [
+      "서로 다른 엔트로피·발산 계열이 같은 최적해로 수렴한다는 보편성 결과는, 어떤 점수 함수를 쓸지에 대한 자의적 선택이 최대엔트로피 해에 영향을 주지 않는다는 뜻이어서 기준분포 설계의 해석 부담을 줄여 줍니다.",
+      "강건한 위치·산포 추정치로부터 유계 지지집합의 기준분포를 만드는 방법을 제시하므로, 이상치 검정이나 수용영역 기반 품질관리 같은 실무 통계 절차에 바로 응용될 여지가 있습니다. 다만 반지름 조건 R²>d+2의 실용적 민감도와 표본 추정 오차의 전파는 본문만으로는 확인하기 어렵습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Maximum entropy on projective space yields calibrated bounded-support reference distributions",
+    "tags": [
+      "벤치마크",
+      "정렬"
+    ]
+  },
+  {
+    "id": "afc09390a34fbb72",
+    "cluster_id": "b20260717-afc09390",
+    "title_original": "Feedback Attribution and Representation Geometry: Metrics for Comparing Individual and Shared Rewards in MARL",
+    "url": "https://arxiv.org/abs/2607.16524v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-07-17T21:53:07+00:00",
+    "fetched_at": "2026-11-05T01:02:23.240985+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "협력형 다중 에이전트 강화학습(MARL)에서 팀 평균 보상이 개별 기여도를 반영하지 못하는 문제를 다룬 연구입니다. 저자들은 정규화된 유효 랭크(EffRank/n)와 에이전트 간 행동 분포의 평균 쌍별 KL 발산(D_act)을 저비용 진단 지표로 제안했습니다. SMACv2 protoss_5_vs_5 환경에서 MAPPO 에이전트를 관찰 정보(유닛 타입 노출 여부)와 보상 방식(개별 피해 기여 vs. 공유 팀 보상)으로 나눠 비교한 결과, 표현 기하는 보상보다 관찰 정보에 더 강하게 좌우되었습니다. 보상 차이는 주로 행동 지표(D_act)에서 나타났습니다.",
+    "insights_ko": [
+      "팀 보상이 표현 공간에 뚜렷한 흔적을 남긴다는 직관과 달리, 이 실험에서는 유닛 타입이 관찰에 포함될 때 두 보상 조건의 EffRank/n과 프로브 정확도가 거의 같았습니다. 따라서 표현 기하 분석만으로 보상 귀속 효과를 판단하면 관찰 정보의 영향을 잘못 해석할 위험이 큽니다.",
+      "D_act가 개별 보상 조건에서 더 높게 나온 점은 보상 귀속이 표현보다 행동 다양성에 먼저 드러난다는 가설을 뒷받침합니다. 다만 SMACv2 단일 시나리오와 제한된 시드 수에 기반하므로, 이 진단 지표들을 다른 과제나 지속적 역할(persistent roles)이 관찰되지 않는 환경에 일반화하려면 추가 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Observation, not reward, shapes multi-agent representation geometry in SMACv2",
+    "tags": [
+      "에이전트",
+      "강화학습",
+      "벤치마크",
+      "해석성"
+    ]
+  },
+  {
+    "id": "9504ac4485c0a456",
+    "cluster_id": "b20260717-9504ac44",
+    "title_original": "Capacity and Redundancy Trade-offs in Multi-Task Learning",
+    "url": "https://arxiv.org/abs/2607.16554v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T23:31:12+00:00",
+    "fetched_at": "2026-11-05T01:02:23.240985+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "멀티태스크 학습(MTL)에서 발생하는 음의 전이(negative transfer)를 최적화 문제가 아니라 공유 용량의 한계와 태스크 간 중복성 부족의 결과로 해석하는 연구입니다. 저자들은 태스크별 예측 정보의 합을 결합 예측 정보(라벨 중복성, 총 상관량 TC로 정의)와 공유 표현이 해결하지 못한 잔여 간섭 항으로 분해하는 Capacity--Redundancy(CR) 항등식을 제안합니다. 이론적으로는 군집 공유가 전역 공유보다 우수하기 위한 필요충분조건과, 가우시안 다중태스크 모델에서 그래디언트 코사인 유사도가 중복성 순서의 대리 지표가 됨을 보였습니다. 실험에서는 검증 잔차 상관으로 잔여 결합 Δ를 추정하여 클러스터링된 LoRA가 이를 크게 줄이고, 크기가 같은 무작위 분할보다 나으며 다중 시드 신뢰구간에서 통계적으로 유의미한 이득을 보인다고 보고합니다.",
+    "insights_ko": [
+      "음의 전이를 단순한 옵티마이저 문제가 아닌 용량과 중복성의 구조적 문제로 정식화해, 어떤 태스크를 묶어야 하는지에 대한 설계 기준을 이론적으로 제시한다는 점이 새롭습니다.",
+      "태스크 군집화 후 LoRA 어댑터를 붙이는 방식이 대규모 멀티태스크 파인튜닝에서 태스크 그룹 선정과 어댑터 배분 전략에 실질적 지침이 될 수 있습니다. 다만 결과는 검증 잔차 기반 추정에 의존하므로 대규모 LLM 설정으로의 일반화는 추가 검증이 필요합니다.",
+      "그래디언트 코사인 유사도를 중복성의 대리 지표로 정당화한 부분은 태스크 선택·가중치 조정 자동화 연구와 맞물려, 향후 MTL 및 지속 학습에서 후속 연구가 이어질 가능성이 높은 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Capacity and redundancy explain negative transfer in multi-task learning",
+    "tags": [
+      "추론",
+      "벤치마크",
+      "파인튜닝"
+    ]
+  },
+  {
+    "id": "291b347fb04dc4d9",
+    "cluster_id": "b20260717-291b347f",
+    "title_original": "MegaSlide-DiT: Memory-Centric Adaptation and Deformable Local Attention for Efficient Video Diffusion",
+    "url": "https://arxiv.org/abs/2607.22696v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-07-17T19:30:05+00:00",
+    "fetched_at": "2026-11-05T01:02:23.242471+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "MegaSlide-DiT는 105B 파라미터 규모의 사전학습된 Diffusion Transformer(DiT) 비디오 모델을 1.5TB 호스트 RAM을 갖춘 단일 H200 GPU 워크스테이션에서 전체 파라미터 적응(fine-tuning)할 수 있도록 설계된 시스템입니다. 모델 가중치·마스터 가중치·옵티마이저 모멘트를 호스트 메모리에 두고 필요한 샤드만 GPU로 스트리밍하는 방식으로 파라미터 메모리 병목을 우회했습니다. 또한 전역 시공간 self-attention을 3D Deformable Slide Attention(3D-DSA)이라는 움직임 적응형 로컬 어텐션으로 대체해 시퀀스 길이에 대해 선형 복잡도를 달성했습니다. 저자들은 단일 GPU에서 105B 모델을 처음부터 학습한다고 주장하지 않으며, 고성능 워크스테이션 기준 대규모 비디오 확산 모델의 실용적 적응 경로를 제시하는 데 목적이 있다고 명시합니다.",
+    "insights_ko": [
+      "대규모 생성 모델의 파인튜닝 진입장벽을 GPU 클러스터에서 단일 워크스테이션으로 낮추려는 시도로, '모델 상태를 GPU가 소유할 필요가 없다'는 시스템 관점의 발상이 핵심입니다. 이는 호스트 메모리와 GPU 간 PCIe/NVLink 대역폭이 새로운 병목이 된다는 것을 의미하며, 오프로딩 전략의 효율이 실제 활용성을 좌우하게 됩니다.",
+      "전역 어텐션을 모션 적응형 로컬 어텐션으로 바꾸는 접근은 고해상도 비디오에서 긴 시퀀스 비용을 줄이는 현실적 방향입니다. 다만 선형 복잡도 주장이 실제 학습 처리량과 품질 손실 측면에서 얼마나 유지되는지는 후속 벤치마크에서 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Single-GPU adaptation of 105B video diffusion transformers via host memory offloading",
+    "tags": [
+      "멀티모달",
+      "비디오생성",
+      "추론",
+      "데이터센터",
+      "HBM"
+    ]
+  },
+  {
+    "id": "7df178db0477bb3e",
+    "cluster_id": "b20260717-7df178db",
+    "title_original": "Apple-$π$: Benchmarking Thinking with Video Towards Law-Grounded Physical Intelligence",
+    "url": "https://arxiv.org/abs/2607.16401v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-07-17T18:00:05+00:00",
+    "fetched_at": "2026-11-05T01:02:23.247471+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Apple-π는 비디오 생성 모델이 물리 법칙에 근거한 추론을 하는지를 평가하는 최초의 벤치마크로, 고전 역학 10개 과제를 다룬 400개 영상 데이터셋 Orchard, 인지-공식화-연역의 3단계 프로토콜, MLLM 주관 채점과 물리 기반 객관 지표를 결합한 평가 스위트로 구성됩니다. 생성된 영상을 모델의 가시적 추론 과정으로 간주하는 것이 핵심 아이디어입니다. 11개 모델을 평가한 결과 최고 점수는 0.473에 그쳐 현재 비디오 모델이 신뢰할 만한 법칙 기반 월드 시뮬레이터와는 거리가 멀다는 결론입니다.",
+    "insights_ko": [
+      "기존 벤치마크가 결과물의 그럴듯함만 보던 것과 달리, 어느 단계(인지, 공식화, 연역)에서 실패하는지 진단할 수 있게 해 비디오 모델을 월드 모델로 발전시키기 위한 평가 방법론의 방향을 바꿀 가능성이 있습니다.",
+      "다중 법칙 상태 전이가 약하고 시뮬레이션과 실제 사이의 격차(Sim-to-Real gap)가 지속된다는 발견은, 물리 시뮬레이션이나 로보틱스 응용에 비디오 생성 모델을 바로 쓰기에는 아직 이르다는 신호로 읽힙니다.",
+      "'비디오 생성 = 세계 모델' 담론을 정량적으로 검증하려는 시도라는 점에서, 향후 물리 추론 특화 학습 데이터나 법칙 기반 평가 지표 개발이 관련 연구의 관전 포인트가 될 것으로 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Apple-π benchmarks whether video models truly reason with physical law",
+    "tags": [
+      "벤치마크",
+      "멀티모달",
+      "추론",
+      "안전성",
+      "해석성"
+    ]
+  },
+  {
+    "id": "c27d46e2bb56a497",
+    "cluster_id": "b20260717-c27d46e2",
+    "title_original": "FAA lets Boeing sign off on 737 MAX, 787 airworthiness certificates again",
+    "url": "https://www.cnbc.com/2026/07/17/faa-boeing-737-max-787.html",
+    "image_url": "https://image.cnbcfm.com/api/v1/image/108250215-1767906239901-gettyimages-2249102626-BOEING_737_MAX.jpeg?v=1768321273&w=1920&h=1080",
+    "source_id": "hn_ai",
+    "source_name": "Hacker News (AI filter)",
+    "published": "2026-07-17T21:22:53+00:00",
+    "fetched_at": "2026-11-05T01:02:23.247471+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "미국 연방항공청(FAA)이 Boeing에 737 MAX와 787 드림라이너의 감항증명서(airworthiness certificate) 발급 권한을 다시 부여했습니다. 이 권한은 2018년과 2019년 737 MAX 추락 사고 이후 회수되었으며, 지난해 9월부터 일부 기종에 한해 FAA와 Boeing이 주 단위로 번갈아 발급을 맡는 방식으로 일부 복구되어 있었습니다. FAA는 최근 8개월간 Boeing이 발급한 증명서와 FAA가 발급한 증명서에서 생산 품질 지적 사항이 비슷한 수준이었다고 밝히며 이 책임을 Boeing에 전면 반환하기로 결정했습니다.",
+    "insights_ko": [
+      "규제기관이 감항증명 권한을 제조사에 되돌려준 것은 안전 감독 체계에 대한 신뢰 회복 신호이지만, 기사에 명시되었듯 2024년 1월 737 MAX 9 도어 플러그 이탈 사건 등 최근까지 품질 문제가 이어졌던 만큼 이후 감독 강도가 어떻게 유지되는지가 핵심 관전 포인트입니다.",
+      "Boeing 입장에서는 자체 발급 권한 회복으로 인도 지연 병목이 줄어들 수 있어 생산 정상화와 현금흐름 개선에 직접적인 의미가 있습니다. 반면 FAA의 판단 근거가 '품질 지적 사항의 비율 유사성'이라는 비교적 제한된 지표라는 점은 외부 검증 관점에서 추가 설명이 필요할 수 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "FAA returns airworthiness certification authority to Boeing for 737 MAX and 787",
+    "tags": [
+      "규제",
+      "안전성",
+      "자율주행"
+    ]
+  },
+  {
+    "id": "8a4aae8604852408",
+    "cluster_id": "b20260717-8a4aae86",
+    "title_original": "Beyond Right and Wrong: Evaluating Second-order Social Reasoning in Large Language Models",
+    "url": "https://arxiv.org/abs/2609.05437v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T19:30:58+00:00",
+    "fetched_at": "2026-11-05T01:02:23.248465+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "기존 AI 정렬 연구는 '도둑질하지 말라'처럼 무엇이 허용되는지에 집중해 왔지만, 이 논문은 누가 어떻게 규범을 집행할지 예측하는 2차 사회적 추론, 즉 메타규범(metanorm) 능력을 평가하는 새로운 프레임워크를 제시합니다. 감정적 평가와 행동적 반응이라는 두 축으로 평가하며, 위반자의 자기조절과 관찰자의 타자조절을 예측하는 분류 과제를 제안합니다. 이를 위해 450개 규범 위반 시나리오로 구성된 NormReact 데이터셋을 공개했습니다. 6개 LLM을 평가한 결과, 모델들은 인간이 무반응을 예상하는 상황에서도 부정적 제재를 과잉 예측했고, 사회적 거리가 멀어질수록 인간 판단과의 정합성이 떨어졌습니다.",
+    "insights_ko": [
+      "LLM이 사회를 실제보다 가혹하고 처벌 중심으로 그리는 경향이 확인되어, 갈등 중재나 정책 시뮬레이션에 쓰일 경우 관용·자제·관계적 조정이라는 실제 규범 집행의 모습을 과소표현할 위험이 있습니다.",
+      "정렬 평가를 '무엇이 옳은가'에서 '사회적 결과와 집행을 얼마나 현실적으로 예측하는가'로 확장해야 한다는 시사점을 줍니다. 특히 사회적 거리에 따른 성능 저하는 관계 맥락 모델링이 아직 취약함을 보여줍니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Study reveals LLMs overpredict punishment in social norm enforcement",
+    "tags": [
+      "안전성",
+      "정렬",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "35520d2d3d548797",
+    "cluster_id": "b20260717-35520d2d",
+    "title_original": "Differentiable Reinforcement Learning for Path Tracking by an Agile Fish-Like Robot",
+    "url": "https://arxiv.org/abs/2607.16508v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-07-17T21:02:17+00:00",
+    "fetched_at": "2026-11-05T01:02:23.248465+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "연구진은 물고기 형태 로봇의 유체-구조 상호작용을 계산 효율적으로 근사하는 시뮬레이션 플랫폼을 개발했습니다. 이 환경에서 PID 제어기의 가변 게인을 시간에 따른 역전파(BPTT)와 커리큘럼 학습으로 학습해 경로 추종 정책을 얻었고, 시뮬레이션에서 학습한 정책을 실제 물리 로봇에 적용해 우수한 일치를 보였습니다.",
+    "insights_ko": [
+      "수생 biomimetic 로봇은 모델링이 어려운 유체 역학과 비선형 저구동(underactuated) 동역학 때문에 강화학습 적용이 지연되어 왔습니다. 빠르고 충분히 정확한 시뮬레이터를 확보했다는 점에서 이 분야의 학습 기반 제어 연구에 실질적인 출발점이 됩니다.",
+      "고전적 PID 구조를 유지하면서 게인만 미분 가능한 방식으로 학습한 접근은 안정성 해석과 하드웨어 이식성을 동시에 노린 설계입니다. 신경망 전체를 정책으로 쓰는 방식보다 실로봇 배포 장벽을 낮출 가능성이 있으며, 시뮬레이션-실물 전이(sim-to-real) 성공 사례로서 수중 로봇 및 해양 탐사 로봇 연구에 참고 가치가 높습니다.",
+      "다만 본문에 정량적 추종 오차나 비교 베이스라인 수치는 제시되지 않아, 성능 우위의 크기와 적용 범위는 원문 전체 확인이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Differentiable RL tunes PID gains for a fish-like robot with sim-to-real transfer",
+    "tags": [
+      "로보틱스",
+      "강화학습",
+      "자율주행"
+    ]
+  },
+  {
+    "id": "4ba0272e572a51ff",
+    "cluster_id": "b20260717-4ba0272e",
+    "title_original": "Mitigating Compiler Fusion-Induced Power Bursts in Mobile NPU Inference as the Battery Depletes",
+    "url": "https://arxiv.org/abs/2607.16555v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-07-17T23:44:41+00:00",
+    "fetched_at": "2026-11-05T01:02:23.248465+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "상용 스마트폰에서 모바일 NPU의 컴파일러 연산자 융합(operator fusion)이 거대한 단일 슈퍼레이어를 만들어 순간 피크 전류 급증을 유발하고, 배터리가 방전되어 저전압 영역에 들어갈수록 전원 전압 강하로 인해 DVFS가 개입해 추론 지연이 늘어나는 현상을 측정으로 보였습니다. 연구진은 벤더 컴파일러를 수정하지 않고 피크 대 평균 전력비가 높은 구간에 배리어를 삽입하는 사전 컴파일 그래프 재작성 기법을 제안했으며, Snapdragon 8 Gen 3에서 MobileNetV4(768x768) 기준 피크 전류를 3.12A에서 1.94A로 낮추고 지연은 3.76%만 늘리면서 DVFS 임계 전압 마진을 약 173mV 확보했습니다.",
+    "insights_ko": [
+      "온디바이스 AI 성능 최적화의 병목이 연산량이 아니라 전력 전달망(PDN)의 전압 안정성과 PMIC 제어 루프로 이동하고 있음을 보여줍니다. 모델 컴파일러의 융합 전략이 하드웨어 전력 특성과 직접 결합되는 영역이라 칩 벤더와 컴파일러 팀의 협업 중요성이 커집니다.",
+      "벤더 컴파일러를 건드리지 않는 black-box 방식이라 앱 개발자나 모델 최적화 엔지니어가 당장 적용할 수 있는 실용적 완화책이라는 점이 의미 있습니다. 다만 측정 기반 핫스팟 탐색이 필요해 기기·모델별 재측정 비용이 따르며, 배터리 잔량에 따른 체감 성능 저하를 줄이는 방향으로 카메라·지각 워크로드 설계에 반영될 가능성이 있습니다."
+    ],
+    "category": "hardware",
+    "importance_score": 3,
+    "subtitle_en": "Compiler fusion causes power bursts in mobile NPUs at low battery",
+    "tags": [
+      "추론칩",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "5387d10eebb479fc",
+    "cluster_id": "b20260717-5387d10e",
+    "title_original": "MTSSL: Meta-Thresholding Semi-Supervised Learning",
+    "url": "https://arxiv.org/abs/2607.16363v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-07-17T13:01:41+00:00",
+    "fetched_at": "2026-11-05T01:02:23.248465+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "준지도 학습(SSL) 알고리즘들이 의사 레이블을 선택할 때 쓰는 임계값 τ의 역할을 통계적으로 설명하는 통일된 이론 틀을 제시합니다. 올바른 의사 레이블과 잘못된 의사 레이블이 비지도 손실에 독립적으로 영향을 주며, τ는 두 종류의 개수를 조절해 오차 항을 균형 맞추는 역할을 한다고 분석합니다. 이를 바탕으로 τ를 미분으로 최적화하는 Meta-Thresholding Semi-Supervised Learning(MTSSL)을 제안하고, 다양한 실험에서 우수한 성능을 보였습니다.",
+    "insights_ko": [
+      "서로 다른 τ 값에서도 SSL 알고리즘의 정확도 곡선이 거의 겹친다는 관찰은, 최적 임계값을 정밀하게 찾는 데 드는 노력이 실제로는 필요 없을 수 있음을 시사합니다. 이는 하이퍼파라미터 튜닝 비용을 줄이는 방향의 설계 원칙으로 이어질 수 있습니다.",
+      "τ를 학습 가능한 파라미터로 취급해 미분 기반으로 최적화하는 접근은 의사 레이블 정책을 데이터에 맞춰 자동 조정하는 메타 학습 흐름과 맞닿아 있습니다. 라벨이 극히 적은 환경에서의 실용성과 함께 검증이 필요한 지점입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Meta-learning the pseudo-label threshold in semi-supervised learning",
+    "tags": [
+      "오픈소스",
+      "사전학습",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "ee6be7bd85ad1321",
+    "cluster_id": "b20260717-ee6be7bd",
+    "title_original": "RIMS: Preference Optimization via Smoothed Multi-pair Aggregation for Small-Scale LLM Retrieval-Augmented Generation",
+    "url": "https://arxiv.org/abs/2607.16431v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T18:24:19+00:00",
+    "fetched_at": "2026-11-05T01:02:23.249466+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "RIMS는 소규모 언어모델(SLM)의 검색 증강 생성(RAG) 성능을 높이기 위한 선호도 최적화 프레임워크입니다. 모델 자체의 rejection sampling으로 chain-of-thought 선호 데이터를 만들고, 기존 RoseRAG처럼 가장 어려운 쌍 하나만 고르는 hard argmin/argmax 대신 미분 가능한 soft aggregation으로 모든 선호쌍의 그래디언트 신호를 보존합니다. 네 개의 다중 홉 QA 벤치마크에서 여러 SLM 백본에 걸쳐 노이즈가 있는 검색 조건에서도 EM과 F1 향상을 보였다고 보고합니다.",
+    "insights_ko": [
+      "독점 모델 없이 타깃 SLM 자신으로 선호 데이터를 생성한다는 점은 온디바이스·저자원 환경의 RAG 구축 비용을 낮출 실용적 방향입니다. 다만 생성 데이터의 품질 편향이 성능 상한을 정할 가능성이 있습니다.",
+      "hard selection이 데이터의 대부분을 버린다는 문제를 soft aggregation으로 푼 접근은, 선호 최적화 전반에서 쌍 단위 정보 활용률을 높이는 설계 관점으로 확장될 수 있습니다. 실제 이득의 크기와 여러 정렬 알고리즘에 대한 일반성은 전문 검토가 필요합니다.",
+      "본문 기준으로 arXiv 프리프린트 단계의 연구이며, 공개된 요약 정보만으로는 구체적 벤치마크 수치나 소속 기관은 확인되지 않아 중요도는 보수적으로 3으로 평가했습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "RIMS smooths multi-pair preference optimization for small-model retrieval-augmented generation",
+    "tags": [
+      "RAG",
+      "파인튜닝",
+      "정렬",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "4df88fda10ed9cbd",
+    "cluster_id": "b20260717-4df88fda",
+    "title_original": "Multi-level context Modeling for consistent expert selection in Mixture-of-Experts",
+    "url": "https://arxiv.org/abs/2607.16427v2",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-07-17T18:22:42+00:00",
+    "fetched_at": "2026-11-05T01:02:23.249466+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "MoE(Mixture-of-Experts) 구조에서 토큰을 전문가에게 라우팅할 때, 기존 라우터가 얕거나 고립된 토큰 표현에 의존해 레이어마다 불안정하고 의미적으로 일관성 없는 선택을 낳는 문제를 다룹니다. 연구진은 문맥 불완전성(context incompleteness)을 전문가 전문화를 제한하는 핵심 병목으로 지목하고, 교차 레이어 의미 집계와 국소 토큰 상호작용 신호를 결합한 MCF-MOE(Multi-level Context Fusion MoE)를 제안합니다. 언어 모델링 및 이해 벤치마크에서 강력한 MoE 베이스라인 대비 라우팅 일관성과 하위 과제 성능이 일관되게 향상되었다고 보고합니다.",
+    "insights_ko": [
+      "라우터 입력을 단일 토큰 표현에서 다층 문맥 표현으로 확장하는 접근은, 전문가 선택 문제를 '어떤 전문가를 고를까'가 아니라 '무엇을 근거로 고를까'의 표현 설계 문제로 재정의한다는 점에서 의미가 있습니다.",
+      "라우팅 일관성 자체를 성능과 나란히 측정 지표로 제시한 점은, 전문가 특화와 학습 안정성을 함께 평가하는 MoE 연구 흐름을 강화할 가능성이 있습니다. 다만 개선 폭과 평가 규모, 추론 시 추가 연산 비용은 본문 요약만으로는 확인하기 어렵습니다.",
+      "실제 서비스 적용 관점에서는 라우터가 레이어 간 문맥을 참조하면 추론 지연과 메모리 부담이 늘어날 수 있어, 효율성과 일관성 사이의 트레이드오프가 후속 검증의 관전 포인트가 될 것으로 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Multi-level context fusion makes Mixture-of-Experts routing more consistent",
+    "tags": [
+      "추론",
+      "벤치마크",
+      "사전학습"
+    ]
+  }
+]
