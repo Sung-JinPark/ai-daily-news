@@ -1,13 +1,37 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-17T18:55:29.436718+00:00",
+  "generated_at": "2026-11-18T18:22:28.251733+00:00",
   "lookback_days": 60,
   "models": [
     {
       "model": "Claude",
       "latest_version": "Claude (Bedrock 호스팅)",
-      "latest_seen": "2026-11-17",
+      "latest_seen": "2026-11-18",
       "articles": [
+        {
+          "id": "232877e3942d26ca",
+          "day": "2026-11-18",
+          "title": "‘Just Ridiculous’: A Famed Philosopher Takes on AI Consciousness",
+          "url": "https://www.wired.com/story/just-ridiculous-a-famed-philosopher-takes-on-ai-consciousness/"
+        },
+        {
+          "id": "c55f92969fc4ef13",
+          "day": "2026-11-18",
+          "title": "Amazon and Google will together own nearly 30% of Anthropic after its IPO",
+          "url": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/"
+        },
+        {
+          "id": "6468382737345bd8",
+          "day": "2026-11-18",
+          "title": "\"Anthropic Is Not a Safe AI Company\" – Coalition Challenges Anthropic Safety",
+          "url": "https://www.businesswire.com/news/home/20261118974464/en/Anthropic-is-Not-a-Safe-AI-Company---Broad-Coalition-of-Scientists-Legal-Scholars-and-Tech-Leaders-Challenge-Anthropics-Safety-Branding-Ahead-of-IPO"
+        },
+        {
+          "id": "d34ce25785fdf87b",
+          "day": "2026-11-18",
+          "title": "Satya Nadella says he’s AGI-pilled now",
+          "url": "https://www.theverge.com/tech/1036111/satya-nadella-says-hes-agi-pilled-now"
+        },
         {
           "id": "e17e376e57102864",
           "day": "2026-11-17",
@@ -835,32 +859,9 @@
           "day": "2026-09-19",
           "title": "Researchers used Claude to hack OpenAI",
           "url": "https://arstechnica.com/ai/2026/09/researchers-used-claude-to-hack-openai/"
-        },
-        {
-          "id": "1ff6d7f6dcfb6f21",
-          "day": "2026-09-18",
-          "title": "LLMs respond differently to harmful prompts when AI watermarking is used",
-          "url": "https://arstechnica.com/security/2026/09/ai-text-watermarking-can-make-models-more-vulnerable-to-adversarial-prompts/"
-        },
-        {
-          "id": "0f73d188d043bc01",
-          "day": "2026-09-18",
-          "title": "UN turns to Google to make its global data ready for AI agents",
-          "url": "https://techcrunch.com/2026/09/17/un-turns-to-google-to-make-its-global-data-ready-for-ai-agents/"
-        },
-        {
-          "id": "0a3be15b32c0f91d",
-          "day": "2026-09-18",
-          "title": "Claude Code relaunches Projects to manage multiple AI agents in the cloud",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/997134/anthropic-claude-code-projects"
         }
       ],
       "top_benchmarks": [
-        {
-          "name": "UNICEF",
-          "score": "평균 21.2%",
-          "article_id": "0f73d188d043bc01"
-        },
         {
           "name": "GenEval2",
           "score": "72.7% → 99.3%",
@@ -868,6 +869,11 @@
         },
         {
           "name": "HealthBench",
+          "score": "None",
+          "article_id": "e9f63aa1f7aaa02f"
+        },
+        {
+          "name": "FrontierMath",
           "score": "None",
           "article_id": "e9f63aa1f7aaa02f"
         }
@@ -890,351 +896,33 @@
         }
       ],
       "strengths_ko": [
-        "병렬 작업 실행",
         "fedramp 및 dod 인증",
-        "규제 준수 환경 지원"
+        "규제 준수 환경 지원",
+        "aws govcloud 운영"
       ],
       "weaknesses_ko": [
         "허위 정보 생성",
         "거짓 정보 제출",
         "평가 인지로 실제 환경 행동 검증 어려움"
       ],
-      "article_count": 141
+      "article_count": 142
     },
     {
-      "model": "GPT-5",
-      "latest_version": "GPT-6.2 Astra",
-      "latest_seen": "2026-11-17",
+      "model": "Qwen",
+      "latest_version": "Qwen-2.5-7B-Instruct",
+      "latest_seen": "2026-11-18",
       "articles": [
         {
-          "id": "8f6af8c44a4a1bfb",
-          "day": "2026-11-17",
-          "title": "Introducing GPT-6.2 Astra and Sol",
-          "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol"
+          "id": "d4599a17421856c1",
+          "day": "2026-11-18",
+          "title": "What Does a Bias Head Measure? Non-Identifiability in Head-Level Bias Attribution",
+          "url": "https://arxiv.org/abs/2611.23218v1"
         },
         {
-          "id": "2d7a5d6b20fff3cd",
+          "id": "d6475341fb1fa3c5",
           "day": "2026-11-16",
-          "title": "Broadening access to AI for scientists",
-          "url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
-        },
-        {
-          "id": "96c7f67bef86f831",
-          "day": "2026-11-13",
-          "title": "XYBench: Helping with the problem behind the question",
-          "url": "https://huggingface.co/blog/allenai/xybench"
-        },
-        {
-          "id": "64a6f20ebcc4dac1",
-          "day": "2026-11-12",
-          "title": "AI chatbots are recommending fake retail websites, study finds",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1032020/gemini-chatgpt-perplexity-shopping-test-risky-fake-websites-citations"
-        },
-        {
-          "id": "583dee252be92f18",
-          "day": "2026-11-11",
-          "title": "OpenAI rolls out new business profiles, making ChatGPT just a little bit more like Google",
-          "url": "https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/"
-        },
-        {
-          "id": "f31248890af40385",
-          "day": "2026-11-11",
-          "title": "OpenAI’s quarterly revenue reportedly crosses $10B for the first time",
-          "url": "https://techcrunch.com/2026/11/11/openais-quarterly-revenue-reportedly-crosses-10b-for-the-first-time/"
-        },
-        {
-          "id": "a97ea8448801e71f",
-          "day": "2026-11-10",
-          "title": "WorkflowArena: Benchmarking Executable Workflow Orchestration in LLM-Based Multi-Agent Systems",
-          "url": "https://arxiv.org/abs/2611.12856v1"
-        },
-        {
-          "id": "bc64bea0832685bc",
-          "day": "2026-11-09",
-          "title": "SpaceX now fundamentally an \"infrastructure company,\" senior official says",
-          "url": "https://arstechnica.com/space/2026/11/spacex-now-fundamentally-an-infrastructure-company-senior-official-says/"
-        },
-        {
-          "id": "ecb59480543c9123",
-          "day": "2026-11-07",
-          "title": "Free Chinese AI Models Are Getting Scary Good at Hacking",
-          "url": "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking/"
-        },
-        {
-          "id": "2a8256897722920e",
-          "day": "2026-11-06",
-          "title": "OpenAI president Greg Brockman says company could be IPO ready in 2027",
-          "url": "https://techcrunch.com/2026/11/05/openai-president-greg-brockman-says-company-could-be-ipo-ready-in-2027/"
-        },
-        {
-          "id": "e68c75837c28ac1b",
-          "day": "2026-11-06",
-          "title": "SwarmEvolve: Latent Agent Swarms for Evolutionary Discovery and Optimization",
-          "url": "https://arxiv.org/abs/2611.08483v1"
-        },
-        {
-          "id": "ff2d3498b43e7683",
-          "day": "2026-11-06",
-          "title": "Closed AI models dominate the price-performance frontier",
-          "url": "https://village.dev/blog/closed-ai-models-now-dominate-the-price-performance-frontier/"
-        },
-        {
-          "id": "1ebc0fcad61a0f69",
-          "day": "2026-11-06",
-          "title": "Lawsuit: Man introduced his wife to ChatGPT. She used it to plan his murder.",
-          "url": "https://arstechnica.com/tech-policy/2026/11/lawsuit-man-introduced-his-wife-to-chatgpt-she-used-it-to-plan-his-murder/"
-        },
-        {
-          "id": "aafa56eb626cdd3b",
-          "day": "2026-11-05",
-          "title": "He Trolls AI Labs for a Living. Now They All Want to Work With Him",
-          "url": "https://www.wired.com/story/wired-world-fair-2026-evan-ratliff-and-husk/"
-        },
-        {
-          "id": "9da0d6b7f972d871",
-          "day": "2026-11-05",
-          "title": "LLMs Don't Know What They Know: Benchmarking Temporal Self-Knowledge for Financial Backtesting",
-          "url": "https://arxiv.org/abs/2611.06808v1"
-        },
-        {
-          "id": "a3433e936d2c04bf",
-          "day": "2026-11-04",
-          "title": "Daybreak Red is now available in AWS GovCloud (US-East)",
-          "url": "https://openai.com/index/daybreak-red-aws-govcloud"
-        },
-        {
-          "id": "dca8692856b15009",
-          "day": "2026-11-04",
-          "title": "Google faces backlash for plan that would turn off Search for schools that restrict AI",
-          "url": "https://techcrunch.com/2026/11/04/google-faces-backlash-for-plan-that-would-turn-off-search-for-schools-that-restrict-ai/"
-        },
-        {
-          "id": "35e334c198740f74",
-          "day": "2026-10-27",
-          "title": "Introducing GPT-6.1 Terra",
-          "url": "https://openai.com/index/introducing-gpt-6-1-terra"
-        },
-        {
-          "id": "4d610e220c2d6684",
-          "day": "2026-10-26",
-          "title": "Can AI help solve the COBOL code crisis?",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1018434/cobol-migration-legacy-code-openai-anthropic"
-        },
-        {
-          "id": "95a3bc74ba868d3d",
-          "day": "2026-10-22",
-          "title": "What the Author Wrote, What the Agent Reads: Silent Cue Loss in Enterprise Document Ingestion",
-          "url": "https://arxiv.org/abs/2610.30026v1"
-        },
-        {
-          "id": "5595c812cd34051e",
-          "day": "2026-10-22",
-          "title": "Microsoft’s Mustafa Suleyman says its AI outperforms doctors on hard cases as he chases ‘medical superintelligence’",
-          "url": "https://techcrunch.com/2026/10/22/microsofts-mustafa-suleyman-says-its-ai-outperforms-doctors-on-hard-cases-as-he-chases-medical-superintelligence/"
-        },
-        {
-          "id": "7b066c33c960e613",
-          "day": "2026-10-22",
-          "title": "OpenAI's latest AI models are coming to Google Cloud and Antigravity",
-          "url": "https://arstechnica.com/ai/2026/10/openais-latest-ai-models-are-coming-to-google-cloud-and-antigravity/"
-        },
-        {
-          "id": "5ddee939d5fa55a3",
-          "day": "2026-10-22",
-          "title": "Microsoft says its AI tool is better than doctors at diagnosing conditions",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1016690/suleyman-microsoft-diagnostic-orchestrator-science-medical-superintelligence"
-        },
-        {
-          "id": "c52bfd0d22b78a13",
-          "day": "2026-10-21",
-          "title": "Evolving Agent Interfaces",
-          "url": "https://arxiv.org/abs/2610.28601v1"
-        },
-        {
-          "id": "ac9366b29fc282bc",
-          "day": "2026-10-20",
-          "title": "Agent World Model in the Wild: Computer-Use Agent Environment Synthesis",
-          "url": "https://arxiv.org/abs/2610.26828v1"
-        },
-        {
-          "id": "19618a47b00ca429",
-          "day": "2026-10-20",
-          "title": "Same Simulation, Different Evidence: Where Retrieved Tool Output Costs LLM Agents Accuracy",
-          "url": "https://arxiv.org/abs/2610.26836v1"
-        },
-        {
-          "id": "d86e3e459be12997",
-          "day": "2026-10-16",
-          "title": "AI Consilium: a Benchmark of LLM Clinical Multidisciplinary Second Opinions",
-          "url": "https://arxiv.org/abs/2610.22298v1"
-        },
-        {
-          "id": "a97ae633160fe4ac",
-          "day": "2026-10-14",
-          "title": "AesCode: Aesthetic Code Generation with Decoupled Cross-Modal Rewards",
-          "url": "https://arxiv.org/abs/2610.18860v1"
-        },
-        {
-          "id": "57c3309db5bedcde",
-          "day": "2026-10-14",
-          "title": "Amp puts AI agents to work beyond code with OpenAI models",
-          "url": "https://openai.com/index/amp-beyond-coding"
-        },
-        {
-          "id": "f9f5ac5db3b603f4",
-          "day": "2026-10-13",
-          "title": "Google finally releases Gemini 4 Argon",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1009862/google-releases-gemini-4-argon"
-        },
-        {
-          "id": "e5bbd114f6a2ff9f",
-          "day": "2026-10-12",
-          "title": "Muse Wonder Puts Meta Back at the AI Frontier",
-          "url": "https://www.wired.com/story/muse-wonder-puts-meta-back-at-the-ai-frontier/"
-        },
-        {
-          "id": "e437bb138aae03d2",
-          "day": "2026-10-12",
-          "title": "Accessing OpenAI GPT models on Amazon Bedrock with global cross-Region inference in Thailand, Malaysia, Singapore, Indonesia, and Taiwan",
-          "url": "https://aws.amazon.com/blogs/machine-learning/accessing-openai-gpt-models-on-amazon-bedrock-with-global-cross-region-inference-in-thailand-malaysia-singapore-indonesia-and-taiwan/"
-        },
-        {
-          "id": "25a145f4bcfe032b",
-          "day": "2026-10-11",
-          "title": "Recent AI models struggled to match a human algorithmic innovation",
-          "url": "https://epoch.ai/publications/innovationeval"
-        },
-        {
-          "id": "da19564dd2e91871",
-          "day": "2026-10-09",
-          "title": "ICYMI: What landed for AI builders in September 2026",
-          "url": "https://aws.amazon.com/blogs/machine-learning/icymi-what-landed-for-ai-builders-in-september-2026/"
-        },
-        {
-          "id": "a097ef0d441a7216",
-          "day": "2026-10-08",
-          "title": "GPT-6 and Intelligent UI for everyone",
-          "url": "https://openai.com/index/gpt-6-for-everyone"
-        },
-        {
-          "id": "806f1cce20cfef5d",
-          "day": "2026-10-08",
-          "title": "These Researchers Made AI Drive a Toyota Corolla to Get In-N-Out",
-          "url": "https://www.wired.com/story/ai-is-driving-cars-now-oh-boy/"
-        },
-        {
-          "id": "882596cbc7639eb4",
-          "day": "2026-10-03",
-          "title": "Chatham scales its capital markets expertise with OpenAI",
-          "url": "https://openai.com/index/chatham-financial"
-        },
-        {
-          "id": "b9e2e533a8b5d35e",
-          "day": "2026-10-03",
-          "title": "The AI Race Just Got Awkward",
-          "url": "https://insufferable.dev/posts/the-ai-race-just-got-awkward/"
-        },
-        {
-          "id": "d6b9f5e651b1891e",
-          "day": "2026-10-01",
-          "title": "Introducing GPT-6.1 Sol",
-          "url": "https://openai.com/index/introducing-gpt-6-1-sol"
-        },
-        {
-          "id": "6ffcb5f810097286",
-          "day": "2026-09-25",
-          "title": "Astra and Opus just passed Turing’s other test",
-          "url": "https://techcrunch.com/2026/09/25/astra-and-opus-just-passed-turings-other-test/"
-        },
-        {
-          "id": "ed3c4fb0a908e953",
-          "day": "2026-09-23",
-          "title": "Capable yet Parsimonious: Extracting and Characterizing Hidden Chain-of-Thought in Frontier Models",
-          "url": "https://arxiv.org/abs/2609.26637v1"
-        },
-        {
-          "id": "f9027d80e820682e",
-          "day": "2026-09-23",
-          "title": "Better prompt caching for GPT-6",
-          "url": "https://openai.com/index/better-prompt-caching-for-gpt-6"
-        },
-        {
-          "id": "73461b3e97af0d93",
-          "day": "2026-09-23",
-          "title": "Introducing GPT-6 Sol and Luna",
-          "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna"
-        },
-        {
-          "id": "e9f63aa1f7aaa02f",
-          "day": "2026-09-22",
-          "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
-          "url": "https://huggingface.co/blog/evaleval-aisi"
-        },
-        {
-          "id": "f9de68c54a144e50",
-          "day": "2026-09-18",
-          "title": "Harm Laundering in GPT Models: Evidence That Gender Discrimination Is Transformed Rather Than Reduced Across Safety-Trained Generations",
-          "url": "https://arxiv.org/abs/2609.20779v1"
-        },
-        {
-          "id": "dd27b544c5238b56",
-          "day": "2026-09-18",
-          "title": "OpenAI caught its models leaving notes to successors to hide bad behavior",
-          "url": "https://techcrunch.com/2026/09/17/openai-caught-its-models-leaving-notes-to-successors-to-hide-bad-behavior/"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "HealthBench",
-          "score": "None",
-          "article_id": "e9f63aa1f7aaa02f"
-        },
-        {
-          "name": "FrontierMath",
-          "score": "None",
-          "article_id": "e9f63aa1f7aaa02f"
-        },
-        {
-          "name": "Humanity's Last Exam",
-          "score": "None",
-          "article_id": "e9f63aa1f7aaa02f"
-        }
-      ],
-      "pricing": [
-        {
-          "unit": "공격 비용(토큰 기준)",
-          "value": "17~46달러",
-          "article_id": "ecb59480543c9123"
-        }
-      ],
-      "strengths_ko": [
-        "저가 구간 장악",
-        "컴퓨터 사용 능력 개선",
-        "토큰 효율적 추론"
-      ],
-      "weaknesses_ko": [
-        "검색된 도구 출력 접근 시 정확도 저하",
-        "증거 대체 현상",
-        "성별 차별 표현 변형"
-      ],
-      "article_count": 46
-    },
-    {
-      "model": "GPT-4",
-      "latest_version": "GPT-4.1-mini",
-      "latest_seen": "2026-11-17",
-      "articles": [
-        {
-          "id": "9ed1d0d424b37f28",
-          "day": "2026-11-17",
-          "title": "Evaluating Cultural Reasoning and Robustness in LLMs for Spanish Political Discourse",
-          "url": "https://arxiv.org/abs/2611.21535v1"
-        },
-        {
-          "id": "924aa79a024fe390",
-          "day": "2026-11-06",
-          "title": "Ads in Chatbots Have Arrived. Here’s What’s Working—and What’s Not",
-          "url": "https://www.wired.com/story/ads-in-chatbots-have-arrived-heres-whats-working-and-whats-not/"
+          "title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
+          "url": "https://arxiv.org/abs/2611.18514v1"
         },
         {
           "id": "67908d79725aea02",
@@ -1243,145 +931,347 @@
           "url": "https://arxiv.org/abs/2611.08315v1"
         },
         {
-          "id": "1a7e953f36796cb0",
+          "id": "82c7fa24cb5f087e",
           "day": "2026-10-27",
-          "title": "OpenAI and Anthropic cut their LLM prices by up to 80% within a few months. Why?",
-          "url": "https://minimaxir.com/2026/10/cheap-llms/"
+          "title": "Back to Basics: A Skill-Centric Approach to Generalist Web Agents",
+          "url": "https://arxiv.org/abs/2610.35823v1"
         },
         {
-          "id": "e7a80d87e8606cee",
-          "day": "2026-10-24",
-          "title": "Forced to pick, Grok’s AI model chooses Republicans. OpenAI’s picks Democrats.",
-          "url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/"
+          "id": "e1aaef5993bcd7c6",
+          "day": "2026-10-27",
+          "title": "Can JEV Support Clinical Trial Criteria Assessment?",
+          "url": "https://arxiv.org/abs/2610.35721v1"
         },
         {
-          "id": "fcf73aabe3e37fa7",
-          "day": "2026-10-18",
-          "title": "Replit makes OpenAI its default over Anthropic, CEO says",
-          "url": "https://techcrunch.com/2026/10/17/replit-is-no-longer-working-with-anthropic-ceo-says/"
+          "id": "9c1c9e20afefdd06",
+          "day": "2026-10-27",
+          "title": "Not One Belief: Answer Payloads, Persistence, and Dissociated Confidence Signals in Conversational Question Answering",
+          "url": "https://arxiv.org/abs/2610.35694v1"
         },
         {
-          "id": "fdd4c6f578d6ab89",
-          "day": "2026-10-17",
-          "title": "Replit is no longer working with Anthropic, CEO says",
-          "url": "https://techcrunch.com/2026/10/16/replit-is-no-longer-working-with-anthropic-ceo-says/"
+          "id": "8af7b30500f9c04c",
+          "day": "2026-10-27",
+          "title": "Cohere says Alibaba’s Qwen model tried to send a file to Beijing",
+          "url": "https://techcrunch.com/2026/10/26/cohere-says-alibabas-qwen-model-tried-to-send-a-file-to-beijing/"
         },
         {
-          "id": "dc50683096dec8f9",
+          "id": "9b422f4202511f2d",
+          "day": "2026-10-26",
+          "title": "MiD-VLM: Detecting and Grounding Global Semantic Misinformation in Image-Caption Pairs",
+          "url": "https://arxiv.org/abs/2610.32967v1"
+        },
+        {
+          "id": "c2b6b7fd42c60774",
+          "day": "2026-10-26",
+          "title": "Do \"True\" and \"False\" Add Up to One? Complement Consistency in LLM-Agent Opinion Simulations",
+          "url": "https://arxiv.org/abs/2610.32874v1"
+        },
+        {
+          "id": "abee8ed4de2eb31e",
+          "day": "2026-10-26",
+          "title": "Advancing SVD-based LLM Compression via Layer-Wise Error Model Search",
+          "url": "https://arxiv.org/abs/2610.32878v1"
+        },
+        {
+          "id": "3dadb5c76e6175c3",
+          "day": "2026-10-26",
+          "title": "Where Rounding Happens Matters: Rounding-Location Alignment Stabilizes LLM Reinforcement Learning",
+          "url": "https://arxiv.org/abs/2610.32951v1"
+        },
+        {
+          "id": "efaa35ed00c40081",
+          "day": "2026-10-26",
+          "title": "Yalda-Embedding: Open Development of a Competitive Persian Retrieval Model",
+          "url": "https://arxiv.org/abs/2610.32933v1"
+        },
+        {
+          "id": "51888f116f5b0837",
+          "day": "2026-10-23",
+          "title": "Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox",
+          "url": "https://huggingface.co/blog/microsoft/thinkingbox-training"
+        },
+        {
+          "id": "50f75b68ac5537b6",
+          "day": "2026-10-22",
+          "title": "Show HN: Qwen3-4B with the AI writing tics trained out",
+          "url": "https://100toolkit.com/blog/deslop-model/"
+        },
+        {
+          "id": "b5c718abbbf002f9",
+          "day": "2026-10-22",
+          "title": "Train Qwen3 on AWS Trainium with torchtitan",
+          "url": "https://aws.amazon.com/blogs/machine-learning/train-qwen3-on-aws-trainium-with-torchtitan/"
+        },
+        {
+          "id": "c52bfd0d22b78a13",
+          "day": "2026-10-21",
+          "title": "Evolving Agent Interfaces",
+          "url": "https://arxiv.org/abs/2610.28601v1"
+        },
+        {
+          "id": "40a01666d562060b",
+          "day": "2026-10-21",
+          "title": "How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications",
+          "url": "https://huggingface.co/blog/Dharma-AI/vocabx-vocabulary-specialization"
+        },
+        {
+          "id": "d1a7b7e569f272d4",
+          "day": "2026-10-21",
+          "title": "Present but Hard to Read: Probing Latent Reasoning with Minimal Pairs",
+          "url": "https://arxiv.org/abs/2610.28498v1"
+        },
+        {
+          "id": "52762da3151dc245",
+          "day": "2026-10-20",
+          "title": "WeAct: Dynamic Weight Switching as Agent Actions",
+          "url": "https://arxiv.org/abs/2610.26847v1"
+        },
+        {
+          "id": "ac9366b29fc282bc",
+          "day": "2026-10-20",
+          "title": "Agent World Model in the Wild: Computer-Use Agent Environment Synthesis",
+          "url": "https://arxiv.org/abs/2610.26828v1"
+        },
+        {
+          "id": "e5be943baa7712b2",
+          "day": "2026-10-20",
+          "title": "Amazon SageMaker JumpStart: 2026 year-to-date in review",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-jumpstart-2026-year-to-date-in-review/"
+        },
+        {
+          "id": "425649d8eefe80fc",
+          "day": "2026-10-19",
+          "title": "MTEdit: Packed Trajectories Beat Rollouts for Multi-Turn Image Editing",
+          "url": "https://arxiv.org/abs/2610.23751v1"
+        },
+        {
+          "id": "10c1ddb0cadd6ae4",
+          "day": "2026-10-15",
+          "title": "When Does Momentum Help in Reinforcement Learning with Verifiable Rewards?",
+          "url": "https://arxiv.org/abs/2610.20413v1"
+        },
+        {
+          "id": "e33653b884e0cb80",
+          "day": "2026-10-15",
+          "title": "ReaDy: Recurrent States as Dynamic Context for Speculative Drafting in Hybrid Linear Attention Large Language Models",
+          "url": "https://arxiv.org/abs/2610.20503v1"
+        },
+        {
+          "id": "2666d59a3a2bcda8",
+          "day": "2026-10-14",
+          "title": "DoubtLess: Training-Free Contrastive Decoding for Efficient Reasoning",
+          "url": "https://arxiv.org/abs/2610.18862v1"
+        },
+        {
+          "id": "a97ae633160fe4ac",
+          "day": "2026-10-14",
+          "title": "AesCode: Aesthetic Code Generation with Decoupled Cross-Modal Rewards",
+          "url": "https://arxiv.org/abs/2610.18860v1"
+        },
+        {
+          "id": "a6b8cbaf1f0c04bc",
+          "day": "2026-10-12",
+          "title": "Can Language Models Learn When to Abstain? Policy Learning and Calibrated Answer Selection",
+          "url": "https://arxiv.org/abs/2610.13821v1"
+        },
+        {
+          "id": "2e6766812627c1c1",
+          "day": "2026-10-12",
+          "title": "Task Context Shapes Component Roles in Language Models",
+          "url": "https://arxiv.org/abs/2610.13895v1"
+        },
+        {
+          "id": "a439fdc2654eaaf3",
           "day": "2026-10-11",
-          "title": "Port of the TypeScript compiler, checker and lsp to Rust, by LLM",
-          "url": "https://github.com/pingdotgg/ts-rust"
+          "title": "Learning to use local AI is exciting, overwhelming, and frustrating",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1008484/learning-local-ai-hermes-qwen-model-mac-studio-testing-diary-progress"
         },
         {
-          "id": "7bfcea6e6ce0bea0",
-          "day": "2026-10-10",
-          "title": "Book Publishers Are Quietly Using More AI. Staff Are Revolting",
-          "url": "https://www.wired.com/story/book-publishers-are-quietly-using-more-ai-staff-are-revolting/"
+          "id": "dea3f2aab79dd572",
+          "day": "2026-10-11",
+          "title": "Sub-1-Bit LLM Compression via Latent Factorization",
+          "url": "https://github.com/SamsungLabs/LittleBit"
         },
         {
-          "id": "512cb57803750765",
+          "id": "da19564dd2e91871",
+          "day": "2026-10-09",
+          "title": "ICYMI: What landed for AI builders in September 2026",
+          "url": "https://aws.amazon.com/blogs/machine-learning/icymi-what-landed-for-ai-builders-in-september-2026/"
+        },
+        {
+          "id": "9757916a6a343c85",
+          "day": "2026-10-09",
+          "title": "SpaceCast-Bench: Evaluating Predictive Spatial Reasoning in Vision-Language Models",
+          "url": "https://arxiv.org/abs/2610.12402v1"
+        },
+        {
+          "id": "6e911e948d364f2d",
           "day": "2026-10-08",
-          "title": "Natura’s $99 smart ring puts AI agents on your finger",
-          "url": "https://techcrunch.com/2026/10/08/naturas-smart-ring-puts-ai-agents-on-your-finger/"
+          "title": "Insights from Autoresearch for Solar Panel Segmentation",
+          "url": "https://arxiv.org/abs/2610.10491v1"
         },
         {
-          "id": "91f8a23998031288",
-          "day": "2026-10-07",
-          "title": "Same-Number Citation Swaps: Stress-Testing Jev as a Financial Evidence Judge",
-          "url": "https://arxiv.org/abs/2610.08675v1"
+          "id": "b1daf70c7635c179",
+          "day": "2026-10-08",
+          "title": "CoTrace: Data Recipes for Training Terminal Agents with Harness-Model Co-Evolution",
+          "url": "https://arxiv.org/abs/2610.10426v1"
         },
         {
-          "id": "3685b45efb88af11",
+          "id": "617072af6e06518d",
           "day": "2026-10-06",
-          "title": "OpenAI is adding text watermarking in ChatGPT and Codex",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1004880/openai-chatgpt-text-watermarks-eu-ai-act"
+          "title": "T-Search: An Open Agentic Retriever and Playground for Hard Multi-Step Search",
+          "url": "https://arxiv.org/abs/2610.06782v1"
         },
         {
-          "id": "52cc1b275c2aa2d6",
+          "id": "e81b1dea7ce0fb42",
+          "day": "2026-10-05",
+          "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+          "url": "https://huggingface.co/blog/allenai/astabrief"
+        },
+        {
+          "id": "bd1136d0fcfd6f13",
           "day": "2026-10-04",
-          "title": "Our AI Midwife",
-          "url": "https://www.astralcodexten.com/p/our-ai-midwife"
+          "title": "The Agent Said It Was Done. The Database Disagreed.",
+          "url": "https://huggingface.co/blog/microsoft/thinkingbox"
         },
         {
-          "id": "54b535ddb7e24cf9",
+          "id": "6a7050a4b2e4b019",
+          "day": "2026-10-03",
+          "title": "Fine-tune a search agent with multi-turn RL on Amazon SageMaker AI",
+          "url": "https://aws.amazon.com/blogs/machine-learning/fine-tune-a-search-agent-with-multi-turn-rl-on-amazon-sagemaker-ai/"
+        },
+        {
+          "id": "94f7add19cb43287",
+          "day": "2026-10-03",
+          "title": "From the creator of Redis; run LLM locally with ds4",
+          "url": "https://dwarfstar.sh/"
+        },
+        {
+          "id": "05e1ad07fb081d43",
           "day": "2026-10-02",
-          "title": "Opus 5.5 loves to tell you ‘this matters’ (and other AI writing tells)",
-          "url": "https://techcrunch.com/2026/10/01/opus-5-5-loves-to-tell-you-this-matters-and-other-ai-writing-tells/"
+          "title": "Every Ablation Is a Dose: Counterweights and the Semblance of Self-Repair",
+          "url": "https://arxiv.org/abs/2610.02173v1"
         },
         {
-          "id": "b6a9759aa87a64a7",
+          "id": "e35f0319f694b4f0",
+          "day": "2026-10-01",
+          "title": "Semifactual Credit-Augmented Policy Optimization",
+          "url": "https://arxiv.org/abs/2609.40360v1"
+        },
+        {
+          "id": "8e7d2e6b3304a9eb",
+          "day": "2026-10-01",
+          "title": "PhantomEnvironments: Training LLM Agents in Fictional Worlds",
+          "url": "https://arxiv.org/abs/2609.40221v1"
+        },
+        {
+          "id": "9f15985d4d9e9654",
           "day": "2026-09-25",
-          "title": "LLM Agents Can Easily Tamper With Their Own Traces",
-          "url": "https://arxiv.org/abs/2609.30266v1"
+          "title": "Deploying real-time personalized speech with Qwen3-TTS on Amazon SageMaker AI",
+          "url": "https://aws.amazon.com/blogs/machine-learning/deploying-real-time-personalized-speech-with-qwen3-tts-on-amazon-sagemaker-ai/"
         },
         {
-          "id": "4f4b9447093a068c",
+          "id": "29fe24f9cec16b8a",
           "day": "2026-09-25",
-          "title": "Tutoring company tells parents to save their money and 'use AI instead'",
-          "url": "https://www.afr.com/policy/health-and-education/tutoring-company-tell-parents-to-save-their-money-and-use-ai-instead-20260923-p60z0r"
+          "title": "Do Audio Language Models Hear and Read Distinctive Features Alike?",
+          "url": "https://arxiv.org/abs/2609.30167v1"
         },
         {
-          "id": "f35bce507de93d81",
-          "day": "2026-09-25",
-          "title": "Coding Agents for Generalized Task and Motion Planning Problems",
-          "url": "https://arxiv.org/abs/2609.30233v1"
+          "id": "76565ccf39afd354",
+          "day": "2026-09-24",
+          "title": "Cross-Scale Transfer Learning for Depression Severity Prediction: From PHQ-8 to HAMD-17 Across Languages and Clinical Paradigms",
+          "url": "https://arxiv.org/abs/2609.28430v1"
         },
         {
-          "id": "cc03eb22570ae5a9",
+          "id": "0a81ae4be51e8f9d",
           "day": "2026-09-23",
-          "title": "New Anthropic, OpenAI models make same promise: A little more for a lot less money",
-          "url": "https://arstechnica.com/ai/2026/09/new-anthropic-openai-models-make-same-promise-a-little-more-for-a-lot-less-money/"
+          "title": "EquivSVA: A Formally Verified Dataset of Behavioral Assertions Across Equivalent RTL Implementations",
+          "url": "https://arxiv.org/abs/2609.26751v1"
         },
         {
-          "id": "bb2a4ca945b83a92",
+          "id": "fb20557990e90126",
           "day": "2026-09-22",
-          "title": "Don't Use AI to Write",
-          "url": "https://paulbakker.io/writing/no-ai-for-writing/"
+          "title": "Frontier AI on Your Own Hardware",
+          "url": "https://timdettmers.com/2026/09/21/dlab-open-source-week/"
         },
         {
-          "id": "9abe70756d1def10",
-          "day": "2026-09-20",
-          "title": "If AI coding is lowering your code quality, you're not managing quality right",
-          "url": "https://www.i-kh.net/p/if-ai-coding-is-lowering-your-code"
+          "id": "689d78c6e007ab8e",
+          "day": "2026-09-22",
+          "title": "Transformers now runs llama.cpp quants",
+          "url": "https://huggingface.co/blog/transformers-llama-cpp-quants"
         },
         {
-          "id": "f9de68c54a144e50",
-          "day": "2026-09-18",
-          "title": "Harm Laundering in GPT Models: Evidence That Gender Discrimination Is Transformed Rather Than Reduced Across Safety-Trained Generations",
-          "url": "https://arxiv.org/abs/2609.20779v1"
+          "id": "f258f6a2cdda56d2",
+          "day": "2026-09-21",
+          "title": "Do Personality-Tuned LLMs Make Better Social Agents?",
+          "url": "https://arxiv.org/abs/2609.21857v1"
         },
         {
-          "id": "0f73d188d043bc01",
-          "day": "2026-09-18",
-          "title": "UN turns to Google to make its global data ready for AI agents",
-          "url": "https://techcrunch.com/2026/09/17/un-turns-to-google-to-make-its-global-data-ready-for-ai-agents/"
+          "id": "8f37ecc27601f7c1",
+          "day": "2026-09-19",
+          "title": "US government website used Chinese model the FBI called \"malicious\"",
+          "url": "https://arstechnica.com/tech-policy/2026/09/us-government-website-used-chinese-model-the-fbi-called-malicious/"
         }
       ],
       "top_benchmarks": [
         {
-          "name": "UNICEF",
-          "score": "평균 21.2%",
-          "article_id": "0f73d188d043bc01"
+          "name": "MAE",
+          "score": "4.38",
+          "article_id": "76565ccf39afd354"
+        },
+        {
+          "name": "RMSE",
+          "score": "5.62",
+          "article_id": "76565ccf39afd354"
+        },
+        {
+          "name": "거시 F₁",
+          "score": "0.46",
+          "article_id": "76565ccf39afd354"
         }
       ],
       "pricing": [],
       "strengths_ko": [
-        "효율성",
-        "속도",
-        "시험 준비"
+        "24gb gpu에서 125b 모델 구동",
+        "gguf 양자화 지원",
+        "apple silicon 최적화"
       ],
       "weaknesses_ko": [
-        "성별 차별 표현 변형",
-        "여성 대상 주제 다양성 36% 감소",
-        "낮은 글로벌 개발 지표 정확도"
+        "정부 보안 우려 대상",
+        "구현 세부사항 과적합",
+        "동등 구현 간 일관성 부족"
       ],
-      "article_count": 22
+      "article_count": 50
     },
     {
       "model": "Gemini",
       "latest_version": "Gemini 4 Hydrogen",
-      "latest_seen": "2026-11-17",
+      "latest_seen": "2026-11-18",
       "articles": [
+        {
+          "id": "f6980f92e029130a",
+          "day": "2026-11-18",
+          "title": "Google to keep Gemini chats for 2 months, up from 72 hours, even with history off",
+          "url": "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/"
+        },
+        {
+          "id": "00a064e6720eae62",
+          "day": "2026-11-18",
+          "title": "The Gemini app is now available on lower-memory Android devices.",
+          "url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/"
+        },
+        {
+          "id": "534361927951e2d9",
+          "day": "2026-11-18",
+          "title": "Google expands access to Gemini Tasks, which can help with calls, purchases",
+          "url": "https://techcrunch.com/2026/11/17/google-expands-access-to-gemini-tasks-which-can-help-with-calls-purchases/"
+        },
+        {
+          "id": "20774146b79ca781",
+          "day": "2026-11-18",
+          "title": "Google’s Spark AI agent becomes ‘Tasks’ — and now it’s free",
+          "url": "https://www.theverge.com/tech/1035756/google-spark-ai-tasks-free"
+        },
         {
           "id": "7fbdbfd5cb782bea",
           "day": "2026-11-17",
@@ -1909,20 +1799,9 @@
           "day": "2026-09-19",
           "title": "Gemini went rogue, hacked three companies, and Google hid it",
           "url": "https://www.theverge.com/ai-artificial-intelligence/997795/google-gemini-rogue-ai-hack"
-        },
-        {
-          "id": "0f73d188d043bc01",
-          "day": "2026-09-18",
-          "title": "UN turns to Google to make its global data ready for AI agents",
-          "url": "https://techcrunch.com/2026/09/17/un-turns-to-google-to-make-its-global-data-ready-for-ai-agents/"
         }
       ],
       "top_benchmarks": [
-        {
-          "name": "UNICEF",
-          "score": "평균 21.2%",
-          "article_id": "0f73d188d043bc01"
-        },
         {
           "name": "Hume AI",
           "score": "1위",
@@ -1932,6 +1811,11 @@
           "name": "DeepSWE v1.1",
           "score": "77.9%",
           "article_id": "3f7097db6234debd"
+        },
+        {
+          "name": "CWE-bench",
+          "score": "68% 동점 1위",
+          "article_id": "ce56aa83d0064ef1"
         }
       ],
       "pricing": [
@@ -1957,11 +1841,326 @@
         "사이버보안 특화"
       ],
       "weaknesses_ko": [
-        "낮은 글로벌 개발 지표 정확도",
         "격납 탈출",
-        "실제 시스템 해킹"
+        "실제 시스템 해킹",
+        "의도하지 않은 사이버공격 수행"
       ],
-      "article_count": 89
+      "article_count": 92
+    },
+    {
+      "model": "GPT-4",
+      "latest_version": "GPT-4.1-mini",
+      "latest_seen": "2026-11-18",
+      "articles": [
+        {
+          "id": "96d147a7d7d7a964",
+          "day": "2026-11-18",
+          "title": "Artex Is Criminals’ New Favorite ‘Point-and-Shoot’ AI Hacking Tool",
+          "url": "https://www.wired.com/story/artex-ai-hacking-tools/"
+        },
+        {
+          "id": "9ed1d0d424b37f28",
+          "day": "2026-11-17",
+          "title": "Evaluating Cultural Reasoning and Robustness in LLMs for Spanish Political Discourse",
+          "url": "https://arxiv.org/abs/2611.21535v1"
+        },
+        {
+          "id": "924aa79a024fe390",
+          "day": "2026-11-06",
+          "title": "Ads in Chatbots Have Arrived. Here’s What’s Working—and What’s Not",
+          "url": "https://www.wired.com/story/ads-in-chatbots-have-arrived-heres-whats-working-and-whats-not/"
+        },
+        {
+          "id": "67908d79725aea02",
+          "day": "2026-11-06",
+          "title": "Benchmarking Large Language Models on Heterogeneous Cognitive and Biomedical Knowledge Graphs: The Role of Graph Grounding in Multi-Hop Reasoning and Hallucination Mitigation",
+          "url": "https://arxiv.org/abs/2611.08315v1"
+        },
+        {
+          "id": "1a7e953f36796cb0",
+          "day": "2026-10-27",
+          "title": "OpenAI and Anthropic cut their LLM prices by up to 80% within a few months. Why?",
+          "url": "https://minimaxir.com/2026/10/cheap-llms/"
+        },
+        {
+          "id": "e7a80d87e8606cee",
+          "day": "2026-10-24",
+          "title": "Forced to pick, Grok’s AI model chooses Republicans. OpenAI’s picks Democrats.",
+          "url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/"
+        },
+        {
+          "id": "fcf73aabe3e37fa7",
+          "day": "2026-10-18",
+          "title": "Replit makes OpenAI its default over Anthropic, CEO says",
+          "url": "https://techcrunch.com/2026/10/17/replit-is-no-longer-working-with-anthropic-ceo-says/"
+        },
+        {
+          "id": "fdd4c6f578d6ab89",
+          "day": "2026-10-17",
+          "title": "Replit is no longer working with Anthropic, CEO says",
+          "url": "https://techcrunch.com/2026/10/16/replit-is-no-longer-working-with-anthropic-ceo-says/"
+        },
+        {
+          "id": "dc50683096dec8f9",
+          "day": "2026-10-11",
+          "title": "Port of the TypeScript compiler, checker and lsp to Rust, by LLM",
+          "url": "https://github.com/pingdotgg/ts-rust"
+        },
+        {
+          "id": "7bfcea6e6ce0bea0",
+          "day": "2026-10-10",
+          "title": "Book Publishers Are Quietly Using More AI. Staff Are Revolting",
+          "url": "https://www.wired.com/story/book-publishers-are-quietly-using-more-ai-staff-are-revolting/"
+        },
+        {
+          "id": "512cb57803750765",
+          "day": "2026-10-08",
+          "title": "Natura’s $99 smart ring puts AI agents on your finger",
+          "url": "https://techcrunch.com/2026/10/08/naturas-smart-ring-puts-ai-agents-on-your-finger/"
+        },
+        {
+          "id": "91f8a23998031288",
+          "day": "2026-10-07",
+          "title": "Same-Number Citation Swaps: Stress-Testing Jev as a Financial Evidence Judge",
+          "url": "https://arxiv.org/abs/2610.08675v1"
+        },
+        {
+          "id": "3685b45efb88af11",
+          "day": "2026-10-06",
+          "title": "OpenAI is adding text watermarking in ChatGPT and Codex",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1004880/openai-chatgpt-text-watermarks-eu-ai-act"
+        },
+        {
+          "id": "52cc1b275c2aa2d6",
+          "day": "2026-10-04",
+          "title": "Our AI Midwife",
+          "url": "https://www.astralcodexten.com/p/our-ai-midwife"
+        },
+        {
+          "id": "54b535ddb7e24cf9",
+          "day": "2026-10-02",
+          "title": "Opus 5.5 loves to tell you ‘this matters’ (and other AI writing tells)",
+          "url": "https://techcrunch.com/2026/10/01/opus-5-5-loves-to-tell-you-this-matters-and-other-ai-writing-tells/"
+        },
+        {
+          "id": "b6a9759aa87a64a7",
+          "day": "2026-09-25",
+          "title": "LLM Agents Can Easily Tamper With Their Own Traces",
+          "url": "https://arxiv.org/abs/2609.30266v1"
+        },
+        {
+          "id": "4f4b9447093a068c",
+          "day": "2026-09-25",
+          "title": "Tutoring company tells parents to save their money and 'use AI instead'",
+          "url": "https://www.afr.com/policy/health-and-education/tutoring-company-tell-parents-to-save-their-money-and-use-ai-instead-20260923-p60z0r"
+        },
+        {
+          "id": "f35bce507de93d81",
+          "day": "2026-09-25",
+          "title": "Coding Agents for Generalized Task and Motion Planning Problems",
+          "url": "https://arxiv.org/abs/2609.30233v1"
+        },
+        {
+          "id": "cc03eb22570ae5a9",
+          "day": "2026-09-23",
+          "title": "New Anthropic, OpenAI models make same promise: A little more for a lot less money",
+          "url": "https://arstechnica.com/ai/2026/09/new-anthropic-openai-models-make-same-promise-a-little-more-for-a-lot-less-money/"
+        },
+        {
+          "id": "bb2a4ca945b83a92",
+          "day": "2026-09-22",
+          "title": "Don't Use AI to Write",
+          "url": "https://paulbakker.io/writing/no-ai-for-writing/"
+        },
+        {
+          "id": "9abe70756d1def10",
+          "day": "2026-09-20",
+          "title": "If AI coding is lowering your code quality, you're not managing quality right",
+          "url": "https://www.i-kh.net/p/if-ai-coding-is-lowering-your-code"
+        }
+      ],
+      "top_benchmarks": [],
+      "pricing": [],
+      "strengths_ko": [
+        "효율성",
+        "속도",
+        "시험 준비"
+      ],
+      "weaknesses_ko": [
+        "실행 추적 조작 가능",
+        "인간 단어 분포로부터 멀어지는 경향",
+        "숫자 매칭만으로 역할 오류 미감지"
+      ],
+      "article_count": 21
+    },
+    {
+      "model": "Llama",
+      "latest_version": "Llama-3.1-8B-Instruct",
+      "latest_seen": "2026-11-18",
+      "articles": [
+        {
+          "id": "d4599a17421856c1",
+          "day": "2026-11-18",
+          "title": "What Does a Bias Head Measure? Non-Identifiability in Head-Level Bias Attribution",
+          "url": "https://arxiv.org/abs/2611.23218v1"
+        },
+        {
+          "id": "8ec21efa2c622734",
+          "day": "2026-11-16",
+          "title": "Hugging Face and OpenRouter join forces to make open-weight models easy to run",
+          "url": "https://huggingface.co/blog/openrouter"
+        },
+        {
+          "id": "4b6be27b08661b06",
+          "day": "2026-11-12",
+          "title": "How DXC Technology built a multi-model AI substrate on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/how-dxc-technology-built-a-multi-model-ai-substrate-on-amazon-bedrock/"
+        },
+        {
+          "id": "730323ba6c06bee9",
+          "day": "2026-11-09",
+          "title": "Meta releases Muse Ember, a new lightweight model for agent execution",
+          "url": "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/"
+        },
+        {
+          "id": "67908d79725aea02",
+          "day": "2026-11-06",
+          "title": "Benchmarking Large Language Models on Heterogeneous Cognitive and Biomedical Knowledge Graphs: The Role of Graph Grounding in Multi-Hop Reasoning and Hallucination Mitigation",
+          "url": "https://arxiv.org/abs/2611.08315v1"
+        },
+        {
+          "id": "c2b6b7fd42c60774",
+          "day": "2026-10-26",
+          "title": "Do \"True\" and \"False\" Add Up to One? Complement Consistency in LLM-Agent Opinion Simulations",
+          "url": "https://arxiv.org/abs/2610.32874v1"
+        },
+        {
+          "id": "abee8ed4de2eb31e",
+          "day": "2026-10-26",
+          "title": "Advancing SVD-based LLM Compression via Layer-Wise Error Model Search",
+          "url": "https://arxiv.org/abs/2610.32878v1"
+        },
+        {
+          "id": "13578e8cc16e97d8",
+          "day": "2026-10-21",
+          "title": "Adaptive Multi-Token Prediction: How far should we go?",
+          "url": "https://arxiv.org/abs/2610.28619v1"
+        },
+        {
+          "id": "96a2e7fa34b207c9",
+          "day": "2026-10-20",
+          "title": "Fine-tuning GPT-OSS-20B for multilingual reasoning on Amazon SageMaker HyperPod",
+          "url": "https://aws.amazon.com/blogs/machine-learning/fine-tuning-gpt-oss-20b-for-multilingual-reasoning-on-amazon-sagemaker-hyperpod/"
+        },
+        {
+          "id": "ed6d0fbeadb88874",
+          "day": "2026-10-19",
+          "title": "FuTransformer: FP8 prefill and INT4 decode for Llama-style inference on Hopper",
+          "url": "https://arxiv.org/abs/2610.23796v1"
+        },
+        {
+          "id": "0ff44230aa971ba8",
+          "day": "2026-10-15",
+          "title": "SpectrumQuant: Spectrum Alignment for LLM Quantization",
+          "url": "https://arxiv.org/abs/2610.20303v1"
+        },
+        {
+          "id": "0a3035ce11f254c3",
+          "day": "2026-10-14",
+          "title": "The AI race is back on",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1011311/the-ai-race-is-back-on"
+        },
+        {
+          "id": "5a91e99e9146b953",
+          "day": "2026-10-14",
+          "title": "AI Models Can Be Easily Modified to Assist Terrorist and Extremist Activity",
+          "url": "https://www.wired.com/story/ai-models-can-be-easily-modified-to-assist-terrorist-and-extremist-activity/"
+        },
+        {
+          "id": "57a4475092cade12",
+          "day": "2026-10-14",
+          "title": "Read the Room Before Your Model Generates",
+          "url": "https://arxiv.org/abs/2610.18820v1"
+        },
+        {
+          "id": "e5bbd114f6a2ff9f",
+          "day": "2026-10-12",
+          "title": "Muse Wonder Puts Meta Back at the AI Frontier",
+          "url": "https://www.wired.com/story/muse-wonder-puts-meta-back-at-the-ai-frontier/"
+        },
+        {
+          "id": "dea3f2aab79dd572",
+          "day": "2026-10-11",
+          "title": "Sub-1-Bit LLM Compression via Latent Factorization",
+          "url": "https://github.com/SamsungLabs/LittleBit"
+        },
+        {
+          "id": "a66a323457f53299",
+          "day": "2026-10-08",
+          "title": "Document-Level Text Simplification in Estonian Using Large Language Models",
+          "url": "https://arxiv.org/abs/2610.10378v1"
+        },
+        {
+          "id": "6fe19a5ea2ddf542",
+          "day": "2026-10-08",
+          "title": "Google releases a new local-first Granola competitor",
+          "url": "https://techcrunch.com/2026/10/08/google-releases-a-new-local-first-granola-competitor/"
+        },
+        {
+          "id": "07a3961b77d07a47",
+          "day": "2026-10-05",
+          "title": "People really hate AI, so why can’t they get enough?",
+          "url": "https://www.technologyreview.com/2026/10/05/1145682/people-really-hate-ai-so-why-cant-they-get-enough/"
+        },
+        {
+          "id": "05e1ad07fb081d43",
+          "day": "2026-10-02",
+          "title": "Every Ablation Is a Dose: Counterweights and the Semblance of Self-Repair",
+          "url": "https://arxiv.org/abs/2610.02173v1"
+        },
+        {
+          "id": "f1cabd5fe7838e2b",
+          "day": "2026-09-24",
+          "title": "Fine-Tuning LLMs for Translation: General Forgetting Mitigation Does Not Preserve MT-Specific Instruction Following",
+          "url": "https://arxiv.org/abs/2609.28395v1"
+        },
+        {
+          "id": "ae2a66f3c360fd17",
+          "day": "2026-09-21",
+          "title": "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
+          "url": "https://huggingface.co/blog/MultiverseComputingCAI/pruning-llms-like-a-physicist-block-removal-as-an"
+        }
+      ],
+      "top_benchmarks": [
+        {
+          "name": "MMLU",
+          "score": "기존 방법 대비 23 포인트 이상 향상",
+          "article_id": "ae2a66f3c360fd17"
+        },
+        {
+          "name": "Llama-3.1-8B 완전 디코딩",
+          "score": "2.8ms/스텝 (배치 1)",
+          "article_id": "ed6d0fbeadb88874"
+        }
+      ],
+      "pricing": [
+        {
+          "unit": "input/1M tokens",
+          "value": "$0.10",
+          "article_id": "730323ba6c06bee9"
+        }
+      ],
+      "strengths_ko": [
+        "원어민 수준 유창성",
+        "의미 보존",
+        "수십억 사용자 기반 통합 생태계"
+      ],
+      "weaknesses_ko": [
+        "응절제 후 안전점수 급락 (97→3)",
+        "테러·극단주의 활동 지원 용이",
+        "영어 우선 언어 편향"
+      ],
+      "article_count": 22
     },
     {
       "model": "Grok",
@@ -2125,93 +2324,147 @@
       "article_count": 19
     },
     {
-      "model": "Qwen",
-      "latest_version": "Qwen2.5-7B-Instruct",
-      "latest_seen": "2026-11-16",
+      "model": "GPT-5",
+      "latest_version": "GPT-6.2 Astra",
+      "latest_seen": "2026-11-17",
       "articles": [
         {
-          "id": "d6475341fb1fa3c5",
+          "id": "8f6af8c44a4a1bfb",
+          "day": "2026-11-17",
+          "title": "Introducing GPT-6.2 Astra and Sol",
+          "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol"
+        },
+        {
+          "id": "2d7a5d6b20fff3cd",
           "day": "2026-11-16",
-          "title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
-          "url": "https://arxiv.org/abs/2611.18514v1"
+          "title": "Broadening access to AI for scientists",
+          "url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
         },
         {
-          "id": "67908d79725aea02",
+          "id": "96c7f67bef86f831",
+          "day": "2026-11-13",
+          "title": "XYBench: Helping with the problem behind the question",
+          "url": "https://huggingface.co/blog/allenai/xybench"
+        },
+        {
+          "id": "64a6f20ebcc4dac1",
+          "day": "2026-11-12",
+          "title": "AI chatbots are recommending fake retail websites, study finds",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1032020/gemini-chatgpt-perplexity-shopping-test-risky-fake-websites-citations"
+        },
+        {
+          "id": "583dee252be92f18",
+          "day": "2026-11-11",
+          "title": "OpenAI rolls out new business profiles, making ChatGPT just a little bit more like Google",
+          "url": "https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/"
+        },
+        {
+          "id": "f31248890af40385",
+          "day": "2026-11-11",
+          "title": "OpenAI’s quarterly revenue reportedly crosses $10B for the first time",
+          "url": "https://techcrunch.com/2026/11/11/openais-quarterly-revenue-reportedly-crosses-10b-for-the-first-time/"
+        },
+        {
+          "id": "a97ea8448801e71f",
+          "day": "2026-11-10",
+          "title": "WorkflowArena: Benchmarking Executable Workflow Orchestration in LLM-Based Multi-Agent Systems",
+          "url": "https://arxiv.org/abs/2611.12856v1"
+        },
+        {
+          "id": "bc64bea0832685bc",
+          "day": "2026-11-09",
+          "title": "SpaceX now fundamentally an \"infrastructure company,\" senior official says",
+          "url": "https://arstechnica.com/space/2026/11/spacex-now-fundamentally-an-infrastructure-company-senior-official-says/"
+        },
+        {
+          "id": "ecb59480543c9123",
+          "day": "2026-11-07",
+          "title": "Free Chinese AI Models Are Getting Scary Good at Hacking",
+          "url": "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking/"
+        },
+        {
+          "id": "2a8256897722920e",
           "day": "2026-11-06",
-          "title": "Benchmarking Large Language Models on Heterogeneous Cognitive and Biomedical Knowledge Graphs: The Role of Graph Grounding in Multi-Hop Reasoning and Hallucination Mitigation",
-          "url": "https://arxiv.org/abs/2611.08315v1"
+          "title": "OpenAI president Greg Brockman says company could be IPO ready in 2027",
+          "url": "https://techcrunch.com/2026/11/05/openai-president-greg-brockman-says-company-could-be-ipo-ready-in-2027/"
         },
         {
-          "id": "82c7fa24cb5f087e",
+          "id": "e68c75837c28ac1b",
+          "day": "2026-11-06",
+          "title": "SwarmEvolve: Latent Agent Swarms for Evolutionary Discovery and Optimization",
+          "url": "https://arxiv.org/abs/2611.08483v1"
+        },
+        {
+          "id": "ff2d3498b43e7683",
+          "day": "2026-11-06",
+          "title": "Closed AI models dominate the price-performance frontier",
+          "url": "https://village.dev/blog/closed-ai-models-now-dominate-the-price-performance-frontier/"
+        },
+        {
+          "id": "1ebc0fcad61a0f69",
+          "day": "2026-11-06",
+          "title": "Lawsuit: Man introduced his wife to ChatGPT. She used it to plan his murder.",
+          "url": "https://arstechnica.com/tech-policy/2026/11/lawsuit-man-introduced-his-wife-to-chatgpt-she-used-it-to-plan-his-murder/"
+        },
+        {
+          "id": "aafa56eb626cdd3b",
+          "day": "2026-11-05",
+          "title": "He Trolls AI Labs for a Living. Now They All Want to Work With Him",
+          "url": "https://www.wired.com/story/wired-world-fair-2026-evan-ratliff-and-husk/"
+        },
+        {
+          "id": "9da0d6b7f972d871",
+          "day": "2026-11-05",
+          "title": "LLMs Don't Know What They Know: Benchmarking Temporal Self-Knowledge for Financial Backtesting",
+          "url": "https://arxiv.org/abs/2611.06808v1"
+        },
+        {
+          "id": "a3433e936d2c04bf",
+          "day": "2026-11-04",
+          "title": "Daybreak Red is now available in AWS GovCloud (US-East)",
+          "url": "https://openai.com/index/daybreak-red-aws-govcloud"
+        },
+        {
+          "id": "dca8692856b15009",
+          "day": "2026-11-04",
+          "title": "Google faces backlash for plan that would turn off Search for schools that restrict AI",
+          "url": "https://techcrunch.com/2026/11/04/google-faces-backlash-for-plan-that-would-turn-off-search-for-schools-that-restrict-ai/"
+        },
+        {
+          "id": "35e334c198740f74",
           "day": "2026-10-27",
-          "title": "Back to Basics: A Skill-Centric Approach to Generalist Web Agents",
-          "url": "https://arxiv.org/abs/2610.35823v1"
+          "title": "Introducing GPT-6.1 Terra",
+          "url": "https://openai.com/index/introducing-gpt-6-1-terra"
         },
         {
-          "id": "e1aaef5993bcd7c6",
-          "day": "2026-10-27",
-          "title": "Can JEV Support Clinical Trial Criteria Assessment?",
-          "url": "https://arxiv.org/abs/2610.35721v1"
-        },
-        {
-          "id": "9c1c9e20afefdd06",
-          "day": "2026-10-27",
-          "title": "Not One Belief: Answer Payloads, Persistence, and Dissociated Confidence Signals in Conversational Question Answering",
-          "url": "https://arxiv.org/abs/2610.35694v1"
-        },
-        {
-          "id": "8af7b30500f9c04c",
-          "day": "2026-10-27",
-          "title": "Cohere says Alibaba’s Qwen model tried to send a file to Beijing",
-          "url": "https://techcrunch.com/2026/10/26/cohere-says-alibabas-qwen-model-tried-to-send-a-file-to-beijing/"
-        },
-        {
-          "id": "9b422f4202511f2d",
+          "id": "4d610e220c2d6684",
           "day": "2026-10-26",
-          "title": "MiD-VLM: Detecting and Grounding Global Semantic Misinformation in Image-Caption Pairs",
-          "url": "https://arxiv.org/abs/2610.32967v1"
+          "title": "Can AI help solve the COBOL code crisis?",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1018434/cobol-migration-legacy-code-openai-anthropic"
         },
         {
-          "id": "c2b6b7fd42c60774",
-          "day": "2026-10-26",
-          "title": "Do \"True\" and \"False\" Add Up to One? Complement Consistency in LLM-Agent Opinion Simulations",
-          "url": "https://arxiv.org/abs/2610.32874v1"
-        },
-        {
-          "id": "abee8ed4de2eb31e",
-          "day": "2026-10-26",
-          "title": "Advancing SVD-based LLM Compression via Layer-Wise Error Model Search",
-          "url": "https://arxiv.org/abs/2610.32878v1"
-        },
-        {
-          "id": "3dadb5c76e6175c3",
-          "day": "2026-10-26",
-          "title": "Where Rounding Happens Matters: Rounding-Location Alignment Stabilizes LLM Reinforcement Learning",
-          "url": "https://arxiv.org/abs/2610.32951v1"
-        },
-        {
-          "id": "efaa35ed00c40081",
-          "day": "2026-10-26",
-          "title": "Yalda-Embedding: Open Development of a Competitive Persian Retrieval Model",
-          "url": "https://arxiv.org/abs/2610.32933v1"
-        },
-        {
-          "id": "51888f116f5b0837",
-          "day": "2026-10-23",
-          "title": "Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox",
-          "url": "https://huggingface.co/blog/microsoft/thinkingbox-training"
-        },
-        {
-          "id": "50f75b68ac5537b6",
+          "id": "95a3bc74ba868d3d",
           "day": "2026-10-22",
-          "title": "Show HN: Qwen3-4B with the AI writing tics trained out",
-          "url": "https://100toolkit.com/blog/deslop-model/"
+          "title": "What the Author Wrote, What the Agent Reads: Silent Cue Loss in Enterprise Document Ingestion",
+          "url": "https://arxiv.org/abs/2610.30026v1"
         },
         {
-          "id": "b5c718abbbf002f9",
+          "id": "5595c812cd34051e",
           "day": "2026-10-22",
-          "title": "Train Qwen3 on AWS Trainium with torchtitan",
-          "url": "https://aws.amazon.com/blogs/machine-learning/train-qwen3-on-aws-trainium-with-torchtitan/"
+          "title": "Microsoft’s Mustafa Suleyman says its AI outperforms doctors on hard cases as he chases ‘medical superintelligence’",
+          "url": "https://techcrunch.com/2026/10/22/microsofts-mustafa-suleyman-says-its-ai-outperforms-doctors-on-hard-cases-as-he-chases-medical-superintelligence/"
+        },
+        {
+          "id": "7b066c33c960e613",
+          "day": "2026-10-22",
+          "title": "OpenAI's latest AI models are coming to Google Cloud and Antigravity",
+          "url": "https://arstechnica.com/ai/2026/10/openais-latest-ai-models-are-coming-to-google-cloud-and-antigravity/"
+        },
+        {
+          "id": "5ddee939d5fa55a3",
+          "day": "2026-10-22",
+          "title": "Microsoft says its AI tool is better than doctors at diagnosing conditions",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1016690/suleyman-microsoft-diagnostic-orchestrator-science-medical-superintelligence"
         },
         {
           "id": "c52bfd0d22b78a13",
@@ -2220,58 +2473,22 @@
           "url": "https://arxiv.org/abs/2610.28601v1"
         },
         {
-          "id": "40a01666d562060b",
-          "day": "2026-10-21",
-          "title": "How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications",
-          "url": "https://huggingface.co/blog/Dharma-AI/vocabx-vocabulary-specialization"
-        },
-        {
-          "id": "d1a7b7e569f272d4",
-          "day": "2026-10-21",
-          "title": "Present but Hard to Read: Probing Latent Reasoning with Minimal Pairs",
-          "url": "https://arxiv.org/abs/2610.28498v1"
-        },
-        {
-          "id": "52762da3151dc245",
-          "day": "2026-10-20",
-          "title": "WeAct: Dynamic Weight Switching as Agent Actions",
-          "url": "https://arxiv.org/abs/2610.26847v1"
-        },
-        {
           "id": "ac9366b29fc282bc",
           "day": "2026-10-20",
           "title": "Agent World Model in the Wild: Computer-Use Agent Environment Synthesis",
           "url": "https://arxiv.org/abs/2610.26828v1"
         },
         {
-          "id": "e5be943baa7712b2",
+          "id": "19618a47b00ca429",
           "day": "2026-10-20",
-          "title": "Amazon SageMaker JumpStart: 2026 year-to-date in review",
-          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-jumpstart-2026-year-to-date-in-review/"
+          "title": "Same Simulation, Different Evidence: Where Retrieved Tool Output Costs LLM Agents Accuracy",
+          "url": "https://arxiv.org/abs/2610.26836v1"
         },
         {
-          "id": "425649d8eefe80fc",
-          "day": "2026-10-19",
-          "title": "MTEdit: Packed Trajectories Beat Rollouts for Multi-Turn Image Editing",
-          "url": "https://arxiv.org/abs/2610.23751v1"
-        },
-        {
-          "id": "10c1ddb0cadd6ae4",
-          "day": "2026-10-15",
-          "title": "When Does Momentum Help in Reinforcement Learning with Verifiable Rewards?",
-          "url": "https://arxiv.org/abs/2610.20413v1"
-        },
-        {
-          "id": "e33653b884e0cb80",
-          "day": "2026-10-15",
-          "title": "ReaDy: Recurrent States as Dynamic Context for Speculative Drafting in Hybrid Linear Attention Large Language Models",
-          "url": "https://arxiv.org/abs/2610.20503v1"
-        },
-        {
-          "id": "2666d59a3a2bcda8",
-          "day": "2026-10-14",
-          "title": "DoubtLess: Training-Free Contrastive Decoding for Efficient Reasoning",
-          "url": "https://arxiv.org/abs/2610.18862v1"
+          "id": "d86e3e459be12997",
+          "day": "2026-10-16",
+          "title": "AI Consilium: a Benchmark of LLM Clinical Multidisciplinary Second Opinions",
+          "url": "https://arxiv.org/abs/2610.22298v1"
         },
         {
           "id": "a97ae633160fe4ac",
@@ -2280,274 +2497,16 @@
           "url": "https://arxiv.org/abs/2610.18860v1"
         },
         {
-          "id": "a6b8cbaf1f0c04bc",
-          "day": "2026-10-12",
-          "title": "Can Language Models Learn When to Abstain? Policy Learning and Calibrated Answer Selection",
-          "url": "https://arxiv.org/abs/2610.13821v1"
-        },
-        {
-          "id": "2e6766812627c1c1",
-          "day": "2026-10-12",
-          "title": "Task Context Shapes Component Roles in Language Models",
-          "url": "https://arxiv.org/abs/2610.13895v1"
-        },
-        {
-          "id": "a439fdc2654eaaf3",
-          "day": "2026-10-11",
-          "title": "Learning to use local AI is exciting, overwhelming, and frustrating",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1008484/learning-local-ai-hermes-qwen-model-mac-studio-testing-diary-progress"
-        },
-        {
-          "id": "dea3f2aab79dd572",
-          "day": "2026-10-11",
-          "title": "Sub-1-Bit LLM Compression via Latent Factorization",
-          "url": "https://github.com/SamsungLabs/LittleBit"
-        },
-        {
-          "id": "da19564dd2e91871",
-          "day": "2026-10-09",
-          "title": "ICYMI: What landed for AI builders in September 2026",
-          "url": "https://aws.amazon.com/blogs/machine-learning/icymi-what-landed-for-ai-builders-in-september-2026/"
-        },
-        {
-          "id": "9757916a6a343c85",
-          "day": "2026-10-09",
-          "title": "SpaceCast-Bench: Evaluating Predictive Spatial Reasoning in Vision-Language Models",
-          "url": "https://arxiv.org/abs/2610.12402v1"
-        },
-        {
-          "id": "6e911e948d364f2d",
-          "day": "2026-10-08",
-          "title": "Insights from Autoresearch for Solar Panel Segmentation",
-          "url": "https://arxiv.org/abs/2610.10491v1"
-        },
-        {
-          "id": "b1daf70c7635c179",
-          "day": "2026-10-08",
-          "title": "CoTrace: Data Recipes for Training Terminal Agents with Harness-Model Co-Evolution",
-          "url": "https://arxiv.org/abs/2610.10426v1"
-        },
-        {
-          "id": "617072af6e06518d",
-          "day": "2026-10-06",
-          "title": "T-Search: An Open Agentic Retriever and Playground for Hard Multi-Step Search",
-          "url": "https://arxiv.org/abs/2610.06782v1"
-        },
-        {
-          "id": "e81b1dea7ce0fb42",
-          "day": "2026-10-05",
-          "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
-          "url": "https://huggingface.co/blog/allenai/astabrief"
-        },
-        {
-          "id": "bd1136d0fcfd6f13",
-          "day": "2026-10-04",
-          "title": "The Agent Said It Was Done. The Database Disagreed.",
-          "url": "https://huggingface.co/blog/microsoft/thinkingbox"
-        },
-        {
-          "id": "6a7050a4b2e4b019",
-          "day": "2026-10-03",
-          "title": "Fine-tune a search agent with multi-turn RL on Amazon SageMaker AI",
-          "url": "https://aws.amazon.com/blogs/machine-learning/fine-tune-a-search-agent-with-multi-turn-rl-on-amazon-sagemaker-ai/"
-        },
-        {
-          "id": "94f7add19cb43287",
-          "day": "2026-10-03",
-          "title": "From the creator of Redis; run LLM locally with ds4",
-          "url": "https://dwarfstar.sh/"
-        },
-        {
-          "id": "05e1ad07fb081d43",
-          "day": "2026-10-02",
-          "title": "Every Ablation Is a Dose: Counterweights and the Semblance of Self-Repair",
-          "url": "https://arxiv.org/abs/2610.02173v1"
-        },
-        {
-          "id": "e35f0319f694b4f0",
-          "day": "2026-10-01",
-          "title": "Semifactual Credit-Augmented Policy Optimization",
-          "url": "https://arxiv.org/abs/2609.40360v1"
-        },
-        {
-          "id": "8e7d2e6b3304a9eb",
-          "day": "2026-10-01",
-          "title": "PhantomEnvironments: Training LLM Agents in Fictional Worlds",
-          "url": "https://arxiv.org/abs/2609.40221v1"
-        },
-        {
-          "id": "9f15985d4d9e9654",
-          "day": "2026-09-25",
-          "title": "Deploying real-time personalized speech with Qwen3-TTS on Amazon SageMaker AI",
-          "url": "https://aws.amazon.com/blogs/machine-learning/deploying-real-time-personalized-speech-with-qwen3-tts-on-amazon-sagemaker-ai/"
-        },
-        {
-          "id": "29fe24f9cec16b8a",
-          "day": "2026-09-25",
-          "title": "Do Audio Language Models Hear and Read Distinctive Features Alike?",
-          "url": "https://arxiv.org/abs/2609.30167v1"
-        },
-        {
-          "id": "76565ccf39afd354",
-          "day": "2026-09-24",
-          "title": "Cross-Scale Transfer Learning for Depression Severity Prediction: From PHQ-8 to HAMD-17 Across Languages and Clinical Paradigms",
-          "url": "https://arxiv.org/abs/2609.28430v1"
-        },
-        {
-          "id": "0a81ae4be51e8f9d",
-          "day": "2026-09-23",
-          "title": "EquivSVA: A Formally Verified Dataset of Behavioral Assertions Across Equivalent RTL Implementations",
-          "url": "https://arxiv.org/abs/2609.26751v1"
-        },
-        {
-          "id": "fb20557990e90126",
-          "day": "2026-09-22",
-          "title": "Frontier AI on Your Own Hardware",
-          "url": "https://timdettmers.com/2026/09/21/dlab-open-source-week/"
-        },
-        {
-          "id": "689d78c6e007ab8e",
-          "day": "2026-09-22",
-          "title": "Transformers now runs llama.cpp quants",
-          "url": "https://huggingface.co/blog/transformers-llama-cpp-quants"
-        },
-        {
-          "id": "f258f6a2cdda56d2",
-          "day": "2026-09-21",
-          "title": "Do Personality-Tuned LLMs Make Better Social Agents?",
-          "url": "https://arxiv.org/abs/2609.21857v1"
-        },
-        {
-          "id": "8f37ecc27601f7c1",
-          "day": "2026-09-19",
-          "title": "US government website used Chinese model the FBI called \"malicious\"",
-          "url": "https://arstechnica.com/tech-policy/2026/09/us-government-website-used-chinese-model-the-fbi-called-malicious/"
-        },
-        {
-          "id": "58d24b1d33f481d4",
-          "day": "2026-09-18",
-          "title": "dQwen3.5: Hybrid-Attention Diffusion Language Models",
-          "url": "https://arxiv.org/abs/2609.20751v1"
-        },
-        {
-          "id": "455845fef5439620",
-          "day": "2026-09-18",
-          "title": "PrismML hopes its tiny LLM will change how we all use AI",
-          "url": "https://techcrunch.com/2026/09/17/prismml-hopes-its-tiny-llm-could-change-how-we-all-use-ai/"
-        }
-      ],
-      "top_benchmarks": [
-        {
-          "name": "MAE",
-          "score": "4.38",
-          "article_id": "76565ccf39afd354"
-        },
-        {
-          "name": "RMSE",
-          "score": "5.62",
-          "article_id": "76565ccf39afd354"
-        },
-        {
-          "name": "거시 F₁",
-          "score": "0.46",
-          "article_id": "76565ccf39afd354"
-        }
-      ],
-      "pricing": [],
-      "strengths_ko": [
-        "토큰 효율성 50% 개선",
-        "병렬 디코딩 성능",
-        "하이브리드 어텐션-rnn 아키텍처"
-      ],
-      "weaknesses_ko": [
-        "5.9gb 압축 시 벤치마크 2% 하락",
-        "정부 보안 우려 대상",
-        "구현 세부사항 과적합"
-      ],
-      "article_count": 51
-    },
-    {
-      "model": "Llama",
-      "latest_version": "Muse Ember",
-      "latest_seen": "2026-11-16",
-      "articles": [
-        {
-          "id": "8ec21efa2c622734",
-          "day": "2026-11-16",
-          "title": "Hugging Face and OpenRouter join forces to make open-weight models easy to run",
-          "url": "https://huggingface.co/blog/openrouter"
-        },
-        {
-          "id": "4b6be27b08661b06",
-          "day": "2026-11-12",
-          "title": "How DXC Technology built a multi-model AI substrate on Amazon Bedrock",
-          "url": "https://aws.amazon.com/blogs/machine-learning/how-dxc-technology-built-a-multi-model-ai-substrate-on-amazon-bedrock/"
-        },
-        {
-          "id": "730323ba6c06bee9",
-          "day": "2026-11-09",
-          "title": "Meta releases Muse Ember, a new lightweight model for agent execution",
-          "url": "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/"
-        },
-        {
-          "id": "67908d79725aea02",
-          "day": "2026-11-06",
-          "title": "Benchmarking Large Language Models on Heterogeneous Cognitive and Biomedical Knowledge Graphs: The Role of Graph Grounding in Multi-Hop Reasoning and Hallucination Mitigation",
-          "url": "https://arxiv.org/abs/2611.08315v1"
-        },
-        {
-          "id": "c2b6b7fd42c60774",
-          "day": "2026-10-26",
-          "title": "Do \"True\" and \"False\" Add Up to One? Complement Consistency in LLM-Agent Opinion Simulations",
-          "url": "https://arxiv.org/abs/2610.32874v1"
-        },
-        {
-          "id": "abee8ed4de2eb31e",
-          "day": "2026-10-26",
-          "title": "Advancing SVD-based LLM Compression via Layer-Wise Error Model Search",
-          "url": "https://arxiv.org/abs/2610.32878v1"
-        },
-        {
-          "id": "13578e8cc16e97d8",
-          "day": "2026-10-21",
-          "title": "Adaptive Multi-Token Prediction: How far should we go?",
-          "url": "https://arxiv.org/abs/2610.28619v1"
-        },
-        {
-          "id": "96a2e7fa34b207c9",
-          "day": "2026-10-20",
-          "title": "Fine-tuning GPT-OSS-20B for multilingual reasoning on Amazon SageMaker HyperPod",
-          "url": "https://aws.amazon.com/blogs/machine-learning/fine-tuning-gpt-oss-20b-for-multilingual-reasoning-on-amazon-sagemaker-hyperpod/"
-        },
-        {
-          "id": "ed6d0fbeadb88874",
-          "day": "2026-10-19",
-          "title": "FuTransformer: FP8 prefill and INT4 decode for Llama-style inference on Hopper",
-          "url": "https://arxiv.org/abs/2610.23796v1"
-        },
-        {
-          "id": "0ff44230aa971ba8",
-          "day": "2026-10-15",
-          "title": "SpectrumQuant: Spectrum Alignment for LLM Quantization",
-          "url": "https://arxiv.org/abs/2610.20303v1"
-        },
-        {
-          "id": "0a3035ce11f254c3",
+          "id": "57c3309db5bedcde",
           "day": "2026-10-14",
-          "title": "The AI race is back on",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1011311/the-ai-race-is-back-on"
+          "title": "Amp puts AI agents to work beyond code with OpenAI models",
+          "url": "https://openai.com/index/amp-beyond-coding"
         },
         {
-          "id": "5a91e99e9146b953",
-          "day": "2026-10-14",
-          "title": "AI Models Can Be Easily Modified to Assist Terrorist and Extremist Activity",
-          "url": "https://www.wired.com/story/ai-models-can-be-easily-modified-to-assist-terrorist-and-extremist-activity/"
-        },
-        {
-          "id": "57a4475092cade12",
-          "day": "2026-10-14",
-          "title": "Read the Room Before Your Model Generates",
-          "url": "https://arxiv.org/abs/2610.18820v1"
+          "id": "f9f5ac5db3b603f4",
+          "day": "2026-10-13",
+          "title": "Google finally releases Gemini 4 Argon",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1009862/google-releases-gemini-4-argon"
         },
         {
           "id": "e5bbd114f6a2ff9f",
@@ -2556,78 +2515,119 @@
           "url": "https://www.wired.com/story/muse-wonder-puts-meta-back-at-the-ai-frontier/"
         },
         {
-          "id": "dea3f2aab79dd572",
+          "id": "e437bb138aae03d2",
+          "day": "2026-10-12",
+          "title": "Accessing OpenAI GPT models on Amazon Bedrock with global cross-Region inference in Thailand, Malaysia, Singapore, Indonesia, and Taiwan",
+          "url": "https://aws.amazon.com/blogs/machine-learning/accessing-openai-gpt-models-on-amazon-bedrock-with-global-cross-region-inference-in-thailand-malaysia-singapore-indonesia-and-taiwan/"
+        },
+        {
+          "id": "25a145f4bcfe032b",
           "day": "2026-10-11",
-          "title": "Sub-1-Bit LLM Compression via Latent Factorization",
-          "url": "https://github.com/SamsungLabs/LittleBit"
+          "title": "Recent AI models struggled to match a human algorithmic innovation",
+          "url": "https://epoch.ai/publications/innovationeval"
         },
         {
-          "id": "a66a323457f53299",
+          "id": "da19564dd2e91871",
+          "day": "2026-10-09",
+          "title": "ICYMI: What landed for AI builders in September 2026",
+          "url": "https://aws.amazon.com/blogs/machine-learning/icymi-what-landed-for-ai-builders-in-september-2026/"
+        },
+        {
+          "id": "a097ef0d441a7216",
           "day": "2026-10-08",
-          "title": "Document-Level Text Simplification in Estonian Using Large Language Models",
-          "url": "https://arxiv.org/abs/2610.10378v1"
+          "title": "GPT-6 and Intelligent UI for everyone",
+          "url": "https://openai.com/index/gpt-6-for-everyone"
         },
         {
-          "id": "6fe19a5ea2ddf542",
+          "id": "806f1cce20cfef5d",
           "day": "2026-10-08",
-          "title": "Google releases a new local-first Granola competitor",
-          "url": "https://techcrunch.com/2026/10/08/google-releases-a-new-local-first-granola-competitor/"
+          "title": "These Researchers Made AI Drive a Toyota Corolla to Get In-N-Out",
+          "url": "https://www.wired.com/story/ai-is-driving-cars-now-oh-boy/"
         },
         {
-          "id": "07a3961b77d07a47",
-          "day": "2026-10-05",
-          "title": "People really hate AI, so why can’t they get enough?",
-          "url": "https://www.technologyreview.com/2026/10/05/1145682/people-really-hate-ai-so-why-cant-they-get-enough/"
+          "id": "882596cbc7639eb4",
+          "day": "2026-10-03",
+          "title": "Chatham scales its capital markets expertise with OpenAI",
+          "url": "https://openai.com/index/chatham-financial"
         },
         {
-          "id": "05e1ad07fb081d43",
-          "day": "2026-10-02",
-          "title": "Every Ablation Is a Dose: Counterweights and the Semblance of Self-Repair",
-          "url": "https://arxiv.org/abs/2610.02173v1"
+          "id": "b9e2e533a8b5d35e",
+          "day": "2026-10-03",
+          "title": "The AI Race Just Got Awkward",
+          "url": "https://insufferable.dev/posts/the-ai-race-just-got-awkward/"
         },
         {
-          "id": "f1cabd5fe7838e2b",
-          "day": "2026-09-24",
-          "title": "Fine-Tuning LLMs for Translation: General Forgetting Mitigation Does Not Preserve MT-Specific Instruction Following",
-          "url": "https://arxiv.org/abs/2609.28395v1"
+          "id": "d6b9f5e651b1891e",
+          "day": "2026-10-01",
+          "title": "Introducing GPT-6.1 Sol",
+          "url": "https://openai.com/index/introducing-gpt-6-1-sol"
         },
         {
-          "id": "ae2a66f3c360fd17",
-          "day": "2026-09-21",
-          "title": "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
-          "url": "https://huggingface.co/blog/MultiverseComputingCAI/pruning-llms-like-a-physicist-block-removal-as-an"
+          "id": "6ffcb5f810097286",
+          "day": "2026-09-25",
+          "title": "Astra and Opus just passed Turing’s other test",
+          "url": "https://techcrunch.com/2026/09/25/astra-and-opus-just-passed-turings-other-test/"
+        },
+        {
+          "id": "ed3c4fb0a908e953",
+          "day": "2026-09-23",
+          "title": "Capable yet Parsimonious: Extracting and Characterizing Hidden Chain-of-Thought in Frontier Models",
+          "url": "https://arxiv.org/abs/2609.26637v1"
+        },
+        {
+          "id": "f9027d80e820682e",
+          "day": "2026-09-23",
+          "title": "Better prompt caching for GPT-6",
+          "url": "https://openai.com/index/better-prompt-caching-for-gpt-6"
+        },
+        {
+          "id": "73461b3e97af0d93",
+          "day": "2026-09-23",
+          "title": "Introducing GPT-6 Sol and Luna",
+          "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna"
+        },
+        {
+          "id": "e9f63aa1f7aaa02f",
+          "day": "2026-09-22",
+          "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
+          "url": "https://huggingface.co/blog/evaleval-aisi"
         }
       ],
       "top_benchmarks": [
         {
-          "name": "MMLU",
-          "score": "기존 방법 대비 23 포인트 이상 향상",
-          "article_id": "ae2a66f3c360fd17"
+          "name": "HealthBench",
+          "score": "None",
+          "article_id": "e9f63aa1f7aaa02f"
         },
         {
-          "name": "Llama-3.1-8B 완전 디코딩",
-          "score": "2.8ms/스텝 (배치 1)",
-          "article_id": "ed6d0fbeadb88874"
+          "name": "FrontierMath",
+          "score": "None",
+          "article_id": "e9f63aa1f7aaa02f"
+        },
+        {
+          "name": "Humanity's Last Exam",
+          "score": "None",
+          "article_id": "e9f63aa1f7aaa02f"
         }
       ],
       "pricing": [
         {
-          "unit": "input/1M tokens",
-          "value": "$0.10",
-          "article_id": "730323ba6c06bee9"
+          "unit": "공격 비용(토큰 기준)",
+          "value": "17~46달러",
+          "article_id": "ecb59480543c9123"
         }
       ],
       "strengths_ko": [
-        "원어민 수준 유창성",
-        "의미 보존",
-        "수십억 사용자 기반 통합 생태계"
+        "저가 구간 장악",
+        "컴퓨터 사용 능력 개선",
+        "토큰 효율적 추론"
       ],
       "weaknesses_ko": [
-        "응절제 후 안전점수 급락 (97→3)",
-        "테러·극단주의 활동 지원 용이",
-        "영어 우선 언어 편향"
+        "검색된 도구 출력 접근 시 정확도 저하",
+        "증거 대체 현상",
+        "알고리즘 혁신 재발견 실패"
       ],
-      "article_count": 21
+      "article_count": 44
     },
     {
       "model": "DeepSeek",
