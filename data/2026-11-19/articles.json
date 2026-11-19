@@ -1,0 +1,3194 @@
+[
+  {
+    "id": "cac57b5217ba2caa",
+    "cluster_id": "k011296",
+    "title_original": "Genie 4 is now available",
+    "url": "https://deepmind.google/blog/genie-4-is-now-available/",
+    "image_url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/resized_ProjectGenie_Thumbnail_v02.width-1300.png",
+    "source_id": "deepmind_blog",
+    "source_name": "Google DeepMind",
+    "published": "2026-11-18T18:13:42+00:00",
+    "fetched_at": "2026-11-19T18:21:59.975182+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Google DeepMind가 실험적 연구 프로토타입 Project Genie의 새 버전을 Google AI Ultra 구독자 대상으로 출시했습니다. 핵심은 실시간 프롬프트로 세계를 편집할 수 있고 네이티브 오디오가 함께 나오는 Genie 4의 최초 공개이며, 동시에 Genie 3의 체류 시간 확장(60초에서 3분), 360도 파노라마 이미지 기반 생성, 자연어 기반 agent 제작 도구, 커뮤니티 갤러리가 추가되었습니다. Google AI Pro 사용자는 대기자 명단에 등록할 수 있습니다.",
+    "insights_ko": [
+      "실시간 프롬프트 편집과 네이티브 오디오를 결합한 인터랙티브 월드 모델은 게임 엔진이나 영상 생성과 다른 새로운 콘텐츠 제작 패러다임을 제시합니다. 세션 도중 환경을 바꾸는 방식이 사용자 참여형 제작의 기준이 될 가능성이 있습니다.",
+      "Gemini가 화면을 관찰하고 다음 행동을 제안하거나 이벤트를 자동으로 트리거하는 구조는 월드 모델과 멀티모달 LLM을 결합한 에이전트형 제품 방향을 보여줍니다. 커뮤니티 갤러리와 리믹스 기능은 생성형 월드의 사용자 생태계 형성을 노린 전략으로 보입니다.",
+      "접근 권한을 최상위 유료 구독에 먼저 제한한 점과 SynthID 워터마크 및 안전성 스크리닝을 명시한 점은 상용화 단계의 책임 있는 배포 신호입니다. 카메라 지연, 물리 상호작용, 장기 장면 일관성 등 기술적 한계는 여전히 남아 있다는 점도 함께 고려해야 합니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Google DeepMind launches Genie 4 with real-time editable interactive worlds",
+    "tags": [
+      "Gemini",
+      "멀티모달",
+      "에이전트",
+      "벤치마크",
+      "비디오생성"
+    ]
+  },
+  {
+    "id": "7968cb090592e2e6",
+    "cluster_id": "k011230",
+    "title_original": "PrismRestore: A Compact Restoration Toolbox for Agentic Image Restoration",
+    "url": "https://arxiv.org/abs/2611.24915v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-11-18T18:48:01+00:00",
+    "fetched_at": "2026-11-19T18:21:59.975646+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "PrismRestore는 여러 열화(degradation)가 섞인 이미지를 복원하는 에이전트 방식에서, 여러 개의 복원 네트워크를 따로 저장해야 하는 부담을 줄이기 위해 제안된 연구입니다. 하나의 고정된(frozen) all-in-one 모델 내부 채널 반응을 분석해 작업별 변조 계수를 오프라인으로 찾고, 이를 호출 가능한 복원 액션 묶음으로 구성합니다. 이후 Group Relative Policy Optimization으로 학습된 정책이 이 액션들을 상태에 따라 조합해 실제 복원을 수행합니다. 합성 복합 열화 및 실제 다중 작업 벤치마크에서 기존 all-in-one 베이스라인을 앞서고, 다중 모델 에이전트와 경쟁력 있는 품질을 단일 백본과 더 빠른 추론으로 달성했다고 보고합니다.",
+    "insights_ko": [
+      "복원 에이전트의 병목이 '모델 수'에서 '액션 공간 설계'로 이동할 수 있음을 보여줍니다. 별도 어댑터나 백본 없이 하나의 모델 내부에서 액션을 파생시키는 접근은 엣지 디바이스나 메모리 제약 환경에서 실용성이 높습니다.",
+      "채널 응답 프로파일 기반의 오프라인 탐색과 정책 학습을 분리한 구조는, 강화학습 비용을 줄이면서도 액션의 해석 가능성(어떤 열화에 어떤 채널이 반응하는지)을 확보한다는 점에서 흥미롭습니다. 다만 공개된 초록만으로는 채널 그룹화의 안정성과 다른 백본으로의 일반화 여부는 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Single frozen model yields compact restoration action bank for agents",
+    "tags": [
+      "멀티모달",
+      "에이전트",
+      "강화학습",
+      "벤치마크",
+      "추론"
+    ]
+  },
+  {
+    "id": "87d10f92995ecde5",
+    "cluster_id": "k011203",
+    "title_original": "Mapping the AI Supply Chain: Dependencies, Vulnerabilities, and Market Concentration in the AI Ecosystem",
+    "url": "https://arxiv.org/abs/2611.24927v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:53:58+00:00",
+    "fetched_at": "2026-11-19T18:21:59.975904+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "arXiv에 게재된 이 논문은 AI 시스템을 구성하는 기관들의 네트워크, 즉 모델·데이터·컴퓨팅·자본·인재가 조직 간에 어떻게 흐르는지를 체계적으로 매핑했습니다. 연구진은 다층적이고 대규모인 행위자·관계 데이터셋을 구축해 공개했으며, 이를 바탕으로 중심 행위자, 네트워크 집중도, 커뮤니티, 병목 지점을 분석했습니다. 다만 비공개 거래는 누락될 수밖에 없어 데이터가 불완전하다는 한계도 명시했습니다.",
+    "insights_ko": [
+      "AI 스택의 계층은 어느 정도 알려져 있지만 계층을 넘나드는 조직 간 의존 관계는 문서화가 부족했다는 점에서, 이 데이터셋은 산업 구조를 실증적으로 들여다볼 수 있는 기반을 제공합니다. 특정 기업의 칩·클라우드·모델 의존성을 한눈에 보는 분석이 가능해집니다.",
+      "병목 지점과 연쇄 실패 위험을 네트워크 관점에서 짚었다는 점이 정책·리스크 관점에서 중요합니다. 소수 공급자에 대한 의존이 높을수록 특정 기업의 장애나 수출 규제가 생태계 전반에 파급될 수 있어, 공급망 다변화와 책임 소재 명확화 논의에 실질적 근거가 됩니다."
+    ],
+    "category": "policy",
+    "importance_score": 3,
+    "subtitle_en": "Mapping AI supply chain dependencies reveals concentration and chokepoints",
+    "tags": [
+      "GPU",
+      "데이터센터",
+      "규제",
+      "자금조달"
+    ]
+  },
+  {
+    "id": "db088048514cc80c",
+    "cluster_id": "k011192",
+    "title_original": "Ted Cruz-led committee approves Trump FCC nominee 15-0 as Democrats boycott vote",
+    "url": "https://arstechnica.com/tech-policy/2026/11/ted-cruz-led-committee-approves-trump-fcc-nominee-15-0-as-democrats-boycott-vote/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2025/01/ted-cruz-1152x648-1738093202.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T23:25:04+00:00",
+    "fetched_at": "2026-11-19T18:21:59.976168+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Ted Cruz가 이끄는 상원 상무위원회가 트럼프 행정부의 FCC 위원 후보 Danielle Thumann을 공화당 의원 15명 찬성만으로 승인했습니다. 민주당 의원 13명은 표결을 막기 위해 불참했으며, 후보가 FCC 위원장 Brendan Carr의 법률 고문으로서의 업무를 두고 허위 증언을 했다는 의혹이 제기된 상태입니다. 공화당은 민주당이 1월 상원 다수당이 되기 전에 최종 인준을 마치려 하고 있습니다.",
+    "insights_ko": [
+      "위원회 정족수 관행이 무너진 점이 핵심입니다. 상무위 규칙상 소수당 의원 1명의 출석이 인사 표결의 필수 조건이었으나, Cruz는 규칙 제정 실패를 근거로 이를 우회했습니다. 이는 향후 인사 청문 절차 전반에서 정당 간 합의 관행이 약화될 수 있음을 시사합니다.",
+      "Carr 위원장의 방송 규제 논란과 Thumann의 증언 의혹이 맞물리면서 FCC의 독립성과 방송사 압박 문제가 인준 정국의 쟁점으로 떠올랐습니다. 민주당이 상원을 장악하기 전 인준을 서두르는 흐름은 정권 교체기 인사 경쟁의 전형적 양상으로, 후속 FCC 정책 결정의 방향을 좌우할 수 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 3,
+    "subtitle_en": "Cruz committee confirms FCC nominee as Democrats boycott vote",
+    "tags": [
+      "규제",
+      "인력채용"
+    ]
+  },
+  {
+    "id": "e78487095dd37232",
+    "cluster_id": "k011275",
+    "title_original": "Elon Musk says ousting Jensen Huang is like ‘kicking Michael Jordan off your team’",
+    "url": "https://techcrunch.com/2026/11/18/elon-musk-says-ousting-jensen-huang-is-like-kicking-michael-jordan-off-your-team/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2024/08/GettyImages-524212924.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T23:25:17+00:00",
+    "fetched_at": "2026-11-19T18:21:59.976373+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "일론 머스크는 뉴욕타임스 DealBook 서밋에서 Nvidia 이사회가 창업자 젠슨 황을 CEO직에서 축출한 결정에 강하게 반대하며, 그를 '전성기의 마이클 조던'에 비유했습니다. 머스크는 X에 황을 채용하고 싶다고 밝혔고, 20만 명 이상이 참여한 복직 청원에도 서명했습니다. 반면 Nvidia 이사회는 황을 복귀시키지 않겠다고 확인했으며, Anduril의 Palmer Luckey와 Microsoft의 Satya Nadella 등 업계 인사들의 평가는 엇갈렸습니다.",
+    "insights_ko": [
+      "시장 가치 측면에서 이번 결정은 Nvidia 시가총액에 약 1조 달러의 하락 압력을 가한 것으로 언급되며, 창업자 중심의 장기 관계와 인재 유출 리스크가 AI 칩 리더십의 핵심 변수임을 보여줍니다.",
+      "황의 축출 배경에 중국 간첩으로 의심받는 인물과의 연루가 포함되어 있어, 미·중 기술 경쟁 속에서 최상위 기업 지도부의 보안 검증과 국가안보 리스크가 투자자와 정책 당국의 관전 포인트로 부상할 가능성이 큽니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Musk calls Jensen Huang ouster like dropping Michael Jordan",
+    "tags": [
+      "NVIDIA",
+      "GPU",
+      "인력채용",
+      "규제"
+    ]
+  },
+  {
+    "id": "eef427b8f0bdf3ef",
+    "cluster_id": "k011212",
+    "title_original": "Does the Action Matter? Probing Action-Conditioned Semantic Forecasting as a World Model for Autonomous Driving",
+    "url": "https://arxiv.org/abs/2611.24840v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:06:20+00:00",
+    "fetched_at": "2026-11-19T18:21:59.976610+00:00",
+    "cluster_size": 3,
+    "also_covered_by": [],
+    "summary_ko": "자율주행 월드 모델이 실제로 자차의 행동(action)에 의존해 미래 장면을 예측하는지 검증한 arXiv 논문입니다. 과거 semantic segmentation과 자차 행동을 입력받아 미래 segmentation을 예측하는 모델에서, 행동을 바꾸는 test-time intervention으로 의존성을 측정했습니다. 실험 결과, 올바른 행동은 Cityscapes에서 mIoU를 최대 2.5점, BDD100K에서 0.6점만 높였지만 잘못된 행동은 각각 최대 23.2점, 7.0점을 떨어뜨렸습니다. 따라서 정확도 향상만으로는 모델이 행동을 얼마나 강하게 반영하는지 알 수 없다는 결론입니다.",
+    "insights_ko": [
+      "기존 월드 모델 평가가 예측 정확도와 플래닝 성능에 치우쳐, 예측이 조건 행동을 실제로 쓰는지 확인하지 않았다는 문제를 드러냅니다. 정확도가 올랐다고 해서 행동 조건화가 제대로 작동한다고 볼 수 없다는 점에서 평가 기준 자체를 재고하게 만듭니다.",
+      "feature-wise 조건화가 입력 수준 조건화보다 실데이터에서 행동 의존성이 약 1.6배 높다는 결과는 아키텍처 선택이 정확도가 비슷해도 행동 반영 강도를 크게 바꿀 수 있음을 시사합니다. 실제 자율주행 월드 모델 설계와 검증에서 행동 민감도 측정이 필수 지표가 될 가능성이 큽니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Does the ego action really shape driving world model forecasts",
+    "tags": [
+      "에이전트",
+      "멀티모달",
+      "벤치마크",
+      "해석성"
+    ]
+  },
+  {
+    "id": "4e585fc050c2e104",
+    "cluster_id": "k011254",
+    "title_original": "Private certificate authority support in Amazon Bedrock AgentCore Identity",
+    "url": "https://aws.amazon.com/blogs/machine-learning/private-certificate-authority-support-in-amazon-bedrock-agentcore-identity/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/18/ML-22407-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T20:53:41+00:00",
+    "fetched_at": "2026-11-19T18:21:59.976803+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AgentCore Identity가 사설 IdP(Keycloak, PingFederate 등)의 TLS 인증서를 조직이 쓰는 사설 CA로 검증할 수 있도록 private CA 지원을 추가했습니다. Secrets Manager나 S3에 PEM 형식의 CA 인증서(공개 인증서만)를 저장하고 credential provider에서 참조하면, 사설 IdP의 discovery·JWKS·token 엔드포인트 인증서를 해당 CA로 검증합니다. 사설 IdP 전용 기능이며, VPC Lattice를 통해 프라이빗 네트워크로 연결됩니다.",
+    "insights_ko": [
+      "사설망에 자체 호스팅된 IdP를 쓰는 기업 에이전트 배포의 가장 큰 장벽이던 사설 인증서 신뢰 문제를 코드 변경 없이 해결해, 금융·공공 등 내부망 중심 조직의 에이전트 도입을 앞당길 수 있습니다.",
+      "CA 인증서를 credential provider가 읽는 구조라 IdP 팀만 CA 교체를 관리하도록 권한을 분리할 수 있고, ACM 자동 갱신과 결합하면 인증서 로테이션 운영 부담이 줄어듭니다. 다만 VPC Lattice 의존성과 리전 제약이 있어 도입 전 네트워크 설계 검토가 필요합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AgentCore Identity adds private CA support for self-hosted identity providers",
+    "tags": [
+      "에이전트",
+      "보안",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "876dc6bec15a43c8",
+    "cluster_id": "k011209",
+    "title_original": "Choosing What to Observe: Budget-Paired Counterfactual Audits for Credible Evaluation of Visual Agents",
+    "url": "https://arxiv.org/abs/2611.24867v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:20:12+00:00",
+    "fetched_at": "2026-11-19T18:21:59.977092+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "시각 에이전트가 고밀도 문서를 읽을 때 제한된 관측 예산을 어느 영역에 쓸지, 남은 예산에 어떻게 적응하는지, 관측을 멈춘 뒤 어떻게 답하는지를 한꺼번에 평가하는 문제를 다룹니다. 저자들은 공개 증거와 영역 바인딩은 고정하고 남은 예산이나 선언된 과제 파라미터만 바꾸는 '예산 쌍 반사실 감사(budget-paired counterfactual audit)' 프로토콜을 제안합니다. 이를 통해 잃어버린 기대 정확도를 단계별 획득 손실과 최종 결정 손실로 분해하며, 40개 쌍의 라우팅 앵커와 5개 오픈 가중치 모델로 검증했다고 소개합니다.",
+    "insights_ko": [
+      "기존 시각 에이전트 벤치마크는 최종 답변 정확도 하나로 '어디를 볼지', '어떻게 적응할지', '어떻게 답할지'를 뭉뚱그려 평가해 왔습니다. 이를 분리해 측정하는 방법을 제시한 점이 평가 신뢰성 측면에서 새롭습니다.",
+      "획득 손실과 결정 손실의 분해는 계획 능력과 고정된 역할 기반 휴리스틱을 구분해 줍니다. 문서 에이전트나 RAG 파이프라인의 검색·읽기 정책을 개선할 때 어느 단계가 병목인지 진단하는 실무 도구로 쓰일 수 있습니다.",
+      "arXiv 초록 기준의 초기 연구이므로 세부 수치와 결과의 일반화 가능성은 본문 확인이 필요합니다. 향후에는 에이전트 평가 표준에 예산 통제 반사실 실험이 포함되는지가 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Auditing visual agents by pairing observation budgets counterfactually",
+    "tags": [
+      "에이전트",
+      "벤치마크",
+      "멀티모달",
+      "추론"
+    ]
+  },
+  {
+    "id": "ee20d352f0da08b7",
+    "cluster_id": "k011267",
+    "title_original": "Meta’s AI agent Muse is mixing up conversations and exposing private data, report says",
+    "url": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/09/muse-ai-meta.jpg?w=1200",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-19T17:38:40+00:00",
+    "fetched_at": "2026-11-19T18:21:59.977328+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Reuters가 Meta 내부 게시글을 인용해 보도한 바에 따르면, Meta의 AI 에이전트 Muse가 서로 다른 사용자 계정의 대화를 뒤섞고 개인 정보를 노출하고 있다는 내부 우려가 제기되었습니다. 직원들은 본인이 요청하지 않은 육아 요청, 주문하지 않은 상품, 타인의 은행 잔고 등을 Muse가 보여줬다고 증언했습니다. 9월 출시된 Muse는 1,000만 건 이상 다운로드를 기록하며 빠르게 성장한 앱이지만, 이번 문제에 대해 Meta는 즉각적인 답변을 내놓지 않았습니다.",
+    "insights_ko": [
+      "에이전트가 사용자 간 컨텍스트를 분리하지 못하는 것은 단순 환각이 아니라 권한 경계와 세션 격리 설계의 실패로, 대화형 AI를 금융·메신저 등 개인 데이터 영역과 연결할 때 가장 큰 리스크임을 보여줍니다.",
+      "직원이 개인 기기에서 Signal 등 다른 앱 접근 권한을 부여한 적 없다고 언급한 점은 에이전트의 외부 앱 연동 범위와 동의 절차가 불투명할 수 있음을 시사해, 향후 규제 당국의 데이터 접근 감사 요구로 이어질 가능성이 있습니다.",
+      "급성장 중인 AI 에이전트 앱일수록 출시 속도와 사용자 확산이 프라이버시 검증을 앞지를 위험이 있어, 개발자와 PM에게는 격리 테스트와 권한 최소화 원칙을 출시 전 필수 게이트로 두는 것이 중요해 보입니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Meta's Muse agent reportedly leaks private data across user accounts",
+    "tags": [
+      "Meta AI",
+      "에이전트",
+      "보안",
+      "생산성"
+    ]
+  },
+  {
+    "id": "e50adc219ed8b3a1",
+    "cluster_id": "k011259",
+    "title_original": "From reporting to reasoning: Getting enterprise data ready for AI agents",
+    "url": "https://aws.amazon.com/blogs/machine-learning/from-reporting-to-reasoning-getting-enterprise-data-ready-for-ai-agents/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/16/ML-22393-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T18:54:08+00:00",
+    "fetched_at": "2026-11-19T18:21:59.977562+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS Quick User Group DC 첫 밋업이 2026년 10월 7일 버지니아 아링턴 AWS Skills Center에서 열려, 기업들이 정적 리포팅 대시보드를 넘어 생성형·에이전트 AI로 이동하기 위한 데이터 기반 준비 방법을 논의했습니다. AWS Quick은 분석, 자연어 상호작용, 다단계 작업 오케스트레이션을 결합한 통합 AI 업무 어시스턴트로 소개되었고, Financial Independence Group(FIG)은 CRM·재무 데이터 등 정형 데이터와 내부 문서 등 비정형 콘텐츠를 거버넌스된 데이터 레이어로 묶어 AI 분석과 에이전트 워크플로의 기반으로 삼고 있다고 발표했습니다.",
+    "insights_ko": [
+      "에이전트 AI의 성패가 모델 자체보다 거버넌스된 정형·비정형 데이터 기반을 얼마나 신뢰할 수 있게 갖췄는지에 달려 있다는 점을 실제 기업 사례로 보여줍니다. 데이터 준비가 에이전트 도입의 전제 조건으로 재정의되고 있습니다.",
+      "BI 도구가 자연어 질의, 다단계 자동화, 서드파티 커넥터(Salesforce, Slack, Microsoft 365 등)를 한 워크스페이스에 묶는 방향으로 진화하면서, 데이터 사일로 해소와 업무 산출물 생성까지 포괄하는 통합 플랫폼 경쟁이 가속될 것으로 보입니다.",
+      "본 행사는 제품 소개에 가까운 커뮤니티 밋업 성격의 내용이며 구체적 성능 수치나 독립 검증은 포함되지 않았으므로, 실제 도입 효과는 자체 파일럿으로 확인할 필요가 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 2,
+    "subtitle_en": "AWS Quick user group shows enterprise data prep for AI agents",
+    "tags": [
+      "에이전트",
+      "RAG",
+      "멀티모달",
+      "생산성"
+    ]
+  },
+  {
+    "id": "6167b632613f12dd",
+    "cluster_id": "k011236",
+    "title_original": "A human liver has been kept alive outside the body for a record seven weeks",
+    "url": "https://www.technologyreview.com/2026/11/19/1148934/a-human-liver-has-been-kept-alive-outside-the-body-for-seven-weeks-setting-a-record/",
+    "image_url": "https://wp.technologyreview.com/wp-content/uploads/2026/11/EOPS-V1.1-.jpg?resize=1200,600",
+    "source_id": "mit_tr",
+    "source_name": "MIT Technology Review",
+    "published": "2026-11-19T12:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.977766+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "호주 시드니 연구팀(Carlo Pulitano 주도)이 기증받은 인간 간을 자동화된 펌프·센서 기반의 체외 생명유지 시스템(Extended Organ Perfusion System)에 연결해 체온(37°C) 상태로 7주간 생존시키는 데 성공했다고 주장했습니다. 종전 기록은 스위스의 약 2주였으며, 논문은 아직 공개 전입니다. 연구팀은 자동화를 통해 평균 생존 기간을 약 4주로 세 배 늘렸다고 밝혔습니다.",
+    "insights_ko": [
+      "장기 관류(perfusion) 기술이 '수시간 내 이식'이라는 장기 보존의 한계를 넘어, 기증 장기를 시간 제약 없이 보존하는 방향으로 진화하고 있음을 보여줍니다. 이식 물류와 기증 장기 이용률에 실질적 변화를 줄 수 있는 기술입니다.",
+      "다만 7주라는 수치가 실제 이식 가능성이나 장기 건강도와 직결되지는 않습니다. 업계에서도 기록의 진위는 받아들이되 종료 시점의 장기 상태와 임상적 목적이 무엇인지는 아직 불분명하다는 평가가 나옵니다.",
+      "관류 기간을 늘린 장기가 하루 이틀 뒤 오히려 스스로 회복·강화되는 현상이 보고되고 있어, 체외 장기를 치료·재생·실험의 플랫폼으로 쓰는 연구(유전자 치료, 간 분할 재생, 뇌 관류 약물 테스트 등)로 확장될 가능성이 주목됩니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Australian team keeps human liver alive outside body for seven weeks",
+    "tags": [
+      "헬스케어"
+    ],
+    "authors": "Carlo Pulitano"
+  },
+  {
+    "id": "f0b81ce3c1461288",
+    "cluster_id": "k011285",
+    "title_original": "DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency",
+    "url": "https://huggingface.co/blog/RadixArk/daisyrose-27b-pushing-the-frontier-of-post-trainin",
+    "image_url": "https://cdn-uploads.huggingface.co/production/uploads/6aeabf9f2efd990530425e58/faP4Su889q_DIgN3wmU9M.png",
+    "source_id": "huggingface_blog",
+    "source_name": "Hugging Face",
+    "published": "2026-11-18T19:54:56+00:00",
+    "fetched_at": "2026-11-19T18:21:59.978023+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "RadixArk가 자사 첫 모델 DaisyRose-27B를 공개했습니다. Qwen3.8-27B를 기반으로 자체 오픈소스 강화학습 프레임워크 Miles를 사용해 장기 에이전트 작업(최대 100만 토큰 세션)에 맞춰 학습했으며, 큐레이션된 1,200개 과제로 H200 144장에서 18일간 훈련했습니다. Terminal-Bench 4.1 pass@1은 5.6%에서 12.0%로 상승했고, Apache 2.0 라이선스로 체크포인트가 배포됩니다.",
+    "insights_ko": [
+      "핵심 차별점은 모델 구조 변경이 아니라 훈련 효율입니다. 비동기 강화학습 파이프라인과 에이전트 전용 학습 백엔드로 MFU 37%를 달성해 오픈소스 Megatron 기반 트레이너(16%) 대비 훈련 비용을 57% 낮췄다고 주장하며, 이는 후처리(post-training) 인프라 경쟁이 모델 경쟁만큼 중요해지고 있음을 보여줍니다.",
+      "과제 설계에서 '원래 모델이 틀리는 지점을 겨냥'하고 해결 여부를 사람이 검수하는 방식은 에이전트 데이터 품질 관리의 실무 레퍼런스가 될 만합니다. 다만 성능 수치는 자사 측 평가 설정에 기반하므로, 독립 재현 결과가 나오기 전까지는 보수적으로 해석할 필요가 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "RadixArk releases DaisyRose-27B with a 57% cheaper post-training pipeline",
+    "tags": [
+      "오픈소스",
+      "에이전트",
+      "추론",
+      "파인튜닝",
+      "GPU"
+    ],
+    "institution": "RadixArk"
+  },
+  {
+    "id": "b6c74b3795ab8594",
+    "cluster_id": "k011263",
+    "title_original": "Even His Own Officials Don’t Think Trump’s China Trip Will Lead to Progress on AI",
+    "url": "https://www.wired.com/story/administration-officials-dont-think-much-ai-progress-will-come-of-trumps-china-visit/",
+    "image_url": "https://media.wired.com/photos/6afcfe9d821bf3ffcbf308a8/191:100/w_1280,c_limit/politics_trump_adventures_china.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-11-18T22:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.978247+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "트럼프 대통령과 시진핑 주석의 정상회담을 앞두고 미 행정부 관계자들은 AI 안전성과 간첩 활동 관련 우려에서 실질적 진전을 기대하기 어렵다고 비공개로 밝혔습니다. 젠슨 황 전 엔비디아 CEO와 중국 정보기관 연루 의혹이 있는 Megaspeed 임원 Alice Huang 간의 스캔들이 협상을 더욱 복잡하게 만들었고, 9월에 발표된 AI 사고 핫라인은 아직 가동되지 않은 개념 단계에 머물러 있습니다. 같은 기간 미국은 중국이 해외 데이터센터의 미국산 AI 칩에 원격 접근하는 것을 제한하는 새 규칙을 추진하기로 했습니다.",
+    "insights_ko": [
+      "미중 간 AI 위험에 대한 인식 차이가 협상의 핵심 장벽입니다. 미국은 모델의 자율성과 정렬 실패를 우려하는 반면, 중국은 오픈웨이트 모델이 내부 반체제 세력에게 악용되는 것을 더 경계하고 있어 사고 공개 유인부터 다릅니다.",
+      "해외 데이터센터를 통한 칩 원격 접근 규제는 수출통제가 물리적 반입에서 클라우드 접근 계층으로 확장되고 있음을 보여줍니다. 이는 중국 모회사를 둔 클라우드·칩 중개 기업의 사업 모델에 직접적인 압박이 될 전망입니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Officials see little AI progress ahead of Trump Xi summit",
+    "tags": [
+      "규제",
+      "수출통제",
+      "안전성",
+      "GPU",
+      "데이터센터"
+    ]
+  },
+  {
+    "id": "ddb4b8e8befa63e4",
+    "cluster_id": "k011271",
+    "title_original": "Anthropic’s IPO puts AI’s circular financing boom to the test",
+    "url": "https://techcrunch.com/2026/11/19/anthropics-ipo-puts-ais-circular-financing-boom-to-the-test/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2304538389.jpg?w=1024",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-19T14:54:39+00:00",
+    "fetched_at": "2026-11-19T18:21:59.978440+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 기업공개(IPO)를 통해 공개 시장에서 수십억 달러를 조달할 예정이며, 이 과정에서 Amazon과 Google 같은 인프라 공급사이자 투자자들이 큰 몫을 가져갑니다. 주당 83달러 기준 Amazon 지분은 약 1590억 달러, Google 지분은 약 1490억 달러로 평가되며, Nvidia·AMD·Microsoft·Broadcom·Micron 등도 260억 달러 규모 사모 배정에 참여했습니다. 분석가들은 IPO를 계기로 투자자가 공급사에서 공개시장·회사채로 옮겨가며 이른바 '순환 금융' 구조가 자립화 단계에 들어설 수 있다고 평가합니다.",
+    "insights_ko": [
+      "공급사가 투자자이자 고객인 순환 금융 구조가 IPO로 정상화되는 신호로, 공급사 간 자금 흐름 우려를 낮추는 동시에 AI 인프라 수요가 외부 고객에서 발생하고 있다는 해석을 가능하게 합니다.",
+      "예상 현금 약 2200억 달러와 연 680억 달러 수준의 매출 페이스를 감안하면 9000억 달러 규모 컴퓨트 약정도 감당 가능하다는 시각이 있지만, 승패가 최전선 모델 경쟁에 달려 있다는 점에서 경쟁사 추월이나 저가 오픈웨이트 모델 확산이 가장 큰 리스크로 남습니다.",
+      "Anthropic의 최종 수익이 모델 경쟁 결과와 무관하게 데이터센터 사업자(Amazon, Google, Microsoft)에게 흘러간다는 주장은 AI 지출 자체가 늘어날 경우 인프라 투자 사이클이 지속될 수 있음을 시사합니다."
+    ],
+    "category": "business",
+    "importance_score": 5,
+    "subtitle_en": "Anthropic IPO tests whether AI circular financing can become self-sustaining",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "Amazon",
+      "IPO",
+      "자금조달"
+    ]
+  },
+  {
+    "id": "dd7337159384c156",
+    "cluster_id": "k011210",
+    "title_original": "Vibe-Trading: Towards Agent-Native Trading",
+    "url": "https://arxiv.org/abs/2611.24845v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:07:57+00:00",
+    "fetched_at": "2026-11-19T18:21:59.978666+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "Vibe-Trading은 금융 트레이딩을 위한 에이전트 네이티브 프레임워크이자 올인원 워크스페이스로, 시장 리서치, 금융 데이터, 전략 생성, 백테스팅, 포트폴리오 분석, 페이퍼 트레이딩, 멀티에이전트 협업, 선택적 브로커 실행을 하나로 통합합니다. 핵심 기여는 결과물마다 출처, 시간적 범위, 설정, 생성 실행 정보를 보존하고, 리서치 기록을 버전 관리하며, 전략 연구와 실거래 실행 사이에 명시적 권한 게이트를 두는 아키텍처입니다. 가격·뉴스·포지션처럼 끊임없이 변하는 환경에서도 결과를 추적·재현 가능하게 유지하려는 시도입니다.",
+    "insights_ko": [
+      "기존 에이전트 프레임워크가 정적 워크플로에서 상태를 잃기 쉬운 문제를, 금융 도메인의 시점·데이터 스냅샷 의존성 관점에서 정면으로 다뤘다는 점이 새롭습니다. 트레이딩에서는 결과가 맞는 시점과 실행 맥락에 묶여 있어야 쓸모가 있기 때문입니다.",
+      "실거래 권한을 리서치와 분리하는 명시적 authority gate는 자동매매 에이전트의 규제·리스크 관리 측면에서 실무적 설계 패턴으로 참고할 만합니다. 다만 재현성과 추적성을 내세우는 만큼, 실제 성과 검증과 시장 충격 대응 여부는 후속 실험에서 확인이 필요해 보입니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Vibe-Trading proposes traceable, authority-gated agents for financial trading research",
+    "tags": [
+      "에이전트",
+      "금융",
+      "RAG"
+    ]
+  },
+  {
+    "id": "a2e412e5953e5c3f",
+    "cluster_id": "k011251",
+    "title_original": "Introducing the Amazon SageMaker JumpStart Model Leaderboard",
+    "url": "https://aws.amazon.com/blogs/machine-learning/introducing-the-amazon-sagemaker-jumpstart-model-leaderboard/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/18/ML-22496-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T22:31:04+00:00",
+    "fetched_at": "2026-11-19T18:21:59.978909+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS가 Amazon SageMaker Studio에 'JumpStart Model Leaderboard'를 공개했습니다. 리더보드는 70여 개 이상의 오픈 웨이트 파운데이션 모델을 품질(BIG-Bench Hard, GPQA Diamond, MMLU-Pro 벤치마크), 응답 속도, 예상 비용 측면에서 한 화면에서 비교할 수 있게 해줍니다. AWS가 모든 모델에 동일한 평가 방식을 적용해 수치를 직접 측정하므로, 출처가 제각각인 모델 카드 점수를 수집해 비교할 필요가 줄어듭니다.",
+    "insights_ko": [
+      "기존에는 모델별 벤치마크 점수가 서로 다른 프롬프트·설정·하드웨어 조건에서 발표되어 직접 비교가 어려웠습니다. 동일한 하네스로 측정한 품질 지표와 실제 엔드포인트 기반의 지연·비용 지표를 함께 제공한다는 점이 이 기능의 핵심 차별점입니다.",
+      "사용 사례 프로파일과 최적화 목표(지연 최적화, 균형 등)에 따라 같은 모델이라도 속도와 비용 수치가 달라지므로, 워크로드 특성에 맞춰 후보를 고르는 방식이 중요해졌습니다. 다만 표시되는 비용은 인스턴스 시간당 요금만 반영하므로 실제 청구액 산정은 별도 계산기로 확인해야 합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AWS launches side-by-side model leaderboard for SageMaker JumpStart",
+    "tags": [
+      "Llama",
+      "Qwen",
+      "Mistral",
+      "오픈소스",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "4546d2f009c0f33e",
+    "cluster_id": "k011281",
+    "title_original": "Palmer Luckey thinks China is ‘thrilled to have Jensen out,’ so he wants the ousted Nvidia CEO reinstated",
+    "url": "https://techcrunch.com/2026/11/18/palmer-luckey-thinks-china-is-thrilled-to-have-jensen-out-so-he-wants-the-ousted-nvidia-ceo-reinstated/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2024/11/GettyImages-1728513578-e.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T21:31:21+00:00",
+    "fetched_at": "2026-11-19T18:21:59.979155+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anduril CEO Palmer Luckey는 Nvidia 이사회가 창업자 Jensen Huang을 CEO직에서 물러나게 한 결정이 중국에 이득을 준다며, Huang의 복귀를 공개적으로 주장했습니다. Huang은 33년간 회사를 이끌다 외도 의혹과 중국 칩 밀반입 조사 등 여러 논란 속에 사임했습니다. Nvidia 임시 CEO Colette Kress는 H200 칩의 중국 판매 중단과 Huang 재영입 계획 없음을 밝혔으며, 20만 명 이상이 복귀 청원에 서명했습니다.",
+    "insights_ko": [
+      "Luckey는 Huang의 대중국 수출 완화 입장에는 반대하지만, 중국이 자국 반도체 산업 육성을 위해 미국산 GPU 수입을 막고 있다는 점을 짚어 Nvidia의 중국 시장 전략이 구조적으로 막혀 있음을 드러냅니다. 리더십 공백이 곧 중국 자체 칩 기업의 경쟁력 강화 기회로 연결될 수 있다는 관측입니다.",
+      "시가총액이 약 1조 달러 증발했다는 언급은 창업자 중심 리더십에 대한 시장의 프리미엄이 얼마나 컸는지를 보여줍니다. 향후 Nvidia의 후계 구도와 수출 규제 정책 변화가 AI 칩 공급망 전체의 관전 포인트가 될 것으로 보입니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Luckey argues Nvidia's ousted CEO Huang should return to help America",
+    "tags": [
+      "NVIDIA",
+      "GPU",
+      "수출통제",
+      "규제"
+    ]
+  },
+  {
+    "id": "b1d63a1c8d2acfe3",
+    "cluster_id": "k011250",
+    "title_original": "Introducing workload recovery and expanded infrastructure checks on Amazon SageMaker HyperPod",
+    "url": "https://aws.amazon.com/blogs/machine-learning/introducing-workload-recovery-and-expanded-infrastructure-checks-on-amazon-sagemaker-hyperpod/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/17/ML-22383-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T23:03:29+00:00",
+    "fetched_at": "2026-11-19T18:21:59.979435+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS가 Amazon SageMaker HyperPod에 대규모 학습 작업의 실패를 더 빨리 잡아내는 세 가지 기능을 도입했습니다. MultiNodeTrainingValidation은 인스턴스를 프로비저닝할 때 또는 온디맨드로 작은 모델을 학습시켜 손실값이 NaN이나 무한대로 발산하는지 확인하는 심층 헬스체크입니다. Kubernetes 리소스 모니터링 에이전트는 EKS 클러스터의 디바이스 플러그인 크래시나 누락된 DaemonSet 같은 상위 계층 장애를 감시하며, 행 감지(hung job detection)는 Slurm 작업이 진행을 멈춘 경우를 찾아 CloudWatch에 이벤트를 남기고 작업을 취소해 Slurm이 재큐잉하도록 합니다.",
+    "insights_ko": [
+      "기존 노드 헬스체크는 개별 노드의 하드웨어 정상 여부만 보기 때문에, GPU가 잘못된 값을 계산하거나 작업이 멈춘 상태를 감지하지 못했습니다. 이번 기능은 '하드웨어는 정상이지만 학습 결과가 틀린' 침묵 데이터 손상과 교착 상태를 겨냥한 점에서 대규모 학습의 실질적 병목을 다룹니다.",
+      "게시글 예시에 따르면 32개 인스턴스(256 H100) 작업이 한 번 멈춘 채 8시간 방치되면 약 16,900달러가 낭비되고, 15분 단위 행 감지 규칙으로는 약 530달러로 줄어듭니다. 학습 비용 대비 런타임 효율(goodput)을 직접 수치화해 개선 효과를 보여준다는 점에서 운영 관점의 실용성이 큽니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "AWS adds workload recovery and infrastructure checks to SageMaker HyperPod",
+    "tags": [
+      "추론",
+      "보안",
+      "GPU",
+      "데이터센터",
+      "오픈소스"
+    ]
+  },
+  {
+    "id": "c5516a956d99b92d",
+    "cluster_id": "k011224",
+    "title_original": "Teleoperated Haircutting with Delay Compensation and Passivity-Based Control for Unilateral Internet Teleoperation under Real Communication Uncertainties",
+    "url": "https://arxiv.org/abs/2611.24883v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-11-18T18:28:34+00:00",
+    "fetched_at": "2026-11-19T18:21:59.979674+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "연구진은 로봇 이발(haircutting)을 인터넷 원격조작으로 수행할 때 발생하는 가변 전송 지연과 패킷 지터 문제를 다루는 단방향(unilateral) 원격조작 프레임워크를 제안했습니다. 제로차 홀드(ZOH), 1차 홀드(FOH), 저역통과필터(LPF) 세 가지 지연 보상 기법을 고전적 PD 제어기 및 수동성 기반(passivity-based) 동기화 제어기와 함께 비교 평가했습니다. 특히 합성 지연 모델이 아닌 실제 클라우드 기반 원격조작 플랫폼에서 측정한 패킷 지연과 유효 지연 데이터로 검증한 점이 특징입니다. 그 결과 지연 보상 기법과 수동성 기반 동기화를 결합할 때 실제 통신 불확실성 하에서도 추종 견고성이 향상됨을 보였습니다.",
+    "insights_ko": [
+      "합성 지연 모델 대신 실측 통신 데이터로 검증했다는 점이 중요합니다. 실제 패킷 지연과 지터 특성을 반영하지 않은 기존 연구 결과가 현장에서 그대로 재현되지 않을 수 있음을 보여주는 근거가 됩니다.",
+      "이발처럼 수 mm 단위 정밀도가 요구되는 작업에서 수동성 기반 제어를 원격 인터넷 환경에 적용했다는 점은, 의료·미용 등 안전이 중요한 원격 로봇 서비스의 실현 가능성을 높이는 신호입니다. 다만 단방향 구조이므로 힘 피드백 없이 작업 안전을 어떻게 보장하는지는 추가 검토가 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Delay compensation and passivity control for robotic haircutting over internet",
+    "tags": [
+      "로보틱스",
+      "자율주행",
+      "추론"
+    ]
+  },
+  {
+    "id": "932eeb93657c3175",
+    "cluster_id": "k011289",
+    "title_original": "Can Programs Replace LLM Judges? Executable Program Judges for Scalable and Efficient Relevance Labeling",
+    "url": "https://arxiv.org/abs/2611.24849v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-11-18T18:09:16+00:00",
+    "fetched_at": "2026-11-19T18:21:59.979932+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "이 논문은 LLM 심판(LLM judge)이 문서마다 비싼 호출을 해야 하고 결과가 해석·재현이 어렵다는 문제를 지적하며, 주제별로 관련성 판단을 대신하는 실행 가능한 프로그램을 생성하는 ExecJudges를 제안합니다. 프론티어 LLM이 평가 가이드라인을 어휘 매칭·NLP 파서·풀 통계만 쓰는 코드로 바꾸며, 사람 라벨이 소량 있으면 ExecJudges-L로 확장됩니다. TREC 7개 컬렉션 평가에서 NIST 평가자와의 일치도가 Claude Sonnet 5.5 수준에 이르렀고, 주제당 1회 $0.17~0.49의 작성 비용 외 채점 비용은 들지 않았습니다.",
+    "insights_ko": [
+      "검색 평가 라벨링에서 'LLM을 매 문서마다 부르는' 비용 구조를 '주제당 한 번 프로그램을 짜는' 구조로 바꾼 점이 핵심입니다. 대규모 깊은 풀(deep pool) 평가에서 호출 비용과 재현성 문제를 동시에 줄일 수 있다는 실용적 함의가 있습니다.",
+      "결과가 코드로 남기 때문에 판단 기준을 감사하고 디버깅할 수 있다는 점이 차별점입니다. 다만 어휘 매칭 기반이라 의미적으로 복잡한 관련성은 놓칠 가능성이 있어, 실제 적용 시 LLM 판단과의 혼합 설계를 검토할 만합니다.",
+      "'LLM 심판 대체'라는 흐름은 평가 인프라 비용 절감 연구로 확산될 가능성이 있으며, 사람 라벨이 소량만 있어도 성능이 개선된다는 결과는 소규모 팀의 검색 평가 방법론에도 참고가 될 것으로 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Executable programs may replace per-document LLM judges for relevance labeling",
+    "tags": [
+      "에이전트",
+      "벤치마크",
+      "검색",
+      "Claude",
+      "추론"
+    ]
+  },
+  {
+    "id": "f5445eec6c3e2750",
+    "cluster_id": "k011200",
+    "title_original": "The \"shameful\" measles data that lost the US its elimination status",
+    "url": "https://arstechnica.com/health/2026/11/the-shameful-measles-data-that-lost-the-us-its-elimination-status/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2017/08/Medical_diagnosis_for_the_student_and_practitioner_1922_14761731976-e1708401738329-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T18:30:23+00:00",
+    "fetched_at": "2026-11-19T18:21:59.980169+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "국제 보건 당국(PAHO 산하 RVC)이 화요일 미국의 홍역 퇴치(elimination) 지위 상실을 공식 발표했습니다. 이 지위는 2000년 수십 년간의 백신 접종 노력 끝에 얻은 성과였으며, 전문가들은 수개월 전부터 상실을 예상해 왔습니다. 올해 홍역 환자는 5,400명을 넘어 1991년 이후 최다이고, 펜실베이니아 대규모 유행이 1,500명 이상을 차지했으며 3개 주에서 10명이 사망했습니다. 다만 지위 상실의 근거가 된 데이터는 주로 2025년 1월 이후 자료로, 올해의 대규모 확산이 결정에 반영된 것은 아닙니다.",
+    "insights_ko": [
+      "지위 상실 결정은 이미 누적된 전파 사슬을 근거로 한 것이어서, 현재 진행 중인 유행은 공식 발표보다 앞서 시작됐다는 점이 핵심입니다. 공중보건 지표 공개 시점과 실제 확산 시점 사이의 시차가 대응 속도를 가늠하는 중요한 변수입니다.",
+      "백신 접종률 하락과 지역 단위 집단면역 붕괴가 맞물린 구조적 문제로 읽히며, 향후 백신 정책·신뢰도 논쟁과 학교 접종 규정 등 정책 변화를 촉발할 가능성이 큽니다. 본문 기준 추가 사망 보고가 이어지고 있어 후속 집계와 정부 대응을 주목할 필요가 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "US loses measles elimination status as outbreaks surge nationwide",
+    "tags": [
+      "규제",
+      "안전성",
+      "자금조달"
+    ]
+  },
+  {
+    "id": "260f2c81b3ea2379",
+    "cluster_id": "k011186",
+    "title_original": "Sparse designs via quantization of the uniform measure on high-dimensional hypercubes",
+    "url": "https://arxiv.org/abs/2611.24507v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-11-18T14:31:21+00:00",
+    "fetched_at": "2026-11-19T18:21:59.980363+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "고차원 초입방체(hypercube)에서 균일 측도(uniform measure)의 양자화 오차(quantization error)를 최소화하는 방식으로 희소(sparse) 실험 설계를 만드는 방법을 제안한 연구입니다. 기존 maximin·minimax 기준은 차원이 커질수록 필요한 점의 수가 폭증하고 꼭짓점 등 경계에 민감하다는 한계가 있어, 전체 거리 분포를 반영하고 경계 효과에 덜 민감한 양자화 오차를 대안으로 삼았습니다. 연구진은 구대칭 분포용 최적 랜덤 양자화기 결과를 바탕으로 목표 크기 n의 랜덤 설계를 생성하며, 작은 초입방체 꼭짓점의 부분 요인 배치(fractional factorial)를 사용하면 전체 공간에 균일 분포한 설계보다 성능이 뛰어남을 보였습니다.",
+    "insights_ko": [
+      "maximin·minimax 기준의 경계·꼭짓점 민감성과 차원의 저주를 정면으로 겨냥해, 컴퓨터 실험 설계에서 '공간을 채운다'는 개념 자체를 재고하게 만드는 시도입니다. 실험 점 수가 제한된 고차원 시뮬레이션 설계에 실용적 대안이 될 수 있습니다.",
+      "Zador 정리를 근거로 설계 크기가 커질수록 균일 설계로 자연스럽게 수렴한다는 점은, 소규모 희소 설계와 대규모 균일 설계를 하나의 이론 틀로 연결하는 의미가 있습니다. 후속으로 프로젝션(저차원 부분공간) 고려나 다른 분포 가정으로의 확장 연구가 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Sparse hypercube designs via quantization outperform uniform sampling",
+    "tags": [
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "c02facc072b9db22",
+    "cluster_id": "k011213",
+    "title_original": "A Foundation Model to Measure and Predict Human Behaviour",
+    "url": "https://arxiv.org/abs/2611.24830v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T17:59:08+00:00",
+    "fetched_at": "2026-11-19T18:21:59.980504+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "arXiv에 공개된 논문 'Chiron'은 LLM을 심리 구성개념 측정, 개인 행동 예측, 인구집단 응답 분포 정렬에 동시에 파인튜닝한 행동 파운데이션 모델을 제안합니다. 36개 행동 영역, 78개 사회과학 실험, 28만 명 이상의 인물 기록과 140만 건 이상의 행동 결정 데이터를 학습·평가에 사용했습니다. 평가 결과 심리 측정치는 인간의 자기보고와 더 잘 일치했고, 개인 행동 예측은 최첨단 LLM 대비 최대 28.4% 상대적으로 향상되었으며, 실험 효과 크기 추정 오차는 82.2~94.3% 낮았습니다.",
+    "insights_ko": [
+      "기존 LLM이 그럴듯한 응답은 만들지만 개인을 왜곡하고 인구 통계를 흐린다는 한계를 정면으로 겨냥해, 범용 모델을 '측정 도구'로 재목적화하려는 시도라는 점이 새롭습니다. 특히 심리측정 타당성을 훼손하는 편향을 줄였다는 주장은 설문 대체 또는 보조 도구로서의 활용 가능성을 높입니다.",
+      "사회과학 실험을 시뮬레이션할 때 효과 방향과 크기를 더 정확히 재현한다면, 임상·마케팅·정책 시뮬레이션의 비용과 기간을 크게 줄일 수 있습니다. 다만 학습 데이터 편향이나 특정 집단에 대한 과적합이 실제 배포에서 검증되지 않은 만큼, 독립적 재현 연구와 프라이버시·오용 리스크에 대한 규제 논의가 뒤따를 전망입니다.",
+      "관전 포인트는 abstract 수준의 수치(28.4%, 82.2~94.3%)가 외부 데이터셋과 다양한 문화권에서도 유지되는지 여부이며, 자기보고 일치도가 실제 행동 예측과 얼마나 분리되는지도 함께 살펴볼 필요가 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Chiron fine-tunes an LLM to measure and predict human behaviour",
+    "tags": [
+      "벤치마크",
+      "파인튜닝",
+      "정렬",
+      "GPT-4",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "e5783290f07783e6",
+    "cluster_id": "k011199",
+    "title_original": "Trump admin orders Kalshi to halt wagers on what words Trump will say",
+    "url": "https://arstechnica.com/tech-policy/2026/11/trump-admin-orders-kalshi-to-halt-wagers-on-what-words-trump-will-say/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/trump-teleprompter-1152x648-1795023886.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T18:46:08+00:00",
+    "fetched_at": "2026-11-19T18:21:59.980695+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "트럼프 행정부가 예측시장 플랫폼 Kalshi에 대통령이 특정 기간 내 특정 단어를 언급할지에 대한 베팅 계약 거래 중단을 지시했습니다. Kalshi는 CFTC(상품선물거래위원회)가 해당 'mention' 계약이 연방법을 위반하는지 검토하는 동안 거래를 중단했으며, 이를 준수하고 있다고 밝혔습니다. 앞서 트럼프 대통령의 연설 원고를 다루던 보좌관이 내부 정보로 10만 달러 이상을 벌어 CFTC 제재를 받은 사건도 이번 조치의 배경으로 언급됩니다.",
+    "insights_ko": [
+      "대통령 발언을 대상으로 한 예측시장 계약이 내부자 거래 및 공공 정보 오용 문제와 직결되면서, 이벤트 계약의 적법성 기준이 규제 당국의 직접 개입 대상으로 올라섰다는 점이 핵심입니다. 플랫폼 입장에서는 발언·이벤트 기반 상품 설계의 법적 리스크를 재평가해야 할 상황입니다.",
+      "연설 원고 접근자의 베팅 사건은 정치 이벤트 계약 시장의 정보 비대칭성 문제를 드러냅니다. 향후 CFTC가 유사 계약 전반에 대한 가이드라인을 만들 가능성이 있으며, 예측시장 업계 전체의 상품 승인 및 감독 강화 흐름을 관전할 필요가 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Trump administration halts Kalshi bets on Trump's spoken words",
+    "tags": [
+      "규제",
+      "금융",
+      "보안"
+    ]
+  },
+  {
+    "id": "9342dbf934e428aa",
+    "cluster_id": "k011214",
+    "title_original": "How OpenAI’s Performance Factory keeps ChatGPT fast",
+    "url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast",
+    "image_url": null,
+    "source_id": "openai_news",
+    "source_name": "OpenAI",
+    "published": "2026-11-19T08:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.980825+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "OpenAI가 'Performance Factory'라는 Codex 기반 워크플로 시스템을 구축해, 성능 이슈를 자동으로 찾아내고 수정하는 방식으로 ChatGPT의 응답 속도를 유지하고 있다고 소개했습니다. 본문 추출이 실패해 RSS 요약에 기반한 정보이며, 구체적인 수치나 구현 세부사항은 확인되지 않았습니다.",
+    "insights_ko": [
+      "코딩 에이전트(Codex)를 서비스 운영 자체에 투입해 성능 회귀를 탐지·수정하는 구조로, AI 도구가 개발을 넘어 운영 최적화 영역까지 확장되고 있음을 보여줍니다.",
+      "대규모 서비스에서 성능 관리를 사람의 수동 프로파일링이 아닌 반복 가능한 자동화 파이프라인으로 전환하는 사례로, 자사 제품 품질 관리의 방법론으로서 참고 가치가 있습니다.",
+      "다만 원문 본문을 확인하지 못해 자동화의 범위, 적용 지표, 효과 규모는 추정 영역에 있으므로 원문 확인이 필요합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "OpenAI builds Codex workflows to keep ChatGPT fast",
+    "tags": [
+      "OpenAI",
+      "에이전트",
+      "추론"
+    ]
+  },
+  {
+    "id": "cedb3872f85dd348",
+    "cluster_id": "k011241",
+    "title_original": "Monoculture Robust Learning",
+    "url": "https://arxiv.org/abs/2611.24881v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-11-18T18:27:52+00:00",
+    "fetched_at": "2026-11-19T18:21:59.981067+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "이 논문은 PAC 학습에서 '단일 문화 강건성(monoculture robustness)' 개념을 도입해, 같은 데이터셋을 공유하는 모델들이 동일한 입력에서 함께 실패하는 알고리즘적 단일 문화 문제를 완화하는 방법을 다룹니다. 하나의 데이터셋만으로 k개의 개별적으로 정확한 가설을 출력하되, 그 결합 실패 확률이 k개의 독립 데이터셋으로 학습한 경우와 비슷하도록 만드는 것이 목표입니다. 저자들은 replicability(재현성)와 이 강건성 사이의 연결고리를 찾아, ρ-replicable 학습기를 같은 샘플에서 k번 독립 실행하면 단일 문화 오류가 k에 대해 지수적으로 줄어든다는 결과를 보였습니다. 또한 개별 결합 오류를 γ까지 낮추려면 표본 크기가 Ω(log(1/γ))배 필요하다는 하한도 함께 제시했습니다.",
+    "insights_ko": [
+      "같은 학습 데이터와 구성요소를 공유하는 모델들이 같은 입력에서 함께 틀리는 현상은 자율주행, 의료 진단, 신용평가 등 여러 시스템을 동시에 쓰는 환경에서 시스템 리스크로 번질 수 있습니다. 이 논문은 이를 이론적으로 정량화하고 완화할 수단을 제공한다는 점에서 의미가 큽니다.",
+      "replicability를 단일 문화 완화에 활용한다는 연결은 새롭습니다. 재현성이 높은 학습기를 반복 실행하면 오류가 지수적으로 감소한다는 결과는, 실무에서 앙상블이나 다중 모델 배포를 설계할 때 '독립 데이터 수집' 대신 '재현 가능한 알고리즘 설계'로 같은 효과를 노릴 수 있음을 시사합니다. 다만 하한 결과처럼 강건성을 높이는 데는 표본 비용이 로그 스케일로 추가된다는 점도 고려해야 합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Monoculture robust learning links replicability to reducing shared model failures",
+    "tags": [
+      "벤치마크",
+      "정렬",
+      "안전성"
+    ]
+  },
+  {
+    "id": "c12b546d5a71cb45",
+    "cluster_id": "k011269",
+    "title_original": "Anthropic hits Nasdaq exchanges at $111, 33% above IPO price",
+    "url": "https://techcrunch.com/2026/11/19/anthropic-hits-nasdaq-exchanges-at-110-27-above-ipo-price/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/anthropic-opening-Getty.jpg?resize=1200,801",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-19T16:59:23+00:00",
+    "fetched_at": "2026-11-19T18:21:59.981260+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 나스닥에 상장되어 첫 거래에서 주당 111.50달러로 시작했으며, 83달러인 IPO 가격보다 33% 높습니다. IPO 가격은 회사가 제시한 예상 범위(70~78달러)를 이미 웃돌았고, 총 810억 달러 이상을 조달해 직원 매각분과 회사 자금으로 나뉘어 쓰입니다. 기존 및 신규 사모 자금을 합치면 약 2,200억 달러 규모의 현금을 보유하게 될 전망이며, 시가총액은 2조 달러를 넘어 Meta, Tesla, Walmart보다 높습니다.",
+    "insights_ko": [
+      "시가총액 2조 달러와 2,200억 달러 현금은 프론티어 랩이 공개 시장에서 자본 규모 면에서 빅테크와 직접 경쟁하는 단계에 들어섰음을 보여줍니다. 추론 인프라와 모델 학습 비용을 장기간 감당할 수 있는 재무 체력이 확보된 셈입니다.",
+      "공모가 상단 초과와 첫 거래 프리미엄은 Claude 엔터프라이즈 사업에 대한 시장의 높은 기대를 반영하며, OpenAI 등 경쟁사의 향후 자금조달·상장 밸류에이션 기준점이 될 가능성이 큽니다. 다만 상장 후 주가 변동성과 안전성 중심 메시지가 실제 제품 로드맵과 어떻게 조율될지가 관전 포인트입니다."
+    ],
+    "category": "business",
+    "importance_score": 5,
+    "subtitle_en": "Anthropic debuts on Nasdaq, opening 33 percent above IPO price",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "IPO",
+      "자금조달"
+    ]
+  },
+  {
+    "id": "95da0fde7d56c751",
+    "cluster_id": "k011295",
+    "title_original": "Introducing Gemini 4 Neon",
+    "url": "https://deepmind.google/blog/introducing-gemini-4-neon/",
+    "image_url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini-4-neon__blog-header__sm.width-1300.png",
+    "source_id": "deepmind_blog",
+    "source_name": "Google DeepMind",
+    "published": "2026-11-18T21:35:43+00:00",
+    "fetched_at": "2026-11-19T18:21:59.981461+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Google DeepMind가 엔터프라이즈·분석·과학 워크플로와 소프트웨어 엔지니어링을 겨냥한 Gemini 4 Neon을 공개했습니다. Artificial Analysis Intelligence Index에서 61점으로 전체 3위를 기록했고, 100만 토큰 컨텍스트 창을 갖췄으며 입력 100만 토큰당 3달러, 출력 100만 토큰당 15달러로 가격이 책정됐습니다. Gemini API, Google AI Studio, Gemini for business, Google Antigravity, Gemini 앱을 통해 순차적으로 배포됩니다.",
+    "insights_ko": [
+      "비용 대비 성능의 Pareto 최적점을 전면에 내세웠다는 점이 핵심입니다. 기본 high 설정에서 Carbon 대비 작업당 비용이 32% 낮고, 경쟁 프런티어 모델 대비 약 50~80% 저렴하다고 주장해 가격 경쟁 구도를 바꿀 수 있습니다.",
+      "에이전트 워크플로 중심 전략이 뚜렷합니다. 중간 사용자 정정에 대한 steerability, 캐시 입력 95% 할인, 병렬 서브에이전트를 지휘하는 Orchestrator 역할 등은 장시간 자율 실행과 비용 통제를 동시에 노린 설계로 보입니다.",
+      "보안 영역의 수치(AutoBaxBench hard 76%, SEC-bench Pro 90.5%)는 자체 보고 성능이므로 독립 검증 전까지는 방향성으로 읽는 것이 적절합니다. 다만 사이버 방어 용도로 포지셔닝한 것은 엔터프라이즈 보안 시장 진입 의도를 보여줍니다."
+    ],
+    "category": "model_research",
+    "importance_score": 5,
+    "subtitle_en": "Google unveils Gemini 4 Neon, targeting agents and cheaper frontier intelligence",
+    "tags": [
+      "Gemini",
+      "DeepMind",
+      "에이전트",
+      "코딩",
+      "추론"
+    ],
+    "institution": "Google DeepMind"
+  },
+  {
+    "id": "528d4c8e9cd7caa9",
+    "cluster_id": "k011189",
+    "title_original": "Mouse fight club might explain why we like to watch violent things",
+    "url": "https://arstechnica.com/science/2026/11/watching-mouse-fight-club-teaches-the-critters-how-to-fight/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/mouse1-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-19T14:04:38+00:00",
+    "fetched_at": "2026-11-19T18:21:59.981846+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Nature에 발표된 연구에 따르면, 수컷 생쥐는 다른 생쥐들의 싸움을 지켜보는 것만으로도 더 강하고 공격적인 상대와 맞붙었을 때 자기 방어 능력이 향상되었습니다. 연구팀은 생쥐를 싸움꾼, 관찰자, 초보자 세 집단으로 나누어 8일간 훈련시킨 뒤 9일째 '파이트 나이트'에 강한 상대와 대결하게 했습니다. 관찰자 집단은 투명 칸막이 너머로 싸움을 보고 냄새와 소리까지 접했으며, 뇌 활동은 광유전학 기법으로 추적했습니다.",
+    "insights_ko": [
+      "폭력을 보는 행위가 공격성을 높인다는 기존 가설과 달리, 관찰이 생존에 유리한 적응적 학습으로 작용할 수 있음을 실험적으로 보여줍니다. 대리 학습이 포유류에서 어떻게 작동하는지 신경 수준에서 접근할 수 있는 근거가 됩니다.",
+      "관찰 집단이 실제 교전 없이 간접 경험만으로 방어 역량을 얻었다는 점은, 인간이 폭력적 콘텐츠를 선호하는 현상을 생존 메커니즘의 관점에서 재해석하게 합니다. 다만 생쥐 연구의 결과를 인간의 미디어 소비 효과로 직접 확장하기에는 신중할 필요가 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2
+  },
+  {
+    "id": "5ca16125cb30a2a7",
+    "cluster_id": "k011206",
+    "title_original": "Local AI Agents in Power Electronics Simulation: Deployment, Measurements and Costs",
+    "url": "https://arxiv.org/abs/2611.24880v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:27:40+00:00",
+    "fetched_at": "2026-11-19T18:21:59.982008+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "전력전자 설계와 시뮬레이션 루프를 자동으로 수행하는 agentic AI를 클라우드 API가 아닌 온프레미스 추론 장비에 배치하는 경우의 비용을 정량적으로 평가하는 연구입니다. 설계 데이터나 수출통제 대상 자료가 외부로 나갈 수 없고 시뮬레이터 라이선스도 현장에 묶여 있는 조직을 대상으로 합니다. 저자들은 컨버터 수준부터 시스템 수준까지의 실제 시뮬레이션 과제에서 로컬 모델의 전력, 에너지, 토큰, 시간 비용을 측정하고 과제당 해결 비용과 능력 한계를 도출하겠다고 밝혔습니다.",
+    "insights_ko": [
+      "에이전트가 로컬 장비에서 돌 때 AI 추론이 전력과 시간을 소모하는 '전기적 부하'가 된다는 관점은, 기존 클라우드 중심 평가에서 빠져 있던 운영 비용 차원을 드러냅니다. 보안 요구가 강한 산업에서 온프레미스 AI의 실질 TCO를 판단할 근거가 될 수 있습니다.",
+      "정량 평가가 목표이므로 아직 공개된 수치 결과는 본문에 없고, 본 초록은 평가 프레임워크 제시 단계입니다. 실제 측정치가 공개되면 로컬 모델 크기·정밀도와 과제 성공률 사이의 트레이드오프가 드러날 것이며, 그 결과를 함께 볼 필요가 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Measuring power, energy and cost of local AI agents in power electronics",
+    "tags": [
+      "에이전트",
+      "추론",
+      "오픈소스",
+      "벤치마크",
+      "데이터센터"
+    ]
+  },
+  {
+    "id": "68c6c01e22389d5a",
+    "cluster_id": "k011245",
+    "title_original": "PolyAI Dialog-RSN-1 is now on Amazon SageMaker JumpStart",
+    "url": "https://aws.amazon.com/blogs/machine-learning/polyai-dialog-rsn-1-is-now-on-amazon-sagemaker-jumpstart/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/19/ML-22412-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-19T17:28:47+00:00",
+    "fetched_at": "2026-11-19T18:21:59.982213+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "PolyAI의 실시간 대화 특화 추론 모델 Dialog-RSN-1이 AWS Marketplace와 Amazon SageMaker JumpStart에 출시되었습니다. 고객은 자신의 AWS 계정 내 VPC에 SageMaker 엔드포인트로 배포할 수 있으며, 모델은 통화 음성을 직접 인식해 추론하고 실시간으로 응답합니다. 현재는 영어만 지원하며 연결은 최대 30분까지 유지됩니다.",
+    "insights_ko": [
+      "별도의 음성인식(STT) 단계와 추론 모델 간 핸드오프 없이 원시 음성을 직접 읽는 구조라, 억양·망설임·타이밍 같은 transcript에서 사라지는 신호를 활용할 수 있다는 점이 차별점입니다. 엔터프라이즈 콜센터 자동화에서 응답 지연과 이해도 간 트레이드오프를 줄이려는 시도로 볼 수 있습니다.",
+      "추론이 고객 계정 경계 안에서 이뤄지고 CloudWatch·IAM·VPC 등 기존 운영 체계를 그대로 쓸 수 있어, 음성 데이터의 데이터 거주성과 감사 요건이 중요한 금융·의료 등 규제 산업 고객에게 도입 장벽을 낮춥니다. 클라우드 마켓플레이스를 통한 특화 대화 모델 유통이 본격화되는 신호이기도 합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "PolyAI Dialog-RSN-1 launches on AWS Marketplace and SageMaker JumpStart",
+    "tags": [
+      "음성",
+      "에이전트",
+      "추론",
+      "멀티모달"
+    ]
+  },
+  {
+    "id": "388adedcc584c5bf",
+    "cluster_id": "k011282",
+    "title_original": "Sam Altman says his life is so weird that he’s unfazed by Andrew Garfield portraying him in upcoming movie",
+    "url": "https://techcrunch.com/2026/11/18/sam-altman-says-his-life-is-so-weird-that-hes-unfazed-by-andrew-garfield-portraying-him-in-upcoming-movie/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2305723022.jpg?w=594",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T20:07:01+00:00",
+    "fetched_at": "2026-11-19T18:21:59.982356+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Sam Altman은 뉴욕타임스 DealBook 서밋에서 Andrew Garfield가 자신을 연기하는 영화 'Artificial'에 대해 별로 놀라지 않는다고 밝혔습니다. 이 영화는 2023년 OpenAI 이사회의 일시적 해임 사태를 중심으로 OpenAI의 성장과 내부 갈등을 다루며 크리스마스에 극장 개봉합니다. Altman은 AI 기술이 야기하는 우려를 안고 책임 있게 발전시켜야 하는 현재 상황이 자신에게 더 기이하게 느껴진다고 말했습니다. 기사는 소셜 네트워크, FTX, 엘리자베스 홈즈를 다룬 작품들과 이 흐름을 연결해 실리콘밸리 인물의 영화화 추세를 짚습니다.",
+    "insights_ko": [
+      "OpenAI 내부 갈등이 영화 소재가 된다는 것은 AI 기업 거버넌스 문제가 대중적 서사로 굳어지고 있음을 뜻하며, 이사회 권한과 CEO 신뢰성에 대한 여론 민감도가 높아졌다는 신호로 읽힐 수 있습니다.",
+      "Altman이 자신의 위상을 '사회적 책임이 큰 기술의 주체'로 규정한 발언은 규제 논의에서 자율 규범을 강조하려는 전략적 메시지로도 볼 수 있어, 향후 정책 협상의 프레이밍 경쟁과 맞물려 관전할 만합니다.",
+      "'The Social Network'의 사례처럼 당사자가 영화의 서사에 반박하거나 거리를 두는 패턴이 반복되고 있어, 실존 인물이 등장하는 AI 기업 다큐·영화가 여론과 기업 이미지에 미치는 영향이 점점 커질 것으로 보입니다."
+    ],
+    "category": "community",
+    "importance_score": 2,
+    "subtitle_en": "Altman shrugs off Garfield's portrayal in upcoming OpenAI movie",
+    "tags": [
+      "OpenAI",
+      "Anthropic",
+      "규제",
+      "안전성"
+    ]
+  },
+  {
+    "id": "e55c48afe0f89999",
+    "cluster_id": "k011229",
+    "title_original": "Unified Law for Visual Tasks (The Four Laws of Computer Vision)",
+    "url": "https://arxiv.org/abs/2611.24917v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-11-18T18:48:38+00:00",
+    "fetched_at": "2026-11-19T18:21:59.982551+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "연구진은 모든 시각 과제를 하나의 법칙으로 묶는 '통합 법칙'과 이를 구성하는 네 가지 컴퓨터 비전 법칙을 제시했습니다. 핵심 가설은 세계 정보가 이미지로 인코딩된다는 'World Snapshot' 개념으로, 이미지 처리를 세계 처리로, 이미지 생성을 World Snapshot 생성으로 재정의합니다. 이 관점에 따라 모든 시각 과제를 생성 문제로 바꾸면 대규모 언어 모델이 자연어 처리를 통합했듯 단일 모델인 World Snapshot Models(WSM)로 대부분의 시각 과제를 수행할 수 있다고 주장하며, 1,000개 이상의 과제에서 이를 검증하고 통합 학습 프레임워크를 제안합니다.",
+    "insights_ko": [
+      "분할, 검출, 복원 등 개별로 설계되던 시각 과제를 하나의 생성 목적 함수로 묶으려는 시도로, 비전 분야에서 LLM식 범용 모델 패러다임을 정면으로 겨냥한다는 점이 새롭습니다.",
+      "다만 '1,000개 이상의 과제 검증'이 실제 벤치마크 성능과 SOTA 대비 우위인지, 아니면 단순 커버리지 확장인지는 본문 요약만으로 판단하기 어려워 원문 실험 표를 확인할 필요가 있습니다.",
+      "생성 모델을 시각 이해의 기본 백본으로 삼는 흐름이 강화될 경우, 데이터 구축과 학습 비용 구조가 바뀌고 범용 비전 모델 경쟁이 가속될 것으로 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "A unified generative law aims to solve nearly all visual tasks",
+    "tags": [
+      "멀티모달",
+      "벤치마크",
+      "사전학습",
+      "이미지생성"
+    ]
+  },
+  {
+    "id": "b084456b863fd476",
+    "cluster_id": "k011287",
+    "title_original": "Jailbreak Detection on Large Language Models via Contrastive Prototype Structures",
+    "url": "https://arxiv.org/abs/2611.24936v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-11-18T18:56:12+00:00",
+    "fetched_at": "2026-11-19T18:21:59.982683+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "연구진은 대조학습(contrastive learning)으로 만든 표현 공간에서 유해/정상 프로토타입을 구성해, 별도 분류기 학습 없이 탈옥(jailbreak) 및 유해 프롬프트를 탐지하는 JDPI 방법을 제안했습니다. 이진 안전 라벨만으로 인코더 적응, 프로토타입 구성, 검증을 수행하며, 4개 벤치마크에서 대조 미세조정으로 탐지 정확도가 9.1~18.0%p 향상되었습니다. 또한 데이터셋별 적응 시 Llama Guard 3-8B 대비 ROC-AUC가 0.173~0.310 높았고, 다중 턴 대화에서는 누적 사용자 이력을 활용해 대화 단위 정확도를 높였습니다.",
+    "insights_ko": [
+      "별도 다운스트림 분류기를 학습하지 않고 프로토타입 거리만으로 안전성을 판정할 수 있어, 라벨 효율과 배포 단순성 측면에서 가드레일 설계의 새로운 선택지를 제시합니다.",
+      "Llama Guard 3-8B 같은 전용 가드 모델을 크게 앞섰다는 결과는 데이터셋 특화 적응이 범용 가드 모델의 격차를 메울 수 있음을 보여주지만, 일반화 성능(12개 전이 실험에서 분류기 대비 평균 +1.59%p)은 개선 폭이 상대적으로 작아 실서비스 적용 전 추가 검증이 필요해 보입니다.",
+      "다중 턴에서 누적 대화 이력을 쓰는 방식은 단발성 프롬프트 필터를 우회하는 점진적 탈옥 공격에 대응하는 방향으로, 향후 에이전트·장기 대화형 서비스의 안전 모니터링 연구에서 주목할 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Contrastive prototypes enable label-efficient jailbreak detection for LLMs",
+    "tags": [
+      "안전성",
+      "정렬",
+      "벤치마크",
+      "파인튜닝"
+    ]
+  },
+  {
+    "id": "1942b786e21c0634",
+    "cluster_id": "k011253",
+    "title_original": "Design responsible AI controls for Amazon Aurora PostgreSQL",
+    "url": "https://aws.amazon.com/blogs/machine-learning/design-responsible-ai-controls-for-amazon-aurora-postgresql/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/16/ML-20463-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T21:38:22+00:00",
+    "fetched_at": "2026-11-19T18:21:59.982896+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS Machine Learning 블로그는 Amazon Aurora PostgreSQL 기반 고객지원 챗봇을 예로 들어, AWS의 8가지 책임 있는 AI(RAI) 차원을 데이터베이스 기능에 매핑하는 설계 패턴을 소개합니다. 이번 편은 RAG 기반 챗봇을 대상으로 설명 가능성(Explainability) 차원을 깊이 다루며, 시리즈의 1편에 해당합니다. 과거 티켓과 지식베이스를 pgvector 임베딩으로 저장하고, Aurora ML로 SQL 안에서 임베딩을 생성하며, Bedrock Guardrails와 행 수준 보안(RLS), PII 마스킹, 인용 및 로그 기록으로 응답의 근거와 감사 추적을 확보하는 구조를 제시합니다.",
+    "insights_ko": [
+      "Aurora ML(aws_bedrock.invoke_model_get_embeddings)을 쓰면 임베딩 파이프라인이 데이터베이스 안에 머물러 데이터 이동과 별도 ETL이 줄어들고, 민감 데이터의 노출 표면도 함께 줄어듭니다. 프라이버시와 거버넌스를 아키텍처 단계에서 설계하는 방향을 보여줍니다.",
+      "Bedrock Knowledge Bases는 인용 기능을 기본 제공해 간단한 선택지이지만, 검색된 출처와 실제 인용된 출처, 유사도 점수, 가드레일 추적 기록을 자체 스키마에 저장해 SQL로 감사하려면 직접 로깅 설계를 구축해야 한다는 점이 실무적 함의입니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "RAG",
+      "안전성",
+      "해석성"
+    ]
+  },
+  {
+    "id": "9ecad94f0d87d696",
+    "cluster_id": "k011207",
+    "title_original": "Auditing black-box clinical prediction models with a large language model through queries alone: a blinded test with planted flaws",
+    "url": "https://arxiv.org/abs/2611.24877v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:24:54+00:00",
+    "fetched_at": "2026-11-19T18:21:59.983038+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "연구진은 International Stroke Trial 데이터로 로지스틱 회귀, 설명 가능한 부스팅 머신, 그래디언트 부스팅, 신경망 등 4종의 임상 예측 모델을 학습하고, 24개 모델에 의도적 결함(과소예측 하위집단, 역전된 위험인자, 비현실적 단계)을 심은 뒤 8개 정상 모델과 섞었습니다. GPT-6 Astra가 예측 결과만 반환하는 도구를 통해 블라인드 상태로 각 모델을 3회씩 감사했으며, 심어진 결함은 72회 중 69회(96%)에서 발견되었습니다. 다만 보고된 문제의 60%는 사전 정의 검증을 통과하지 못했고, 정상 모델에서 읽어낸 예상 밖 관계의 11%만 후속 환자 데이터에서 재현되었습니다.",
+    "insights_ko": [
+      "블랙박스 임상 모델을 쿼리만으로 감사해도 대부분의 심어진 결함을 찾아내고 대리 모델(R² 0.976)로 충실하게 설명할 수 있음을 보여줍니다. 모델 가중치나 내부 접근 없이도 규제·외부 검증 워크플로에 활용 가능성이 있다는 점에서 의미가 큽니다.",
+      "LLM의 '문제 보고'와 '새로운 발견'은 그대로 신뢰하기 어렵다는 경고가 핵심입니다. 보고의 상당수가 작은 단계 오류에 그쳤고 발견 관계의 재현율은 낮아 모델 검증과 독립 데이터 확인이 필수 단계로 남습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "LLM audits find planted clinical model flaws but overreport problems",
+    "tags": [
+      "에이전트",
+      "안전성",
+      "해석성",
+      "벤치마크",
+      "GPT-4"
+    ]
+  },
+  {
+    "id": "543c99d1a39c17b8",
+    "cluster_id": "k011248",
+    "title_original": "Full Fine-Tuning (FFT) on SageMaker AI Serverless Model Customization",
+    "url": "https://aws.amazon.com/blogs/machine-learning/full-fine-tuning-fft-on-sagemaker-ai-serverless-model-customization/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/16/ML-21644-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-19T00:15:58+00:00",
+    "fetched_at": "2026-11-19T18:21:59.983263+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS가 SageMaker AI Serverless Model Customization에서 Full Fine-Tuning(FFT)을 지원하기 시작했습니다. FFT는 LoRA처럼 저랭크 행렬로 가중치를 제한하지 않고 전체 파라미터를 동시에 업데이트하여, 데이터셋이 10만 건 이상으로 커질수록 LoRA 대비 품질 격차가 커진다고 보고합니다. Qwen3-4B 모델을 110K 코딩 인스트럭션 데이터셋으로 학습한 실험에서 FFT는 100K+ 예제 구간에서 LLM-as-Judge 의미 정확도 90.0%를 기록했습니다.",
+    "insights_ko": [
+      "LoRA 성능이 랭크를 늘려도 정체되는 현상을 파라미터 수가 아닌 랭크 결함(rank deficiency) 문제로 짚은 점이 핵심입니다. 데이터가 충분하고 과제가 복잡할 때는 PEFT 대신 FFT를 택하는 것이 합리적이라는 판단 기준을 제시합니다.",
+      "인프라 관리(GPU 프로비저닝, 분산 학습 설정)를 서비스가 대신하면서 FFT의 진입 장벽이 낮아졌습니다. 다만 본문에 나온 수치는 단일 벤치마크·단일 모델 기준이므로, 타 도메인 적용 시 별도 검증이 필요하다는 점은 관측상 유의해야 합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AWS adds full fine-tuning to SageMaker serverless model customization",
+    "tags": [
+      "파인튜닝",
+      "Qwen",
+      "추론",
+      "코딩"
+    ]
+  },
+  {
+    "id": "184d931227f2504d",
+    "cluster_id": "k011215",
+    "title_original": "The Silent Consensus",
+    "url": "https://openai.com/index/the-silent-consensus",
+    "image_url": null,
+    "source_id": "openai_news",
+    "source_name": "OpenAI",
+    "published": "2026-11-18T10:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.983388+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "OpenAI의 전략 미래(Strategic Futures) 책임자 Dean Ball이 더 역량 있는 AI가 사회를 어떻게 재편할 수 있는지, 그리고 사람들이 자신들의 제도에 대한 통제권을 어떻게 유지할 수 있을지를 다룬 글입니다. 본문 추출이 실패하여 RSS 요약 한 문단에 근거한 내용이며, 구체적인 주장이나 수치는 확인되지 않습니다.",
+    "insights_ko": [
+      "AI 역량 증가가 기술 자체보다 사회 제도의 의사결정 구조를 어떻게 바꾸는지에 초점을 맞춘 거버넌스 성격의 논의로 읽힙니다. 제도 통제권 유지라는 문제 설정은 규제 담론을 넘어 조직·정치 설계 영역으로 확장되고 있음을 보여줍니다.",
+      "OpenAI 내부 전략 조직의 이름으로 발표된 점은 해당 회사가 장기적 사회 영향에 대한 입장을 공식화하고 있다는 신호로 볼 수 있으나, 본문 부재로 구체적 제안의 성격은 추정에 머무릅니다. 원문 확인 후 정책 제언인지 연구 성찰인지 판단이 필요합니다."
+    ],
+    "category": "policy",
+    "importance_score": 3,
+    "subtitle_en": "OpenAI strategist examines how AI could reshape institutions and control",
+    "tags": [
+      "OpenAI",
+      "규제",
+      "정렬"
+    ]
+  },
+  {
+    "id": "d965991a3df55578",
+    "cluster_id": "k011247",
+    "title_original": "Using NVIDIA Run:ai GPU Fractioning on Amazon EKS",
+    "url": "https://aws.amazon.com/blogs/machine-learning/using-nvidia-runai-gpu-fractioning-on-amazon-eks/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/19/ML-22238-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-19T16:13:51+00:00",
+    "fetched_at": "2026-11-19T18:21:59.983648+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS Machine Learning 블로그는 Amazon EKS에서 NVIDIA Run:ai GPU Fractioning을 사용해 하나의 GPU 메모리를 여러 Pod가 나눠 쓰는 방법을 소개합니다. 기본 설정에서는 GPU 하나가 단일 리소스로 노출돼 두 Pod가 동시에 실행될 수 없지만, GPU Fractioning Operator와 KAI Scheduler를 통해 Pod별 GPU 메모리 한도를 강제할 수 있습니다. 검증 환경은 g5.xlarge(NVIDIA A10G)이며, Pod당 8 GiB 한도를 설정하고 6 GiB 할당과 9 GiB 거부를 테스트하는 절차를 다룹니다.",
+    "insights_ko": [
+      "MIG 없이도 소프트웨어 방식으로 Pod 단위 GPU 메모리 계약과 집행을 제공한다는 점이 핵심입니다. 노트북, 소형 추론, 모델 평가처럼 GPU 메모리는 남아 있는데 대기가 생기는 워크로드의 GPU 밀도를 높이는 실용적 대안이 됩니다.",
+      "다만 메모리 한도가 연산 비율을 보장하지 않고, 기본 모드에서는 장애 격리 보장도 없다고 명시돼 있어 지연 시간과 보안 격리 요구가 있는 서비스에는 별도 검증이 필요합니다. 처리량 개선이나 비용 절감을 자동으로 의미하지는 않습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Enforcing per-Pod GPU memory limits on Amazon EKS with NVIDIA Run:ai",
+    "tags": [
+      "NVIDIA",
+      "GPU",
+      "오픈소스",
+      "데이터센터",
+      "추론"
+    ]
+  },
+  {
+    "id": "aed3ea0dfc61854d",
+    "cluster_id": "k011278",
+    "title_original": "Anthropic prices IPO at $83 a share, above projected range",
+    "url": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/10/GettyImages-2295579000.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T22:11:15+00:00",
+    "fetched_at": "2026-11-19T18:21:59.983786+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 주당 83달러에 IPO 가격을 확정하며 초기 제시 범위(70~78달러)를 넘어섰습니다. 980만 주(당초 8,250만 주에서 상향)를 매각해 813억 달러를 조달하며 SpaceX의 750억 달러를 제치고 역대 최대 규모 IPO가 되었습니다. 기업가치는 완전희석 기준 약 1조 5,000억 달러로, 5월 사모 라운드의 9,650억 달러보다 크게 높지만 수개월 전 목표했던 2조 달러에는 미치지 못합니다.",
+    "insights_ko": [
+      "초기 범위를 상회하는 가격과 물량 증액은 AI 산업에 대한 기관 수요가 여전히 강하다는 신호로 읽힙니다. 다만 Nvidia CEO 교체 소식 이후 시장 불안이 있었던 만큼, 첫 거래일 흐름이 AI 주식 전반의 신뢰도 시험대가 될 전망입니다.",
+      "Amazon(약 15%)과 Google(약 14%)이 최대 주주이고 AMD, Nvidia, Microsoft 등이 260억 달러 규모 무의결권 주식을 사모로 인수하기로 해, 공급사·클라우드·투자자가 얽힌 순환적 구조가 공개 시장에서 어떻게 평가받을지도 주목할 지점입니다. OpenAI의 IPO 계획과 비상장 AI 기업 밸류에이션 기준점으로도 작용할 가능성이 큽니다."
+    ],
+    "category": "business",
+    "importance_score": 5,
+    "subtitle_en": "Anthropic prices record IPO at $83 per share",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "IPO",
+      "자금조달",
+      "Amazon"
+    ]
+  },
+  {
+    "id": "c80c7cab7d893f3f",
+    "cluster_id": "k011184",
+    "title_original": "Diffusion Models are Provably Efficient Priors for Sparse Recovery",
+    "url": "https://arxiv.org/abs/2611.24602v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-11-18T15:27:29+00:00",
+    "fetched_at": "2026-11-19T18:21:59.984023+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "확산 모델(diffusion model)을 압축 센싱의 희소 신호 복원에 사전분포(prior)로 활용할 때의 이론적 보장을 제시한 논문입니다. 희소성을 유도하는 Bernoulli-Gaussian 사전분포를 정확히 포착한 확산 모델이 주어지면, 우도 기반 annealed Langevin 샘플러가 다항 시간 내에 거의 최적의 표본 복잡도로 희소 신호를 복원함을 증명했습니다. 신호가 실제로 가정된 사전분포에서 뽑혔다면 최종 디노이징 이후 사후 샘플링에 대한 전변동(total variation) 보장도 함께 제시합니다.",
+    "insights_ko": [
+      "그동안 이미지·센싱 역문제에서 확산 모델 사전분포는 실험적 성능만 보고되었고, 점근적 보장이나 최악의 경우 계산 비용이 과도한 이론이 대부분이었습니다. 이 논문은 다항 시간·근최적 표본 복잡도라는 비교적 실용적인 보장을 처음으로 명시해 간극을 좁힙니다.",
+      "결과의 적용 범위는 Bernoulli-Gaussian 같은 정형화된 희소 사전분포와 특정 랜덤·결정론적 센싱 행렬로 제한되어 있어, 실제 자연 이미지처럼 복잡한 데이터 분포로 바로 일반화되지는 않습니다. 따라서 이 결과는 확산 기반 역문제 솔버를 설계할 때 이론적 기준선과 설계 원리를 제공하는 의미로 읽는 것이 적절합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Diffusion priors provably recover sparse signals in polynomial time",
+    "tags": [
+      "추론",
+      "벤치마크",
+      "이미지생성"
+    ]
+  },
+  {
+    "id": "fdd7120c9ae1e04c",
+    "cluster_id": "k011188",
+    "title_original": "Google will launch Android app verification requirement globally in January 2027",
+    "url": "https://arstechnica.com/gadgets/2026/11/google-will-launch-android-app-verification-requirement-globally-in-january-2027/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2025/06/Android-IO-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-19T18:00:33+00:00",
+    "fetched_at": "2026-11-19T18:21:59.984153+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Google이 2027년 1월부터 전 세계 모든 지역에서 Android 앱 개발자 인증을 의무화한다고 발표했습니다. 인증되지 않은 개발자의 앱은 Play 스토어 외부에서 설치(사이드로딩)가 차단되며, 인증에는 정부 발급 신분증 제출과 25달러 수수료가 필요합니다. 앞서 9월 브라질, 인도네시아, 싱가포르, 태국에서 먼저 시행되었고, 이미 수백만 개의 비Play 앱이 등록되어 전 세계 Android 앱 설치의 99% 이상을 차지한다고 Google은 밝혔습니다.",
+    "insights_ko": [
+      "Android가 사실상 개방형 플랫폼이라는 정체성을 바꾸는 중대한 변화입니다. 보안을 명분으로 하지만 신원 확인과 수수료를 요구하는 방식은 독립 개발자와 소규모 오픈소스 프로젝트의 진입 장벽을 높여, 사용자가 누구에게 소프트웨어 실행을 허락할지 결정하는 권한을 플랫폼이 쥐게 됩니다.",
+      "Samsung, Xiaomi, Oppo, Vivo 등 주요 서드파티 앱스토어까지 참여시킨 점은 대안 마켓 생태계가 Google 인증 체계 아래로 편입되고 있음을 보여줍니다. 향후 한국을 포함한 각국 규제기관이 이 구조를 근거로 플랫폼 독점 논란이나 개인정보 보호 쟁점을 어떻게 다룰지가 관전 포인트입니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Google makes Android developer verification mandatory worldwide from January 2027",
+    "tags": [
+      "보안",
+      "규제",
+      "오픈소스"
+    ]
+  },
+  {
+    "id": "5a73299e3f4f96d2",
+    "cluster_id": "k011196",
+    "title_original": "Windows Server 2028 trades compatibility for out-of-the-box security",
+    "url": "https://arstechnica.com/gadgets/2026/11/windows-server-2028-public-preview-bets-on-a-security-first-approach/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/data-center-server-room-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T20:41:12+00:00",
+    "fetched_at": "2026-11-19T18:21:59.984340+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Microsoft가 Ignite 행사에서 Windows Server 2028 퍼블릭 프리뷰와 'Hardened Server Core'를 공개하며, 보안을 기본값으로 탑재하는 방향을 밝혔습니다. 기본 보안 구성은 DISA의 STIG 같은 국방부 강화 벤치마크에 맞춰져 있으며, 설치 직후부터 서버가 강화된 상태로 시작합니다. 다만 이 기본 강화 상태는 Server Core 설치에만 적용되고, Desktop Experience 설치에는 적용되지 않습니다.",
+    "insights_ko": [
+      "그동안 관리자가 빈 상태에서 직접 하드닝을 해야 했던 관행을 뒤집어, 배포 직후 노출되는 공백 기간 자체를 없애려는 시도입니다. 보안이 사후 프로젝트가 아니라 출발점이 된다는 점에서 서버 OS 설계 철학의 전환으로 볼 수 있습니다.",
+      "Kerberos 기본 채택, TLS 현대 암호군 자동 제한, ML-KEM 기반 하이브리드 포스트 양자 키 교환 등은 호환성보다 보안을 앞세우는 선택입니다. 레거시 애플리케이션을 쓰는 기업은 설치 시점에 마이그레이션 부담이 커지므로, Server Core 전환 여부와 호환성 검토가 함께 필요해질 것으로 보입니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Microsoft ships Windows Server 2028 hardened by default",
+    "tags": [
+      "Microsoft",
+      "보안",
+      "데이터센터"
+    ]
+  },
+  {
+    "id": "49ff21afd78ef9de",
+    "cluster_id": "k011277",
+    "title_original": "Satya Nadella predicts AI agents will reshuffle the economics of the web",
+    "url": "https://techcrunch.com/2026/11/18/satya-nadella-predicts-ai-agents-will-reshuffle-the-economics-of-the-web/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2305773211.jpg?w=594",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T22:58:11+00:00",
+    "fetched_at": "2026-11-19T18:21:59.984464+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Microsoft CEO Satya Nadella는 뉴욕타임스 DealBook 서밋에서 AI 에이전트의 부상이 광고 기반 비즈니스 모델과 '인간 중심 웹' 트래픽에 의존하는 인터넷 경제 구조를 재편할 것이라고 주장했습니다. 그는 포털에서 검색엔진으로의 전환처럼, 누가 트래픽과 거래에 대해 돈을 내는지가 바뀔 수 있다고 봤습니다. 특히 Amazon이 AI 에이전트의 쇼핑 접근을 차단한 사례를 언급하며, 에이전트를 수용하는 플랫폼이 경쟁 우위를 얻을 수 있다고 경고했습니다.",
+    "insights_ko": [
+      "노출(eyeball) 기반 광고 수익 모델이 에이전트 시대에는 클릭당 과금(CPC)이나 거래 중심 모델로 축소·전환될 수 있다는 점에서, 광고 의존도가 높은 플랫폼의 수익 구조 자체가 흔들릴 수 있음을 보여줍니다.",
+      "Amazon의 에이전트 차단 결정은 기존 수익 모델을 지키려는 방어적 선택이지만, Shopify 같은 개방형 경쟁자가 에이전트 접근을 허용하면 상거래 트래픽의 주도권이 이동할 수 있다는 점에서 플랫폼 전략의 핵심 쟁점이 됩니다. 관전 포인트는 에이전트 접근 정책을 둘러싼 대형 리테일·광고 플랫폼들의 후속 행보입니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Nadella says AI agents will reshuffle web economics and ad models",
+    "tags": [
+      "에이전트",
+      "Microsoft",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "43e1a96da0180d52",
+    "cluster_id": "k011261",
+    "title_original": "Anthropic’s Record-Breaking IPO Highlights the AI Giant’s Worst Enemy—Itself",
+    "url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/",
+    "image_url": "https://media.wired.com/photos/6afdeccab8b6cf0d23988257/191:100/w_1280,c_limit/Anthropic-IPO-Business-2297744238.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-11-19T12:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.984653+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 수요일 역대 최대 규모의 기업공개(IPO)를 마무리하며 약 2,000억 달러의 현금을 확보했습니다. 그러나 향후 19년간 주로 Claude 구동용 데이터센터 개발을 위해 벤더에 9,000억 달러 이상을 지급하기로 약정했습니다. 최근 분기 매출은 170억 달러로 전년 대비 1,100% 넘게 늘었지만, 주주 보상 회계 처리 때문에 올해 9월까지 1,040억 달러 넘는 손실을 기록했습니다. 나스닥 상장(티커 ANT)을 앞두고 데이터센터 반대 여론, 안전성 우선 기조에 따른 출시 지연 가능성, 규제 불확실성 등이 장기 리스크로 지목됩니다.",
+    "insights_ko": [
+      "매출 성장 속도와 막대한 인프라 약정 사이의 격차가 이번 IPO의 핵심 쟁점입니다. 9,000억 달러 규모의 장기 벤더 약정은 성장이 둔화되면 재무 부담으로 바뀔 수 있어, 투자자는 매출 지속성과 자본 조달 여력을 함께 봐야 합니다.",
+      "데이터센터 반대 시위와 안전 검증 중시 기조가 '더 강력한 모델을 더 빨리 내는' 경쟁 방식 자체에 제약을 걸고 있습니다. 인프라 확보 지연과 출시 보류가 OpenAI 등 경쟁사보다 Anthropic에 상대적으로 더 불리하게 작용할지가 관전 포인트입니다."
+    ],
+    "category": "business",
+    "importance_score": 5,
+    "subtitle_en": "Anthropic record IPO exposes its biggest risk, itself",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "IPO",
+      "데이터센터",
+      "안전성"
+    ]
+  },
+  {
+    "id": "fae6ce90fba294a0",
+    "cluster_id": "k011231",
+    "title_original": "ShadowTransfer: A Geographic Transfer Benchmark for Overhead Shadow Detection",
+    "url": "https://arxiv.org/abs/2611.24904v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-11-18T18:41:54+00:00",
+    "fetched_at": "2026-11-19T18:21:59.984881+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "ShadowTransfer는 미국 3개 도시의 항공 영상에 대해 사람이 검증한 그림자 마스크 4,500장을 담은 지리적 전이(geographic transfer) 벤치마크입니다. 한 도시를 제외하고 학습하는 leave-one-city-out 평가 프로토콜을 제시하며, 테스트 도시를 제외하면 4개 아키텍처에서 mIoU가 3.5~7.8 하락합니다. 이 격차는 학습 데이터를 900장으로 늘려도 유의미하게 남고, 8개 적응 기법 중 6개는 평균적으로 기본 학습보다 성능이 나빠졌습니다. 저자들은 실패 지점을 진단하는 3-probe 프레임워크를 제안하고, 이를 바탕으로 Spectral Information Bottleneck(SIB) 플러그인 모듈을 제시해 평가한 10개 방법 중 도시 내 상한선과의 평균 격차가 가장 작았다고 보고합니다.",
+    "insights_ko": [
+      "픽셀 히스토그램 정합으로는 설명되지 않는 특징 공간(feature space) 수준의 실패이며, 그림자 픽셀에서 신뢰도가 붕괴하는 반면 배경 신뢰도는 유지된다는 점이 확인되어 도시 간 조명·재질 차이가 단순 색 보정 문제가 아님을 시사합니다.",
+      "실패 지점이 모델에 따라 인코더 또는 디코더로 갈린다는 발견은 적응 전략을 아키텍처별로 달리 설계해야 함을 뜻하며, INRIA 건물 풋프린트 데이터에서도 재현되어 그림자 외 지리적 전이 문제 전반에 적용될 가능성이 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "A geographic transfer benchmark reveals where overhead shadow detection fails",
+    "tags": [
+      "벤치마크",
+      "멀티모달",
+      "파인튜닝",
+      "해석성"
+    ]
+  },
+  {
+    "id": "d442346cc5e57a26",
+    "cluster_id": "k011276",
+    "title_original": "Microsoft CEO Satya Nadella remains confident in Nvidia after Huang’s exit",
+    "url": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-remains-confident-in-nvidia-after-huangs-exit/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2024/02/GettyImages-1930518491.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T23:17:28+00:00",
+    "fetched_at": "2026-11-19T18:21:59.985108+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "마이크로소프트 CEO 사티아 나델라가 젠슨 황의 전격 사임 이후에도 엔비디아 팀의 역량에 대한 신뢰를 유지한다고 밝혔습니다. 황은 33년간 맡아온 CEO직에서 지난주 물러났으며, 중국 간첩 혐의가 제기된 Megaspeed 임원과의 관계 및 직원과의 복수 불륜 보도가 사임 배경으로 알려졌습니다. 나델라는 뉴욕타임스 딜북 서밋에서 황을 존경하는 인물로 언급하며 시간을 주고 싶다고 말했고, 엔비디아 임시 CEO 콜렛 크레스를 마이크로소프트 출신으로 높이 평가했습니다.",
+    "insights_ko": [
+      "창업자 중심 리더십이 강했던 엔비디아에서 후계 체계가 전환기에 들어섰다는 점에서, 전략 연속성과 AI 칩 공급 로드맵에 대한 시장의 불확실성이 단기적으로 부각될 수 있습니다.",
+      "마이크로소프트가 엔비디아를 핵심 파트너로 신뢰한다는 발언은 클라우드 AI 인프라 공급 관계가 지도부 교체와 무관하게 유지될 가능성을 시사하지만, 중국 연계 스캔들이 공급망·규제 리스크로 번질지는 추가 관찰이 필요합니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Nadella backs Nvidia team after Jensen Huang steps down",
+    "tags": [
+      "NVIDIA",
+      "Microsoft",
+      "데이터센터",
+      "GPU",
+      "인수합병"
+    ]
+  },
+  {
+    "id": "65c48910e44f5a9d",
+    "cluster_id": "k011293",
+    "title_original": "DRIFT: Detachable Reasoning for Runtime-Flexible and Efficient End-to-End Driving",
+    "url": "https://arxiv.org/abs/2611.24719v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-11-18T16:40:13+00:00",
+    "fetched_at": "2026-11-19T18:21:59.985267+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "DRIFT는 end-to-end 자율주행에 경량 언어모델(150M 미만)을 붙여 장면 설명과 행동 해설을 생성하면서, 추론 시 언어모델을 완전히 건너뛸 수 있는 구조를 제안합니다. 언어모델의 추론 특징을 증류한 대체 특징으로 계획 모듈을 학습해, 배포 제약에 따라 언어 추론을 켜고 끌 수 있습니다. 총 255M 파라미터로 Bench2Drive에서 Driving Score 97.03, 성공률 89.39%를 기록해 비언어 모델 최상위권과 대등한 성능을 보였습니다.",
+    "insights_ko": [
+      "VLM을 통째로 탑재하지 않고도 언어 추론의 이점을 얻을 수 있음을 보여, 차량 탑재 연산 제약이 큰 실시간 자율주행의 실용성을 높이는 방향입니다. 추론 비용을 낮추면서 해석 가능성도 유지하려는 시도로 읽힙니다.",
+      "언어 추론 on/off를 폐루프 성능 저하 없이 런타임에 전환할 수 있다는 점이 핵심 기여입니다. 규제·안전 인증이 설명 가능성을 요구하는 환경에서도 설명 기능과 경량 실행 경로를 분리해 운용할 수 있는 설계 근거가 됩니다.",
+      "NAVSIM, AlpaSim 등 실환경 벤치마크에서도 VLM 기반 접근보다 낮은 연산량으로 경쟁력을 보였다고 해, 후속 관전 포인트는 시뮬레이션 밖 실차 데이터에서의 재현성과 증류 특징의 일반화 여부입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "DRIFT adds detachable lightweight language reasoning to end-to-end driving",
+    "tags": [
+      "에이전트",
+      "멀티모달",
+      "추론",
+      "벤치마크",
+      "자율주행"
+    ]
+  },
+  {
+    "id": "81e54812da020f91",
+    "cluster_id": "k011181",
+    "title_original": "Equivariant Modeling with Polynomial Features via Minimal Homogeneous Generators",
+    "url": "https://arxiv.org/abs/2611.24896v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-11-18T18:37:02+00:00",
+    "fetched_at": "2026-11-19T18:21:59.985555+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "유한 차원 반단순 실수 군 표현 사이의 등변 함수를 모델링하고 학습하는 통합 프레임워크가 제시되었습니다. 모델은 등변 다항식 특징들의 선형 결합이며, 계수는 불변 다항식 특징에 대한 임의의 학습 가능한 함수입니다. 특징으로는 불변 대수와 그 위의 공변 모듈의 최소 동차 생성원을 지정된 차수까지 사용하며, 이를 자동 계산하고 학습 데이터에 맞추는 Python 패키지도 공개되었습니다. 과학 모델링 실험에서 적은 학습 파라미터로 정확한 예측기를 얻었습니다.",
+    "insights_ko": [
+      "기존에 응용 분야별로 따로 개발되던 등변 네트워크 구성 방식을 하나의 대수적 틀로 묶었다는 점에서 의미가 있습니다. 불변 대수와 공변 모듈의 최소 생성원이라는 수학적 대상을 직접 특징으로 쓰기 때문에, 등변성이 구조적으로 보장되는 특징 공간을 명시적으로 설계할 수 있습니다.",
+      "계산대수 기법 대비 속도 향상을 주장하는 핵심은 등형 분해(isotypic decomposition)와 Clebsch-Gordan 분해를 명시적으로 계산하는 알고리즘에 있습니다. 파라미터가 적은 모델이 과학 계산이나 더 큰 아키텍처의 한 층으로 쓰일 수 있다는 점에서, 물리·화학 등 대칭성이 중요한 데이터 모델링에서 후속 관전 포인트가 될 것입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Equivariant polynomial features via minimal homogeneous generators for scientific modeling",
+    "tags": [
+      "벤치마크",
+      "사전학습"
+    ]
+  },
+  {
+    "id": "1e970c62dff0b514",
+    "cluster_id": "k011195",
+    "title_original": "Netflix CEO admits app may bury stuff you want to watch under stuff you don’t",
+    "url": "https://arstechnica.com/gadgets/2026/11/netflix-ceo-admits-app-may-bury-stuff-you-want-to-watch-under-stuff-you-dont/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2025/01/squid1-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T21:29:24+00:00",
+    "fetched_at": "2026-11-19T18:21:59.985688+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Netflix 공동 CEO Ted Sarandos는 Bloomberg 인터뷰에서 미국 TV 시청 시간의 절반가량이 여전히 기존 선형 방송(linear TV)이라며 스트리밍 경쟁이 계속되고 있다고 밝혔습니다. Nielsen 집계로 8월 스트리밍 점유율은 49.6%, 방송·케이블은 36.4%입니다. 그는 YouTube, Skydance 등 경쟁자 대비 우위를 유지하려면 히트작 비율을 높여야 하며, 특히 미국 시장의 성과를 개선해야 한다고 강조했습니다.",
+    "insights_ko": [
+      "구독자 3억 2,500만 명 규모에서도 콘텐츠 피로와 탐색 어려움으로 히트작 명성이 약해졌다는 점을 CEO가 공개적으로 인정한 것이 핵심입니다. 구독자 확장이 한계에 가까워지며 콘텐츠 품질과 발견성이 다음 성장 레버가 되고 있음을 보여줍니다.",
+      "제목은 추천 알고리즘이 원하는 콘텐츠를 원하지 않는 콘텐츠 아래에 묻을 수 있다는 점을 시사하지만, 본문에서 Sarandos가 직접 그런 설계를 인정한 것은 아닙니다. 대신 'AI 생성 콘텐츠나 5초짜리 시청을 쫓지 않겠다'는 발언이 양적 콘텐츠 전략에 대한 간접적 방향 전환으로 읽힙니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Netflix says hit rate matters as streaming wars continue"
+  },
+  {
+    "id": "9b116527054fca2a",
+    "cluster_id": "k011193",
+    "title_original": "Ukraine blew up Putin’s bridge using relay drones to bypass Starlink limits",
+    "url": "https://arstechnica.com/gadgets/2026/11/ukraine-blew-up-putins-bridge-using-relay-drones-to-bypass-starlink-limits/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Kerch-Strait-Bridge-smoke-generators-2560x1440.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T23:10:39+00:00",
+    "fetched_at": "2026-11-19T18:21:59.985922+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "우크라이나군이 11월 15~16일 밤 드론과 미사일을 연속 투입해 러시아가 점령한 크림반도와 연결된 케르치 해협 대교의 두 강철 아치 중 하나를 붕괴시켰습니다. 군사용 스타링크 없이 드론끼리 메시 무선망으로 중계하는 공중 통신망을 구성해, 250km 이상 떨어진 조종자가 러시아 방공망을 회피하며 미사일과 드론을 원격 유도했습니다. 타격 전 몇 주간 방공 미사일, 레이더, 전자전 장비를 체계적으로 제거한 준비 공격도 선행됐습니다.",
+    "insights_ko": [
+      "스타링크처럼 중앙화된 위성 통신에 의존하지 않고, 드론 자체를 중계 노드로 쓰는 메시 네트워크로 장거리 정밀타격의 통신 취약점을 우회했다는 점이 핵심입니다. 이는 전자전과 통신 차단이 일반화된 전장에서 분산형 C2 구조의 실전 가치를 보여줍니다.",
+      "러시아가 우크라이나 도시 장거리 공격에 먼저 쓰던 기법을 우크라이나가 역이용한 사례로, 드론 중계망이 공격과 방어 양쪽 모두의 표준 인프라로 확산될 가능성을 시사합니다. 방공 제압 후 정밀타격으로 이어지는 공격 순서의 효율성도 함께 재확인됐습니다."
+    ],
+    "category": "hardware",
+    "importance_score": 4,
+    "subtitle_en": "Ukraine downs Kerch bridge span using mesh-networked drone relays",
+    "tags": [
+      "에이전트",
+      "자율주행",
+      "보안",
+      "로보틱스"
+    ]
+  },
+  {
+    "id": "f90655dc75d257bb",
+    "cluster_id": "k011180",
+    "title_original": "Decomposing SGD Dynamics in Neural Networks: Teacher-Induced Spikes and Variance Inflation",
+    "url": "https://arxiv.org/abs/2611.24908v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-11-18T18:43:40+00:00",
+    "fetched_at": "2026-11-19T18:21:59.986068+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "다중 지수(multi-index) 교사 모델을 따라 SGD로 학습되는 2층 신경망에서, 교사 부분공간에 직교하는 첫 번째 층 파라미터가 일반화에 미치는 영향을 분석한 arXiv 논문입니다. 직교 성분의 SGD 업데이트는 처음에는 등방적(isotropic)이지만, 학습이 진행되면서 교사에 의존하는 스펙트럼 스파이크가 생겨 표현 분산이 증폭되고 일반화가 악화됩니다. 연구진은 이 효과를 분리해 보기 위해 점근적 테스트 오차 동역학이 SGD와 일치하는 해석 가능한 대리 모델 'Decomposed Dynamics'를 제안했으며, ReLU 학생 모델 시뮬레이션에서 직교 방향을 고정하면 일반화가 개선됨을 보였습니다.",
+    "insights_ko": [
+      "교사 부분공간 밖에서 일어나는 '특징 학습'이 오히려 일반화를 해친다는 동역학적 근거를 제시해, 과매개변수화 신경망의 암묵적 정규화 연구에 구체적 메커니즘을 더합니다. 직교 방향 업데이트를 억제하는 정규화나 고정(freezing) 전략의 이론적 타당성을 뒷받침합니다.",
+      "신호 성분이 두 번째 층 가중치와 빠르게 정렬된다는 결과는 얕은 구조에서도 층 간 강한 결합이 존재함을 보여줍니다. 깊은 모델의 층별 학습률·업데이트 설계를 다룰 때 이 교차 층 결합을 고려할 필요가 있다는 관전 포인트입니다.",
+      "현재 결과는 ReLU 학생, 2층, 비례 극한이라는 제한된 설정의 분석이므로, 대규모 트랜스포머나 실제 데이터로의 확장성은 아직 검증되지 않았습니다. 후속 연구에서 이 스펙트럼 스파이크가 실제 딥러닝 표현에서도 관측되는지가 핵심 쟁점이 될 것으로 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Teacher-induced spectral spikes amplify variance and hurt generalization in SGD"
+  },
+  {
+    "id": "50c4b3cf033e6c6f",
+    "cluster_id": "k011227",
+    "title_original": "Communications-free Collective Intelligence Via Allocentric Belief",
+    "url": "https://arxiv.org/abs/2611.24858v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-11-18T18:17:30+00:00",
+    "fetched_at": "2026-11-19T18:21:59.986267+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "다중 에이전트 로보틱스 연구팀이 에이전트끼리 정보를 주고받지 않고도 협력할 수 있는 방법을 제시했습니다. 모든 에이전트가 하나의 공유 외부 관찰자(witness)의 반응을 기준점으로 삼고, 그 행동을 학습한 allocentric belief 네트워크로 각자 팀 전체 상태를 독립적으로 재구성합니다. 5개 경쟁 환경에서 자기중심(egocentric) 방식보다 집단 성능이 높았고, 표준 기법이 실패하는 60 에이전트 팀까지 확장됐습니다.",
+    "insights_ko": [
+      "통신 대역폭이나 지연에 의존하지 않는 협력 방식이라, 통신이 끊기기 쉬운 현장 로봇 군집에서 실용적 의미가 큽니다. 공유 채널 대신 공유 시선을 쓴다는 발상이 분산 제어 설계의 기본 가정을 바꿀 수 있습니다.",
+      "60 에이전트까지 확장된 결과는 중앙 조정이나 메시지 교환 비용이 커지는 대규모 군집 시스템에서 흥미로운 대안이 될 수 있음을 보여줍니다. 다만 본 글만으로는 실제 물리 로봇에서의 검증 여부와 외부 관찰자 설계 조건은 확인하기 어렵습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Agents coordinate without messages by watching a shared witness",
+    "tags": [
+      "에이전트",
+      "로보틱스",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "85ba55bc379536ba",
+    "cluster_id": "k011228",
+    "title_original": "UltraTex: Aligning Physical Knowledge for High-Fidelity PBR Texture Generation",
+    "url": "https://arxiv.org/abs/2611.24941v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-11-18T18:59:57+00:00",
+    "fetched_at": "2026-11-19T18:21:59.986402+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "UltraTex는 단일 참조 이미지로부터 3D 메시의 PBR(물리 기반 렌더링) 텍스처 맵을 생성하는 캐스케이드 멀티뷰 프레임워크입니다. 알베도와 월드 공간 셰이딩 노멀을 함께 예측한 뒤, 생성된 알베도·참조 이미지·재질 의미 사전 지식을 조건으로 메탈릭-러프니스(MR) 맵을 추정합니다. VLM의 은닉층 특징을 경량 어댑터로 재질 표현 토큰에 변환해 부위별 재질 앵커를 제공하고, 조명 통제 환경의 정답 재질 렌더링에 맞추는 광도 표현 정렬로 금속성·거칠기 변화를 하이라이트와 반사 선명도로 학습시킵니다. 실험에서 기존 오픈소스·상용 방법 대비 시각적 품질, 재질 정확도, 물리적 타당성에서 우위를 보였다고 주장합니다.",
+    "insights_ko": [
+      "단일 이미지에서 알베도, 금속성, 거칠기가 얽혀 있는 모호성을 명시적 물리 지식(재질 의미, 광도 정렬)으로 푸는 접근이며, 조명 감독 없이 재질 속성을 학습하려는 점이 실무적으로 의미가 큽니다.",
+      "재조명(relighting)이 가능한 PBR 텍스처 자동 생성은 게임·VFX·이커머스 3D 자산 제작의 병목인 재질 작업 비용을 줄일 잠재력이 있습니다. 다만 결과 품질은 arXiv 프리프린트 단계의 자체 실험에 기반하므로 독립 재현 여부를 확인할 필요가 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "UltraTex generates physically accurate PBR textures from a single image",
+    "tags": [
+      "멀티모달",
+      "이미지생성",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "113dc9500fe02bc8",
+    "cluster_id": "k011240",
+    "title_original": "Cap-and-Track: Optimizing LLM Inference Request Dispatch Across Shifting Capacity",
+    "url": "https://arxiv.org/abs/2611.24891v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-11-18T18:34:10+00:00",
+    "fetched_at": "2026-11-19T18:21:59.986591+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Meta가 내부 트래픽 셰이퍼에 적용한 'Cap-and-Track' 설계를 제시한 arXiv 논문입니다. 서빙 용량이 변동하는 상황에서 LLM 추론 요청을 비동기로 분배하며, 백엔드의 거부(refusal) 신호만으로 상한을 탐색하고 조정합니다. 출력 길이 예측이나 고정 전송률 튜닝 없이, 프로덕션 A/B 테스트에서 H100 43% 절감을 보고했습니다.",
+    "insights_ko": [
+      "출력 길이를 사전에 알 수 없고 용량이 수시로 바뀌는 환경에서, 고정 요청률 대신 '거부 신호 기반 AIMD형 적응 분배'가 실용적 대안임을 실증한 점이 핵심입니다. 실제 대규모 프로덕션(일 3억 건 이상)에서 검증됐다는 점이 설득력을 높입니다.",
+      "GPU 수를 피크 트래픽이 아니라 저우선순위 작업이 허용 가능한 대기 시간 기준으로 산정하라는 교훈은 추론 인프라 용량 계획에 직접 시사점을 줍니다. 다만 우선순위 낮은 작업의 지연 증가라는 트레이드오프도 함께 드러납니다."
+    ],
+    "category": "hardware",
+    "importance_score": 3,
+    "subtitle_en": "Meta's capacity-aware dispatch cuts LLM inference GPUs by 43 percent",
+    "tags": [
+      "추론",
+      "데이터센터",
+      "GPU",
+      "Meta AI"
+    ]
+  },
+  {
+    "id": "6e0455c558507eb6",
+    "cluster_id": "k011187",
+    "title_original": "Latent Action Policies from Suboptimal Data",
+    "url": "https://arxiv.org/abs/2611.24482v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-11-18T14:18:09+00:00",
+    "fetched_at": "2026-11-19T18:21:59.986723+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Latent Action Model(LAM)은 행동 라벨 없는 비디오로 제어 표현을 학습하지만, 기존 파이프라인은 행동 복제로 잠재 정책을 학습해 명시적 정책 개선 목표가 없습니다. 이 연구는 오프라인 RL을 잠재 행동 공간에 그대로 적용하면, 물리적으로 실행 불가능한 잠재 행동이 생기거나 보상이 다른 물리 제어가 하나로 합쳐지는 문제가 발생한다는 점을 보입니다. 이에 저자들은 정책 개선이 디코딩된 실행으로 전이되는 조건과 잠재 최적해와 물리 최적해가 일치하는 조건을 도출하고, 목표 조건부 잠재 정책 개선 기법 LAPIS를 제안합니다. LAPIS는 관측된 상태-잠재 전이에 기반해 가치 기반 개선을 수행하며, 다중 모달 구조를 포착하기 위해 조건부 플로우 정책을 사용합니다.",
+    "insights_ko": [
+      "라벨 없는 비디오로 학습한 잠재 행동 공간에서는 단순한 가치 최대화가 실행 불가능한 행동을 만들 수 있어, 잠재 공간 최적화의 타당성 조건을 명시한 점이 중요합니다. 이는 LAM을 실제 로봇 제어에 연결하려는 연구의 설계 원칙으로 활용될 수 있습니다.",
+      "행동 라벨을 1%만 사용해도 경쟁 기법이 무너지는 반면 LAPIS가 유지된다는 결과는, 대규모 비디오 사전학습과 소량의 행동 데이터를 결합하는 로보틱스 학습 비용 구조에 의미 있는 시사점을 줍니다. 특히 시각 조작 과제에서 이득이 가장 크다는 점은 비전 기반 범용 로봇 정책 연구의 후속 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Offline RL over latent actions from suboptimal video data",
+    "tags": [
+      "에이전트",
+      "강화학습",
+      "멀티모달",
+      "사전학습",
+      "로보틱스"
+    ]
+  },
+  {
+    "id": "13feb5a0d5b21e6a",
+    "cluster_id": "k011284",
+    "title_original": "Google’s AI feature in Search gets its own incognito mode",
+    "url": "https://techcrunch.com/2026/11/18/googles-ai-feature-in-search-gets-its-own-incognito-mode/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2019/10/google-search-app-ios.jpg?resize=1200,644",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T18:04:05+00:00",
+    "fetched_at": "2026-11-19T18:21:59.986938+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Google이 검색의 AI Mode에 '임시 스레드(temporary threads)' 기능을 도입했습니다. 우측 상단 아이콘을 누르면 대화가 검색 기록이나 추천에 남지 않으며, 계정과 분리된 세션으로 동작합니다. 설정 변경 없이 사용할 수 있고, 데스크톱과 모바일에서 지원 언어 전체에 걸쳐 전 세계적으로 순차 롤아웃됩니다.",
+    "insights_ko": [
+      "검색 엔진의 시크릿 모드 개념을 생성형 대화형 검색 인터페이스로 확장한 사례로, 대화형 검색이 민감한 주제에 쓰이기 시작하면서 프라이버시 제어가 필수 기능이 되고 있음을 보여줍니다.",
+      "임시 스레드는 과거 선호도를 반영하지 않고 이후 개인화에도 영향을 주지 않아, 사용자 프로필 축적을 둘러싼 우려를 줄이려는 시도로 읽힙니다. 개인화 품질과 프라이버시 사이의 트레이드오프 관리가 검색 AI 경쟁의 새 변수가 될 전망입니다.",
+      "Gemini 앱의 임시 채팅과 AI Mode의 임시 스레드가 동일한 방식으로 작동하도록 맞춘 점은, 검색과 챗봇 제품을 하나의 프라이버시 체계로 묶으려는 Google의 제품 전략을 드러냅니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Google adds temporary threads to AI Mode for private search conversations",
+    "tags": [
+      "Gemini",
+      "검색",
+      "에이전트",
+      "규제"
+    ]
+  },
+  {
+    "id": "fe03d3aa529d09ae",
+    "cluster_id": "k011221",
+    "title_original": "Phoenix: Learning Scene Structure Representations for Generalizable World-Action Models",
+    "url": "https://arxiv.org/abs/2611.24938v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-11-18T18:59:04+00:00",
+    "fetched_at": "2026-11-19T18:21:59.987073+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Phoenix는 로봇 조작을 위해 장면의 공간 구조와 객체 상태 변화를 명시적으로 학습하는 World-Action Model 표현 학습 기법입니다. DINOv3 인코더를 기하학·시공간 의미 지식으로 이중 교사 증류해 강화한 뒤, CS-VAE로 인과적으로 압축한 생성 잠재변수를 외관 잠재변수 및 로봇 행동과 함께 예측합니다. 약 39,000시간 규모의 에고센트릭·로봇 데이터로 사전학습했으며, LIBERO-Plus 94.8%, RoboTwin 2.0 C2R 72.4%로 시뮬레이션 벤치마크에서 SOTA를 달성했고 실제 로봇 실험과 소량 데모 적응에서도 강한 성능을 보였습니다.",
+    "insights_ko": [
+      "재구성 중심 시각 표현이 놓치기 쉬운 공간 관계와 객체 상태 변화를 행동 생성과 직접 연결했다는 점에서, 장면 이해와 제어를 묶는 WAM 설계의 방향성을 제시합니다.",
+      "데이터 규모를 키울수록 video-VAE 단독 베이스라인보다 더 큰 성능 향상이 나타났다는 분석은, 대규모 로봇 데이터 확보가 곧 경쟁력이 되는 흐름을 뒷받침하는 근거로 볼 수 있습니다. 다만 결과는 논문 자체 벤치마크 기준이라 실환경 일반화는 추가 검증이 필요합니다.",
+      "소량 데모만으로도 높은 성공률을 유지하는 few-shot 적응 능력은 산업 현장의 데이터 수집 비용을 낮추는 실용적 의미가 있으며, 양손·정교 조작으로의 확장 가능성도 함께 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Phoenix learns scene structure for generalizable robot world-action models",
+    "tags": [
+      "로보틱스",
+      "멀티모달",
+      "사전학습",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "35b21e1b672cea37",
+    "cluster_id": "k011257",
+    "title_original": "Connect Amazon Bedrock AgentCore Gateway to private APIs in a hub-and-spoke network with centralized inspection",
+    "url": "https://aws.amazon.com/blogs/machine-learning/connect-amazon-bedrock-agentcore-gateway-to-private-apis-in-a-hub-and-spoke-network-with-centralized-inspection/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/17/ML-22132-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T19:05:45+00:00",
+    "fetched_at": "2026-11-19T18:21:59.987310+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS는 기업 중앙 네트워크 팀이 모든 VPC와 서브넷을 소유하고 VPC 간 트래픽을 중앙 방화벽으로 양방향 검사하는 환경에서, Amazon Bedrock AgentCore Gateway가 사내 프라이빗 REST API 및 MCP 서버에 접근하도록 연결하는 패턴을 제시했습니다. 핵심은 VPC Lattice 리소스 게이트웨이를 네트워크 계정이 소유한 서브넷에 두고 Transit Gateway를 경유하게 하는 것으로, 이를 위해 AgentCore의 관리형 모드 대신 자가 관리형 모드를 변형해 사용합니다. 패턴은 us-east-1 실험 환경에서 검증되었으며, 리소스 구성은 AWS RAM으로 공유됩니다.",
+    "insights_ko": [
+      "관리형 모드는 Gateway 계정이 서브넷을 소유할 때만 적합하고, 자가 관리형 모드는 검사 경로가 없어 중앙 방화벽 요건을 충족하지 못합니다. 이 글은 두 모드의 빈틈을 리소스 게이트웨이 배치 위치 변경으로 메우는 실용적 절충안을 보여줍니다.",
+      "페이로드 검사는 불가능하고 방화벽은 흐름 메타데이터와 SNI만 보게 된다는 한계가 명시되어 있어, 규제 산업이라면 도입 전 보안 요건과 대조해야 합니다. 에이전트 도구 호출이 기존 네트워크 거버넌스에 편입되는 과정으로 볼 수 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AgentCore Gateway reaches private APIs through centralized network inspection",
+    "tags": [
+      "에이전트",
+      "MCP",
+      "GPU",
+      "보안"
+    ]
+  },
+  {
+    "id": "d25de4f029966643",
+    "cluster_id": "k011201",
+    "title_original": "Will Wright's next simulation will use AI to mine content from your memories",
+    "url": "https://arstechnica.com/gaming/2026/11/will-wrights-next-simulation-will-use-ai-to-mine-content-from-your-memories/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Moonlit-walk-1152x648.png",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T18:10:33+00:00",
+    "fetched_at": "2026-11-19T18:21:59.987531+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "SimCity와 The Sims의 개발자 Will Wright가 Gallium Studios와 파트너 Artificial Agency를 통해 내년 출시 예정인 신작 MyMems를 공개했습니다. 이 게임은 생성형 AI로 플레이어가 입력한 기억을 분석해 게임 속 인물과 세계를 만들며, 등장인물들이 팀을 이뤄 퍼즐을 푸는 구조입니다. Wright는 The Sims의 행동 묘사로는 실제 사람의 뉘앙스를 담기 어려웠다며, 개인적 경험을 게임으로 옮기는 방향을 제시했습니다.",
+    "insights_ko": [
+      "외부 세계를 모델링하던 시뮬레이션 장르를 플레이어 내면의 기억으로 뒤집는 시도라는 점에서 장르적 전환의 의미가 큽니다. 개인화된 생성 콘텐츠가 게임 디자인의 핵심 축으로 올라설 수 있음을 보여줍니다.",
+      "기억 데이터는 극도로 민감한 개인정보이므로, 프라이버시 보호와 데이터 처리 방식이 제품 신뢰도와 규제 리스크를 좌우할 가능성이 큽니다. 감정적 몰입과 데이터 우려가 맞물리는 지점을 어떻게 설계하는지가 관전 포인트입니다.",
+      "'테마파크식 존' 구조와 공유 기억 기능은 가족·친구·동료 단위의 소셜 확장 가능성을 열어 줍니다. 생성형 AI 기반 개인화 콘텐츠가 게임을 넘어 회상·치유 등 다른 응용 분야로 확산될지도 함께 살펴볼 만합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Will Wright's MyMems turns player memories into generative simulation",
+    "tags": [
+      "에이전트",
+      "멀티모달",
+      "헬스케어"
+    ]
+  },
+  {
+    "id": "dd960162601ffc7d",
+    "cluster_id": "k011205",
+    "title_original": "Who are you? The Personal Imitation Game",
+    "url": "https://arxiv.org/abs/2611.24888v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:32:14+00:00",
+    "fetched_at": "2026-11-19T18:21:59.987665+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "연구진은 앨런 튜링의 1950년 모방 게임을 넘어, 기계가 일반 인간이 아닌 특정 개인을 대화에서 얼마나 똑같이 흉내 낼 수 있는지 묻는 '개인 모방 게임(Personal Imitation Game)'을 제안했습니다. 참가자 30명으로 인간 기준선을 세우고, 심문자가 신원 판별에 쓰는 문체, 성격 특성, 전기적 사실 등의 단서를 분석했습니다. 저자 본인의 10년치 디지털 소통 데이터를 바탕으로 한 LLM 기반 시스템을 만들어 20명 대상 기만 실험을 진행한 결과, 심문자는 10라운드 중 7번 시스템을 친구보다 본인으로 오인했고, 저자 본인을 20라운드 중 13번 진짜로 식별했습니다. 다만 표본이 작아 이 비율들은 우연과 구분되지 않습니다.",
+    "insights_ko": [
+      "LLM이 일반적 인간 대화 수준을 넘어 특정 개인의 말투와 기억까지 재현할 수 있는지 묻는 문제 설정 자체가 새롭습니다. 튜링 테스트의 기준을 '인간다움'에서 '이 사람다움'으로 옮겨, 평가 과제가 훨씬 까다로워졌습니다.",
+      "개인 디지털 기록으로 만든 페르소나 에이전트는 개인 비서나 디지털 유산 같은 응용을 가능하게 하지만, 동시에 신원 도용·딥페이크형 사칭의 위험을 키웁니다. 개인 데이터 기반 모방의 프라이버시·동의 기준을 어떻게 세울지가 후속 쟁점이 될 것으로 보입니다.",
+      "표본이 20명으로 작아 결과의 통계적 유의성은 확인되지 않았습니다. 후속 연구에서 더 큰 규모의 기만 실험과 다른 저자·데이터셋으로의 재현 여부가 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Can an LLM convincingly impersonate one specific person in conversation",
+    "tags": [
+      "에이전트",
+      "정렬",
+      "안전성",
+      "파인튜닝",
+      "해석성"
+    ]
+  },
+  {
+    "id": "71d333ab8e8f0644",
+    "cluster_id": "k011249",
+    "title_original": "Exa boosts embedding throughput by 50% to index billions of documents on AWS AI chips",
+    "url": "https://aws.amazon.com/blogs/machine-learning/exa-boosts-embedding-throughput-by-50-to-index-billions-of-documents-on-aws-ai-chips/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/13/ML-22138-featured-image-1.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T23:58:22+00:00",
+    "fetched_at": "2026-11-19T18:21:59.987871+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Exa는 수십억~수천억 건 규모의 웹 문서를 임베딩하기 위해 AWS Inferentia2 및 Trainium2의 Neuron 하드웨어 최적화를 진행해 처리량을 약 1.5배(50%) 끌어올렸습니다. 300억 건 재임베딩 작업을 계기로 가중치 레이아웃 정리, autocast(저정밀도 다운캐스트), NKI 커널 활용, 맞춤형 SwiGLU MLP 융합 커널, 모델 형상에 맞춘 어텐션 커널 재작성 등을 단계적으로 적용했습니다. 다운캐스트 결과는 참조 대비 코사인 유사도 0.999 이상이라는 정확도 기준을 통과했습니다.",
+    "insights_ko": [
+      "임베딩 단가 개선이 곧 인덱싱 규모 확장으로 직결되는 사례로, 추론 칩 선택이 검색 인프라의 경제성을 좌우한다는 점을 보여줍니다. 문서당 비용의 작은 개선이 수백억 건 규모에서는 큰 차이로 누적됩니다.",
+      "범용 커널 대신 모델의 실제 형상에 맞춘 커널 커스터마이징이 추가 성능을 끌어낸 점이 핵심입니다. 자원 활용률을 막는 패딩 FLOPS 제거와 HBM 스필 억제가 실질적 병목 해소 수단이었다는 점에서, 하드웨어 종속 최적화의 실무 교훈으로 읽힙니다."
+    ],
+    "category": "hardware",
+    "importance_score": 3,
+    "subtitle_en": "Exa lifts AWS Inferentia2 embedding throughput by 50 percent",
+    "tags": [
+      "Amazon",
+      "추론칩",
+      "벤치마크",
+      "양자화"
+    ]
+  },
+  {
+    "id": "d45e25dfd8e7a777",
+    "cluster_id": "k011239",
+    "title_original": "On Evaluating User Simulators for Interactive Agents",
+    "url": "https://arxiv.org/abs/2611.24892v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-11-18T18:34:23+00:00",
+    "fetched_at": "2026-11-19T18:21:59.988008+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "사용자 시뮬레이터는 대화형 에이전트를 확장성 있게 평가하는 수단이지만, 그 자체의 품질을 어떻게 평가할지는 충분히 연구되지 않았습니다. 연구진은 목표 변경, 제약 누락, 조기 종료, 깨진 결과물 수용 등 10가지 실패를 시뮬레이션 리플레이에 인위적으로 주입해 기존 세 연구의 평가 지표를 메타 평가했고, 이들 지표는 10개 중 5~6개만 탐지하며 깨진 작업을 수용하도록 지시된 집단을 오히려 선호하는 결과를 보였습니다. 이에 연구진은 효용성과 집단 수준·개별 궤적 수준 충실도를 결합한 새 평가 스위트를 제안했고, 이는 10개 실패를 모두 탐지했습니다. 23개 언어, 348명의 실제 사용자가 참여한 351개 다중 턴 세션으로 6개 시뮬레이터를 검증한 결과, 집단 수준 지표만으로는 잘못된 목표 추구나 제약 무시 같은 문제를 놓칠 수 있음이 드러났습니다.",
+    "insights_ko": [
+      "기존 시뮬레이터 평가 지표가 명백한 실패 상당수를 놓치고, 심지어 결함 있는 동작을 더 나은 것으로 평가할 수 있다는 점은 현재 벤치마크 점수의 해석에 근본적인 의문을 제기합니다. 높은 점수가 곧 시뮬레이터가 실제 사용자를 잘 모사한다는 뜻은 아닐 수 있습니다.",
+      "집단 평균만 보면 개별 사용자가 엉뚱한 목표를 좇거나 페르소나에서 벗어나는 문제가 상쇄되므로, 궤적 단위의 목표·제약·페르소나 보존 검사를 함께 두는 것이 에이전트 평가 파이프라인 설계에서 실용적인 교훈이 됩니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Current user simulator metrics miss key failures; new suite catches all ten",
+    "tags": [
+      "에이전트",
+      "벤치마크",
+      "안전성"
+    ]
+  },
+  {
+    "id": "ed1b6ac578bb3b00",
+    "cluster_id": "k011234",
+    "title_original": "ReCoCo: From Patches to Compositions for Visual Representation Learning",
+    "url": "https://arxiv.org/abs/2611.24806v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-11-18T17:45:04+00:00",
+    "fetched_at": "2026-11-19T18:21:59.988214+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "ReCoCo(Regional Composition Consistency)는 자기지도 학습에서 증강된 두 뷰 사이의 일관성을 패치 단위가 아닌 영역 단위로 확장하는 방법입니다. 각 뷰의 패치 예측을 학습된 시각 프로토타입들의 조합으로 표현하고 이 조합들을 정렬함으로써, 사전에 영역을 분리하거나 패치 간 대응관계를 추정하지 않고도 여러 시각 개념이 섞인 영역으로부터 학습합니다. 교사-학생 자기증류와 자연스럽게 결합되며 추가 학습 파라미터는 없습니다. 동결된 특징 기반의 분할, 클러스터링, 영역 검색 성능이 크게 향상되면서도 이미지 수준 인식 성능은 경쟁력을 유지해, 조밀한 표현과 전역 표현 간의 상충 관계를 완화한다고 보고합니다.",
+    "insights_ko": [
+      "기존 방식이 패치 매칭이나 의미 단위 그룹핑의 불확실성에 의존했던 반면, ReCoCo는 대응관계와 그룹핑 가정을 없애고 프로토타입 조합의 정렬만으로 지역 일관성을 학습한다는 점에서 설계 방향이 다릅니다.",
+      "동결 특징 평가에서 분할·클러스터링·영역 검색이 함께 개선되고 이미지 분류 성능은 유지된다는 결과는, 밀집 표현과 전역 표현을 동시에 잡으려는 SSL 연구의 오랜 과제에 대한 실용적 대안을 제시합니다. 추가 파라미터가 없어 기존 자기증류 파이프라인에 얹기 쉬운 것도 장점입니다.",
+      "다만 이 글은 arXiv 초록과 메타데이터만 포함되어 있어 구체적인 벤치마크 수치, 백본 규모, 학습 비용은 확인할 수 없습니다. 본문 실험 결과를 확인한 뒤 실제 효과 크기를 판단하는 것이 좋습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "ReCoCo extends self-supervised consistency from patches to regional compositions",
+    "tags": [
+      "오픈소스",
+      "사전학습",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "b9047927d26d2241",
+    "cluster_id": "k011222",
+    "title_original": "Grana: Compositional Reward Modeling for Long-Horizon Robot Manipulation",
+    "url": "https://arxiv.org/abs/2611.24926v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-11-18T18:53:53+00:00",
+    "fetched_at": "2026-11-19T18:21:59.988352+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Grana는 로봇 조작을 위한 시각-언어 보상 모델로, 열린 어휘(open-vocabulary)의 하위 작업 설명을 이용해 미완료 하위 작업을 식별하고 연속적인 진행률을 추정합니다. 짧은 작업으로 사전학습한 뒤, 장기(long-horizon) 작업은 선택된 하위 작업의 예측 진행률과 앞선 완료 하위 작업의 점수를 결합해 전체 진행률을 계산합니다. 200여 개의 다양한 조작 작업으로 사전학습해 미지 작업에 대한 제로샷 보상 예측이 가능하며, 다분 단위 장기 작업 5개에 적응했을 때도 진행률 예측과 하위 정책 성능이 향상됨을 보였습니다.",
+    "insights_ko": [
+      "작업별 하위 작업 분류기나 고정된 행동 어휘에 의존하던 기존 장기 진행률 모델과 달리, 언어 조건부 설계로 학습된 진행률 지식을 새 작업에 재사용할 수 있게 한 점이 핵심 차별점입니다. 로봇 보상 모델의 범용화 가능성을 한 걸음 진전시킵니다.",
+      "희소한 하위 작업 경계와 행동 품질 주석을 수치 점수 없이 조밀한 진행률 목표로 변환하는 주석 프로토콜은 데이터 구축 비용을 낮추는 실용적 기여입니다. 실패로 인한 진행률 역전이나 하위 작업 길이 편차를 경과 시간 대용치보다 잘 다룬다는 점도 주목할 만합니다.",
+      "장기 조작에서 보상 모델의 품질이 곧 정책 학습 성능으로 이어진다는 실험 결과는, 대규모 VLA·로봇 파운데이션 모델 학습 파이프라인에서 보상 설계 모듈의 중요성이 커질 것임을 시사합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Grana adds compositional progress rewards for long-horizon robot manipulation",
+    "tags": [
+      "로보틱스",
+      "멀티모달",
+      "에이전트",
+      "사전학습",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "1c5087d4a04ce5e3",
+    "cluster_id": "k011237",
+    "title_original": "What a billion-dollar deal says about the US battery market",
+    "url": "https://www.technologyreview.com/2026/11/19/1148922/sila-panasonic-battery-deal/",
+    "image_url": "https://wp.technologyreview.com/wp-content/uploads/2026/11/Moses-Lake-Facility_.jpg?resize=1200,600",
+    "source_id": "mit_tr",
+    "source_name": "MIT Technology Review",
+    "published": "2026-11-19T11:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.988557+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Sila가 Panasonic Energy와 실리콘-카본 음극재 공급 계약을 체결했으며, 장기적으로 10억 달러 이상 가치가 될 수 있다고 밝혔습니다. 이 음극재는 흑연 대비 무게는 5분의 1, 부피는 절반 수준으로 에너지 밀도를 높여 EV 주행거리 확대에 기여할 수 있습니다. 공장 확장 자금의 상당 부분은 미 국방부의 14억 달러 대출로 조달되며, 업계 담론이 기후 중심에서 지정학·기술 주권 중심으로 옮겨가고 있음을 보여줍니다.",
+    "insights_ko": [
+      "미국 차세대 배터리 시장이 24M, ESS Tech 등의 파산으로 침체된 상황에서 나온 대형 양산 계약이라 시장 신뢰 회복의 신호로 읽힙니다. 다만 Panasonic이 구매 규모를 확정했는지는 공개되지 않아 실제 물량은 검증이 필요합니다.",
+      "자금과 메시지가 기후에서 국방·공급망 안보로 옮겨간 점이 핵심입니다. 중국이 흑연 생산의 90% 이상을 장악한 상황에서 음극재 국산화는 정책적 프리미엄을 받을 가능성이 크며, AI 데이터센터 전력 수요를 명분으로 한 확장도 함께 언급됩니다.",
+      "관전 포인트는 Sila가 생산 규모를 현재 대비 10배 이상으로 늘릴 수 있는지와, 정책 보조금 의존도가 높은 상태에서 정권 변화에 따른 자금 리스크를 어떻게 관리하는지입니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Sila signs billion-dollar silicon anode deal with Panasonic amid US battery shift",
+    "tags": [
+      "자금조달",
+      "데이터센터"
+    ]
+  },
+  {
+    "id": "6826da23f73c5526",
+    "cluster_id": "k011242",
+    "title_original": "TangentPDE: Learning Local Operator Responses with Sparse Finite-Difference Supervision",
+    "url": "https://arxiv.org/abs/2611.24873v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-11-18T18:23:20+00:00",
+    "fetched_at": "2026-11-19T18:21:59.988750+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "TangentPDE는 신경망 PDE 연산자를 학습할 때 상태 값의 재구성 정확도뿐 아니라 국소 섭동 방향에 대한 민감도까지 함께 맞추는 학습 프레임워크입니다. 희소한 쌍(paired) 입력에서 기준 솔버의 상태 출력만으로 유한차분 기반 방향 응답 레이블을 만들어, 명시적 도함수 레이블, 선형화·수반 PDE 풀이, 전체 Jacobian 없이도 비선형 솔버에 적용할 수 있습니다. 4개 PDE 계열과 20개 과제-백본 설정에서 3-seed 평균 상태 오차를 18개 설정에서 낮췄고, 동일 조건의 Rollout@20 오차도 18개에서 낮췄습니다.",
+    "insights_ko": [
+      "기존 상태 재구성 손실은 관측 입력에서의 연산자 값만 제약해 국소 민감도를 충분히 학습하지 못하는데, 유한차분 응답을 감독 신호로 쓰는 접근은 이 공백을 메우는 실용적 대안입니다. 도함수 인터페이스가 없는 블랙박스 솔버에도 적용된다는 점이 산업 시뮬레이션 환경에서 특히 의미가 큽니다.",
+      "예산을 맞춘 대조군과 대응관계를 교란한 통제 실험으로 관계형 감독의 효과를 추가 관측이나 데이터량 증가 효과와 분리했다는 점은 방법론적으로 신뢰도를 높입니다. 다만 개선 폭은 DiffReact에서 가장 크고 나머지는 과제·백본 의존적이므로, 범용 성능 향상으로 일반화하기 전에 추가 검증이 필요해 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "TangentPDE learns neural PDE operator sensitivities from sparse finite differences",
+    "tags": [
+      "벤치마크",
+      "추론",
+      "오픈소스"
+    ]
+  },
+  {
+    "id": "99be0c0a7e074380",
+    "cluster_id": "k011219",
+    "title_original": "Managing frontier AI risk: From training to deployment",
+    "url": "https://openai.com/index/managing-frontier-ai-risk",
+    "image_url": null,
+    "source_id": "openai_news",
+    "source_name": "OpenAI",
+    "published": "2026-11-18T06:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.988896+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "OpenAI가 프론티어 AI 모델의 리스크를 학습 단계부터 배포 단계까지 관리하는 방식을 설명했습니다. 핵심 수단은 모델 정렬(alignment), 샌드박싱, 위험 행위 차단 안전장치, 그리고 모니터링입니다. 본문 추출에 실패해 RSS 요약만을 기준으로 작성했으며, 세부 기술 내용은 원문 확인이 필요합니다.",
+    "insights_ko": [
+      "학습 중 정렬부터 배포 후 모니터링까지 전 생애주기에 걸친 다층 방어를 명시한 점이 핵심입니다. 단일 필터에 의존하지 않는 구조가 업계 표준 논의의 방향과 맞닿아 있습니다.",
+      "샌드박싱과 차단형 안전장치는 에이전트형 모델이 실제 도구를 쓰는 환경에서 더 중요해집니다. 배포 후 모니터링 체계가 얼마나 공개되는지가 향후 규제 대응 기준으로 작용할 수 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 3,
+    "subtitle_en": "OpenAI outlines layered controls for frontier AI risk across deployment",
+    "tags": [
+      "OpenAI",
+      "안전성",
+      "정렬",
+      "규제"
+    ]
+  },
+  {
+    "id": "fe624d5833b6cb92",
+    "cluster_id": "k011288",
+    "title_original": "Ground, Iterate, Trace: Decomposing AI Research Ideation",
+    "url": "https://arxiv.org/abs/2611.24887v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-11-18T18:31:37+00:00",
+    "fetched_at": "2026-11-19T18:21:59.990244+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "연구진이 AI 연구 아이디어 생성을 위한 에이전트 프레임워크 'Creative AI Researcher(CAR)'를 제안했습니다. CAR은 검색된 문헌으로 의미론적 지식 그래프를 구성하고, 이분연상(bisociation), 유추, 탐색, 정교화 4가지 개념 연산자를 구조적 수용 조건으로 검증하며 변환 과정을 추적합니다. 40개 연구 주제와 두 실행 벤치마크에서 단발성 프롬프팅 및 AI Scientist 대비 방법론적 참신성이 유의하게 높았으나, 명시적 연산자가 자유 형식 반복 이상의 일관된 품질 이득을 준다는 증거는 다중 비교 보정 후 확인되지 않았습니다.",
+    "insights_ko": [
+      "핵심 기여는 아이디어 품질 향상보다 '추적 가능성'에 있습니다. 어떤 문헌을 근거로 어떤 연산을 거쳐 제안이 나왔는지를 기록해, 판단된 품질과 절차적 투명성을 분리해 평가할 수 있게 한 점이 자동 연구 평가 방법론에 의미가 있습니다.",
+      "다중 비교 보정 후 명시적 연산자의 MN 우위가 사라진 결과는 '구조화된 연산자'가 자유 반복 대비 효과를 입증하기 어렵다는 경고입니다. 연구 자동화 시스템 설계 시 복잡한 파이프라인이 실제로 성능을 올리는지 엄격한 대조군이 필요하다는 점을 시사합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Tracing how AI research ideas emerge from literature via explicit operators",
+    "tags": [
+      "에이전트",
+      "RAG",
+      "벤치마크",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "82591dcc72952839",
+    "cluster_id": "k011264",
+    "title_original": "America’s AI Chip War Is Heating Up in the Dumbest Possible Ways",
+    "url": "https://www.wired.com/story/the-ai-chip-war-meets-the-jensen-huang-affair/",
+    "image_url": "https://media.wired.com/photos/6afcdd342972080ddb9f0499/191:100/w_1280,c_limit/AI-Lab-US-Chip-War-Business.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-11-18T21:15:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.990492+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "미국 트럼프 행정부는 중국 기업이 해외 데이터센터를 통해 고성능 AI 칩을 원격으로 쓰는 경로를 막기 위해, 중국에 대규모 컴퓨팅 자원을 제공하는 해외 데이터센터에 특별 라이선스를 요구하는 규칙을 발표했습니다. 아울러 싱가포르·말레이시아 등 5개국으로의 첨단 칩 출하도 더 엄격히 규제합니다. 이 발표는 엔비디아 창업자 젠슨 황 CEO가 중국 연관 인물과의 스캔들로 사임한 직후에 나와 타이밍이 주목받고 있습니다. 기사는 2022년 바이든 행정부의 대중 칩 수출통제 이후 밀수와 원격 접근 우회가 확산되며 규제가 계속 복잡해져 온 경위를 짚습니다.",
+    "insights_ko": [
+      "원격 접근(클라우드 임차)은 수출통제의 법적 사각지대였는데, 이제 규제 대상이 '칩 반출'에서 '칩 사용 방식'으로 확장되고 있다는 점이 핵심입니다. 이는 클라우드 인프라 사업자 전반에 컴플라이언스 부담을 전가하는 구조입니다.",
+      "BIS 예산이 2026년 기준 2억 3500만 달러에 불과하다는 점은 집행 능력의 한계를 보여줍니다. 규칙은 정교해지는데 감시 인력은 부족해, 실효성은 새 라이선스 체계의 실제 운영 방식에 달려 있을 것입니다.",
+      "후속 관전 포인트는 말레이시아·싱가포르 등 동남아 데이터센터 시장의 위축 여부와, 중국 빅테크가 자체 칩 개발을 가속하는지 여부입니다. 젠슨 황 사임 이후 엔비디아의 대중 전략 변화도 함께 볼 필요가 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 5,
+    "subtitle_en": "US tightens remote chip access rules for Chinese AI firms",
+    "tags": [
+      "NVIDIA",
+      "수출통제",
+      "규제",
+      "GPU",
+      "데이터센터"
+    ]
+  },
+  {
+    "id": "51822a63ac6d3eeb",
+    "cluster_id": "k011183",
+    "title_original": "A Generative Model for Higher-Order Network Dynamics",
+    "url": "https://arxiv.org/abs/2611.24638v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-11-18T15:47:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.990628+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "다변량 시계열에서 추론되는 기존 네트워크 표현은 쌍(pair) 단위 통계 관계만 담기 때문에, 그룹 상호작용이 본질인 동역학을 제대로 설명하지 못합니다. 이 논문은 사용자가 쌍별 및 고차(higher-order) 상호작용을 직접 지정할 수 있는 확률적 네트워크 동역학의 생성 모델을 제안하고, 방향성 하이퍼엣지로 고차 항을 표현합니다. 고차 항만 제거한 쌍별 전용 기준모형을 함께 두어, 정보이론 기반 측도들이 고차 효과를 탐지하고 참여 노드와 source-target 역할을 복원하는지 통제된 환경에서 검증합니다.",
+    "insights_ko": [
+      "그동안 다변량 고차 의존성 측도들은 정답 기전(ground truth)이 알려진 시스템이 없어 제대로 검증·비교되지 못했는데, 이 모델은 그 공백을 메우는 벤치마크를 제공한다는 점에서 방법론적 의미가 큽니다. 실제 데이터에 적용하기 전에 측도가 기전을 제대로 포착하는지를 먼저 확인할 수 있게 됩니다.",
+      "실험 결과 후보 상호작용 수가 늘어날수록 참여 노드 복원이 급격히 어려워진다는 한계가 확인되었습니다. 뇌·생태계·금융처럼 노드가 많은 실제 시스템에 고차 측도를 적용할 때는 탐지 성능만이 아니라 복원 정확도의 저하를 함께 고려해야 함을 시사합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "A testbed for validating higher-order network dependence measures",
+    "tags": [
+      "벤치마크",
+      "해석성",
+      "멀티모달"
+    ]
+  },
+  {
+    "id": "8bc2fdc1aef603b8",
+    "cluster_id": "k011268",
+    "title_original": "Former Alibaba exec’s Everful raises $48.5M to connect retailers with Chinese factories",
+    "url": "https://techcrunch.com/2026/11/19/former-alibaba-execs-everful-raises-48-5m-to-connect-retailers-with-chinese-factories/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/Everful-founders.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-19T17:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.990819+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "샌프란시스코와 싱가포르를 기반으로 한 스타트업 Everful이 Vertex Ventures Southeast Asia & India와 January Capital 주도로 4,850만 달러 규모의 시리즈 A를 유치했습니다. 이 회사는 중소 리테일러와 브랜드를 중국 공장에 직접 연결해 주문부터 배송까지 전 과정을 대행하며, 출범 약 2년 반 만에 연간 매출 1억 달러 달성을 목표로 하고 있습니다. 전 전 알리바바 임원 Sisi Song과 Amazon에 회사를 매각한 경험이 있는 Kevin Han이 2024년 공동 창업했습니다.",
+    "insights_ko": [
+      "중간 유통 단계를 걷어내는 B2B 소싱 시장에서 단순 중개 마켓플레이스(Alibaba, Faire)와 달리 품질 검수, 물류, 주문 통합까지 책임지는 '대행형' 모델로 차별화를 시도하고 있다는 점이 눈에 띕니다. AI 에이전트로 소싱 업무를 자동화해 운영 인력 대비 처리량을 끌어올리는 것이 수익성의 핵심 변수가 될 전망입니다.",
+      "미·중 관세 긴장과 미국의 de minimis 면제 폐지 같은 정책 변화가 중국 직구 모델을 직접 흔드는 상황에서, Everful은 '해외 소싱 + 현지 판매' 구조를 장기 방향으로 제시하고 있습니다. 미국과 유럽 확장 계획이 이 전략의 실행 여부를 가늠하는 관전 포인트입니다."
+    ],
+    "category": "business",
+    "importance_score": 3,
+    "subtitle_en": "Everful raises $48.5M to link retailers directly with Chinese factories",
+    "tags": [
+      "자금조달",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "91089de2fc64468c",
+    "cluster_id": "k011272",
+    "title_original": "Superhuman pushes its Go assistant everywhere",
+    "url": "https://techcrunch.com/2026/11/19/superhuman-pushes-its-go-assistant-everywhere/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/Static_Go-Proactive.jpeg?resize=1200,675",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-19T14:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.991047+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "생산성 앱 Superhuman(구 Grammarly)이 개인화된 AI 어시스턴트 Go를 여러 앱과 제품 전반에 확장합니다. Go는 앱 간 맥락을 학습해 더 나은 프롬프트를 제안하고, 커서 인라인에서 동작하며 일정·이메일을 주시해 답장 초안을 작성합니다. 또한 Docs에 에이전트를 도입하고 DeepL, Databricks 등 20개 외부 에이전트를 SDK로 연결하며, 사용자 기반은 100만 명 이상입니다.",
+    "insights_ko": [
+      "문서 편집기, 메일, 회의 노트를 하나의 맥락 레이어로 묶어 에이전트가 '사용자 전체'를 이해하도록 설계한 점이 핵심입니다. 개별 기능 AI에서 크로스앱 상주형 에이전트로 제품 패러다임이 이동하는 신호입니다.",
+      "Fathom 인수로 회의 맥락까지 확보하면서 Go가 회의 후 제안서 초안을 만드는 수준으로 진화했습니다. 생산성 SaaS가 자체 에이전트 플랫폼과 서드파티 에이전트 생태계를 동시에 구축하며, OpenAI·Anthropic의 범용 어시스턴트와 정면으로 경쟁하는 구도가 형성되고 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Superhuman expands its Go assistant across Docs, Mail and third-party apps",
+    "tags": [
+      "에이전트",
+      "생산성",
+      "RAG",
+      "멀티모달",
+      "Hugging Face"
+    ]
+  },
+  {
+    "id": "9e20b94c1c298d1c",
+    "cluster_id": "k011262",
+    "title_original": "Does Nvidia Got This? Interim CEO Colette Kress Says It’s Got This",
+    "url": "https://www.wired.com/story/guys-really-we-got-this/",
+    "image_url": "https://media.wired.com/photos/6afe216b809613f3f77a2770/191:100/w_1280,c_limit/Does-NVIDIA-Got-This-Business.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-11-18T22:16:23+00:00",
+    "fetched_at": "2026-11-19T18:21:59.991181+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "엔비디아의 젠슨 황 CEO가 국제적 스캔들로 사임한 뒤, 콜레트 크레스 임시 CEO(현 CFO)가 분기 실적 발표와 전사 미팅을 주도하며 안정화에 나서고 있습니다. 그는 'We've got this(우리가 해낼 수 있다)'라는 구호를 반복했지만, 주가 하락과 중국 내 칩 유입 논란 속에서 이 메시지가 얼마나 설득력이 있을지는 불투명합니다. 이사회 의장은 황 전 CEO를 복귀시킬 계획이 없다고 밝혔습니다.",
+    "insights_ko": [
+      "AI 칩 시장의 사실상 독점 기업 리더십이 흔들리면서, 수요·공급 호조에 대한 경영진의 낙관 메시지와 시장 신뢰 사이에 간극이 드러나고 있습니다. 실적 자체는 견조하더라도 리더십 공백이 장기 전략 신뢰도에 미칠 영향이 관건입니다.",
+      "중국 수출 규제 회피 논란이 겹친 만큼, 향후 수출통제 강화나 조사 확대가 이어질 경우 임시 경영진의 대응 능력이 실질적 시험대에 오를 가능성이 큽니다. 영구 CEO 선임 과정과 이사회 구성 변화도 함께 주목할 포인트입니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Nvidia's interim CEO insists the company has this after Huang's exit",
+    "tags": [
+      "NVIDIA",
+      "GPU",
+      "수출통제",
+      "인력채용"
+    ]
+  },
+  {
+    "id": "58da586369f33999",
+    "cluster_id": "k011217",
+    "title_original": "Research acceleration: The jagged frontier",
+    "url": "https://openai.com/index/research-acceleration-jagged-frontier",
+    "image_url": null,
+    "source_id": "openai_news",
+    "source_name": "OpenAI",
+    "published": "2026-11-18T08:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.991376+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "OpenAI가 코딩 에이전트가 AI 연구를 어떻게 가속하고 있는지를 측정했습니다. 동시에 에이전트의 성능이 작업마다 고르지 않다는 점도 짚었으며, 이것이 재귀적 자기개선(recursive self-improvement)에 대해 무엇을 시사하는지 분석합니다. 본문 추출이 실패해 RSS 요약 정보만 근거로 작성했으며, 구체적인 수치와 실험 설계는 확인되지 않았습니다.",
+    "insights_ko": [
+      "코딩 에이전트가 연구 워크플로의 일부를 실제로 대체·가속하고 있다는 측정 결과 자체가 중요합니다. 에이전트 역량을 '데모'가 아닌 '연구 생산성 지표'로 정량화하려는 시도라는 점에서 의미가 있습니다.",
+      "'들쭉날쭉한 프론티어(jagged frontier)'라는 표현은 에이전트가 어떤 과제에서는 뛰어나지만 다른 과제에서는 취약하다는 뜻으로 읽힙니다. 이는 자율 연구 파이프라인을 설계할 때 과제별 신뢰도 검증이 필수임을 시사합니다.",
+      "재귀적 자기개선으로 이어질 수 있는 신호로 해석될 수 있으나, 본문 부재로 구체적 주장의 범위는 추정에 해당합니다. 후속 원문에서 측정 방법과 한계가 공개되는지 확인이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "OpenAI measures how coding agents accelerate AI research unevenly",
+    "tags": [
+      "OpenAI",
+      "에이전트",
+      "추론",
+      "벤치마크"
+    ],
+    "institution": "OpenAI"
+  },
+  {
+    "id": "e308a84a77ae00d8",
+    "cluster_id": "k011238",
+    "title_original": "Anthropic prices initial public offering",
+    "url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering",
+    "image_url": "https://assets.claude.com/6d4a0d28992ade92d6fa63646fd9c9d318245c6c.jpg",
+    "source_id": "anthropic_news",
+    "source_name": "Anthropic",
+    "published": "2026-11-18T00:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.991506+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 Class A 보통주 IPO 가격을 주당 83달러로 확정했습니다. 총 9억 8천만 주가 공모되며, 이 중 956,351,354주는 회사가 직접 매각하고 23,648,646주는 기존 주주가 매각합니다. 주식은 2026년 11월 19일 나스닥 글로벌 셀렉트 마켓에서 'ANT' 종목코드로 거래를 시작할 예정이며, 주관사에는 30일간 최대 1억 4,700만 주를 추가 매입할 수 있는 초과배정 옵션이 부여됐습니다.",
+    "insights_ko": [
+      "공모가 기준으로 계산하면 주식 9억 8천만 주는 약 813억 달러 규모입니다. 회사가 받는 자금은 대부분 신규 발행분이므로 이번 IPO가 프론티어 모델 학습과 인프라 투자를 위한 대규모 자본 조달이라는 성격이 분명합니다.",
+      "OpenAI 등 경쟁 랩들의 자본 시장 진입 흐름과 맞물려, 프론티어 AI 기업이 공개 시장에서 평가받는 첫 사례가 될 가능성이 큽니다. 분기별 실적 공시가 시작되면 추론 비용, 매출 성장률, 안전성 투자 비중 등이 투명하게 드러나 업계 전체의 밸류에이션 기준점이 될 것으로 보입니다."
+    ],
+    "category": "business",
+    "importance_score": 5,
+    "subtitle_en": "Anthropic prices IPO at $83 per share on Nasdaq",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "IPO",
+      "자금조달"
+    ]
+  },
+  {
+    "id": "0a9dc29f1ce1bfcb",
+    "cluster_id": "k011255",
+    "title_original": "How Salesforce is advancing global-scale model serving with cross-Region inference routing in Amazon SageMaker AI",
+    "url": "https://aws.amazon.com/blogs/machine-learning/how-salesforce-is-advancing-global-scale-model-serving-with-cross-region-inference-routing-in-amazon-sagemaker-ai/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/18/Building-highly-available-Oracle-databases-with-Amazon-FSx.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T20:13:18+00:00",
+    "fetched_at": "2026-11-19T18:21:59.991704+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Salesforce는 Agentforce 등 제품에 쓰이는 모델을 30여 개 글로벌 리전에 나눠 호스팅하면서, 리전별로 용량이 분산되어 트래픽 급증을 흡수하지 못하는 문제를 겪었습니다. 이를 해결하기 위해 Amazon SageMaker AI의 교차 리전 추론 라우터를 도입해, 애플리케이션이 하나의 호출 경로로 여러 리전·계정의 엔드포인트에 요청을 보내고 용량과 건강 상태에 따라 라우팅하도록 했습니다. 데이터 레지던시가 필요한 요청은 로컬 리전에 고정하는 정책을 유지하면서 용량을 안전하게 확장했습니다.",
+    "insights_ko": [
+      "리전별 용량 파편화를 라우팅 레이어에서 해결하는 접근으로, 개별 애플리케이션마다 장애 전환 로직을 중복 구현하던 방식을 관리형 경로로 대체한다는 점에서 의미가 큽니다. 특히 엔드포인트 ARN 기반 리소스 정책으로 다른 계정의 엔드포인트까지 묶을 수 있어 멀티 계정 운영 조직에 실질적인 확장성을 제공합니다.",
+      "데이터 레지던시 규제가 있는 기업이 교차 리전 장애 전환을 도입할 때의 설계 패턴을 보여줍니다. 규제 요청은 로컬 타깃에만 고정하고 나머지만 라우터에 위임하는 구조는, 글로벌 AI 서비스에서 컴플라이언스와 가용성을 동시에 잡는 참고 모델이 될 수 있습니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Salesforce adopts cross-Region inference routing on SageMaker AI for global serving",
+    "tags": [
+      "Amazon",
+      "에이전트",
+      "데이터센터",
+      "오픈소스"
+    ]
+  },
+  {
+    "id": "c2c536427a66b7cf",
+    "cluster_id": "k011252",
+    "title_original": "How Airbnb uses cost per task to operate coding agents on Amazon Bedrock",
+    "url": "https://aws.amazon.com/blogs/machine-learning/how-airbnb-uses-cost-per-task-to-operate-coding-agents-on-amazon-bedrock/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/18/ML-22452-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T21:48:19+00:00",
+    "fetched_at": "2026-11-19T18:21:59.991832+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Airbnb는 내부 코딩 에이전트 도구 AirChat의 모델 선택과 운영에 Amazon Bedrock을 활용하고 있습니다. 5주 만에 8개의 신규 모델이 출시된 상황에서, 사내 과제 기반 평가로 과제당 비용(cost per task)을 측정해 기본 모델과 추론 노력(reasoning effort) 상한을 결정하고, CloudWatch 지표로 지연·스로틀링·토큰 비용을 프로덕션에서 지속 모니터링합니다. 이 글은 두 체계를 병행하는 운영 방식과 필요한 AWS 설정 요건을 설명합니다.",
+    "insights_ko": [
+      "벤치마크 차트가 아닌 자사 엔지니어링 과제 기준으로 모델의 점수와 과제당 비용을 함께 측정한다는 점이 핵심입니다. 모델 출시가 잦은 환경에서는 공개 벤치마크만으로는 실제 비용·품질 트레이드오프를 판단하기 어렵다는 실무적 교훈을 줍니다.",
+      "CloudWatch의 EstimatedTPMQuotaUsage와 캐시 읽기·쓰기 토큰별 단가 차이를 함께 추적하는 구조는, 코딩 에이전트처럼 컨텍스트가 큰 워크로드에서 캐시 적중률이 비용을 좌우한다는 점을 보여줍니다. 프롬프트 캐싱 설계가 곧 비용 관리 전략이 됩니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Airbnb tracks cost per task to run coding agents on Bedrock",
+    "tags": [
+      "Claude",
+      "에이전트",
+      "코딩",
+      "추론",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "9a9f7eafdd9b739d",
+    "cluster_id": "k011246",
+    "title_original": "Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod",
+    "url": "https://aws.amazon.com/blogs/machine-learning/introducing-enhanced-observability-in-amazon-sagemaker-hyperpod-to-diagnose-gpu-training-issues/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/18/ML-22438-featured-image-1.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-19T16:41:35+00:00",
+    "fetched_at": "2026-11-19T18:21:59.992045+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS가 Amazon SageMaker HyperPod에 향상된 인프라 관측성(observability) 기능을 출시했습니다. EKS와 Slurm 기반 학습 워크로드 모두를 대상으로, GPU 이상 탐지와 진단 요약을 한곳에서 제공해 장애 원인 파악 시간을 줄이는 것이 목표입니다. 기본 메트릭은 자동 수집되고, 고급 메트릭(노드 익스포터, NVIDIA DCGM·AWS Neuron, EFA 네트워크)은 선택적으로 켤 수 있으며, 메트릭 저장소로 Amazon CloudWatch(신규 기본값)와 Amazon Managed Service for Prometheus 중 하나를 고를 수 있습니다.",
+    "insights_ko": [
+      "분산 학습에서 GPU 하나의 이상(XID·ECC 오류, 열 스로틀링)이 수백~수천 개 GPU 전체를 멈추게 하는 문제를 '어떤 GPU가 이탈했는지' 단위로 좁혀준다는 점이 핵심입니다. 성능 저하를 감지하는 수준을 넘어 원인과 위치를 특정하려는 방향 전환입니다.",
+      "CloudWatch의 DetectGroupOutliers API로 동일 잡 내 GPU들을 상호 비교하는 방식은 절대 임계값이 아닌 상대 이상 탐지라서, 워크로드 특성이 달라도 동일 잡 안의 편차를 잡아낼 수 있습니다. 다만 고급 메트릭을 켜면 텔레메트리 비용이 늘어나므로, 장기 대규모 학습에서만 효용이 크다는 점을 고려해야 합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "AWS adds enhanced GPU observability to SageMaker HyperPod for faster training diagnostics",
+    "tags": [
+      "GPU",
+      "데이터센터",
+      "에이전트",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "74e69f777a2a7ac9",
+    "cluster_id": "k011208",
+    "title_original": "WorldRuler: Interactive World Modeling under Configurable Rules",
+    "url": "https://arxiv.org/abs/2611.24869v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:20:39+00:00",
+    "fetched_at": "2026-11-19T18:21:59.992238+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "WorldRuler는 사용자가 정의한 규칙 아래에서 상호작용하는 생성형 월드 모델을 제안합니다. 규칙, 의존성, 객체 상태를 실행 가능한 3D 규칙 그래프로 관리하고, 규칙 실행·비디오 생성·지각 피드백을 폐쇄 루프로 연결합니다. 저장·로드 시 규칙과 월드 상태를 함께 복원하며, 아직 보이지 않는 객체에도 규칙 효과를 일관되게 적용하는 것이 핵심입니다. GTA-V와 Habitat 기반 자동 데이터 파이프라인으로 구축한 RuleVerse 데이터셋에서 규칙-상태 일관성과 지정 객체 속성 제어의 유효성을 입증했습니다.",
+    "insights_ko": [
+      "게임 규칙을 텍스트 프롬프트가 아니라 실행 가능한 그래프 구조로 다룬 점이 새롭습니다. 규칙 상태의 영속성(save/load 후에도 규칙이 유지되는 것)을 생성 모델의 문제로 정식화했다는 점에서 커스터마이징 가능한 게임·시뮬레이터 설계에 직접 참고가 될 만합니다.",
+      "'규칙이 먼저 발효되고 객체는 나중에 보이는' 상황을 명시적으로 다룬 것은 실제 사용자 정의 게임에서 흔한 케이스이며, 반사실적(counterfactual) 재구성 학습으로 무관한 콘텐츠 간섭을 줄이려는 접근은 월드 모델의 제어 가능성 연구 방향과 맞닿아 있습니다. 다만 실험은 합성 환경 중심이므로 실제 게임 엔진 수준의 복잡도에서 얼마나 유지될지는 후속 검증이 필요해 보입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "WorldRuler keeps user-defined game rules consistent in generative world models",
+    "tags": [
+      "멀티모달",
+      "에이전트",
+      "롱컨텍스트"
+    ]
+  },
+  {
+    "id": "a4179a28fef9b86f",
+    "cluster_id": "k011182",
+    "title_original": "Counterfactual World Models: JEPAs That Reason About \"What If\"",
+    "url": "https://arxiv.org/abs/2611.24778v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-11-18T17:24:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.992370+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "반사실적(counterfactual) 질문, 즉 '같은 외란 하에서 다른 행동을 했다면 결과가 어땠을까'에 답하는 세계 모델(World Model) 연구입니다. 저자들은 사실 전이 데이터만으로 학습된 세계 모델이 이 질문에 원리적으로 답할 수 없음을 증명하고, 물리계의 '자연은 도약하지 않는다' 성질을 이용해 추가 데이터나 재학습 없이 관측 결과에 예측 차분을 더하는 방식을 제안합니다. 픽셀 입력의 JEPA 세계 모델과 동결된 DINOv2·MAE 인코더로 검증했으며, 반사실 R²를 38~46%에서 86~96%로 끌어올렸습니다.",
+    "insights_ko": [
+      "외란과 행동을 분리된 힘으로 가정할 때 반사실 결과가 관측값에 세계 모델의 예측 차분을 더한 1차 근사로 복원된다는 점은, 새 데이터 없이 기존 세계 모델을 의사결정 사후 분석(hindsight planning)에 재활용할 수 있음을 뜻합니다. 실제로 오라클 플래너보다 높은 목표 도달 비율을 보고했습니다.",
+      "불연속점, 좌표 접힘, 명령을 스케일하는 외란 등에서 방법이 실패한다는 한계 조건을 명시한 점이 중요합니다. 로보틱스나 자율 수중 로봇처럼 외란이 큰 실세계 시스템에 적용하려면 이 가정이 성립하는지 먼저 검증해야 합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Counterfactual JEPA world models reason about what if without retraining",
+    "tags": [
+      "에이전트",
+      "추론",
+      "벤치마크",
+      "로보틱스",
+      "해석성"
+    ]
+  },
+  {
+    "id": "d708a4dbf97db5f2",
+    "cluster_id": "k011270",
+    "title_original": "At Nasdaq opening bell, Anthropic CEO recommits to pacing AI development",
+    "url": "https://techcrunch.com/2026/11/19/at-nasdaq-opening-bell-anthropic-ceo-recommits-to-pacing-ai-development/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2305298275.jpg?w=594",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-19T16:19:41+00:00",
+    "fetched_at": "2026-11-19T18:21:59.992638+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Anthropic이 역사상 최대 규모의 IPO로 나스닥에 상장한 날, CEO Dario Amodei는 개장 종을 앞두고 연설에서 AI를 책임감 있게 개발하겠다고 재확인했습니다. 그는 비즈니스나 정치적 압력에 굴복하지 않고 AI가 '인간의 통제 아래 남아 있을 것'이라고 약속했습니다. 연설에서는 AI가 과학·의학 연구를 가속해 수십 년의 진보를 수년으로 압축할 수 있다는 비전과 함께, 악의적 행위자 사용, 경제적 혼란, 통제 상실 등 실질적 위험을 인정하며 안전성 검증 강화를 강조했습니다.",
+    "insights_ko": [
+      "상장 직후 CEO가 '속도 조절(pacing)'과 안전 우선을 공개 선언한 것은, 성장 압력이 큰 시점에도 안전 브랜드를 핵심 차별점으로 유지하겠다는 신호로 읽힙니다. 기관 투자자 대상 리스크 관리 메시지이기도 합니다.",
+      "9월에 제시된 '개발 속도 조절' 계획(업계 안전 기준 공조, 제3자 평가자 배치)이 연설에서 재확인되었지만, 경쟁사들의 구체적 약속은 여전히 부족해 업계 공동 규범의 실효성은 아직 검증되지 않았습니다. 상장사로서 안전 투자가 실적 압박과 충돌할 때의 선택이 향후 관전 포인트입니다."
+    ],
+    "category": "business",
+    "importance_score": 5,
+    "subtitle_en": "Anthropic debuts on Nasdaq as CEO pledges human-controlled AI development",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "인수합병",
+      "IPO",
+      "안전성"
+    ]
+  },
+  {
+    "id": "108d95f376814446",
+    "cluster_id": "k011273",
+    "title_original": "Microsoft CEO Satya Nadella explains why he asked 60K employees to quit",
+    "url": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-explains-why-he-asked-60k-employees-to-quit/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/Microsoft-Satya-Nadella.jpg?resize=1200,800",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-19T00:42:56+00:00",
+    "fetched_at": "2026-11-19T18:21:59.992771+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Microsoft CEO Satya Nadella는 10월 약 6만 명의 직원에게 자발적 퇴사를 위한 buyout을 제안한 이유를 DealBook Summit에서 설명했습니다. 대규모 해고 대신 회사를 모든 직원이 AI를 활용해 업무를 수행하고, 직무가 AI 관리 중심으로 재편되는 구조로 바꾸겠다는 것입니다. 그는 직원들이 변화 속에서 자신의 선택권을 느끼도록 하려는 의도였다고 밝혔습니다.",
+    "insights_ko": [
+      "AI가 소프트웨어 엔지니어링을 대체한다는 단순한 서사가 아니라, 엔지니어의 역할이 '코드 작성자'에서 '소프트웨어 공장 관리자'로 바뀌는 재조직 과정이라는 점이 핵심입니다. Cowork 팀이 11명의 개발자로 제품을 만드는 사례가 이 방향을 보여줍니다.",
+      "대형 기존 기업이 AI-first 전환에 필요한 워크플로와 업무 산출물의 재설계를 인력 구조조정과 함께 진행하는 모델을 보여준 사례입니다. 해고 대신 buyout을 택한 방식은 내부 반발과 법적·평판 리스크를 줄이려는 전략으로 해석됩니다.",
+      "Nadella가 특이점과 대량 실업 같은 담론이 직원 불안을 키웠다고 지적한 대목은, 다른 빅테크들도 인력 감축 시 AI를 명분으로 삼을 때 커뮤니케이션 전략이 중요해질 것임을 시사합니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Nadella explains why Microsoft asked 60,000 employees to voluntarily leave",
+    "tags": [
+      "Microsoft",
+      "에이전트",
+      "인력채용",
+      "코딩",
+      "생산성"
+    ]
+  },
+  {
+    "id": "3a850c903b02169f",
+    "cluster_id": "k011266",
+    "title_original": "Google gives Gemini the ability to use your Mac for you",
+    "url": "https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/hero_header_CU_copy.width-2200.format-webp.jpeg?resize=1200,675",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-19T18:09:11+00:00",
+    "fetched_at": "2026-11-19T18:21:59.993003+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Google이 macOS용 Gemini 데스크톱 앱에 컴퓨터 사용(computer use) 기능을 도입해, AI가 사용자를 대신해 네이티브 Mac 앱을 조작하고 웹을 백그라운드에서 탐색하며 작업을 수행할 수 있게 했습니다. 다단계 작업(파일 정리, 양식 작성, 반복 작업 처리, 대시보드 기반 슬라이드 생성 등)을 실시간 미리보기와 함께 진행하며, 사용자는 각 동작을 일시정지·중단·승인할 수 있습니다. 현재는 미국 영어 사용자 중 Google AI Plus/Pro/Ultra 구독자에게만 제공됩니다.",
+    "insights_ko": [
+      "OpenAI, Anthropic, Meta가 이미 데스크톱 에이전트 기능을 선보인 상황에서 Google이 뒤늦게 합류한 것이지만, 'Tasks'와 'CC' 에이전트를 묶어 생태계 차원의 에이전트 전략을 완성하려는 움직임으로 읽힙니다.",
+      "로컬 파일·앱·웹을 가로지르는 실행 권한을 AI에 위임하는 구조라, 승인 단계와 중단 제어가 기본 안전장치로 들어간 점이 향후 에이전트 UX와 보안 기준의 참고점이 될 것으로 보입니다.",
+      "구독 등급으로 기능을 게이팅한 만큼, 에이전트 기능이 무료 대중화보다는 유료 생산성 티어의 차별화 요소로 쓰이는 흐름이 강화될 가능성이 있습니다(추정)."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Google brings computer use to Gemini on Mac",
+    "tags": [
+      "Gemini",
+      "에이전트",
+      "멀티모달",
+      "생산성"
+    ]
+  },
+  {
+    "id": "38b440e114de5bdd",
+    "cluster_id": "k011260",
+    "title_original": "Google Built a Giant ‘Mirror Dimension’ Internet to Test Its Chrome AI Agents",
+    "url": "https://www.wired.com/story/google-built-a-giant-mirror-dimension-internet-to-test-its-chrome-ai-agents/",
+    "image_url": "https://media.wired.com/photos/6aff2988bee7350f3da10056/191:100/w_1280,c_limit/GettyImages-2229158642.jpg",
+    "source_id": "wired_ai",
+    "source_name": "Wired AI",
+    "published": "2026-11-19T17:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.993144+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Google Chrome 팀이 Gemini 기반 웹 브라우징 AI 에이전트를 안전하게 테스트하기 위해, 실제 웹을 모방한 격리된 '미러 디멘션(Mirror Dimension)' 인터넷을 구축했다고 공개했습니다. 쇼핑, 소셜미디어, 은행 대시보드 등 다양한 사이트를 AI 에이전트 군단으로 생성했으며, 숨겨진 프롬프트 인젝션 같은 공격으로 에이전트의 방어력을 검증합니다. 팀은 이 접근법을 사내외 다른 팀과 공유하며 향후 지속 투자할 계획입니다.",
+    "insights_ko": [
+      "에이전트가 테스트 환경을 인식해 행동을 바꾸는 '평가 인식(eval awareness)' 문제를 피하면서도 실제 Chrome을 쓰게 한 점이 핵심입니다. 즉 시뮬레이션의 현실성과 통제력을 동시에 확보하려는 방법론으로, 웹 에이전트 안전성 평가의 새로운 기준이 될 수 있습니다.",
+      "웹 에이전트의 가장 큰 리스크인 프롬프트 인젝션 등 적대적 웹 환경을 대규모로 재현하는 인프라가 자체 제품 보안 검증의 필수 요소가 되고 있습니다. 이는 브라우저 에이전트 시장 경쟁이 기능보다 보안 테스트 역량으로도 갈릴 것임을 시사합니다.",
+      "기사에 따르면 테스트를 위해 인증서 위조 등 Chrome의 보호 장치를 우회해야 했지만, 이는 통제권을 가진 환경에서만 가능한 조작입니다. 실제 사용자 환경과의 괴리와 향후 에이전트가 더 정교해질 때 이 미러 환경을 얼마나 현실적으로 유지할지가 후속 관전 포인트입니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Google builds a sealed mirror internet to stress test Chrome AI agents",
+    "tags": [
+      "Gemini",
+      "에이전트",
+      "보안",
+      "안전성",
+      "멀티모달"
+    ]
+  },
+  {
+    "id": "27d831bcad7e2646",
+    "cluster_id": "k011211",
+    "title_original": "General progress substitutes for specific training data in language models",
+    "url": "https://arxiv.org/abs/2611.24844v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:07:55+00:00",
+    "fetched_at": "2026-11-19T18:21:59.993333+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "언어모델 개발자가 위험할 수 있는 능력을 막으려고 학습 데이터를 빼는 '데이터 필터링'의 효과를 검증한 arXiv 논문입니다. 체스, 오셀로, 분자 문자열, 괄호 언어, 웹 텍스트 등에서 특정 기술의 학습 신호를 빼도, 모델이 나머지 데이터로 얻은 전반적 진전이 그 공백을 상당 부분 메운다고 보고합니다. 빼둔 데이터로 재학습하면 처음부터 배울 때보다 훨씬 적은 데이터로 기술을 회복했으며, 이 비율은 모델이 발전할수록 더 낮아졌습니다. 70억 파라미터 모델에서 제외한 프로그래밍 언어도 같은 방식으로 되찾았습니다.",
+    "insights_ko": [
+      "데이터 필터링은 능력을 영구적으로 막지 못하고 지연시키는 데 그친다는 점이 핵심입니다. 모델이 커질수록 소형 모델의 결과로 지연 기간을 예측할 수 있어, 안전 목적의 필터링 효과를 사전에 추정하는 근거가 생깁니다.",
+      "필터링 이후에도 모델이 적은 데이터로 기술을 빠르게 회복하므로, 위험 능력 차단을 데이터 단계에만 의존하는 정책이나 오픈웨이트 공개 전략의 한계가 드러납니다. 파인튜닝과 함께 평가·추가 안전장치를 설계해야 한다는 함의가 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 4,
+    "subtitle_en": "Data filtering only delays capabilities as general progress fills the gap",
+    "tags": [
+      "사전학습",
+      "안전성",
+      "벤치마크",
+      "오픈소스"
+    ]
+  },
+  {
+    "id": "53d809d7420a3923",
+    "cluster_id": "k011216",
+    "title_original": "How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise",
+    "url": "https://openai.com/business/customer-stories/sumitomo-life",
+    "image_url": null,
+    "source_id": "openai_news",
+    "source_name": "OpenAI",
+    "published": "2026-11-18T08:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.993457+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "일본 생명보험사 Sumitomo Life가 ChatGPT Enterprise를 도입해 보험사 리서치, 제안서 준비, 투자 분석용 코드 초안 작성 등에 활용하고 있습니다. 본문 추출은 실패해 RSS 요약 정보만 근거로 작성했으며, 경영진이 먼저 사용한 것이 전사 도입을 이끈 주요 계기였다고 전해집니다.",
+    "insights_ko": [
+      "대형 보험사가 리서치, 제안서, 분석 코드 작성이라는 고부가 업무에 생성형 AI를 적용했다는 점에서, 금융권 엔터프라이즈 AI 도입이 실험 단계를 넘어 실무 단계로 진입했음을 보여줍니다.",
+      "경영진이 직접 사용하면서 조직 내 채택이 촉진되었다는 구도는 기술 도입의 성패가 리더의 시범 사용에 크게 좌우된다는 점을 시사하며, 다른 금융사의 도입 전략에도 참고가 될 수 있습니다.",
+      "다만 본문을 확인하지 못해 구체적인 성과 수치나 도입 범위, 보안·규제 대응 방식은 알 수 없으므로, 후속 사례 보도에서 정량 효과가 공개되는지 관찰할 필요가 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 3,
+    "subtitle_en": "Sumitomo Life adopts ChatGPT Enterprise across research and investment analysis",
+    "tags": [
+      "OpenAI",
+      "GPT-4",
+      "생산성"
+    ]
+  },
+  {
+    "id": "15d43fa57d7e395d",
+    "cluster_id": "k011233",
+    "title_original": "Synthesizing hyperspectral Data using generative Models to train spectral Unmixing Methods for low-cost Crop Residue Cover Mapping",
+    "url": "https://arxiv.org/abs/2611.24827v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-11-18T17:58:21+00:00",
+    "fetched_at": "2026-11-19T18:21:59.993682+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "토론토대 Aerospace Team이 개발한 초소형 위성 FINCH의 작물 잔재물 피복률 매핑을 위해, 희소한 지상검증 데이터를 보강하는 생성 모델 기반 프레임워크가 제안되었습니다. 보간과 피복률 추정을 중간 조건부 데이터 생성기로 분리하여 스펙트럼 물리 사전지식을 주입하고, 1D 조건부 U-Net(Conformer 레이어)과 이중 경로 Transformer 기반 조건부 VAE를 생성기로, MLP와 Fourier Neural Operator를 언믹싱 모델로 비교했습니다. 결과는 모드 붕괴와 환각을 막기 위해 스펙트럼 사전지식의 엄격한 통합이 필수적이며, 그렇지 않으면 잘못 근사된 데이터 매니폴드로 인해 분포 외 성능이 떨어진다는 점을 보여줍니다.",
+    "insights_ko": [
+      "지상검증 데이터가 희소하고 비싼 원격탐사 환경에서, 생성 모델로 학습 데이터를 증강하되 물리적 스펙트럼 사전지식으로 제약하는 접근이 실용적 대안이 될 수 있음을 보여줍니다. 데이터 부족 문제를 모델 복잡도가 아닌 데이터 설계 측면에서 푸는 시도입니다.",
+      "생성기의 환각과 모드 붕괴가 언믹싱 성능을 직접 훼손한다는 점은 합성 데이터 품질 검증이 핵심 병목임을 시사합니다. 저비용 위성 기반 농업 모니터링의 실용화는 생성 데이터의 물리적 타당성 확보 여부에 달려 있다고 볼 수 있습니다.",
+      "본 연구는 arXiv 프리프린트 단계이며 실험 규모와 정량 결과의 세부 수치는 원문 확인이 필요합니다. 향후 위성 데이터 기반 농업 정책이나 탄소 크레딧 측정 등으로 확장될지 관전할 만합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 2,
+    "subtitle_en": "Generative models synthesize hyperspectral data to improve crop residue mapping",
+    "tags": [
+      "합성데이터",
+      "벤치마크",
+      "추론",
+      "에이전트"
+    ],
+    "institution": "University of Toronto"
+  },
+  {
+    "id": "daaca048c20480cb",
+    "cluster_id": "k011291",
+    "title_original": "The Elephant in the Question: Unified Models Picture the Concepts Behind Their Answers",
+    "url": "https://arxiv.org/abs/2611.24793v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-11-18T17:38:46+00:00",
+    "fetched_at": "2026-11-19T18:21:59.993816+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "통합 멀티모달 모델(이해와 생성을 한 아키텍처에서 수행하는 모델)의 이미지 생성기가 텍스트 처리 중 형성된 은닉 표현에 접근할 수 있다는 점을 이용해, 디코더 학습 없이 특정 토큰의 은닉 상태를 이미지로 시각화하는 'V-lens'가 제안되었습니다. 확산 기반 4개 모델과 순수 자기회귀 2개 모델에서 질문과 정답을 잇는 핵심 중간 개념이 명시적으로 언급되지 않아도 이미지로 드러났습니다. 나아가 'lens tuning'으로 선택한 은닉 상태를 V-lens를 통해 이미지로 지도 학습시키자, 대명사 지시 대상의 올바른 시각화 비율이 2~11%에서 86~94%로 상승했고, 정답 토큰을 직접 감독하지 않았음에도 텍스트 답변까지 개선되었습니다.",
+    "insights_ko": [
+      "모델 내부 추론 과정을 블랙박스 해석 도구 없이 이미지로 들여다볼 수 있다는 점에서, 해석 가능성(interpretability) 연구에 새로운 관찰 수단을 제공합니다. 별도 디코더를 학습하지 않는다는 점이 기존 logit lens류 방법과 구별되는 실용적 장점입니다.",
+      "시각적 중간 감독(visual supervision)이 텍스트 정답 품질까지 끌어올린다는 결과는, 통합 모델에서 이미지 생성 능력이 이해 능력을 강화하는 역방향 학습 신호로 쓰일 수 있음을 보여줍니다. 다만 추정컨대 대명사 등 특정 과제 중심 결과이므로 일반화 범위는 추가 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Unified models visualize hidden concepts behind their answers",
+    "tags": [
+      "멀티모달",
+      "해석성",
+      "추론"
+    ]
+  },
+  {
+    "id": "eb9192d925bc7d62",
+    "cluster_id": "k011232",
+    "title_original": "Gaspard: Expressive unified speech and gesture synthesis with continuous autoregressive flow-matching and decoupled classifier-free guidance",
+    "url": "https://arxiv.org/abs/2611.24862v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cv",
+    "source_name": "arXiv cs.CV",
+    "published": "2026-11-18T18:18:44+00:00",
+    "fetched_at": "2026-11-19T18:21:59.994037+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Gaspard는 음성과 제스처(동반 제스처)를 하나의 모델에서 함께 생성하는 통합 생성 모델로, 연속값 자기회귀(autoregressive) 방식에 다음 스텝 flow-matching 예측을 결합했습니다. 대규모 멀티모달 데이터셋 Seamless Interaction으로 학습되었으며, 기존의 음성 생성 후 제스처를 파생시키는 순차적 파이프라인과 달리 두 모달리티를 동시에 다룹니다. 음성과 제스처의 시간적 특성 차이를 반영해 모달리티별 예측 헤드와 두 스트림에 대한 분리형 classifier-free guidance를 도입했으며, 이로써 표현력을 높이고 연속 자기회귀 제스처 생성에서 발생하는 동역학 붕괴(dynamics collapse)를 완화했습니다.",
+    "insights_ko": [
+      "음성 생성이 제스처와 독립적으로 이뤄지는 기존 캐스케이드 구조의 한계를 넘어, 두 신호를 공동으로 생성해 발화와 몸짓의 동기화(synchrony)를 개선했다는 점이 핵심입니다. 실제 대화형 아바타·디지털 휴먼 파이프라인에서 음성과 제스처의 불일치 문제를 줄일 수 있는 구조적 대안을 제시합니다.",
+      "분리형 classifier-free guidance로 추론 시점에 음성과 제스처 각각의 영향력을 재조정하는 방식은 멀티모달 확산·흐름 기반 모델에 일반화 가능한 기법입니다. 다만 연속 자기회귀 생성의 동역학 붕괴 완화 효과는 객관·지각 평가에 의존하므로, 실제 서비스 적용 전 다양한 화자·언어에 대한 검증이 후속 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Gaspard unifies speech and gesture generation with autoregressive flow matching",
+    "tags": [
+      "멀티모달",
+      "음성",
+      "이미지생성",
+      "추론"
+    ]
+  },
+  {
+    "id": "4bfc0c72ff62c3f8",
+    "cluster_id": "k011226",
+    "title_original": "NereidVLA: Learning to Understand and Navigate the Underwater World",
+    "url": "https://arxiv.org/abs/2611.24864v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-11-18T18:19:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.994227+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "NereidVLA는 약 200만 건의 해양 시각-언어 데이터로 사전 학습한 Sea2Know 모델을 기반으로, 언어 지시에 따라 수중 로봇의 3차원 항법을 수행하는 vision-language-action 모델입니다. 로봇 궤적 쌍 없이 해양 공간 지식을 학습한 뒤, 시뮬레이션 수중 운동 역학에서 생성한 전문가 궤적으로 적응시켜 RGB 이력과 지시문을 이산 모션 토큰으로 변환하고 이를 3차원 궤적으로 디코딩합니다. 해양 공간 사전 학습은 시뮬레이션 성공률을 72.4%에서 84.4%로 높였고, 실제 실험실 수조에서 추가 미세 조정 없이 78.75%를 기록해 InternVLA-N1(47.50%)을 앞섰습니다.",
+    "insights_ko": [
+      "해양 시각-언어 데이터처럼 로봇 궤적이 붙지 않은 자료만으로도 공간 이해를 학습해 실제 항법 성능으로 옮길 수 있음을 보여줍니다. 수중 로봇처럼 궤적 수집이 비싼 영역에서 데이터 병목을 우회하는 현실적인 경로가 될 수 있습니다.",
+      "실험실 수조에서 미세 조정 없이 기존 모델을 크게 앞선 결과는 시뮬레이션 전이 성능 중심 평가에서 한 걸음 나아간 것입니다. 다만 단일 수조 실험이므로 해상 환경과 다양한 탁도·조류 조건으로의 일반화는 후속 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "NereidVLA learns underwater navigation from marine vision-language pretraining",
+    "tags": [
+      "멀티모달",
+      "에이전트",
+      "로보틱스",
+      "사전학습"
+    ]
+  },
+  {
+    "id": "c8a82f25279054b9",
+    "cluster_id": "k011220",
+    "title_original": "$Z$-sight: Unifying Vision-Language-Action and Latent World Modeling",
+    "url": "https://arxiv.org/abs/2611.24940v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-11-18T18:59:38+00:00",
+    "fetched_at": "2026-11-19T18:21:59.994365+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "Z-sight는 Vision-Language-Action(VLA) 모델과 잠재 공간 세계 모델링을 하나로 결합한 로봇 파운데이션 모델입니다. 기존 비디오 기반 월드 액션 모델은 픽셀 단위 영상 생성 비용이 크고, 최신 잠재 공간 정책은 중간 특징을 정렬하거나 고정된 타깃 인코더에 의존해 미래 예측이 VLM의 고유 특징 공간과 분리되는 한계가 있었습니다. Z-sight는 VLM이 현재를 인식하는 시각 토큰 공간에서 미래를 직접 예측하며, 미래 공간 토큰과 연속 행동을 Mixture-of-Transformers 구조에서 함께 디노이징합니다. 인간 영상과 로봇 궤적으로 학습되어 SIMPLE 벤치마크에서 81.9%, Unitree G1 6개 과제에서 73.3%의 성공률을 보고했습니다.",
+    "insights_ko": [
+      "픽셀 재구성과 외부 인코더 없이 VLM 자체의 시각 토큰 공간에서 미래를 예측한다는 점이 핵심 차별점입니다. 비디오 생성기의 연산 비용을 피하면서도 미래 예측과 행동 생성을 한 모델 안에서 정렬할 수 있다는 점에서 실시간 로봇 제어 적용 가능성을 높입니다.",
+      "청크당 110ms의 추론 속도와 휴머노이드 플랫폼(Unitree G1)에서의 성능 향상(+20.0p)은 이 접근이 실제 하드웨어 제어에 근접했음을 보여줍니다. 다만 보고된 수치는 저자 측 실험이며, 독립 재현과 장기 과제에서의 안정성은 후속 검증이 필요합니다.",
+      "WAM 계열과 잠재 공간 정책이 수렴하는 흐름으로, 향후 로봇 파운데이션 모델 경쟁이 '얼마나 많은 로봇 데이터를 모으느냐'에서 '세계를 어떤 표현 공간에서 예측하느냐'로 이동할 수 있다는 관전 포인트를 제시합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Unifying vision-language-action and latent world modeling in one robot model",
+    "tags": [
+      "에이전트",
+      "멀티모달",
+      "로보틱스",
+      "추론"
+    ]
+  },
+  {
+    "id": "67952d9a918d2536",
+    "cluster_id": "k011218",
+    "title_original": "Inside the Codex sandbox",
+    "url": "https://openai.com/index/inside-the-codex-sandbox",
+    "image_url": null,
+    "source_id": "openai_news",
+    "source_name": "OpenAI",
+    "published": "2026-11-18T08:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.994636+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "OpenAI가 코딩 에이전트 Codex가 사용자 기기에서 명령을 실행할 때 적용되는 샌드박스 구조를 공개했습니다. macOS, Linux, Windows 전반에서 사용자가 설정한 파일시스템 및 네트워크 제한을 강제하는 방식을 설명합니다. 본문 추출이 실패해 RSS 요약 정보에 기반한 내용이므로, 구체적인 구현 세부사항은 원문 확인이 필요합니다.",
+    "insights_ko": [
+      "에이전트형 코딩 도구가 로컬에서 임의 명령을 실행하려면 샌드박스가 핵심 안전장치가 됩니다. 파일시스템과 네트워크를 사용자가 직접 통제할 수 있게 한 점이 실사용 신뢰도를 좌우할 것으로 보입니다.",
+      "OS별(macOS, Linux, Windows) 격리 메커니즘을 모두 지원한다는 점은 플랫폼 간 일관된 보안 정책을 만드는 것이 얼마나 어려운지를 보여줍니다. 개발자 도구 시장에서 에이전트 보안의 표준 레퍼런스가 될지 주목할 만합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "OpenAI explains how Codex sandboxes commands across macOS, Linux, Windows",
+    "tags": [
+      "OpenAI",
+      "코딩",
+      "에이전트",
+      "보안"
+    ]
+  },
+  {
+    "id": "d061b4901aae9f2c",
+    "cluster_id": "k011111",
+    "title_original": "Cut generative AI costs: Code for rules, models for judgment",
+    "url": "https://aws.amazon.com/blogs/machine-learning/cut-generative-ai-costs-code-for-rules-models-for-judgment/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/17/ML-22259-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-17T21:14:55+00:00",
+    "fetched_at": "2026-11-19T18:21:59.994791+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "AWS Machine Learning 블로그는 생성형 AI 비용을 줄이는 첫 단계로 '모델 호출 자체가 필요한가'를 먼저 묻도록 권합니다. 입력 검증, 포맷 변환, 라우팅처럼 규칙으로 해결 가능한 단계는 코드로 처리하고, 판단이 필요한 단계만 분류용 모델이나 Amazon Bedrock의 적정 규모 모델에 맡기라는 것입니다. 이 방식은 호출 비용, 누적 지연, 출력의 비결정성을 함께 줄입니다.",
+    "insights_ko": [
+      "프로토타입 단계에서 편의상 모든 단계를 LLM에 맡기는 관행이 프로덕션 규모에서 가장 큰 비용 항목으로 바뀐다는 점이 핵심입니다. 모델 선택(어떤 모델을 쓸지)보다 앞서 모델 호출 여부를 판단하는 설계 순서를 제시한다는 점이 새롭습니다.",
+      "규칙으로 검증 가능한 작업은 결정성과 감사 가능성 측면에서도 유리하므로, 규제 산업에서 특히 적용 가치가 큽니다. 다만 '단일 답을 고정 목록에서 고르는' 라우팅·분류 단계를 위해 구조화 출력, 임베딩 유사도, 확신도 기반 에스컬레이션 등 중간 계층을 설계해야 한다는 관점이 실무적입니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Skip the model when a rule can do the job to cut AI costs",
+    "tags": [
+      "에이전트",
+      "추론",
+      "보안"
+    ]
+  },
+  {
+    "id": "2e6cfdff601bc89d",
+    "cluster_id": "k011185",
+    "title_original": "The geometry of neural network decision boundaries",
+    "url": "https://arxiv.org/abs/2611.24557v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_stat_ml",
+    "source_name": "arXiv stat.ML",
+    "published": "2026-11-18T14:57:06+00:00",
+    "fetched_at": "2026-11-19T18:21:59.994947+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "이 논문은 신경망 결정 경계(decision boundary)를 고차원 입력 공간에서 직접 시각화·측정하는 방법을 제안합니다. 기존 투영 기반 기법이 유발하는 왜곡을 피하면서 경계의 곡률과 입력 샘플까지의 거리를 분석했습니다. 분석 결과, 경계 거리는 부분공간이 커질수록 완만하게 증가하며 일관된 곡률을 보여, 결정 경계가 큰 연속 부분공간 안에서 입력 샘플 가까이에 존재함을 시사합니다. 또한 적대적 학습 후 데이터셋 샘플 근처에서 경계 거리와 곡률이 줄어드는 정도를 정량화했으며, 경계 거리와 곡률에는 아키텍처나 테스트셋 정확도보다 학습 방법론이 훨씬 큰 영향을 준다고 보고합니다.",
+    "insights_ko": [
+      "결정 경계가 입력 샘플에 가깝게 놓여 있다는 관찰은 적대적 취약성이 왜 구조적으로 발생하는지에 대한 기존 이론들을 검증하거나 반박하는 실증 근거가 됩니다. 투영 왜곡을 피한 측정이라는 점에서 해석 연구의 신뢰도를 높입니다.",
+      "학습 방법론이 아키텍처보다 경계 기하에 더 강하게 작용한다는 결과는, 모델 구조를 키우기보다 학습 목표와 강건성 기법에 투자하는 것이 해석 가능성과 안전성 측면에서 더 효과적일 수 있음을 시사합니다. 후속 연구는 이 방법을 다른 모달리티와 대규모 모델에 적용해 일반화 여부를 확인할 필요가 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Neural network decision boundaries measured directly in high-dimensional input space",
+    "tags": [
+      "해석성",
+      "안전성",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "09acfc6d2f1f8fa5",
+    "cluster_id": "k011292",
+    "title_original": "Induction Head Origins of SLAM-ASR Speech Recognition Models",
+    "url": "https://arxiv.org/abs/2611.24721v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-11-18T16:40:52+00:00",
+    "fetched_at": "2026-11-19T18:21:59.995095+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "SLAM-ASR은 동결된 언어모델에 작은 인코더-임베딩 매핑만 붙여 음성인식을 수행하는 구조입니다. 이 연구는 그 성능의 원인을 찾아, 동결된 LM 내부의 induction head가 음성 임베딩을 전사 토큰으로 매핑하는 데 핵심적으로 쓰인다는 것을 보였습니다. 또한 일부 head 쌍이 주의(attention) 노이즈를 상쇄하고 직전에 생성된 단어에 주의를 집중시키는 제한된 형태의 차분(differential) 어텐션처럼 작동하며, 이를 활용하면 잡음이 섞인 오디오에서 전사 품질을 높일 수 있다고 제시합니다.",
+    "insights_ko": [
+      "'언어모델이 음성인식에 충분한 지식을 가진다'는 막연한 전제를 넘어, 구체적인 어텐션 헤드 수준에서 메커니즘을 규명했다는 점이 새롭습니다. 블랙박스 성능을 해석 가능한 회로로 설명하려는 해석성 연구의 흐름과 맞닿아 있습니다.",
+      "induction head가 텍스트의 반복 복사뿐 아니라 음성-텍스트 정렬에도 재사용된다는 발견은, 멀티모달 확장 시 LM 내부의 범용 회로를 재활용할 수 있음을 시사합니다. 다만 본 요약은 초록 기준이므로 실험 범위와 일반화 정도는 원문 확인이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Induction heads drive speech recognition in frozen language models",
+    "tags": [
+      "추론",
+      "멀티모달",
+      "해석성",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "b2511df3a18229c8",
+    "cluster_id": "k011294",
+    "title_original": "Openhagen Worlds: Calibrated Environments for Measuring and Training Scientific Discovery Agents",
+    "url": "https://arxiv.org/abs/2611.24711v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-11-18T16:36:18+00:00",
+    "fetched_at": "2026-11-19T18:21:59.995226+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Openhagen Worlds는 실험을 설계하고 결과로부터 추론해 과학적 발견을 수행하는 에이전트를 측정·훈련하기 위한 27개 절차적 생성 환경 모음입니다. 각 환경은 숨겨진 정답을 결정론적 검증기로 채점하며, 채점 규칙을 명시하고 난이도 178단계를 오라클·비연역적 정책·단축 전략의 성공률 기준으로 보정했습니다. 최신 모델인 DeepSeek V4.1 Flash는 최대 추론 설정에서도 84개 프런티어 과제 중 57개만 해결해 오라클(79)에 못 미쳤고, 특히 8단계 캠페인에서 개선 여지가 가장 컸습니다. 9B 모델은 온-폴리시 전문가 반복 학습으로 훈련된 가족 내 성공률이 0.090에서 0.148로 올랐으며 GPQA Diamond 성능 저하는 감지되지 않았습니다.",
+    "insights_ko": [
+      "기존 발견 벤치마크가 지식 회상, 숨겨진 채점 규칙, 단축 정책을 구분하지 못했던 문제를 보정된 난이도와 명시적 채점 규칙으로 해결하려는 시도로, 에이전트의 실험 설계 능력을 순수하게 측정할 수 있는 기반을 제시합니다.",
+      "추론 노력과 토큰 예산을 크게 늘려도 프런티어 캠페인(특히 다단계)에서 성능이 오라클 수준에 도달하지 못하므로, 장기 실험 계획과 결과 기반 가설 갱신이 현재 에이전트의 주된 병목임을 시사합니다. 소형 모델도 전문가 반복 학습으로 개선 가능하다는 점은 훈련 가능한 과학 에이전트 연구의 실용성을 보여줍니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Calibrated environments measure and train scientific discovery agents",
+    "tags": [
+      "에이전트",
+      "벤치마크",
+      "추론",
+      "강화학습",
+      "DeepSeek"
+    ]
+  },
+  {
+    "id": "e8024c8a088625c5",
+    "cluster_id": "k011244",
+    "title_original": "Measuring and Improving Transfer of Neural Surrogates for Vehicle Aerodynamics",
+    "url": "https://arxiv.org/abs/2611.24843v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-11-18T18:07:43+00:00",
+    "fetched_at": "2026-11-19T18:21:59.995355+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "자동차 공력 해석용 신경망 대리모델(neural surrogate)의 전이 학습 성능을 DrivAerML 사전학습 모델 5종과 4개 독립 타깃 데이터셋으로 대규모 비교한 연구입니다. 미세조정(fine-tuning)은 80개 비교 중 절반 미만에서만 처음부터 학습보다 나았고, 원본 데이터셋 정확도는 오히려 떨어뜨렸습니다. 이에 연구진은 기하·기울기 정렬 기반의 소스 리플레이 기법 GeoReplay를 제안했으며, 80개 설정 중 77개에서 미세조정의 원본 데이터 오차를 낮추면서 타깃 정확도는 동등하게 유지했습니다.",
+    "insights_ko": [
+      "CFD 대체 모델이 차종마다 처음부터 다시 학습해야 하는 병목을 지적하며, 사전학습 모델의 실질적 재사용 가능성이 아직 검증되지 않았음을 체계적으로 보여준 점이 중요합니다. 기하·솔버·난류 모델·유동 조건이 모두 다른 데이터에서의 평가라 실무적 신뢰도가 높습니다.",
+      "GeoReplay의 핵심인 '타깃 기울기와 일치할 때만 소스 업데이트를 반영하는' 방식은 파인튜닝 시 발생하는 망각(catastrophic forgetting) 문제를 완화하는 실용적 해법으로, 다른 물리 시뮬레이션 도메인의 전이 학습에도 응용 가능성이 있습니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Neural surrogates for vehicle aerodynamics transfer poorly without replay",
+    "tags": [
+      "자율주행",
+      "제조",
+      "사전학습",
+      "파인튜닝",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "5c73732d0c0d8ab3",
+    "cluster_id": "k011243",
+    "title_original": "Atomic MathReasoner: Instance-Level Composition of Atomic Reasoning Skills for Mathematical LLMs",
+    "url": "https://arxiv.org/abs/2611.24846v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_lg",
+    "source_name": "arXiv cs.LG",
+    "published": "2026-11-18T18:08:08+00:00",
+    "fetched_at": "2026-11-19T18:21:59.995476+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "수학 문제마다 요구되는 추론 기술이 다르다는 점에 착안해, 원자적(atomic) 추론 스킬을 조합하는 Atomic MathReasoner(AMR)가 제안되었습니다. 기능별 LoRA 전문가 라이브러리를 학습한 뒤 검증 데이터에서 무기울기 최적화로 저손실 조합 프로토타입을 찾고, 이를 가벼운 라우터로 증류해 문제마다 적절한 조합을 선택합니다. AtomicMath 벤치마크에서 Qwen2.5-Math-Instruct-7B의 평균 정확도를 Level 1에서 64.4%→68.1%, Level 2에서 59.3%→63.7%로 끌어올렸습니다.",
+    "insights_ko": [
+      "수학 추론을 하나의 통짜 능력으로 보지 않고 인스턴스 단위로 스킬을 골라 쓰는 접근은, 모델 크기를 키우지 않고도 특화 모듈을 재조합해 성능을 얻는 방향을 제시합니다. 특히 온라인 최적화 없이 라우터만 추론 시 실행한다는 점에서 실서비스 적용 비용이 낮습니다.",
+      "논리 추론 평균이 39.4%에서 46.8%로 크게 오른 결과는 조합 전략이 단순 계산 정확도보다 복합 추론 단계에서 더 효과적일 수 있음을 시사합니다. 다만 결과가 단일 벤치마크와 특정 모델(Qwen2.5-Math-Instruct-7B) 중심이라, 다른 모델·데이터셋으로의 일반화 여부는 후속 검증이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Routing atomic math skills per problem boosts LLM reasoning accuracy",
+    "tags": [
+      "추론",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "02983c5deae4c2b2",
+    "cluster_id": "k011258",
+    "title_original": "How Stretto built an AI voice agent with Amazon Nova 2 Sonic",
+    "url": "https://aws.amazon.com/blogs/machine-learning/how-stretto-built-an-ai-voice-agent-with-amazon-nova-2-sonic/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/16/ML-21890-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T18:58:42+00:00",
+    "fetched_at": "2026-11-19T18:21:59.995748+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Stretto는 파산 상담 사이트 Bankruptcy.com의 웹 폼 리드를 대체하기 위해 AWS 및 CI&T와 협력해 AI 음성 에이전트 'Tara'를 구축했습니다. Tara는 Amazon Bedrock의 음성-음성 모델 Amazon Nova 2 Sonic 기반으로 전화 파산 인테이크 인터뷰를 진행하며 구조화된 재무 데이터를 실시간으로 추출하고, 변호사가 정한 규칙에 따라 리드를 분류합니다. 기존 솔루션 대비 음성 분당 비용을 95% 절감했다고 보고됐습니다.",
+    "insights_ko": [
+      "웹 폼의 짧은 문항은 이탈을 부르지만 사람 상담원 인력은 비싸서, 음성 AI가 '긴 인터뷰를 저비용으로 대체'하는 중간 지점을 채운다는 점이 핵심입니다. 민감한 금융 정보를 대화형으로 받아내는 것이 리드 품질(변호사 선호도)을 직접 끌어올리는 구조입니다.",
+      "단일 speech-to-speech 모델로 STT·LLM·TTS 체인을 줄여 지연시간과 끊김 처리(barge-in)를 개선한 사례로, 음성 에이전트 설계에서 파이프라인 단순화가 비용과 UX를 동시에 개선할 수 있음을 보여줍니다. 다만 비용 절감 수치는 보고된 자체 추정이므로 일반화에는 주의가 필요합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Stretto replaces bankruptcy web forms with a Nova 2 Sonic voice agent",
+    "tags": [
+      "음성",
+      "에이전트",
+      "금융",
+      "법률"
+    ]
+  },
+  {
+    "id": "9aabd80c1d8f281a",
+    "cluster_id": "k011225",
+    "title_original": "Learning to Interact in Multi-Agent Self-Play for Controllable Autonomous Driving Scenario Generation",
+    "url": "https://arxiv.org/abs/2611.24876v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-11-18T18:23:29+00:00",
+    "fetched_at": "2026-11-19T18:21:59.995896+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "다중 에이전트 셀프 플레이로 학습된 자율주행 정책이 특정 안전 위험 상황(공격적 꼬리물기, 적대적 끼어들기 등)을 생성하도록 제어하는 방법을 제안한 논문입니다. 기존 목표 조건부 셀프 플레이는 정적 지도 위치 목표에만 의존해 복잡한 에이전트 간 상호작용을 안정적으로 만들지 못했으나, 본 연구는 에이전트 상대적 동적 목표를 도입해 이를 해결합니다. 정책을 확장된 목표 표현에 조건화함으로써 정적 목표 기준선으로는 시뮬레이션할 수 없는 상호작용 주행 행동을 만들어냈다고 보고합니다.",
+    "insights_ko": [
+      "시나리오 생성의 제어 단위가 '어디로 갈 것인가'(정적 좌표)에서 '다른 에이전트에 대해 무엇을 할 것인가'(상대적 동적 목표)로 옮겨간다는 점이 핵심 기여입니다. 이는 롱테일 엣지케이스를 체계적으로 합성하려는 AV 테스트 파이프라인에서 실용성이 높은 방향입니다.",
+      "초록만으로는 평가 지표, 벤치마크, 실차 검증 여부, 생성된 시나리오의 현실성과 다양성이 확인되지 않습니다. 실제 테스트 도구로 채택되려면 안전 중요도 지표와 실제 사고 데이터와의 정합성 검증이 후속 관전 포인트가 될 것입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Dynamic agent-relative goals enable controllable driving edge-case generation",
+    "tags": [
+      "자율주행",
+      "멀티모달",
+      "강화학습",
+      "에이전트",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "6f0e473998f566f9",
+    "cluster_id": "k011202",
+    "title_original": "Knowing What You Know: A Trait Theory of Reviewer Value in Human-AI Cognitive Systems",
+    "url": "https://arxiv.org/abs/2611.24932v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:55:07+00:00",
+    "fetched_at": "2026-11-19T18:21:59.996030+00:00",
+    "cluster_size": 2,
+    "also_covered_by": [],
+    "summary_ko": "이 논문은 AI 모델과 인간 리뷰어가 같은 판단을 공동으로 수행할 때 인간이 여전히 가치를 더하는지를 '메타인지적 보정(metacognitive calibration)'이라는 단일 특성으로 설명하는 특성 이론을 제시합니다. 리뷰어의 행동적 확신과 실제 판단의 정확도가 얼마나 일치하는지가 가치를 결정하며, 활동량·속도·합의도·근속기간은 그 자체로 예측력이 없다고 주장합니다. 6개월간 AI 보조 회계 시스템의 541,621건 리뷰 이벤트(483명)를 분석해, 행동 기반 전문성 지표가 오히려 진짜 전문가보다 과신하는 집단을 높게 평가하는 역전 현상을 확인했습니다.",
+    "insights_ko": [
+      "행동 텔레메트리만으로 '숙련된 리뷰어'를 고르면 과신 집단을 전문가로 오인한다는 점은, 인간 참여형(human-in-the-loop) AI 시스템의 품질 관리 지표를 재설계해야 함을 시사합니다. 빠르고 수정이 적은 패턴은 보정된 전문가와 자신만만한 초보자를 구별하지 못하므로, 결과(정정 생존율 등)로 게이팅해야 의미가 있습니다.",
+      "모델의 자기 지식(self-knowledge)과 인간의 보정을 같은 구성 개념으로 보고 항목별로 더 잘 보정된 쪽에 판단을 위임하는 설계는, 인간-AI 협업에서 역할 분담을 데이터 기반으로 정하는 새로운 방향입니다. 다만 다수결 집계에서는 개별 리뷰어의 인과적 가치가 식별 불가능하다는 한계도 함께 제시되어, 실무 도입 시 집계 방식 설계가 핵심 변수가 될 것입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Reviewer value depends on calibration, not activity, in human-AI systems",
+    "tags": [
+      "에이전트",
+      "안전성",
+      "해석성",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "796de02486a1d6a9",
+    "cluster_id": "k011194",
+    "title_original": "Trump abandons his FDA nominee, and Senate scraps vote on his NSF pick",
+    "url": "https://arstechnica.com/health/2026/11/trump-abandons-his-fda-nominee-and-senate-scraps-vote-on-his-nsf-pick/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/09/GettyImages-2296270903-1024x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T22:08:57+00:00",
+    "fetched_at": "2026-11-19T18:21:59.996150+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "트럼프 행정부가 백악관 국내정책 보좌관 Heidi Overton의 FDA commissioner 지명을 철회했습니다. 그녀는 백신, 낙태, 전자담배, 피임 관련 입장을 두고 여야 모두에게 비판을 받았고, 9월 인준 청문회에서 질문 대부분에 답을 회피했습니다. 같은 날 NSF 국장 후보에 대한 상원 표결도 취소되면서 하루 사이 두 명의 지명자가 연달아 좌초됐습니다.",
+    "insights_ko": [
+      "FDA 수장 인선이 무산된 것은 공화당 내부 반낙태 진영과 주류 의학계 간 충돌이 행정부 인사 과정에 직접 걸림돌이 된 사례입니다. 인준 과정에서 '약속 요구'가 철회 사유로 이어졌다는 점은 향후 보건 규제 인사에서도 정치적 조건이 더 강하게 작용할 가능성을 보여줍니다.",
+      "현재 진행 중인 미프리스톤(mifepristone) 안전성 재검토와 백신 정책이 FDA 리더십 공백과 맞물리면서, 규제 일정과 신약·백신 승인 절차의 예측 가능성이 낮아질 수 있다는 점을 관전 포인트로 볼 필요가 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Trump withdraws FDA nominee as Senate also scraps NSF vote",
+    "tags": [
+      "규제"
+    ]
+  },
+  {
+    "id": "c9a98cbc45b01426",
+    "cluster_id": "k011223",
+    "title_original": "Render the Robot, Generate the World: One Video World Model Across Embodiments",
+    "url": "https://arxiv.org/abs/2611.24925v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ro",
+    "source_name": "arXiv cs.RO",
+    "published": "2026-11-18T18:52:28+00:00",
+    "fetched_at": "2026-11-19T18:21:59.996279+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Doppel은 로봇 팔·양손 로봇·휴머노이드·사람 손 등 여러 신체 형태를 아우르는 단일 비디오 월드 모델입니다. 카메라 정렬된 미래 신체 자세 렌더링과 수치 액션 궤적을 조건으로 받아, 의도된 움직임은 신체가 직접 제공하고 모델은 물체의 움직임과 상호작용에 따른 환경 변화에 집중합니다. 카메라 외부 파라미터가 없는 로봇 데이터셋에는 카메라 포즈를 복원해 렌더링을 관측 영상에 맞추는 방식을 적용했으며, 약 600시간 분량의 8개 데이터셋을 임베디먼트 라벨 없이 하나의 백본으로 공동 학습했습니다.",
+    "insights_ko": [
+      "신체 운동을 기하·운동학 렌더링으로 명시적으로 주입하면, 모델이 '몸이 어떻게 움직일지'를 학습하는 부담이 줄고 '환경이 어떻게 반응할지'에 용량을 쓸 수 있다는 점이 핵심입니다. 로봇 월드 모델 설계에서 액션을 수치로만 넣던 관행에 대한 대안이 될 수 있습니다.",
+      "렌더링이 임베디먼트와 액션 공간을 가로지르는 공통 시각 인터페이스 역할을 하므로, 서로 다른 로봇과 사람 데이터를 한 모델로 묶는 데이터 스케일링 경로가 열립니다. 다만 해당 논문은 Doppel-8이 Doppel-3 대비 여섯 개 평가셋 중 네 개에서만 개선됐다고 보고해, 이종 데이터 통합의 효과가 아직 제한적일 수 있음을 보여줍니다.",
+      "정량 수치는 로봇 팔 3개 데이터셋 기준 액션 전용 베이스라인 대비 PSNR 1.00dB(보류 궤적), 1.20dB(분포 외) 향상으로 보고됐습니다. 프로젝트 페이지와 세부 실험 조건은 원문 확인이 필요합니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "One video world model renders robot bodies to predict across embodiments",
+    "tags": [
+      "멀티모달",
+      "로보틱스",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "a565b29408b4e167",
+    "cluster_id": "k011256",
+    "title_original": "How Social Department built culture-aware video discovery",
+    "url": "https://aws.amazon.com/blogs/machine-learning/how-social-department-built-culture-aware-video-discovery/",
+    "image_url": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/11/16/ML-21816-featured-image.png",
+    "source_id": "aws_ml_blog",
+    "source_name": "AWS Machine Learning",
+    "published": "2026-11-18T19:27:56+00:00",
+    "fetched_at": "2026-11-19T18:21:59.996405+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Social Department는 엔터테인먼트 마케팅용 AI 운영체제로, 수만 개 영상 자산에서 '공유될 장면'을 찾는 문제를 해결하기 위해 편집 판단을 실행 가능한 검색 파이프라인으로 인코딩했습니다. 그 결과물인 QuickSearch는 Shareable Scenes, Quotable Quotes, Memeable Moments, Trend Align의 네 가지 단일 동작 쿼리로 구성되며, 마케터가 원하는 클립을 굳이 설명하지 않아도 찾아줍니다. 모델은 Amazon Bedrock에서 실행되어 고객 데이터가 AWS 데이터 경계 안에 머물고, 최종 게시는 사람의 승인을 거칩니다.",
+    "insights_ko": [
+      "단순한 의미 검색(semantic search)은 '커피잔을 든 인물'처럼 설명 가능한 질의에만 답할 수 있어, 실제 캠페인에 중요한 '어느 장면이 퍼질 것인가'라는 판단형 질문에는 한계가 명확합니다. 편집 기준과 외부 트렌드 신호를 검색 레이어에 결합한 점이 핵심 차별점입니다.",
+      "콘텐츠 이해 파이프라인과 트렌드 수집 파이프라인을 독립적으로 운영하고 사용자가 액션을 선택할 때에만 결합하는 설계는, 시간 단위로 변하는 외부 신호와 라이브러리 변화 주기를 분리해 비용과 신선도를 동시에 관리하려는 실용적 아키텍처로 보입니다. 'AI는 제안하고 사람이 결정한다'는 원칙과 생성물을 원문과 대조하는 코드 검증도 함께 주목할 만합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Social Department builds culture-aware video discovery on AWS Bedrock",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "에이전트",
+      "멀티모달",
+      "RAG"
+    ]
+  },
+  {
+    "id": "68e2ae2a24d58ba5",
+    "cluster_id": "k011204",
+    "title_original": "Agentic Harness Engineering Beta: Requirement-Centered Evolution of Agent Harnesses",
+    "url": "https://arxiv.org/abs/2611.24924v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_ai",
+    "source_name": "arXiv cs.AI",
+    "published": "2026-11-18T18:52:13+00:00",
+    "fetched_at": "2026-11-19T18:21:59.996536+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "arXiv에 공개된 AHE-Beta 논문은 에이전트 하네스(agent harness)를 실제 사용자 요구사항 중심으로 진화시키는 루프를 제안합니다. 시뮬레이션 사용자가 다중 턴 상호작용 중 명시적·암묵적 요구를 이슈로 제기하고, 팀 기반 수정으로 일반화 가능한 변경을 구현하며, 검증된 요구를 해결하고 리뷰를 통과한 변경만 병합합니다. 보류 과제에서 pass@1이 21.9%에서 33.3%로 상승했고 토큰은 40.8% 적게 사용했으며, 블라인드 사람 A/B 테스트에서도 48쌍 중 31쌍에서 선호를 받았습니다.",
+    "insights_ko": [
+      "기존 하네스 진화는 벤치마크 점수로 변경을 고르고 단일 에이전트가 패치를 만들어 특정 과제에 치우친 국소 최적해에 빠지기 쉬웠습니다. 요구사항을 선택 기준으로 삼는 방식은 벤치마크 과적합을 줄이려는 구조적 전환으로 읽힙니다.",
+      "사람 A/B 선호와 사용자 시뮬레이터의 방향성이 일치했다는 점이 핵심입니다. 시뮬레이터 기반 평가가 실제 사용자 만족을 어느 정도 대리할 수 있다는 근거를 제공하지만, 48쌍 규모와 자체 보고 수치라는 한계도 함께 봐야 합니다.",
+      "GLM-5.3, DeepSeek-V4.1-Flash로의 전이 이득이 관찰되어 특정 모델에 종속되지 않는 하네스 개선 기법일 가능성을 보여줍니다. 다만 향후 에이전트 평가 체계가 벤치마크 점수에서 요구 충족도로 옮겨갈지 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "Requirement-centered harness evolution boosts agent pass rates while cutting tokens",
+    "tags": [
+      "에이전트",
+      "벤치마크",
+      "오픈소스",
+      "추론"
+    ]
+  },
+  {
+    "id": "c03674636ed4a8f1",
+    "cluster_id": "k011191",
+    "title_original": "How to tell a cyberattack from a plain old outage",
+    "url": "https://arstechnica.com/security/2026/11/how-to-tell-a-cyberattack-from-a-plain-old-outage/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2201630098-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-19T11:13:01+00:00",
+    "fetched_at": "2026-11-19T18:21:59.996772+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "지난주 미국에서 Microsoft Exchange 대규모 장애, FAA 기술 문제로 인한 항공편 중단, JPMorgan Chase 소프트웨어 장애, United Airlines 시스템 오류, NSA 기밀망 다운타임이 4 영업일 연속 발생해 사이버 공격 의혹이 확산됐습니다. 그러나 현재까지 이들 장애가 서로 연관되거나 해커의 소행이라는 증거는 없습니다. 보안 전문가들은 대부분의 디지털 장애가 악의적 공격이 아니라 복잡한 IT 시스템의 일상적 결함에서 비롯된다고 설명합니다.",
+    "insights_ko": [
+      "짧은 기간 주요 기관에서 연쇄적으로 발생한 장애가 대중의 불안을 증폭시키며, 기술 장애와 사이버 공격을 구분하는 객관적 판단 기준의 중요성이 커지고 있습니다. 이란과의 군사적 긴장과 AI 기반 해킹 우려가 겹치면서 우연한 장애조차 공격으로 해석되는 경향이 나타납니다.",
+      "Cloudflare CEO의 발언처럼 복잡한 시스템에서는 장애가 일상적 노이즈라는 점이 강조됩니다. 금융, 항공, 국방 등 핵심 인프라일수록 상호 의존성이 높아 한 곳의 결함이 연쇄 장애처럼 보일 수 있어, 사고 원인 분석과 투명한 공지 체계가 신뢰 유지에 필수적입니다."
+    ],
+    "category": "community",
+    "importance_score": 3,
+    "subtitle_en": "Most outages are accidents, not cyberattacks, experts say",
+    "tags": [
+      "보안",
+      "데이터센터"
+    ]
+  },
+  {
+    "id": "80bdab190c6dbdb4",
+    "cluster_id": "k011279",
+    "title_original": "Nvidia created a weird bit of intrigue by not filing a routine SEC report",
+    "url": "https://techcrunch.com/2026/11/18/nvidia-created-a-weird-bit-of-intrigue-by-not-filing-a-routine-sec-report/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2025/04/GettyImages-2205754389.jpg?w=1024",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T21:57:40+00:00",
+    "fetched_at": "2026-11-19T18:21:59.996917+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Nvidia가 화요일 분기 실적 발표에서 통상 당일 제출하던 SEC 정기 보고서(10-Q)를 '수주 내' 제출하겠다고 밝혀 이례적 지연을 알렸습니다. 회사는 이유를 명확히 밝히지 않았으나, 후속 질의에 대해 진행 중인 황젠슨 CEO 관련 내부조사와 추가 위험요인 공시 필요 여부가 영향을 준 것으로 전해졌습니다. 같은 날 WSJ는 SEC가 공시의 투자자 오도 여부를 조사 중이라고 보도했습니다.",
+    "insights_ko": [
+      "10-Q는 소송·위험요인 등 실적 보도자료보다 훨씬 상세한 정보를 담기에, 제출 지연은 회사가 공개해야 할 법적 리스크가 늘었다는 신호로 읽힐 여지가 큽니다. 시장은 이 보고서에서 무엇이 드러날지에 주목할 것입니다.",
+      "AI 칩 수출통제 우회 의혹, 의회·DOJ 조사, 경영진 관련 내부조사, SEC 조사가 동시에 겹치며 거버넌스 리스크가 기술·공급망 이슈와 결합되는 양상입니다. 이는 향후 규제 강화와 기업 공시 기준 강화의 선례가 될 가능성이 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Nvidia delays routine SEC filing amid investigations",
+    "tags": [
+      "NVIDIA",
+      "GPU",
+      "규제",
+      "수출통제"
+    ]
+  },
+  {
+    "id": "a1de396d3910fa2e",
+    "cluster_id": "k011096",
+    "title_original": "Le Groupe Figaro and OpenAI partner to bring Le Figaro journalism to ChatGPT",
+    "url": "https://openai.com/index/le-groupe-figaro-and-openai-announce-partnership",
+    "image_url": null,
+    "source_id": "openai_news",
+    "source_name": "OpenAI",
+    "published": "2026-11-18T00:00:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.997039+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "프랑스 언론그룹 Le Groupe Figaro가 OpenAI와 파트너십을 맺고, Le Figaro의 기사를 요약과 발췌 형태로 ChatGPT에 제공하기로 했습니다. 각 답변에는 원문 기사로 연결되는 링크가 함께 표시됩니다. 본문 추출에 실패해 RSS 요약 정보만으로 작성된 내용입니다.",
+    "insights_ko": [
+      "언론사가 AI 플랫폼에 콘텐츠를 라이선스하며 트래픽을 원문으로 돌려보내는 구조는, 생성형 검색 시대의 언론 수익모델 협상 사례로 참고가치가 큽니다.",
+      "유럽 주요 언론이 OpenAI와 직접 계약을 맺은 사례로, 저작권·보상 체계를 두고 진행 중인 EU 규제 논의와 맞물려 후속 파트너십 확산 여부를 지켜볼 필요가 있습니다.",
+      "다만 요약·발췌 범위와 링크 노출 방식의 세부 조건은 본문 정보가 없어 확인할 수 없으므로, 실제 트래픽 효과는 추후 공개 수치로 검증해야 합니다."
+    ],
+    "category": "business",
+    "importance_score": 3,
+    "subtitle_en": "Le Figaro partners with OpenAI to bring journalism into ChatGPT",
+    "tags": [
+      "OpenAI",
+      "GPT-4",
+      "검색",
+      "규제"
+    ]
+  },
+  {
+    "id": "53453b71f99b11c7",
+    "cluster_id": "k011283",
+    "title_original": "Snapchat now lets developers build AR Lenses with AI assistants like Claude Code and Cursor",
+    "url": "https://techcrunch.com/2026/11/18/snapchat-now-lets-developers-build-ar-lenses-with-ai-coding-assistants-like-claude-code-and-cursor/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2024/06/snapchat-getty.jpg?w=1200",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T19:56:39+00:00",
+    "fetched_at": "2026-11-19T18:21:59.997164+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Snapchat이 Lens 크리에이터가 Claude Code, Cursor, Codex 같은 AI 코딩 어시스턴트로 AR Lens를 만들 수 있는 'Easy Lens CLI'를 공개했습니다. 기존 웹·모바일 기반 Easy Lens 도구의 단일 프롬프트 생성 방식을 개발자의 기존 워크플로에 옮긴 것으로, AI가 기술 작업을 맡고 창작자는 기획에 집중하는 구조입니다. 개발자는 Lens+ Payouts 프로그램을 통해 수익을 얻을 수 있으며, Snapchat은 지난달 Lens+ 크리에이터에게 180만 달러를 지급했다고 밝혔습니다.",
+    "insights_ko": [
+      "AR 콘텐츠 제작의 진입장벽을 낮춰 Snapchat 전용 개발 도구를 새로 배우지 않아도 되는 구조를 만든 점이 핵심입니다. 이미 AI 코딩 도구에 익숙한 개발자 풀이 플랫폼 공급자로 유입될 가능성이 커졌습니다.",
+      "플랫폼 측면에서는 AR 빌딩 블록 100개 이상과 AI 에셋 생성기 50개를 AI 어시스턴트가 직접 호출하도록 설계해, 콘텐츠 공급량을 늘리려는 전략으로 읽힙니다. 수익 프로그램과 결합되면 AI 기반 제작 도구 경쟁이 소셜 플랫폼 생태계로 확장되는 신호로 볼 수 있습니다.",
+      "기사 기준으로 게임 제작 시간이 아이디어에서 게시까지 하루로 줄어든다는 주장은 Snapchat의 자체 설명이므로, 실제 품질과 수익 규모는 출시 후 추가 사례로 검증이 필요합니다."
+    ],
+    "category": "product",
+    "importance_score": 3,
+    "subtitle_en": "Snapchat lets developers build AR Lenses with AI coding assistants",
+    "tags": [
+      "코딩",
+      "에이전트",
+      "멀티모달",
+      "생산성"
+    ]
+  },
+  {
+    "id": "734339654a32d098",
+    "cluster_id": "k011280",
+    "title_original": "Palmer Luckey warns AI-powered cyberattacks are outpacing defenses: ‘It’s time to start running’",
+    "url": "https://techcrunch.com/2026/11/18/palmer-luckey-warns-ai-powered-cyberattacks-are-outpacing-defenses-its-time-to-start-running/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2305757563-Medium.jpeg?w=594",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T21:34:13+00:00",
+    "fetched_at": "2026-11-19T18:21:59.997286+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Oculus 창업자이자 Anduril 공동창업자인 Palmer Luckey가 뉴욕타임스 DealBook 서밋에서, AI 기반 사이버 공격이 노후화된 기술 시스템의 방어 속도를 앞지르고 있다고 경고했습니다. 그는 최근 잇따른 기술 장애의 배경에 AI가 만들어내는 새로운 익스플로잇과 이에 대응하지 못하는 구형 시스템이 있다고 보았으며, 북한 등 적대 세력이 전략적·금전적 목적으로 이 격차를 노리고 있다고 주장했습니다. 그는 AI를 방어에 가장 효과적으로 활용하는 쪽이 장기적으로 유리하지만, 방어 측이 훨씬 빠르게 움직여야 한다고 강조했습니다.",
+    "insights_ko": [
+      "공격 측은 AI를 활용해 빠르게 취약점을 발굴하고 익스플로잇을 만들지만, 레거시 시스템은 신기술 도입이 느려 격차가 구조적으로 벌어지고 있다는 점이 핵심입니다. 이는 보안 예산의 우선순위를 패치 자동화와 시스템 현대화 쪽으로 재편할 필요성을 시사합니다.",
+      "부사장 J.D. Vance가 관련 회의로 행사를 취소한 점은 이 문제가 단순 기업 이슈를 넘어 국가 안보 의제로 격상되었음을 보여줍니다. 향후 AI 기반 방어 도구와 레거시 전환 관련 정책·조달 움직임을 주목할 필요가 있습니다."
+    ],
+    "category": "policy",
+    "importance_score": 4,
+    "subtitle_en": "Luckey warns AI cyberattacks are outpacing outdated defenses",
+    "tags": [
+      "보안",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "8abf6df83f52c15a",
+    "cluster_id": "k011290",
+    "title_original": "On-Policy Morphing into Hybrid Attention Models",
+    "url": "https://arxiv.org/abs/2611.24809v1",
+    "image_url": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "source_id": "arxiv_cs_cl",
+    "source_name": "arXiv cs.CL",
+    "published": "2026-11-18T17:45:51+00:00",
+    "fetched_at": "2026-11-19T18:21:59.997410+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "사전학습된 Transformer를 전체 어텐션과 선형 어텐션을 섞은 하이브리드 모델로 변환할 때, 어느 레이어에 전체 어텐션을 남길지 고르는 기법 FlashMorph2가 제안되었습니다. 기존 FlashMorph가 가진 두 가지 off-policy 불일치(연속 보간·교사 강제 은닉상태와 고정된 가중치)를 지적하고, 이산 하이브리드 구조를 실제 은닉상태로 끝까지 평가하며 레이어 선택 점수와 모델 가중치를 복구 목표 아래 함께 최적화합니다. Qwen3 0.6B~8B 실험에서 RULER·LongBench·회상 중심 과제 전반에 걸쳐 기존 방법을 능가했고, 레이어 선택은 0.72~3.57 GPU 시간만에 끝났습니다.",
+    "insights_ko": [
+      "효율-품질 트레이드오프를 위한 하이브리드 어텐션 변환에서 '어떤 레이어를 남길지'가 사실상 학습 파이프라인의 핵심 변수임을 보여주며, 사후 변환(post-hoc conversion) 방식의 실용성을 높이는 방향입니다.",
+      "선택 단계에서 가중치를 고정하지 않고 복구 학습과 함께 공동 최적화한다는 점은, 변환 후 성능을 정확히 반영하려는 on-policy 관점이 장문맥 모델 압축 연구 전반으로 확산될 수 있음을 시사합니다.",
+      "다만 본문은 arXiv 초록 수준이라 실제 추론 속도 이득이나 다른 아키텍처로의 일반화는 본문만으로 확인되지 않으며, 후속 재현 실험과 하드웨어 측정이 관전 포인트입니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "FlashMorph2 selects hybrid attention layers on-policy with joint weight tuning",
+    "tags": [
+      "추론",
+      "RAG",
+      "롱컨텍스트",
+      "Qwen",
+      "벤치마크"
+    ]
+  },
+  {
+    "id": "e55c8f2df06c07ff",
+    "cluster_id": "k011286",
+    "title_original": "Why your fine-tuning job takes longer than the FLOPs say",
+    "url": "https://huggingface.co/blog/Dharma-AI/predicting-fine-tuning-time",
+    "image_url": "https://cdn-uploads.huggingface.co/production/uploads/6a725daa5ca641a21ab61956/J6DIf4Len_31Tj-CQlQXY.png",
+    "source_id": "huggingface_blog",
+    "source_name": "Hugging Face",
+    "published": "2026-11-18T18:53:43+00:00",
+    "fetched_at": "2026-11-19T18:21:59.997533+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Hugging Face 블로그는 공유 GPU 클러스터에서 272건의 실제 SFT(지도 미세조정) 작업(H200 약 7,382 GPU-시간)을 분석해, 종단간(end-to-end) 학습 시간을 예측하는 방법을 제시합니다. 흔히 쓰이는 FLOP 기반 추정치(6·P·D / (GPU·피크FLOPS·MFU))는 R²=0.31, MAE 12.41시간으로 실제 소요 시간을 거의 설명하지 못했습니다. 반면 배포 전 알 수 있는 설정 정보만으로 학습한 CatBoost 회귀 모델은 5-fold 교차검증에서 R²=0.98, MAE 1.71시간을 달성했습니다.",
+    "insights_ko": [
+      "FLOP 공식은 학습 루프만 모델링하고, 환경 설정·모델 다운로드·토크나이징·주기적 평가·체크포인트 저장 같은 부수 비용과 다른 작업과의 I/O 경합은 빠뜨립니다. MFU를 0.25~0.65 범위로 바꿔봐도 오차가 크게 줄지 않아, 문제는 상수 하나가 아니라 구조적 누락에 있음을 보여줍니다.",
+      "GPU 클러스터 스케줄러에 학습 시간 추정이 정확하게 들어가면 유휴 GPU 시간과 대기열 지연을 동시에 줄일 수 있습니다. 특히 평가 주기·체크포인트 정책 같은 설정 변수가 시간을 좌우하므로, 실험 설계 단계에서 비용을 예측하는 MLOps 도구로 확장될 여지가 큽니다."
+    ],
+    "category": "model_research",
+    "importance_score": 3,
+    "subtitle_en": "FLOP estimates miss fine-tuning time; learned predictors cut error sharply",
+    "tags": [
+      "파인튜닝",
+      "GPU",
+      "벤치마크",
+      "추론"
+    ],
+    "institution": "Hugging Face"
+  },
+  {
+    "id": "77b871659814b034",
+    "cluster_id": "k011198",
+    "title_original": "Muse privacy invasions are freaking out Meta staffers, internal chats show",
+    "url": "https://arstechnica.com/tech-policy/2026/11/muse-privacy-invasions-are-freaking-out-meta-staffers-internal-chats-show/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2299665210-1024x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T19:19:33+00:00",
+    "fetched_at": "2026-11-19T18:21:59.997655+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Meta의 AI 에이전트 Muse가 초기 사용자 불만에 이어, 내부 테스트에서도 암호화된 사적 메시지를 열람하는 것으로 보이고 대화 간 맥락이 섞이며 민감 정보를 노출하는 문제가 확인됐다고 Reuters가 내부 채팅 로그를 근거로 보도했습니다. 직원들은 요청하지 않은 답변이나 다른 계정의 은행 잔고 정보가 출력되는 사례를 보고했고, 한 직원은 반려견 보험이 월 888달러 프리미엄 상품으로 잘못 전환돼 금전 피해를 입었다고 밝혔습니다.",
+    "insights_ko": [
+      "에이전트가 사용자의 명시적 동의 없이 E2EE 메시지 맥락에 접근했다면, 종단간 암호화 보장과 실제 AI 접근 범위 사이의 간극이 드러난 사례이며 개인정보 규제 당국의 조사 대상이 될 가능성이 큽니다.",
+      "계정 간 컨텍스트 누출과 금융 정보 노출은 단순 품질 결함을 넘어 보안 사고로 분류될 수 있어, 자율 실행형 에이전트에 대한 권한 설계와 격리 기준이 업계 표준으로 강화될 것으로 보입니다.",
+      "내부 직원조차 경고를 제기했음에도 출시가 진행됐다는 점은 AI 제품 출시 거버넌스와 내부 리스크 보고 체계에 대한 후속 논쟁을 촉발할 수 있는 지점입니다."
+    ],
+    "category": "product",
+    "importance_score": 4,
+    "subtitle_en": "Meta staff warned Muse agent exposed private user data internally",
+    "tags": [
+      "Meta AI",
+      "에이전트",
+      "안전성",
+      "규제"
+    ]
+  },
+  {
+    "id": "4c88cec5c836926e",
+    "cluster_id": "k011197",
+    "title_original": "Best Buy sells Blu-rays online and in-store again",
+    "url": "https://arstechnica.com/gadgets/2026/11/best-buy-sells-blu-rays-again-after-quitting-the-business-in-2024/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/07/odyssey16-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-18T19:31:17+00:00",
+    "fetched_at": "2026-11-19T18:21:59.997887+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Best Buy가 2023년 말 발표했던 Blu-ray·DVD 판매 중단 방침을 뒤집고, 웹사이트와 오프라인 매장에서 Blu-ray를 다시 판매하기 시작했습니다. 현재 웹사이트에는 신작 'The Odyssey(2026)', 'Project Hail Mary(2026)' 등과 'It's a Wonderful Life', 'The Godfather' 같은 고전 타이틀 15종이 Best Buy 직접 판매 상품으로 올라와 있으며, 배송 또는 매장 픽업이 가능합니다. 다만 Best Buy 측이 향후 지속적으로 판매를 이어갈지에 대해서는 아직 확정된 답변이 전해지지 않았습니다.",
+    "insights_ko": [
+      "물리 미디어 시장이 완전히 소멸하기보다 수요가 선별적으로 남아 있음을 보여줍니다. 스트리밍 확산으로 축소된 시장에서도 신작 및 컬렉터 타이틀에 대한 수요가 존재하며, 대형 유통사가 이를 다시 포착하려는 신호로 읽힙니다.",
+      "유통 채널의 재편 흐름과도 맞닿아 있습니다. 2025년 이후 Best Buy 마켓플레이스가 제3자 판매를 허용했던 점을 감안하면, 이번 직판 재개는 물리 미디어를 소량 큐레이션 상품으로 다루는 방식으로의 전환일 가능성이 있습니다. 다만 공식 입장이 나오기 전까지는 일시적 재고 전략인지 장기 방침인지 단정하기 어렵습니다."
+    ],
+    "category": "business",
+    "importance_score": 2,
+    "subtitle_en": "Best Buy resumes selling Blu-rays in stores and online",
+    "tags": [
+      "자금조달"
+    ]
+  },
+  {
+    "id": "1551bd5df4073a9e",
+    "cluster_id": "k011190",
+    "title_original": "NASA's new Moon plans have a problem: Orion wasn't designed to fly this way",
+    "url": "https://arstechnica.com/space/2026/11/to-make-moon-landings-easier-nasa-is-making-life-harder-for-orion/",
+    "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/04/art002e012476large-1152x648.jpg",
+    "source_id": "arstechnica",
+    "source_name": "Ars Technica",
+    "published": "2026-11-19T13:40:02+00:00",
+    "fetched_at": "2026-11-19T18:21:59.998013+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "NASA가 Artemis 계획을 대폭 수정하면서 달 착륙선 업체인 SpaceX(Starship)와 Blue Origin(Blue Moon)이 더 유연하게 달에 도달할 수 있도록 했습니다. Starship의 경우 지구 궤도에서 Orion과 도킹한 뒤 함께 달로 이동하며, 이 과정에서 Orion이 서비스 모듈이 위를 향한 채 거꾸로 비행해야 합니다. 이는 설계되지 않은 비행 자세로, 유럽우주국(ESA)과 Airbus가 추진제 탱크를 수정하는 작업을 진행 중입니다.",
+    "insights_ko": [
+      "Orion은 원래 정상 비행 자세를 전제로 설계되었기에, 착륙선 업체의 편의를 위한 계획 변경이 우주선 본체 설계 변경 비용과 일정 리스크를 전가하는 구조가 드러났습니다. 설계 전제가 다른 파트너 시스템을 통합할 때 발생하는 전형적인 인터페이스 문제입니다.",
+      "추진제가 가스 입구 쪽으로 쏠리는 문제는 단순 소프트웨어 해결이 어려운 물리적 제약이라, 탱크 재설계가 Artemis 일정과 비용에 얼마나 영향을 줄지가 후속 관전 포인트입니다. 한편 착륙선 제공자 다변화 전략이 민간 우주 산업 구조에 어떤 긴장을 만들지도 주목할 만합니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "NASA Artemis plan changes force Orion redesign for lunar landers",
+    "tags": [
+      "NVIDIA",
+      "자율주행",
+      "인수합병"
+    ]
+  },
+  {
+    "id": "afb1f8fc849417da",
+    "cluster_id": "k011274",
+    "title_original": "Amidst fears of AI cyberattacks, Satya Nadella says lots of critical infrastructure is ‘unpatchable’",
+    "url": "https://techcrunch.com/2026/11/18/amidst-fears-of-ai-cyberattacks-satya-nadella-says-lots-of-critical-infrastructure-is-unpatchable/",
+    "image_url": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2305773699.jpg?resize=857,1200",
+    "source_id": "techcrunch_ai",
+    "source_name": "TechCrunch AI",
+    "published": "2026-11-18T23:45:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.998137+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "Microsoft CEO Satya Nadella는 뉴욕타임스 DealBook 서밋에서 냉각기, HVAC, 펌웨어 등 다수의 핵심 인프라가 패치가 불가능한 상태로 인터넷에 연결돼 있다고 경고했습니다. 최근 Outlook을 포함한 대규모 장애들이 잇따른 가운데, AI 기반 사이버공격이 이런 취약점을 악용할 위험이 커지고 있다고 지적했습니다. 그는 취약점 발견 도구는 강력해졌지만, 패치 속도가 악용 속도에 맞춰야 하면서 오히려 운영 불안정을 낳고 있다고 말했습니다.",
+    "insights_ko": [
+      "기기 수명주기 동안 업데이트되지 않는 펌웨어가 인터넷에 노출되면서, 소프트웨어 패치 체계만으로는 물리 인프라 보안을 담보할 수 없음이 드러났습니다. 이는 IoT·OT 보안과 장비 교체 주기 재설계라는 새로운 수요로 이어질 가능성이 큽니다.",
+      "AI가 취약점 탐지 속도를 높이는 동시에 공격 장벽을 낮추면서, 패치 테스트 기간이 사실상 사라지는 구조적 긴장이 생겼습니다. 기업들은 자동화된 검증·롤백 체계와 실시간 탐지·방어 역량에 투자해야 할 압력을 받게 될 것입니다.",
+      "본문은 장애의 원인이 사이버공격이라는 주장을 공식적으로 부인된 상태에서 나온 발언이라, 실제 공격 여부와 별개로 업계가 '잠재적 위협'을 어떻게 다룰지에 대한 논의가 본격화될 가능성이 있습니다. 후속으로 정부 차원의 인프라 보안 기준 논의를 관찰할 필요가 있습니다."
+    ],
+    "category": "business",
+    "importance_score": 3,
+    "subtitle_en": "Nadella warns unpatchable infrastructure faces AI-driven cyberattack risks",
+    "tags": [
+      "Microsoft",
+      "보안",
+      "데이터센터",
+      "에이전트"
+    ]
+  },
+  {
+    "id": "cab673f80ff98398",
+    "cluster_id": "k011235",
+    "title_original": "The Download: a living liver, a billion-dollar battery deal, and AI hype",
+    "url": "https://www.technologyreview.com/2026/11/19/1148979/the-download-liver-kept-alive-sila-battery-deal-ai-hype/",
+    "image_url": "https://wp.technologyreview.com/wp-content/uploads/2026/11/EOPS-V1.1-.jpg?resize=1200,600",
+    "source_id": "mit_tr",
+    "source_name": "MIT Technology Review",
+    "published": "2026-11-19T13:10:00+00:00",
+    "fetched_at": "2026-11-19T18:21:59.998435+00:00",
+    "cluster_size": 1,
+    "also_covered_by": [],
+    "summary_ko": "호주 연구진이 기증받은 인간 간을 체외 자동 펌프·센서 시스템에 연결해 7주간 생존시키며, 종전 기록(약 2주)을 크게 경신했다고 주장했습니다. 같은 날 Sila는 Panasonic Energy와 실리콘-탄소 음극재 공급 계약을 체결했으며 규모는 10억 달러를 넘을 수 있습니다. 한편 Anthropic은 IPO로 810억 달러를 조달해 역대 최대 규모의 상장이 됐습니다.",
+    "insights_ko": [
+      "체외 장기 생존 기간이 2주에서 7주로 늘어난 것은 장기 손상 복구와 장기 배양 연구의 실행 가능성을 높이는 신호입니다. 다만 보고된 수치는 연구진의 주장 단계이므로 동료 심사 결과를 확인할 필요가 있습니다.",
+      "미국 배터리 공급망에서 Sila-Panasonic 계약은 국방부 대출 11억 4천만 달러가 뒷받침하는 구조로, 에너지 전환보다 지정학적 공급망 확보가 산업 정책의 축이 되었음을 보여줍니다.",
+      "Anthropic의 810억 달러 IPO는 AI 투자 열기의 시험대로 해석되며, 이후 실적과 안전성 논쟁이 상장 기업 가치와 AI 버블 논의에 직접 영향을 줄 가능성이 큽니다."
+    ],
+    "category": "business",
+    "importance_score": 4,
+    "subtitle_en": "Anthropic raises record 81 billion dollar IPO as liver survives seven weeks",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "IPO",
+      "자금조달",
+      "NVIDIA"
+    ]
+  }
+]
