@@ -1,6 +1,11 @@
 name: Deploy site
 
 on:
+  schedule:
+    # KST 05:33.  This is a safety-net publish before the 08:00 KST
+    # freshness deadline when the daily pipeline's Pages API call was
+    # temporarily unavailable after the data commit.
+    - cron: "33 20 * * *"
   push:
     branches: [main]
     paths:
@@ -44,4 +49,18 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site/dist
-      - uses: actions/deploy-pages@v5
+      - name: Deploy to Pages
+        # The artifact service can lag the upload by a few seconds. Retry the
+        # deployment once so a transient lookup failure does not leave the
+        # newest daily data off the public site.
+        id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+
+      - name: Retry Pages deployment after artifact propagation
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 30
+
+      - name: Deploy to Pages (retry)
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v5
